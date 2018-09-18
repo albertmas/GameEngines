@@ -22,6 +22,9 @@
     <Filter Include="Sources\ImGui">
       <UniqueIdentifier>{f5632499-026e-47d7-a5ac-cd0fab2832db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Tools\PCG">
+      <UniqueIdentifier>{9cf8b031-8216-4940-a7b5-6dd0c0152bc4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -113,6 +116,9 @@
     </ClInclude>
     <ClInclude Include="ImGui\imgui_impl_opengl2.h">
       <Filter>Sources\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="PCG\pcg_random.hpp">
+      <Filter>Sources\Tools\PCG</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

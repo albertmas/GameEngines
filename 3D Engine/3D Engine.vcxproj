@@ -100,6 +100,7 @@
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="p2DynArray.h" />
     <ClInclude Include="p2Point.h" />
+    <ClInclude Include="PCG\pcg_random.hpp" />
     <ClInclude Include="PhysBody3D.h" />
     <ClInclude Include="PhysVehicle3D.h" />
     <ClInclude Include="Primitive.h" />
