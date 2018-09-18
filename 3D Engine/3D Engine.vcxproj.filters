@@ -114,12 +114,6 @@
     <ClInclude Include="ImGui\imgui_impl_opengl2.h">
       <Filter>Sources\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\GL\glcorearb.h">
-      <Filter>Sources\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\GL\gl3w.h">
-      <Filter>Sources\ImGui</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -195,9 +189,6 @@
       <Filter>Sources\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="ImGui\imgui_impl_sdl.cpp">
-      <Filter>Sources\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\GL\gl3w.c">
       <Filter>Sources\ImGui</Filter>
     </ClCompile>
   </ItemGroup>
