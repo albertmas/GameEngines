@@ -13,6 +13,7 @@ ModuleImGui::~ModuleImGui()
 {
 }
 
+
 bool ModuleImGui::Init()
 {
 	LOG("Loading ImGui");
@@ -47,6 +48,33 @@ update_status ModuleImGui::PreUpdate(float dt)
 
 update_status ModuleImGui::Update(float dt)
 {
+
+	if (ImGui::BeginMainMenuBar()) {
+
+		if (ImGui::BeginMenu("Menu")) {
+
+
+			if (ImGui::MenuItem("Show Window")) {
+				if (testwindow) {
+					testwindow = false;
+				}
+				else
+				{
+					testwindow = true;
+				}
+			}
+			if (ImGui::MenuItem("Close Application")) {
+				return UPDATE_STOP;
+			}
+			ImGui::EndMenu();
+		}
+	}
+
+	ImGui::EndMainMenuBar();
+	if (testwindow) {
+		ImGui::ShowTestWindow();
+	}
+
 	return UPDATE_CONTINUE;
 }
 
