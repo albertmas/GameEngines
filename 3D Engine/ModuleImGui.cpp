@@ -153,11 +153,19 @@ update_status ModuleImGui::Update(float dt)
 
 			// Rand int
 			ImGui::InputInt("Max Number ", &max_rnd_int);
+			if (max_rnd_int <= min_rnd_int)
+			{
+				max_rnd_int = min_rnd_int + 1;
+			}
 			ImGui::InputInt("Min Number", &min_rnd_int);
+			if (min_rnd_int >= max_rnd_int)
+			{
+				min_rnd_int = max_rnd_int - 1;
+			}
 			ImGui::Spacing();
 			if (ImGui::SmallButton("Generate Random Integer"))
 			{
-				rnd_int = ("%i", (int)pcg32_boundedrand_r(&rng, (max_rnd_int - min_rnd_int)) + min_rnd_int);
+				rnd_int = ("%i", (int)pcg32_boundedrand_r(&rng, (max_rnd_int - min_rnd_int + 1)) + min_rnd_int);
 			}
 			ImGui::SameLine();
 			if (ImGui::SmallButton("Reset"))
