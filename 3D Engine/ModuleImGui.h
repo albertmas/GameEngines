@@ -19,10 +19,10 @@ public:
 	bool CleanUp();
 
 public:
-	int min_rnd_int = 0, max_rnd_int = 100;
-	int rnd_int = 0;
-	float min_rnd_float = 0.0, max_rnd_float = 1.0;
-	float rnd_float = 0.0;
+	int min_rand_int = 0, max_rand_int = 100;
+	int rand_int = 0;
+	float min_rand_float = 0.0, max_rand_float = 1.0;
+	float rand_float = 0.0;
 
 	pcg32_random_t rng = PCG32_INITIALIZER;
 

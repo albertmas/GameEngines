@@ -152,28 +152,28 @@ update_status ModuleImGui::Update(float dt)
 			ImGui::Text("Random Integer");
 
 			// Rand int
-			ImGui::InputInt("Max Number ", &max_rnd_int);
-			if (max_rnd_int <= min_rnd_int)
+			ImGui::InputInt("Max Number", &max_rand_int);
+			if (max_rand_int <= min_rand_int)
 			{
-				max_rnd_int = min_rnd_int + 1;
+				max_rand_int = min_rand_int + 1;
 			}
-			ImGui::InputInt("Min Number", &min_rnd_int);
-			if (min_rnd_int >= max_rnd_int)
+			ImGui::InputInt("Min Number", &min_rand_int);
+			if (min_rand_int >= max_rand_int)
 			{
-				min_rnd_int = max_rnd_int - 1;
+				min_rand_int = max_rand_int - 1;
 			}
 			ImGui::Spacing();
 			if (ImGui::SmallButton("Generate Random Integer"))
 			{
-				rnd_int = ("%i", (int)pcg32_boundedrand_r(&rng, (max_rnd_int - min_rnd_int + 1)) + min_rnd_int);
+				rand_int = ("%i", (int)pcg32_boundedrand_r(&rng, (max_rand_int - min_rand_int + 1)) + min_rand_int);
 			}
 			ImGui::SameLine();
 			if (ImGui::SmallButton("Reset"))
 			{
-				min_rnd_int = 0;
-				max_rnd_int = 100;
+				min_rand_int = 0;
+				max_rand_int = 100;
 			}
-			ImGui::TextColored({ 255, 0, 0, 1 }, "%i", rnd_int);
+			ImGui::TextColored({ 255, 0, 0, 1 }, "%i", rand_int);
 			ImGui::Spacing();
 
 			// Rand float
@@ -182,9 +182,9 @@ update_status ModuleImGui::Update(float dt)
 			ImGui::Spacing();
 			if (ImGui::SmallButton("Generate Random Float"))
 			{
-				rnd_float = ldexp(pcg32_random_r(&rng), -32);
+				rand_float = ldexp(pcg32_random_r(&rng), -32);
 			}			
-			ImGui::TextColored({ 255, 0, 0, 1 }, "%f", rnd_float);
+			ImGui::TextColored({ 255, 0, 0, 1 }, "%f", rand_float);
 
 			ImGui::End();
 		}
