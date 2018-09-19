@@ -75,3 +75,28 @@ void ModulePhysics3D::CreateSphere(float3 position, int radius)
 	spheres_list.push_back(new_sphere);
 }
 
+std::list<float2> ModulePhysics3D::GetSphereCollisions()
+{
+	int listener = 0;
+	int candidate = 0;
+
+	std::list<float2> collisions_list;
+
+	for (listener; listener < spheres_list.size(); listener++)
+	{
+		bool collided = false;
+		for (candidate; candidate < spheres_list.size(); candidate++)
+		{
+			if (listener == candidate)
+				continue;
+			collided = spheres_list[listener].Intersects(spheres_list[candidate]);
+			if (collided)
+			{
+				collisions_list.push_back({ (float)listener,(float)candidate });
+				
+			}
+		}
+		candidate = 0;
+	}
+	return collisions_list;
+}

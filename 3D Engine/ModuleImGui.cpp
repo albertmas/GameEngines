@@ -209,6 +209,10 @@ update_status ModuleImGui::Update(float dt)
 		{
 			x = y = z = radius = 0;
 		}
+		if (ImGui::SmallButton("Check Collision"))
+		{
+			App->physics->GetSphereCollisions();
+		}
 
 		ImGui::End();
 	}

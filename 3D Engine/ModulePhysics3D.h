@@ -25,6 +25,7 @@ public:
 	bool CleanUp();
 
 	void CreateSphere(float3 position, int radius);
+	std::list<float2> GetSphereCollisions();
 	
 
 	void AddConstraintP2P(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB);
