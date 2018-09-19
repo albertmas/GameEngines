@@ -145,6 +145,8 @@ update_status ModuleImGui::Update(float dt)
 	}
 
 	if (randomwindow) {
+		ImGui::SetNextWindowSize(ImVec2(400, 200), ImGuiSetCond_Once);
+		ImGui::SetNextWindowPos(ImVec2(100, 100), ImGuiSetCond_Once);
 		if (ImGui::Begin("Random Number Generator"))
 		{
 			ImGui::Text("Random Integer");
