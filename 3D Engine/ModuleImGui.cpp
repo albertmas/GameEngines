@@ -84,6 +84,7 @@ update_status ModuleImGui::Update(float dt)
 				if (randomwindow) 
 				{
 					randomwindow = false;
+				
 				}
 				else
 				{
@@ -95,11 +96,15 @@ update_status ModuleImGui::Update(float dt)
 			{
 				if (spherewindow)
 				{
+					
 					spherewindow = false;
+					
 				}
 				else
 				{
+					
 					spherewindow = true;
+					
 				}
 
 			}
@@ -109,6 +114,7 @@ update_status ModuleImGui::Update(float dt)
 				if (trianglewindow)
 				{
 					trianglewindow = false;
+				
 				}
 				else
 				{
@@ -134,8 +140,10 @@ update_status ModuleImGui::Update(float dt)
 	// windows
 
 	if (testwindow) {
+		
 		ImGui::ShowTestWindow();
 	}
+
 	if (randomwindow) {
 		if (ImGui::Begin("Random Number Generator"))
 		{
@@ -171,9 +179,12 @@ update_status ModuleImGui::Update(float dt)
 			ImGui::End();
 		}
 	}
-	if (spherewindow) {
+	 if (spherewindow) 
+	{
 		
-		ImGui::Text("Create a Sphere");
+		ImGui::SetNextWindowSize(ImVec2(400,200), ImGuiSetCond_Once);
+		ImGui::SetNextWindowPos(ImVec2(600, 100), ImGuiSetCond_Once);
+		ImGui::Begin("Create a Sphere");
 		ImGui::InputInt("Radius", &radius);
 		ImGui::InputInt("Position X", &x);
 		ImGui::InputInt("Position Y", &y);
@@ -188,15 +199,21 @@ update_status ModuleImGui::Update(float dt)
 		{
 			x = y = z = radius = 0;
 		}
-	}
-	if (trianglewindow) {
 
+		ImGui::End();
+	}
+	if (trianglewindow)
+	{
+		ImGui::SetNextWindowSize(ImVec2(400, 200), ImGuiSetCond_Once);
+		ImGui::SetNextWindowPos(ImVec2(400, 400), ImGuiSetCond_Once);
+		ImGui::Begin("Create a Triangle");
 		
 
 		if (ImGui::SmallButton("Create Triangle"))
 		{
 			
 		}
+		ImGui::End();
 	}
 
 
