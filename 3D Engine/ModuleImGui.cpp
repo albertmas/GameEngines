@@ -48,7 +48,7 @@ update_status ModuleImGui::PreUpdate(float dt)
 
 update_status ModuleImGui::Update(float dt)
 {
-
+	// Menu window
 	if (ImGui::BeginMainMenuBar()) {
 
 		if (ImGui::BeginMenu("Menu")) {
@@ -63,6 +63,16 @@ update_status ModuleImGui::Update(float dt)
 					testwindow = true;
 				}
 			}
+			if (ImGui::MenuItem("Random")) {
+				if (randomwindow) {
+					randomwindow = false;
+				}
+				else
+				{
+					randomwindow = true;
+				}
+			}
+
 			if (ImGui::MenuItem("Close Application")) {
 				return UPDATE_STOP;
 			}
@@ -73,6 +83,11 @@ update_status ModuleImGui::Update(float dt)
 	ImGui::EndMainMenuBar();
 	if (testwindow) {
 		ImGui::ShowTestWindow();
+	}
+	if (randomwindow) {
+		ImGui::Text("Random Number Generator");
+		ImGui::SmallButton("Generate Random number");
+		ImGui::InputInt("Number", &number);
 	}
 
 	return UPDATE_CONTINUE;

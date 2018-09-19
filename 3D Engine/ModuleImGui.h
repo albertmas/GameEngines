@@ -16,8 +16,13 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+public:
+
+	int number = 0;
+
 private:
 	bool testwindow = false;
+	bool randomwindow = false;
 };
 
 #endif //__ModuleImGui_H__
