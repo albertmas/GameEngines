@@ -22,6 +22,7 @@ public:
 
 private:
 	bool testwindow = false;
+	bool testwindow2 = false;
 	bool randomwindow = false;
 };
 

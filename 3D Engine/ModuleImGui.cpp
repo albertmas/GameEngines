@@ -63,7 +63,17 @@ update_status ModuleImGui::Update(float dt)
 					testwindow = true;
 				}
 			}
-			if (ImGui::MenuItem("Random")) {
+			
+
+			if (ImGui::MenuItem("Close Application")) {
+				return UPDATE_STOP;
+			}
+			ImGui::EndMenu();
+		}
+
+		if (ImGui::BeginMenu("Homework")) {
+
+			if (ImGui::MenuItem("Random Number")) {
 				if (randomwindow) {
 					randomwindow = false;
 				}
@@ -73,14 +83,18 @@ update_status ModuleImGui::Update(float dt)
 				}
 			}
 
-			if (ImGui::MenuItem("Close Application")) {
-				return UPDATE_STOP;
-			}
+
 			ImGui::EndMenu();
+						
 		}
+
+
 	}
 
 	ImGui::EndMainMenuBar();
+
+	// windows
+
 	if (testwindow) {
 		ImGui::ShowTestWindow();
 	}
@@ -89,7 +103,9 @@ update_status ModuleImGui::Update(float dt)
 		ImGui::SmallButton("Generate Random number");
 		ImGui::InputInt("Number", &number);
 	}
-
+	if (testwindow2) {
+		ImGui::ShowStyleEditor();
+	}
 	return UPDATE_CONTINUE;
 }
 
