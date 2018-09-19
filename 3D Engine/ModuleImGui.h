@@ -2,6 +2,7 @@
 #define __ModuleImGui_H__
 
 #include "Module.h"
+#include "Globals.h"
 
 class ModuleImGui :	public Module
 {
@@ -20,10 +21,20 @@ public:
 
 	int number = 0;
 
-private:
+public:
 	bool testwindow = false;
-	bool testwindow2 = false;
+	bool spherewindow = false;
+	bool trianglewindow = false;
 	bool randomwindow = false;
+
+
+	int radius = 0;
+	int x = 0, y = 0, z = 0;
+
+
+	float3 pos;
+	float3 min_pos;
+	float3 max_pos;
 };
 
 #endif //__ModuleImGui_H__

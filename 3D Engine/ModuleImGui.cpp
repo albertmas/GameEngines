@@ -49,13 +49,17 @@ update_status ModuleImGui::PreUpdate(float dt)
 update_status ModuleImGui::Update(float dt)
 {
 	// Menu window
-	if (ImGui::BeginMainMenuBar()) {
+	if (ImGui::BeginMainMenuBar())
+	{
 
-		if (ImGui::BeginMenu("Menu")) {
+		if (ImGui::BeginMenu("Menu"))
+		{
 
 
-			if (ImGui::MenuItem("Show Window")) {
-				if (testwindow) {
+			if (ImGui::MenuItem("Show Window")) 
+			{
+				if (testwindow)
+				{
 					testwindow = false;
 				}
 				else
@@ -65,27 +69,61 @@ update_status ModuleImGui::Update(float dt)
 			}
 			
 
-			if (ImGui::MenuItem("Close Application")) {
+			if (ImGui::MenuItem("Close Application")) 
+			{
 				return UPDATE_STOP;
 			}
 			ImGui::EndMenu();
 		}
 
-		if (ImGui::BeginMenu("Homework")) {
+		if (ImGui::BeginMenu("Homework"))
+		{
 
-			if (ImGui::MenuItem("Random Number")) {
-				if (randomwindow) {
+			if (ImGui::MenuItem("Random Number"))
+			{
+				if (randomwindow) 
+				{
 					randomwindow = false;
 				}
 				else
 				{
 					randomwindow = true;
 				}
+
+			}
+			if (ImGui::MenuItem("Create Sphere"))
+			{
+				if (spherewindow)
+				{
+					spherewindow = false;
+				}
+				else
+				{
+					spherewindow = true;
+				}
+
+			}
+
+			if (ImGui::MenuItem("Create Triangle"))
+			{
+				if (trianglewindow)
+				{
+					trianglewindow = false;
+				}
+				else
+				{
+					trianglewindow = true;
+				}
+
 			}
 
 
-			ImGui::EndMenu();
-						
+
+
+
+
+				ImGui::EndMenu();
+			
 		}
 
 
@@ -103,9 +141,36 @@ update_status ModuleImGui::Update(float dt)
 		ImGui::SmallButton("Generate Random number");
 		ImGui::InputInt("Number", &number);
 	}
-	if (testwindow2) {
-		ImGui::ShowStyleEditor();
+	if (spherewindow) {
+		
+		ImGui::Text("Create a Sphere");
+		ImGui::InputInt("Radius", &radius);
+		ImGui::InputInt("Position X", &x);
+		ImGui::InputInt("Position Y", &y);
+		ImGui::InputInt("Position Z", &z);
+
+		if (ImGui::SmallButton("Create Sphere"));
+		{
+			pos.Set(x, y, z);
+			App->physics->CreateSphere(pos, radius);
+		}
+		if (ImGui::SmallButton("Reset"))
+		{
+			x = y = z = radius = 0;
+		}
 	}
+	if (trianglewindow) {
+
+		
+
+		if (ImGui::SmallButton("Create Triangle"))
+		{
+			
+		}
+	}
+
+
+
 	return UPDATE_CONTINUE;
 }
 

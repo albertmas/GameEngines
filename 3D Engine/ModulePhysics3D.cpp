@@ -67,3 +67,11 @@ bool ModulePhysics3D::CleanUp()
 	return true;
 }
 
+void ModulePhysics3D::CreateSphere(float3 position, int radius)
+{
+	Sphere new_sphere;
+	new_sphere.pos = position;
+	new_sphere.r = radius;
+	spheres_list.push_back(new_sphere);
+}
+

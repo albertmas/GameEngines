@@ -2,11 +2,6 @@
 #include "Module.h"
 #include "Globals.h"
 
-
-
-
-
-
 // Recommended scale is 1.0f == 1 meter, no less than 0.2 objects
 #define GRAVITY btVector3(0.0f, -10.0f, 0.0f) 
 
@@ -29,6 +24,7 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+	void CreateSphere(float3 position, int radius);
 	
 
 	void AddConstraintP2P(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB);
@@ -36,9 +32,9 @@ public:
 	//Usefull functions
 	
 	bool debug;
-private:
 
 
+	std::vector<Sphere> spheres_list;
 
 	
 };
