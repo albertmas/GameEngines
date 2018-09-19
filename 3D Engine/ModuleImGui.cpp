@@ -137,9 +137,39 @@ update_status ModuleImGui::Update(float dt)
 		ImGui::ShowTestWindow();
 	}
 	if (randomwindow) {
-		ImGui::Text("Random Number Generator");
-		ImGui::SmallButton("Generate Random number");
-		ImGui::InputInt("Number", &number);
+		if (ImGui::Begin("Random Number Generator"))
+		{
+			ImGui::Text("Random Integer");
+
+			// Rand int
+			ImGui::InputInt("Max Number ", &max_rnd_int);
+			ImGui::InputInt("Min Number", &min_rnd_int);
+			ImGui::Spacing();
+			if (ImGui::SmallButton("Generate Random Integer"))
+			{
+				rnd_int = ("%i", (int)pcg32_boundedrand_r(&rng, (max_rnd_int - min_rnd_int)) + min_rnd_int);
+			}
+			ImGui::SameLine();
+			if (ImGui::SmallButton("Reset"))
+			{
+				min_rnd_int = 0;
+				max_rnd_int = 100;
+			}
+			ImGui::TextColored({ 255, 0, 0, 1 }, "%i", rnd_int);
+			ImGui::Spacing();
+
+			// Rand float
+			ImGui::Text("Random Float");
+			
+			ImGui::Spacing();
+			if (ImGui::SmallButton("Generate Random Float"))
+			{
+				rnd_float = ldexp(pcg32_random_r(&rng), -32);
+			}			
+			ImGui::TextColored({ 255, 0, 0, 1 }, "%f", rnd_float);
+
+			ImGui::End();
+		}
 	}
 	if (spherewindow) {
 		
