@@ -146,6 +146,7 @@ update_status ModuleImGui::Update(float dt)
 	 if (randomwindow)
 	{
 		ImGui::SetNextWindowSize(ImVec2(400, 200), ImGuiSetCond_Once);
+		ImGui::SetNextWindowPos(ImVec2(100, 100), ImGuiSetCond_Once);
 		ImGui::Begin("Random Number Generator");
 		ImGui::SmallButton("Generate Random number");
 		ImGui::InputInt("Number", &number);
@@ -154,7 +155,8 @@ update_status ModuleImGui::Update(float dt)
 	 if (spherewindow) 
 	{
 		
-		ImGui::SetNextWindowSize(ImVec2(400,200), ImGuiSetCond_FirstUseEver);
+		ImGui::SetNextWindowSize(ImVec2(400,200), ImGuiSetCond_Once);
+		ImGui::SetNextWindowPos(ImVec2(600, 100), ImGuiSetCond_Once);
 		ImGui::Begin("Create a Sphere");
 		ImGui::InputInt("Radius", &radius);
 		ImGui::InputInt("Position X", &x);
@@ -175,8 +177,8 @@ update_status ModuleImGui::Update(float dt)
 	}
 	if (trianglewindow)
 	{
-		ImGui::SetNextWindowSize(ImVec2(400, 200), ImGuiSetCond_Always);
-		
+		ImGui::SetNextWindowSize(ImVec2(400, 200), ImGuiSetCond_Once);
+		ImGui::SetNextWindowPos(ImVec2(400, 400), ImGuiSetCond_Once);
 		ImGui::Begin("Create a Triangle");
 		
 
