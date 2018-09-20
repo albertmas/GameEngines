@@ -31,6 +31,7 @@ public:
 	bool spherewindow = false;
 	bool trianglewindow = false;
 	bool randomwindow = false;
+	bool aboutwindow = false;
 
 
 	int radius = 0;

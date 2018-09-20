@@ -132,6 +132,25 @@ update_status ModuleImGui::Update(float dt)
 			
 		}
 
+		if (ImGui::BeginMenu("About"))
+		{
+			ImGui::Text("3D Engine");
+			ImGui::Text("3D Engine in development");
+			ImGui::Text("Guillem Arman & Albert Mas");			
+			ImGui::Spacing();
+			if (ImGui::MenuItem("Link to Repository"))
+			{
+				App->OpenWeb("https://github.com/albertmas/GameEngines");
+			}
+			if (ImGui::MenuItem("License"))
+			{
+				App->OpenWeb("https://github.com/albertmas/GameEngines/blob/master2/LICENSE");
+			}
+
+			ImGui::EndMenu();
+		}
+
+		
 
 	}
 
@@ -230,7 +249,11 @@ update_status ModuleImGui::Update(float dt)
 		ImGui::End();
 	}
 
-
+	if (aboutwindow)
+	{
+		ImGui::MenuItem("Names");
+		
+	}
 
 	return UPDATE_CONTINUE;
 }
