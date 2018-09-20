@@ -277,19 +277,31 @@ update_status ModuleImGui::Update(float dt)
 			ImGui::TextColored({ 255, 255, 0, 1 }, "%i", fps);
 
 			// Graphs
+			//char title[25];
+			
+			/*std::list<float>::const_iterator begin = App->ms_log.begin();
+			std::list<float>::const_iterator end = App->ms_log.end();
+			sprintf_s(title, 25, "Milliseconds %0.1f", App->ms_log.back());
+			ImGui::PlotHistogram("##milliseconds", &App->ms_log.front(), App->ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));*/
 		}
 		if (ImGui::CollapsingHeader("Window"))
 		{
 			/*if (ImGui::Checkbox("Active", ))
 			{ }*/
 			ImGui::Text("Icon:  *default*");
+			// Brightness
 			if (ImGui::SliderFloat("Brightness", &brightness, 0.0f, 1.0f))
-			{
 				SDL_SetWindowBrightness(App->window->window, brightness);
-			}
-			ImGui::SliderInt("Width", &width, 640, 1920);
-			ImGui::SliderInt("Height", &height, 480, 1080);
-
+			// Window size
+			if (ImGui::SliderInt("Width", &width, 640, 1920)){}
+				//App->window->SetWinWidth(width);
+			if (ImGui::SliderInt("Height", &height, 480, 1080)){}
+				//App->window->SetWinHeight(height);
+			// FPS
+			ImGui::Text("Refresh Rate: ");
+			ImGui::SameLine();
+			ImGui::TextColored({ 255, 255, 0, 1 }, "%i", fps);
+			// Window flag
 			if (ImGui::Checkbox("Fullscreen", &fullscreen))
 				App->window->SetFullscreen(fullscreen);
 			ImGui::SameLine();

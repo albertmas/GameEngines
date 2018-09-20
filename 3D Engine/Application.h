@@ -28,6 +28,9 @@ private:
 	Timer	ms_timer;
 	float	dt;
 	std::list<Module*> list_modules;
+	
+	Timer				startup_time;
+	Timer				last_sec_frame_time;
 
 public:
 
@@ -38,6 +41,13 @@ public:
 	update_status Update();
 	bool CleanUp();
 	void OpenWeb(const char* url);
+
+	Uint64				frame_count = 0;
+	Uint32				last_sec_frame_count = 0;
+	Uint32				prev_last_sec_frame_count = 0;
+
+	std::list<uint>		fps_log;
+	std::list<float>	ms_log;
 
 private:
 

@@ -20,6 +20,8 @@ public:
 
 	void SetTitle(const char* title);
 
+	void SetWinWidth(int width);
+	void SetWinHeight(int height);
 	void SetFullscreen(bool fullscreen);
 	void SetResizable(bool resizable);
 	void SetBorderless(bool borderless);

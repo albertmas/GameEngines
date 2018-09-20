@@ -55,12 +55,16 @@ bool Application::Init()
 	}
 	
 	ms_timer.Start();
+	startup_time.Start();
 	return ret;
 }
 
 // ---------------------------------------------
 void Application::PrepareUpdate()
 {
+	frame_count++;
+	last_sec_frame_count++;
+
 	dt = (float)ms_timer.Read() / 1000.0f;
 	ms_timer.Start();
 }
@@ -93,6 +97,19 @@ update_status Application::Update()
 		if (ret == UPDATE_CONTINUE)
 			ret = (*item)->PostUpdate(dt);
 	}
+
+	if (last_sec_frame_time.Read() >= 1000)
+	{
+		last_sec_frame_time.Start();
+		prev_last_sec_frame_count = last_sec_frame_count;
+		last_sec_frame_count = 0;
+	}
+
+	float avg_fps = (float)frame_count / startup_time.ReadSec();
+	float seconds_since_startup = startup_time.ReadSec();
+	Uint32 last_frame_ms = ms_timer.Read();
+	ms_log.push_back((float)last_frame_ms);
+	Uint32 frames_on_last_update = prev_last_sec_frame_count;
 
 	FinishUpdate();
 	return ret;

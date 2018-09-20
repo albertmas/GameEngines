@@ -15,6 +15,7 @@ public:
 	void Reset();
 
 	Uint32 Read();
+	float ReadSec()const;
 
 private:
 
