@@ -32,6 +32,8 @@ public:
 	bool randomwindow = false;
 	bool consolewindow = false;
 	bool configurationwindow = false;
+	bool aboutwindow = false;
+
 
 	int radius = 0;
 	int x = 0, y = 0, z = 0;
