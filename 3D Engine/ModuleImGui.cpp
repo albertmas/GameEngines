@@ -3,6 +3,7 @@
 #include "ImGui\imgui.h"
 #include "ImGui\imgui_impl_sdl.h"
 #include "ImGui\imgui_impl_opengl2.h"
+#include "ImGui\imgui_internal.h"
 
 
 ModuleImGui::ModuleImGui(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -68,10 +69,29 @@ update_status ModuleImGui::Update(float dt)
 				}
 			}
 			
-
-			if (ImGui::MenuItem("Close Application")) 
+			if (ImGui::MenuItem("Quit", "ESC")) 
 			{
 				return UPDATE_STOP;
+			}
+			ImGui::EndMenu();
+		}
+
+		if (ImGui::BeginMenu("View"))
+		{
+			if (ImGui::MenuItem("Console", "1"))
+			{
+				if (consolewindow)
+					consolewindow = false;
+				else
+					consolewindow = true;
+			}
+
+			if (ImGui::MenuItem("Configuration", "4"))
+			{
+				if (configurationwindow)
+					configurationwindow = false;
+				else
+					configurationwindow = true;
 			}
 			ImGui::EndMenu();
 		}
@@ -96,42 +116,16 @@ update_status ModuleImGui::Update(float dt)
 			{
 				if (spherewindow)
 				{
-					
 					spherewindow = false;
-					
 				}
 				else
 				{
-					
 					spherewindow = true;
-					
 				}
 
 			}
-
-			if (ImGui::MenuItem("Create Triangle"))
-			{
-				if (trianglewindow)
-				{
-					trianglewindow = false;
-				
-				}
-				else
-				{
-					trianglewindow = true;
-				}
-
-			}
-
-
-
-
-
-
 				ImGui::EndMenu();
-			
 		}
-
 
 	}
 
@@ -216,21 +210,47 @@ update_status ModuleImGui::Update(float dt)
 
 		ImGui::End();
 	}
-	if (trianglewindow)
+	
+	// Console
+	if (consolewindow)
 	{
-		ImGui::SetNextWindowSize(ImVec2(400, 200), ImGuiSetCond_Once);
-		ImGui::SetNextWindowPos(ImVec2(400, 400), ImGuiSetCond_Once);
-		ImGui::Begin("Create a Triangle");
+		ImGui::SetNextWindowSize(ImVec2(600, 300), ImGuiSetCond_Once);
+		ImGui::SetNextWindowPos(ImVec2(400, 200), ImGuiSetCond_Once);
+		ImGui::Begin("Console", &consolewindow);
 		
 
-		if (ImGui::SmallButton("Create Triangle"))
-		{
-			
-		}
 		ImGui::End();
 	}
+	// Configuration
+	if (configurationwindow)
+	{
+		ImGui::SetNextWindowSize(ImVec2(600, 300), ImGuiSetCond_Once);
+		ImGui::SetNextWindowPos(ImVec2(400, 200), ImGuiSetCond_Once);
+		ImGui::Begin("Configuration", &configurationwindow);
+		if (ImGui::BeginMenu("Options"))
+		{
+			if (ImGui::MenuItem("Load Defaults"))
+			{
+				// Load defs
+			}
+			if (ImGui::MenuItem("Load"))
+			{
+				// Load
+			}
+			if (ImGui::MenuItem("Save"))
+			{
+				// Save
+			}
+			ImGui::EndMenu();
+		}
+		/*if (ImGui::BeginChild("Application"))
+		{
 
+			ImGui::EndChild();
+		}*/
 
+		ImGui::End();
+	}
 
 	return UPDATE_CONTINUE;
 }

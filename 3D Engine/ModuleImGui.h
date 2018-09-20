@@ -29,9 +29,9 @@ public:
 public:
 	bool testwindow = false;
 	bool spherewindow = false;
-	bool trianglewindow = false;
 	bool randomwindow = false;
-
+	bool consolewindow = false;
+	bool configurationwindow = false;
 
 	int radius = 0;
 	int x = 0, y = 0, z = 0;
