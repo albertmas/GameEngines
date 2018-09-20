@@ -31,17 +31,26 @@ public:
 	bool spherewindow = false;
 	bool randomwindow = false;
 	bool consolewindow = false;
-	bool configurationwindow = false;
+	bool configurationwindow = true;
 	bool aboutwindow = false;
 
-
+	int fps = 0;
+	int width = 1000;
+	int height = 1000;
 	int radius = 0;
 	int x = 0, y = 0, z = 0;
 
+	float brightness = 1.0f;
 
 	float3 pos;
 	float3 min_pos;
 	float3 max_pos;
+
+private:
+	bool fullscreen = false;
+	bool resizable = false;
+	bool borderless = false;
+	bool fulldesktop = false;
 };
 
 #endif //__ModuleImGui_H__

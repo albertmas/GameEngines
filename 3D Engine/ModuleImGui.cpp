@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "ModuleWindow.h"
 #include "ModuleImGui.h"
 #include "ImGui\imgui.h"
 #include "ImGui\imgui_impl_sdl.h"
@@ -244,22 +245,73 @@ update_status ModuleImGui::Update(float dt)
 	{
 		ImGui::SetNextWindowSize(ImVec2(600, 300), ImGuiSetCond_Once);
 		ImGui::SetNextWindowPos(ImVec2(400, 200), ImGuiSetCond_Once);
-		ImGui::Begin("Configuration", &configurationwindow);
-		if (ImGui::BeginMenu("Options"))
+		ImGui::Begin("Configuration", &configurationwindow, ImGuiWindowFlags_MenuBar);
+
+		if (ImGui::BeginMenuBar())
 		{
-			if (ImGui::MenuItem("Load Defaults"))
+			if (ImGui::BeginMenu("Options"))
 			{
-				// Load defs
+				if (ImGui::MenuItem("Load Defaults"))
+				{
+					// Load defs
+				}
+				if (ImGui::MenuItem("Load"))
+				{
+					// Load
+				}
+				if (ImGui::MenuItem("Save"))
+				{
+					// Save
+				}
+				ImGui::EndMenu();
 			}
-			if (ImGui::MenuItem("Load"))
+			ImGui::EndMenuBar();
+		}
+		if (ImGui::CollapsingHeader("Application"))
+		{
+			ImGui::InputText("App Name", "3D Engine", 20);
+			ImGui::InputText("Organization", "UPC CITM", 20);
+			ImGui::SliderInt("Max FPS", &fps, 0, 125);
+			ImGui::Text("Limit Framerate: ");
+			ImGui::SameLine();
+			ImGui::TextColored({ 255, 255, 0, 1 }, "%i", fps);
+
+			// Graphs
+		}
+		if (ImGui::CollapsingHeader("Window"))
+		{
+			/*if (ImGui::Checkbox("Active", ))
+			{ }*/
+			ImGui::Text("Icon:  *default*");
+			if (ImGui::SliderFloat("Brightness", &brightness, 0.0f, 1.0f))
 			{
-				// Load
+				SDL_SetWindowBrightness(App->window->window, brightness);
 			}
-			if (ImGui::MenuItem("Save"))
-			{
-				// Save
-			}
-			ImGui::EndMenu();
+			ImGui::SliderInt("Width", &width, 640, 1920);
+			ImGui::SliderInt("Height", &height, 480, 1080);
+
+			if (ImGui::Checkbox("Fullscreen", &fullscreen))
+				App->window->SetFullscreen(fullscreen);
+			ImGui::SameLine();
+			if (ImGui::Checkbox("Resizable", &resizable))
+				App->window->SetFullscreen(resizable);
+			if (ImGui::Checkbox("Borderless", &borderless))
+				App->window->SetFullscreen(borderless);
+			ImGui::SameLine();
+			if (ImGui::Checkbox("Full Desktop", &fulldesktop))
+				App->window->SetFullscreen(fulldesktop);
+		}
+		if (ImGui::CollapsingHeader("File System"))
+		{
+
+		}
+		if (ImGui::CollapsingHeader("Input"))
+		{
+
+		}
+		if (ImGui::CollapsingHeader("Hardware"))
+		{
+
 		}
 		/*if (ImGui::BeginChild("Application"))
 		{
