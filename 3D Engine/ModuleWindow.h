@@ -22,10 +22,10 @@ public:
 
 	void SetWinWidth(int width);
 	void SetWinHeight(int height);
-	void SetFullscreen(bool fullscreen);
+	int SetFullscreen(bool fullscreen);
 	void SetResizable(bool resizable);
 	void SetBorderless(bool borderless);
-	void SetFullDesktop(bool fulldesktop);
+	int SetFullDesktop(bool fulldesktop);
 
 public:
 	//The window we'll be rendering to

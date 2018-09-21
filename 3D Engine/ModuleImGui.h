@@ -34,7 +34,6 @@ public:
 	bool configurationwindow = true;
 	bool aboutwindow = false;
 
-	int fps = 0;
 	int width = 1000;
 	int height = 1000;
 	int radius = 0;

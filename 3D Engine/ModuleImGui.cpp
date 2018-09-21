@@ -273,23 +273,26 @@ update_status ModuleImGui::Update(float dt)
 		{
 			ImGui::InputText("App Name", "3D Engine", 20);
 			ImGui::InputText("Organization", "UPC CITM", 20);
-			ImGui::SliderInt("Max FPS", &fps, 0, 125);
+			ImGui::SliderInt("Max FPS", &App->framerate_cap, 0, 125);
 			ImGui::Text("Limit Framerate: ");
 			ImGui::SameLine();
-			ImGui::TextColored({ 255, 255, 0, 1 }, "%i", fps);
+			ImGui::TextColored({ 255, 255, 0, 1 }, "%i", App->framerate_cap);
 
 			// Graphs
 			char title[25];
 			sprintf_s(title, 25, "Framerate %.1f", App->fps_log[App->fps_log.size() - 1]);
 			ImGui::PlotHistogram("##framerate", &App->fps_log[0], App->fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
 			sprintf_s(title, 25, "Milliseconds %0.1f", App->ms_log[App->ms_log.size() - 1]);
-			ImGui::PlotHistogram("##milliseconds", &App->ms_log[0], App->ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));
+			ImGui::PlotHistogram("##milliseconds", &App->ms_log[0], App->ms_log.size(), 0, title, 0.0f, 60.0f, ImVec2(310, 100));
 		}
 		if (ImGui::CollapsingHeader("Window"))
 		{
+			ImGuiIO& io = ImGui::GetIO();
 			/*if (ImGui::Checkbox("Active", ))
 			{ }*/
 			ImGui::Text("Icon:  *default*");
+			ImGui::SameLine();
+			ImGui::TextColored({ 255, 0, 0, 1 }, "  NOT FINISHED");
 			// Brightness
 			if (ImGui::SliderFloat("Brightness", &brightness, 0.0f, 1.0f))
 				SDL_SetWindowBrightness(App->window->window, brightness);
@@ -301,18 +304,23 @@ update_status ModuleImGui::Update(float dt)
 			// FPS
 			ImGui::Text("Refresh Rate: ");
 			ImGui::SameLine();
-			ImGui::TextColored({ 255, 255, 0, 1 }, "%i", fps);
+			ImGui::TextColored({ 255, 255, 0, 1 }, "60");
 			// Window flag
+			//ImGui::CheckboxFlags("Flags", (unsigned int *)&io.ConfigFlags, ImGuiConfigFlags_NavEnableKeyboard);
 			if (ImGui::Checkbox("Fullscreen", &fullscreen))
 				App->window->SetFullscreen(fullscreen);
 			ImGui::SameLine();
 			if (ImGui::Checkbox("Resizable", &resizable))
-				App->window->SetFullscreen(resizable);
+				App->window->SetResizable(resizable);
+			if (ImGui::IsItemHovered())
+				ImGui::SetTooltip("Useless on Fullscreen");
 			if (ImGui::Checkbox("Borderless", &borderless))
-				App->window->SetFullscreen(borderless);
+				App->window->SetBorderless(borderless);
+			if (ImGui::IsItemHovered())
+				ImGui::SetTooltip("Useless on Fullscreen");
 			ImGui::SameLine();
 			if (ImGui::Checkbox("Full Desktop", &fulldesktop))
-				App->window->SetFullscreen(fulldesktop);
+				App->window->SetFullDesktop(fulldesktop);
 		}
 		if (ImGui::CollapsingHeader("File System"))
 		{

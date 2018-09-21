@@ -42,6 +42,8 @@ public:
 	bool CleanUp();
 	void OpenWeb(const char* url);
 
+	int					framerate_cap = 0;
+
 	Uint64				frame_count = 0;
 	Uint32				last_sec_frame_count = 0;
 	Uint32				prev_last_sec_frame_count = 0;
