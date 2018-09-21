@@ -160,7 +160,7 @@ update_status ModuleImGui::Update(float dt)
 	if (randomwindow) {
 		ImGui::SetNextWindowSize(ImVec2(400, 200), ImGuiSetCond_Once);
 		ImGui::SetNextWindowPos(ImVec2(100, 100), ImGuiSetCond_Once);
-		if (ImGui::Begin("Random Number Generator"))
+		if (ImGui::Begin("Random Number Generator",&randomwindow, ImGuiWindowFlags_MenuBar))
 		{
 			ImGui::Text("Random Integer");
 
@@ -207,7 +207,7 @@ update_status ModuleImGui::Update(float dt)
 		
 		ImGui::SetNextWindowSize(ImVec2(400,200), ImGuiSetCond_Once);
 		ImGui::SetNextWindowPos(ImVec2(600, 100), ImGuiSetCond_Once);
-		ImGui::Begin("Create a Sphere");
+		ImGui::Begin("Create a Sphere", &spherewindow, ImGuiWindowFlags_MenuBar);
 		ImGui::InputInt("Radius", &radius);
 		ImGui::InputInt("Position X", &x);
 		ImGui::InputInt("Position Y", &y);
