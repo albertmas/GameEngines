@@ -18,10 +18,15 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-
+	// Menu functions
 	void RandomGenerator();
 	void TestWindow();
 	void Console();
+	void ConfigurationWindow();
+	void CreateSphere();
+	void AboutWindow();
+
+
 
 public:
 	int min_rand_int = 0, max_rand_int = 100;
