@@ -101,15 +101,7 @@ update_status ModuleImGui::Update(float dt)
 
 			if (ImGui::MenuItem("Random Number"))
 			{
-				if (randomwindow) 
-				{
-					randomwindow = false;
-				
-				}
-				else
-				{
-					randomwindow = true;
-				}
+				randomwindow = !randomwindow;
 
 			}
 			if (ImGui::MenuItem("Create Sphere"))
@@ -149,6 +141,7 @@ update_status ModuleImGui::Update(float dt)
 
 	ImGui::EndMainMenuBar();
 
+	if (randomwindow)RandomGenerator();
 	// windows
 
 	if (testwindow) {
@@ -156,51 +149,9 @@ update_status ModuleImGui::Update(float dt)
 		ImGui::ShowTestWindow();
 	}
 
-	if (randomwindow) {
-		ImGui::SetNextWindowSize(ImVec2(400, 200), ImGuiSetCond_Once);
-		ImGui::SetNextWindowPos(ImVec2(100, 100), ImGuiSetCond_Once);
-		if (ImGui::Begin("Random Number Generator",&randomwindow, ImGuiWindowFlags_MenuBar))
-		{
-			ImGui::Text("Random Integer");
+	
 
-			// Rand int
-			ImGui::InputInt("Max Number", &max_rand_int);
-			if (max_rand_int <= min_rand_int)
-			{
-				max_rand_int = min_rand_int + 1;
-			}
-			ImGui::InputInt("Min Number", &min_rand_int);
-			if (min_rand_int >= max_rand_int)
-			{
-				min_rand_int = max_rand_int - 1;
-			}
-			ImGui::Spacing();
-			if (ImGui::SmallButton("Generate Random Integer"))
-			{
-				rand_int = ("%i", (int)pcg32_boundedrand_r(&rng, (max_rand_int - min_rand_int + 1)) + min_rand_int);
-			}
-			ImGui::SameLine();
-			if (ImGui::SmallButton("Reset"))
-			{
-				min_rand_int = 0;
-				max_rand_int = 100;
-			}
-			ImGui::TextColored({ 255, 0, 0, 1 }, "%i", rand_int);
-			ImGui::Spacing();
-
-			// Rand float
-			ImGui::Text("Random Float");
-			
-			ImGui::Spacing();
-			if (ImGui::SmallButton("Generate Random Float"))
-			{
-				rand_float = ldexp(pcg32_random_r(&rng), -32);
-			}			
-			ImGui::TextColored({ 255, 0, 0, 1 }, "%f", rand_float);
-
-			ImGui::End();
-		}
-	}
+	
 	 if (spherewindow) 
 	{
 		
@@ -349,6 +300,56 @@ update_status ModuleImGui::Update(float dt)
 	}
 
 	return UPDATE_CONTINUE;
+}
+
+void ModuleImGui::RandomGenerator()
+{
+	
+		ImGui::SetNextWindowSize(ImVec2(400, 200), ImGuiSetCond_Once);
+		ImGui::SetNextWindowPos(ImVec2(100, 100), ImGuiSetCond_Once);
+		if (ImGui::Begin("Random Number Generator", &randomwindow, ImGuiWindowFlags_MenuBar))
+		{
+			ImGui::Text("Random Integer");
+
+			// Rand int
+			ImGui::InputInt("Max Number", &max_rand_int);
+			if (max_rand_int <= min_rand_int)
+			{
+				max_rand_int = min_rand_int + 1;
+			}
+			ImGui::InputInt("Min Number", &min_rand_int);
+			if (min_rand_int >= max_rand_int)
+			{
+				min_rand_int = max_rand_int - 1;
+			}
+			ImGui::Spacing();
+			if (ImGui::SmallButton("Generate Random Integer"))
+			{
+				rand_int = ("%i", (int)pcg32_boundedrand_r(&rng, (max_rand_int - min_rand_int + 1)) + min_rand_int);
+			}
+			ImGui::SameLine();
+			if (ImGui::SmallButton("Reset"))
+			{
+				min_rand_int = 0;
+				max_rand_int = 100;
+			}
+			ImGui::TextColored({ 255, 0, 0, 1 }, "%i", rand_int);
+			ImGui::Spacing();
+
+			// Rand float
+			ImGui::Text("Random Float");
+
+			ImGui::Spacing();
+			if (ImGui::SmallButton("Generate Random Float"))
+			{
+				rand_float = ldexp(pcg32_random_r(&rng), -32);
+			}
+			ImGui::TextColored({ 255, 0, 0, 1 }, "%f", rand_float);
+
+			ImGui::End();
+		}
+	
+
 }
 
 update_status ModuleImGui::PostUpdate(float dt)

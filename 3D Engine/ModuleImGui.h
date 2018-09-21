@@ -18,6 +18,9 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+
+	void RandomGenerator();
+
 public:
 	int min_rand_int = 0, max_rand_int = 100;
 	int rand_int = 0;
