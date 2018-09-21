@@ -20,6 +20,8 @@ public:
 
 
 	void RandomGenerator();
+	void TestWindow();
+	void Console();
 
 public:
 	int min_rand_int = 0, max_rand_int = 100;

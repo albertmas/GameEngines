@@ -59,14 +59,7 @@ update_status ModuleImGui::Update(float dt)
 
 			if (ImGui::MenuItem("Show Window")) 
 			{
-				if (testwindow)
-				{
-					testwindow = false;
-				}
-				else
-				{
-					testwindow = true;
-				}
+				testwindow = !testwindow;
 			}
 			
 			if (ImGui::MenuItem("Quit", "ESC")) 
@@ -80,10 +73,7 @@ update_status ModuleImGui::Update(float dt)
 		{
 			if (ImGui::MenuItem("Console", "1"))
 			{
-				if (consolewindow)
-					consolewindow = false;
-				else
-					consolewindow = true;
+				consolewindow = !consolewindow;
 			}
 
 			if (ImGui::MenuItem("Configuration", "4"))
@@ -142,12 +132,11 @@ update_status ModuleImGui::Update(float dt)
 	ImGui::EndMainMenuBar();
 
 	if (randomwindow)RandomGenerator();
+	if (testwindow)TestWindow();
+	if (consolewindow)Console();
 	// windows
 
-	if (testwindow) {
-		
-		ImGui::ShowTestWindow();
-	}
+	
 
 	
 
@@ -180,19 +169,7 @@ update_status ModuleImGui::Update(float dt)
 		ImGui::End();
 	}
 	
-	// Console
-	if (consolewindow)
-	{
-		ImGui::SetNextWindowSize(ImVec2(600, 300), ImGuiSetCond_Once);
-		ImGui::SetNextWindowPos(ImVec2(400, 200), ImGuiSetCond_Once);
-		ImGui::Begin("Console", &consolewindow);
-		for (int a = 0; a < consolelog.size(); a++)
-		{
-			ImGui::Text(consolelog[a]);
-		}
-
-		ImGui::End();
-	}
+	
 	// Configuration
 	if (configurationwindow)
 	{
@@ -350,6 +327,28 @@ void ModuleImGui::RandomGenerator()
 		}
 	
 
+}
+
+void ModuleImGui::TestWindow()
+{
+	
+		ImGui::ShowTestWindow();
+	
+}
+
+void ModuleImGui::Console()
+{
+	
+		ImGui::SetNextWindowSize(ImVec2(600, 300), ImGuiSetCond_Once);
+		ImGui::SetNextWindowPos(ImVec2(400, 200), ImGuiSetCond_Once);
+		ImGui::Begin("Console", &consolewindow);
+		for (int a = 0; a < consolelog.size(); a++)
+		{
+			ImGui::Text(consolelog[a]);
+		}
+
+		ImGui::End();
+	
 }
 
 update_status ModuleImGui::PostUpdate(float dt)
