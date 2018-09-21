@@ -34,7 +34,6 @@ bool ModuleImGui::CleanUp()
 	LOG("Freeing all ImGui elements");
 	ImGui_ImplOpenGL2_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
-	//ImGui::DestroyContext();
 
 	return true;
 }
@@ -295,8 +294,8 @@ update_status ModuleImGui::Update(float dt)
 			if (ImGui::SliderFloat("Brightness", &brightness, 0.0f, 1.0f))
 				SDL_SetWindowBrightness(App->window->window, brightness);
 			// Window size
-			if (ImGui::SliderInt("Width", &width, 640, 1920)){}
-				//App->window->SetWinWidth(width);
+			if (ImGui::SliderInt("Width", &App->window->width, 640, 1920)){}
+				App->window->SetWinWidth(App->window->width);
 			if (ImGui::SliderInt("Height", &height, 480, 1080)){}
 				//App->window->SetWinHeight(height);
 			// FPS

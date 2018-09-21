@@ -27,8 +27,8 @@ bool ModuleWindow::Init()
 	else
 	{
 		//Create window
-		int width = SCREEN_WIDTH * SCREEN_SIZE;
-		int height = SCREEN_HEIGHT * SCREEN_SIZE;
+		width = SCREEN_WIDTH * SCREEN_SIZE;
+		height = SCREEN_HEIGHT * SCREEN_SIZE;
 		Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
 
 		//Use OpenGL 2.1
@@ -97,6 +97,26 @@ void ModuleWindow::SetFullscreen(bool fullscreen)
 {
 	if (fullscreen)
 	{
-
+		SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
 	}
+	else
+	{
+		SDL_SetWindowFullscreen(window, SDL_WINDOW_MINIMIZED);
+	}
+}
+void ModuleWindow::SetBorderless(bool borderless)
+{
+	/*if (borderless)
+	{
+		SDL_SetWindowBordered(window, SDL_WINDOW_BORDERLESS);
+	}
+	else
+	{
+		SDL_SetWindowFullscreen(window, SDL_WINDOW_MINIMIZED);
+	}*/
+}
+
+void ModuleWindow::SetWinWidth(int width_)
+{
+	width = width_;
 }
