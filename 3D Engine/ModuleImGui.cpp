@@ -116,7 +116,6 @@ update_status ModuleImGui::Update(float dt)
 
 			ImGui::EndMenu();
 		}
-	
 	}
 
 	ImGui::EndMainMenuBar();
@@ -126,18 +125,12 @@ update_status ModuleImGui::Update(float dt)
 	if (consolewindow)Console();
 	if (configurationwindow)ConfigurationWindow();
 	if (spherewindow)CreateSphere();
-	// windows
-
 	
-
-	
-
-	
-	
-	
-	
-	// Configuration
-	
+	// Hotkeys
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+		consolewindow = !consolewindow;
+	if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
+		configurationwindow = !configurationwindow;
 
 	if (aboutwindow)
 	{
