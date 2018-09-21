@@ -46,6 +46,8 @@ public:
 	float3 min_pos;
 	float3 max_pos;
 
+	std::vector<char*> consolelog;
+
 private:
 	bool fullscreen = false;
 	bool resizable = false;

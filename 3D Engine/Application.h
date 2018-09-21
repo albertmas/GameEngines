@@ -46,8 +46,8 @@ public:
 	Uint32				last_sec_frame_count = 0;
 	Uint32				prev_last_sec_frame_count = 0;
 
-	std::list<uint>		fps_log;
-	std::list<float>	ms_log;
+	std::vector<float>	fps_log;
+	std::vector<float>	ms_log;
 
 private:
 

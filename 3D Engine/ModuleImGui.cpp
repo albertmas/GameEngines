@@ -236,7 +236,10 @@ update_status ModuleImGui::Update(float dt)
 		ImGui::SetNextWindowSize(ImVec2(600, 300), ImGuiSetCond_Once);
 		ImGui::SetNextWindowPos(ImVec2(400, 200), ImGuiSetCond_Once);
 		ImGui::Begin("Console", &consolewindow);
-		
+		for (int a = 0; a < consolelog.size(); a++)
+		{
+			ImGui::Text(consolelog[a]);
+		}
 
 		ImGui::End();
 	}
@@ -277,12 +280,11 @@ update_status ModuleImGui::Update(float dt)
 			ImGui::TextColored({ 255, 255, 0, 1 }, "%i", fps);
 
 			// Graphs
-			//char title[25];
-			
-			/*std::list<float>::const_iterator begin = App->ms_log.begin();
-			std::list<float>::const_iterator end = App->ms_log.end();
-			sprintf_s(title, 25, "Milliseconds %0.1f", App->ms_log.back());
-			ImGui::PlotHistogram("##milliseconds", &App->ms_log.front(), App->ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));*/
+			char title[25];
+			sprintf_s(title, 25, "Framerate %.1f", App->fps_log[App->fps_log.size() - 1]);
+			ImGui::PlotHistogram("##framerate", &App->fps_log[0], App->fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
+			sprintf_s(title, 25, "Milliseconds %0.1f", App->ms_log[App->ms_log.size() - 1]);
+			ImGui::PlotHistogram("##milliseconds", &App->ms_log[0], App->ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));
 		}
 		if (ImGui::CollapsingHeader("Window"))
 		{
