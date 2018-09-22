@@ -11,7 +11,7 @@ configuration:
 build:
   verbosity: minimal
 before_package:
-- ps: Copy-Item C:\projects\GameEngines\$env:CONFIGURATION\3DEngine.exe C:\projects\GameEngines\Game\.
+- ps: Copy-Item C:\projects\GameEngines\Source\$env:CONFIGURATION\3DEngine.exe C:\projects\GameEngines\Game\.
 artifacts:
 - path: 3D Engine\Game
   name: GameEngines
