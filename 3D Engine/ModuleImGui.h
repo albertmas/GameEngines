@@ -24,7 +24,7 @@ public:
 	void Console();
 	void ConfigurationWindow();
 	void CreateSphere();
-	void AboutWindow();
+	void CreateTriangle();
 
 
 
@@ -39,6 +39,7 @@ public:
 public:
 	bool testwindow = false;
 	bool spherewindow = false;
+	bool trianglewindow = false;
 	bool randomwindow = false;
 	bool consolewindow = false;
 	bool configurationwindow = true;
@@ -48,12 +49,17 @@ public:
 	int height = 1000;
 	int radius = 0;
 	int x = 0, y = 0, z = 0;
+	int a = 0, b = 0, c = 0;
 
 	float brightness = 1.0f;
 
 	float3 pos;
 	float3 min_pos;
 	float3 max_pos;
+
+	float3 pos_a;
+	float3 pos_b;
+	float3 pos_c;
 
 	std::vector<char*> consolelog;
 

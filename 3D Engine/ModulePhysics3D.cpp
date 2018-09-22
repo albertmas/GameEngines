@@ -67,12 +67,22 @@ bool ModulePhysics3D::CleanUp()
 	return true;
 }
 
-void ModulePhysics3D::CreateSphere(float3 position, int radius)
+void ModulePhysics3D::CreateSphere(const float3 position, int radius)
 {
 	Sphere new_sphere;
 	new_sphere.pos = position;
 	new_sphere.r = radius;
 	spheres_list.push_back(new_sphere);
+}
+
+void ModulePhysics3D::CreateTriangle(const float3 &a_, const float3 &b_, const float3 &c_)
+{
+	Triangle new_triangle;
+	new_triangle;
+	new_triangle.a = a_;
+	new_triangle.b = b_;
+	new_triangle.c = c_;
+
 }
 
 std::list<float2> ModulePhysics3D::GetSphereCollisions()

@@ -96,6 +96,10 @@ update_status ModuleImGui::Update(float dt)
 				spherewindow = !spherewindow;
 
 			}
+			if (ImGui::MenuItem("Create Triangle"))
+			{
+				trianglewindow = !trianglewindow;
+			}
 				ImGui::EndMenu();
 		}
 
@@ -125,6 +129,7 @@ update_status ModuleImGui::Update(float dt)
 	if (consolewindow)Console();
 	if (configurationwindow)ConfigurationWindow();
 	if (spherewindow)CreateSphere();
+	if (trianglewindow)CreateTriangle();
 	
 	// Hotkeys
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
@@ -345,6 +350,28 @@ void ModuleImGui::CreateSphere()
 	
 }
 
+void ModuleImGui::CreateTriangle()
+{
+	ImGui::SetNextWindowSize(ImVec2(400, 200), ImGuiSetCond_Once);
+	ImGui::SetNextWindowPos(ImVec2(600, 100), ImGuiSetCond_Once);
+	ImGui::Begin("Create a Triangle", &trianglewindow, ImGuiWindowFlags_MenuBar);
+	ImGui::InputInt("Position A", &a);
+	ImGui::InputInt("Position B", &b);
+	ImGui::InputInt("Position C", &c);
+
+	if (ImGui::SmallButton("Create Triangle"));
+	{
+		pos.Set(a, b, c);
+		App->physics->CreateTriangle(pos_a,pos_b,pos_c);
+	}
+	if (ImGui::SmallButton("Reset"))
+	{
+		a = b = c = 0;
+	}
+
+	ImGui::End();
+
+}
 
 
 update_status ModuleImGui::PostUpdate(float dt)
