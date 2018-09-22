@@ -20,7 +20,7 @@ deploy:
   release: Engine_release
   description: Auto-generated release
   auth_token:
-    secure: epekEMuEi7wy20Py93w3I9c4FfnhPJxdz1NmdDvYYoqGpEIkwjomuEbXpz0/FuEHU/fwHezJb/9XFneJa9ZbvkI9L+9VlKgRQS+0D+RGsyQ=
+    secure: 16AHYH+k2m8gmKWwbinJefQu8cXPD/xfI9f7dTz4UjTMLnuWBVvfyszcrTLhKJjBddxqA6P5iKx5T9/ItMCgMkseJLBjJkoYyW5mH9xcZy8=
   repository: albertmas/GameEngines
   artifact: 3D Engine
   draft: true
