@@ -1,4 +1,4 @@
-version: 0.0.1{build}
+version: 1.0.{build}
 pull_requests:
   do_not_increment_build_number: true
 branches:
@@ -13,7 +13,7 @@ build:
 before_package:
 - ps: Copy-Item C:\projects\GameEngines\$env:CONFIGURATION\3DEngine.exe C:\projects\GameEngines\Game\.
 artifacts:
-- path: 3DEngine\Game
+- path: 3D Engine\Game
   name: GameEngines
 deploy:
 - provider: GitHub
@@ -21,11 +21,4 @@ deploy:
   description: Auto-generated release
   auth_token:
     secure: epekEMuEi7wy20Py93w3I9c4FfnhPJxdz1NmdDvYYoqGpEIkwjomuEbXpz0/FuEHU/fwHezJb/9XFneJa9ZbvkI9L+9VlKgRQS+0D+RGsyQ=
-  repository: albertmas/GameEngines
-  artifact: 3DEngine
   draft: true
-notifications:
-- provider: GitHubPullRequest
-  on_build_success: true
-  on_build_failure: true
-  on_build_status_changed: false
