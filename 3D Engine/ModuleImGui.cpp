@@ -369,7 +369,7 @@ void ModuleImGui::CreateTriangle()
 		a = b = c = 0;
 	}
 
-	ImGui::End();
+	ImGui::End(); //
 
 }
 
