@@ -310,6 +310,19 @@ void ModuleImGui::ConfigurationWindow()
 		if (ImGui::CollapsingHeader("Hardware"))
 		{
 
+			SDL_version version;
+			SDL_GetVersion(&version);
+
+			ImVec4 green(0, 255, 0, 255);
+			ImGui::Text("SDL Version"); ImGui::SameLine();
+			ImGui::TextColored(green, "%d.%d.%d", version.major, version.minor, version.patch);
+			ImGui::Separator();
+			ImGui::Text("CPUs:");
+			ImGui::SameLine();
+			ImGui::TextColored(green, "%d (Cache: %dKb)", SDL_GetCPUCount(), SDL_GetCPUCacheLineSize());
+			ImGui::Text("System RAM:");
+			ImGui::SameLine();
+			ImGui::TextColored(green, "%0.1fGb", ((float)SDL_GetSystemRAM() / 1024));
 		}
 		/*if (ImGui::BeginChild("Application"))
 		{
