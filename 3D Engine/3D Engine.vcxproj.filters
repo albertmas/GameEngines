@@ -270,10 +270,10 @@
     <ClInclude Include="PCG\pcg_basic.h">
       <Filter>Sources\Tools\PCG</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Desktop\3dEngine-master\3D_Engine\DeviceId\DeviceId.h">
+    <ClInclude Include="DeviceId\DeviceId.h">
       <Filter>Sources\Tools\DeviceId</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Desktop\3dEngine-master\3D_Engine\DeviceId\dxgi1_4.h">
+    <ClInclude Include="DeviceId\dxgi1_4.h">
       <Filter>Sources\Tools\DeviceId</Filter>
     </ClInclude>
   </ItemGroup>
@@ -428,7 +428,7 @@
     <ClCompile Include="PCG\pcg_basic.c">
       <Filter>Sources\Tools\PCG</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Desktop\3dEngine-master\3D_Engine\DeviceId\DeviceId.cpp">
+    <ClCompile Include="DeviceId\DeviceId.cpp">
       <Filter>Sources\Tools\DeviceId</Filter>
     </ClCompile>
   </ItemGroup>
