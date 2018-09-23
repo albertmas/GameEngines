@@ -5,6 +5,7 @@
 #include "ImGui\imgui_impl_sdl.h"
 #include "ImGui\imgui_impl_opengl2.h"
 #include "ImGui\imgui_internal.h"
+#include "DeviceId\DeviceId.h"
 
 
 ModuleImGui::ModuleImGui(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -323,6 +324,41 @@ void ModuleImGui::ConfigurationWindow()
 			ImGui::Text("System RAM:");
 			ImGui::SameLine();
 			ImGui::TextColored(green, "%0.1fGb", ((float)SDL_GetSystemRAM() / 1024));
+
+			ImGui::Text("Caps: "); ImGui::SameLine();
+
+			if (SDL_Has3DNow()) ImGui::TextColored(green, "3DNow,"); ImGui::SameLine();
+			if (SDL_HasAVX()) ImGui::TextColored(green, "AVX,"); ImGui::SameLine();
+			if (SDL_HasAltiVec()) ImGui::TextColored(green, "AltiVec,"); ImGui::SameLine();
+			if (SDL_HasMMX()) ImGui::TextColored(green, "MMX,"); ImGui::SameLine();
+			if (SDL_HasRDTSC()) ImGui::TextColored(green, "RDTSC,"); ImGui::SameLine();
+			if (SDL_HasSSE()) ImGui::TextColored(green, "SSE,"); ImGui::SameLine();
+			if (SDL_HasSSE2()) ImGui::TextColored(green, "SSE2,"); ImGui::SameLine();
+			if (SDL_HasSSE3()) ImGui::TextColored(green, "SSE3,"); ImGui::SameLine();
+			if (SDL_HasSSE41()) ImGui::TextColored(green, "SSE41,"); ImGui::SameLine();
+			if (SDL_HasSSE42()) ImGui::TextColored(green, "SSE42,");
+
+			ImGui::Separator();
+
+			ImGui::Text("GPU: "); ImGui::SameLine();
+			ImGui::TextColored(green, " vendor %s", App->renderer3D->GetGraphicsVendor());
+
+			ImGui::Text("Brand: "); ImGui::SameLine();
+			ImGui::TextColored(green, "%s", App->renderer3D->GetGraphicsModel());
+
+			ImGui::Text("VRAM Budget: "); ImGui::SameLine();
+			ImGui::TextColored(green, "%.2f Mb", App->totalVideoMemF);
+
+			ImGui::Text("VRAM Usage: "); ImGui::SameLine();
+			ImGui::TextColored(green, "%.2f Mb", App->currentVideoMemF);
+
+			ImGui::Text("VRAM Avaliable: "); ImGui::SameLine();
+			ImGui::TextColored(green, "%.2f Mb", App->availableVideoMemF);
+
+			ImGui::Text("VRAM Reserved: "); ImGui::SameLine();
+			ImGui::TextColored(green, "%.2f Mb", App->reservedVideoMemF);
+
+
 		}
 		/*if (ImGui::BeginChild("Application"))
 		{
@@ -331,6 +367,18 @@ void ModuleImGui::ConfigurationWindow()
 
 		ImGui::End();
 	
+}
+
+void ModuleImGui::GetHardWareData()
+{
+	uint64_t totVideoMem, currVideoMem, availbVideoMem, reserVideoMem;
+
+	if (getGraphicsDeviceInfo(nullptr, nullptr, nullptr, &totVideoMem, &currVideoMem, &availbVideoMem, &reserVideoMem)) {
+		App->totalVideoMemF = (float)totVideoMem / (1024.0f * 1024.0f);
+		App->currentVideoMemF = (float)currVideoMem / (1024.0f * 1024.0f);
+		App->availableVideoMemF = (float)availbVideoMem / (1024.0f * 1024.0f);
+		App->reservedVideoMemF = (float)reserVideoMem / (1024.0f * 1024.0f);
+	}
 }
 
 void ModuleImGui::CreateSphere()

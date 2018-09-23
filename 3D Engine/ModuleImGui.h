@@ -25,6 +25,8 @@ public:
 	void ConfigurationWindow();
 	void CreateSphere();
 	void CreateTriangle();
+	void GetHardWareData();
+	void HardwareData();
 
 
 

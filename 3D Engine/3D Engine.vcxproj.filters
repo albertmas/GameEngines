@@ -25,6 +25,9 @@
     <Filter Include="Sources\MathGeolib">
       <UniqueIdentifier>{ed1ca74b-72c1-469f-8cac-3ae89ecd1a25}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Tools\DeviceId">
+      <UniqueIdentifier>{d0ec1743-85b7-4224-8f5f-cf83d1d8c9c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -267,6 +270,12 @@
     <ClInclude Include="PCG\pcg_basic.h">
       <Filter>Sources\Tools\PCG</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\3dEngine-master\3D_Engine\DeviceId\DeviceId.h">
+      <Filter>Sources\Tools\DeviceId</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\3dEngine-master\3D_Engine\DeviceId\dxgi1_4.h">
+      <Filter>Sources\Tools\DeviceId</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -418,6 +427,9 @@
     </ClCompile>
     <ClCompile Include="PCG\pcg_basic.c">
       <Filter>Sources\Tools\PCG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\3dEngine-master\3D_Engine\DeviceId\DeviceId.cpp">
+      <Filter>Sources\Tools\DeviceId</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

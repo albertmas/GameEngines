@@ -18,6 +18,9 @@ public:
 
 	void OnResize(int width, int height);
 
+	char* GetGraphicsVendor();
+	char* GetGraphicsModel();
+
 public:
 
 	Light lights[MAX_LIGHTS];

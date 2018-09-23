@@ -33,6 +33,12 @@ private:
 	Timer				last_sec_frame_time;
 
 public:
+	float totalVideoMemF = -1.0f;
+	float currentVideoMemF = -1.0f;
+	float availableVideoMemF = -1.0f;
+	float reservedVideoMemF = -1.0f;
+
+public:
 
 	Application();
 	~Application();
