@@ -310,6 +310,7 @@ void ModuleImGui::ConfigurationWindow()
 		}
 		if (ImGui::CollapsingHeader("Hardware"))
 		{
+			GetHardWareData();
 
 			SDL_version version;
 			SDL_GetVersion(&version);
