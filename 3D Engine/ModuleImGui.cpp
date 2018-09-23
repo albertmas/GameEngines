@@ -141,7 +141,6 @@ update_status ModuleImGui::Update(float dt)
 	if (aboutwindow)
 	{
 		ImGui::MenuItem("Names");
-		
 	}
 
 	return UPDATE_CONTINUE;
@@ -262,15 +261,41 @@ void ModuleImGui::ConfigurationWindow()
 			ImGui::PlotHistogram("##framerate", &App->fps_log[0], App->fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
 			sprintf_s(title, 25, "Milliseconds %0.1f", App->ms_log[App->ms_log.size() - 1]);
 			ImGui::PlotHistogram("##milliseconds", &App->ms_log[0], App->ms_log.size(), 0, title, 0.0f, 60.0f, ImVec2(310, 100));
+			sprintf_s(title, 25, "Memory Consumption");
+			ImGui::PlotHistogram("##memory", &App->memory_log[0], App->memory_log.size(), 0, title, 0.0f, 100000000.0f, ImVec2(310, 100));
 		}
 		if (ImGui::CollapsingHeader("Window"))
 		{
-			ImGuiIO& io = ImGui::GetIO();
+			//ImGuiIO& io = ImGui::GetIO();
 			/*if (ImGui::Checkbox("Active", ))
 			{ }*/
-			ImGui::Text("Icon:  *default*");
+			ImGui::Text("Icon:  ");
 			ImGui::SameLine();
-			ImGui::TextColored({ 255, 0, 0, 1 }, "  NOT FINISHED");
+			if (ImGui::Button("*default*"))
+			{
+				loadfile = !loadfile;				
+			}
+			if (loadfile)
+			{
+				if (ImGui::Begin("Load File"))
+				{
+					if (ImGui::CollapsingHeader("Assets"))
+					{ }
+					if (ImGui::CollapsingHeader("Library"))
+					{
+						if (ImGui::CollapsingHeader("Animations")) {}
+						if (ImGui::CollapsingHeader("Audio")) {}
+						if (ImGui::CollapsingHeader("Bones")) {}
+						if (ImGui::CollapsingHeader("Meshes")) {}
+						if (ImGui::CollapsingHeader("Scenes")) {}
+						if (ImGui::CollapsingHeader("Textures")) {}
+					}
+					if (ImGui::CollapsingHeader("Settings"))
+					{ }
+
+					ImGui::End();
+				}
+			}
 			// Brightness
 			if (ImGui::SliderFloat("Brightness", &brightness, 0.0f, 1.0f))
 				SDL_SetWindowBrightness(App->window->window, brightness);

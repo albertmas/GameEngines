@@ -68,6 +68,8 @@ private:
 	bool resizable = false;
 	bool borderless = false;
 	bool fulldesktop = false;
+
+	bool loadfile = false;
 };
 
 #endif //__ModuleImGui_H__
