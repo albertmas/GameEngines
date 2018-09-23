@@ -275,10 +275,10 @@ void ModuleImGui::ConfigurationWindow()
 			if (ImGui::SliderFloat("Brightness", &brightness, 0.0f, 1.0f))
 				SDL_SetWindowBrightness(App->window->window, brightness);
 			// Window size
-			if (ImGui::SliderInt("Width", &App->window->width, 640, 1920)) {}
-			App->window->SetWinWidth(App->window->width);
-			if (ImGui::SliderInt("Height", &height, 480, 1080)) {}
-			//App->window->SetWinHeight(height);
+			if (ImGui::SliderInt("Width", &App->window->width, 640, 1920))
+				App->window->SetWinWidth(App->window->width);
+			if (ImGui::SliderInt("Height", &App->window->height, 480, 1080))
+				App->window->SetWinHeight(App->window->height);
 			// FPS
 			ImGui::Text("Refresh Rate: ");
 			ImGui::SameLine();

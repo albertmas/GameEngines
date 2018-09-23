@@ -47,8 +47,6 @@ public:
 	bool configurationwindow = true;
 	bool aboutwindow = false;
 
-	int width = 1000;
-	int height = 1000;
 	int radius = 0;
 	int x = 0, y = 0, z = 0;
 	int a = 0, b = 0, c = 0;
