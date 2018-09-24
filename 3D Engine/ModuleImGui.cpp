@@ -223,7 +223,7 @@ void ModuleImGui::ConfigurationWindow()
 	
 	
 		ImGui::SetNextWindowSize(ImVec2(600, 300), ImGuiSetCond_Once);
-		ImGui::SetNextWindowPos(ImVec2(400, 200), ImGuiSetCond_Once);
+		ImGui::SetNextWindowPos(ImVec2(20, 40), ImGuiSetCond_Once);
 		ImGui::Begin("Configuration", &configurationwindow, ImGuiWindowFlags_MenuBar);
 
 		if (ImGui::BeginMenuBar())
@@ -271,27 +271,69 @@ void ModuleImGui::ConfigurationWindow()
 			{ }*/
 			ImGui::Text("Icon:  ");
 			ImGui::SameLine();
-			if (ImGui::Button("*default*"))
+			if (ImGui::Button(icon_name))
 			{
-				loadfile = !loadfile;				
+				loadfile = !loadfile;
 			}
 			if (loadfile)
 			{
-				if (ImGui::Begin("Load File"))
+				ImGui::SetNextWindowSize(ImVec2(380, 350), ImGuiSetCond_Once);
+				ImGui::SetNextWindowPos(ImVec2(400, 200), ImGuiSetCond_Once);
+				if (ImGui::Begin("Load File", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse))
 				{
-					if (ImGui::CollapsingHeader("Assets"))
-					{ }
-					if (ImGui::CollapsingHeader("Library"))
+					ImGui::PushID(123);
+					ImGui::BeginChild(123, ImVec2(365, 290), true);
+					if (ImGui::TreeNode("Assets/"))
 					{
-						if (ImGui::CollapsingHeader("Animations")) {}
-						if (ImGui::CollapsingHeader("Audio")) {}
-						if (ImGui::CollapsingHeader("Bones")) {}
-						if (ImGui::CollapsingHeader("Meshes")) {}
-						if (ImGui::CollapsingHeader("Scenes")) {}
-						if (ImGui::CollapsingHeader("Textures")) {}
+						ImGui::TreePop();
 					}
-					if (ImGui::CollapsingHeader("Settings"))
-					{ }
+					if (ImGui::TreeNode("Library/"))
+					{
+						if (ImGui::TreeNode("Animations/"))
+						{
+							ImGui::TreePop();
+						}
+						if (ImGui::TreeNode("Audio/"))
+						{
+							ImGui::TreePop();
+						}
+						if (ImGui::TreeNode("Bones/"))
+						{
+							ImGui::TreePop();
+						}
+						if (ImGui::TreeNode("Meshes/"))
+						{
+							ImGui::TreePop();
+						}
+						if (ImGui::TreeNode("Scenes/"))
+						{
+							ImGui::TreePop();
+						}
+						if (ImGui::TreeNode("Textures/"))
+						{
+							ImGui::TreePop();
+						}
+
+						ImGui::TreePop();
+					}
+					if (ImGui::TreeNode("Settings/"))
+					{
+						ImGui::TreePop();
+					}
+					ImGui::EndChild();
+					ImGui::PopID();
+					
+					ImGui::InputText("", icon_name_new, 50);
+					ImGui::SameLine();
+					if (ImGui::Button("OK", ImVec2(50.0, 0.0)))
+					{
+						loadfile = false;
+					}
+					ImGui::SameLine();
+					if (ImGui::Button("Cancel", ImVec2(50.0, 0.0)))
+					{
+						loadfile = false;
+					}
 
 					ImGui::End();
 				}

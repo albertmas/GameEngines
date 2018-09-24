@@ -70,6 +70,9 @@ private:
 	bool fulldesktop = false;
 
 	bool loadfile = false;
+
+	char icon_name[50] = "*default*";
+	char icon_name_new[50] = "";
 };
 
 #endif //__ModuleImGui_H__
