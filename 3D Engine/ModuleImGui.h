@@ -18,6 +18,8 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+	void ManageInput(SDL_Event* e)const;
+
 	// Menu functions
 	void RandomGenerator();
 	void TestWindow();
@@ -71,6 +73,8 @@ private:
 
 	bool loadfile = false;
 
+	char app_name[50] = "3D Engine";
+	char organization[50] = "UPC CITM";
 	char icon_name[50] = "*default*";
 	char icon_name_new[50] = "";
 };

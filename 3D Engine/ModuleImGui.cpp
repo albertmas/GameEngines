@@ -146,6 +146,11 @@ update_status ModuleImGui::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
+void ModuleImGui::ManageInput(SDL_Event * e) const
+{
+	ImGui_ImplSDL2_ProcessEvent(e);
+}
+
 void ModuleImGui::RandomGenerator()
 {
 	
@@ -248,8 +253,8 @@ void ModuleImGui::ConfigurationWindow()
 		}
 		if (ImGui::CollapsingHeader("Application"))
 		{
-			ImGui::InputText("App Name", "3D Engine", 20);
-			ImGui::InputText("Organization", "UPC CITM", 20);
+			ImGui::InputText("App Name", app_name, IM_ARRAYSIZE(app_name));
+			ImGui::InputText("Organization", organization, IM_ARRAYSIZE(organization));
 			ImGui::SliderInt("Max FPS", &App->framerate_cap, 0, 125);
 			ImGui::Text("Limit Framerate: ");
 			ImGui::SameLine();
@@ -323,10 +328,11 @@ void ModuleImGui::ConfigurationWindow()
 					ImGui::EndChild();
 					ImGui::PopID();
 					
-					ImGui::InputText("", icon_name_new, 50);
+					ImGui::InputText("", icon_name_new, IM_ARRAYSIZE(icon_name_new), ImGuiInputTextFlags_AutoSelectAll);
 					ImGui::SameLine();
 					if (ImGui::Button("OK", ImVec2(50.0, 0.0)))
 					{
+						sprintf_s(icon_name, icon_name_new);
 						loadfile = false;
 					}
 					ImGui::SameLine();
