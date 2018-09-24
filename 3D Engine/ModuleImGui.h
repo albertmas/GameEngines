@@ -28,7 +28,7 @@ public:
 	void CreateSphere();
 	void CreateTriangle();
 	void GetHardWareData();
-	void HardwareData();
+	
 
 
 
@@ -46,7 +46,7 @@ public:
 	bool trianglewindow = false;
 	bool randomwindow = false;
 	bool consolewindow = false;
-	bool configurationwindow = true;
+	bool configurationwindow = false;
 	bool aboutwindow = false;
 
 	int radius = 0;
@@ -62,6 +62,8 @@ public:
 	float3 pos_a;
 	float3 pos_b;
 	float3 pos_c;
+
+
 
 	std::vector<char*> consolelog;
 	// char consolelog[4096];
