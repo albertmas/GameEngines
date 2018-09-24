@@ -64,6 +64,7 @@ public:
 	float3 pos_c;
 
 	std::vector<char*> consolelog;
+	// char consolelog[4096];
 
 private:
 	bool fullscreen = false;
@@ -71,6 +72,7 @@ private:
 	bool borderless = false;
 	bool fulldesktop = false;
 
+	bool active = true;
 	bool loadfile = false;
 
 	char app_name[50] = "3D Engine";

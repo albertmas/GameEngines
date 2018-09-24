@@ -271,9 +271,8 @@ void ModuleImGui::ConfigurationWindow()
 		}
 		if (ImGui::CollapsingHeader("Window"))
 		{
-			//ImGuiIO& io = ImGui::GetIO();
-			/*if (ImGui::Checkbox("Active", ))
-			{ }*/
+			if (ImGui::Checkbox("Active", &active))
+			{ }
 			ImGui::Text("Icon:  ");
 			ImGui::SameLine();
 			if (ImGui::Button(icon_name))
