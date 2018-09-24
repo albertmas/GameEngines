@@ -141,10 +141,14 @@ update_status ModuleImGui::Update(float dt)
 	if (aboutwindow)
 	{
 		ImGui::MenuItem("Names");
-		
 	}
 
 	return UPDATE_CONTINUE;
+}
+
+void ModuleImGui::ManageInput(SDL_Event * e) const
+{
+	ImGui_ImplSDL2_ProcessEvent(e);
 }
 
 void ModuleImGui::RandomGenerator()
@@ -224,7 +228,7 @@ void ModuleImGui::ConfigurationWindow()
 	
 	
 		ImGui::SetNextWindowSize(ImVec2(600, 300), ImGuiSetCond_Once);
-		ImGui::SetNextWindowPos(ImVec2(400, 200), ImGuiSetCond_Once);
+		ImGui::SetNextWindowPos(ImVec2(20, 40), ImGuiSetCond_Once);
 		ImGui::Begin("Configuration", &configurationwindow, ImGuiWindowFlags_MenuBar);
 
 		if (ImGui::BeginMenuBar())
@@ -249,8 +253,8 @@ void ModuleImGui::ConfigurationWindow()
 		}
 		if (ImGui::CollapsingHeader("Application"))
 		{
-			ImGui::InputText("App Name", "3D Engine", 20);
-			ImGui::InputText("Organization", "UPC CITM", 20);
+			ImGui::InputText("App Name", app_name, IM_ARRAYSIZE(app_name));
+			ImGui::InputText("Organization", organization, IM_ARRAYSIZE(organization));
 			ImGui::SliderInt("Max FPS", &App->framerate_cap, 0, 125);
 			ImGui::Text("Limit Framerate: ");
 			ImGui::SameLine();
@@ -262,23 +266,91 @@ void ModuleImGui::ConfigurationWindow()
 			ImGui::PlotHistogram("##framerate", &App->fps_log[0], App->fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
 			sprintf_s(title, 25, "Milliseconds %0.1f", App->ms_log[App->ms_log.size() - 1]);
 			ImGui::PlotHistogram("##milliseconds", &App->ms_log[0], App->ms_log.size(), 0, title, 0.0f, 60.0f, ImVec2(310, 100));
+			sprintf_s(title, 25, "Memory Consumption");
+			ImGui::PlotHistogram("##memory", &App->memory_log[0], App->memory_log.size(), 0, title, 0.0f, 100000000.0f, ImVec2(310, 100));
 		}
 		if (ImGui::CollapsingHeader("Window"))
 		{
-			ImGuiIO& io = ImGui::GetIO();
-			/*if (ImGui::Checkbox("Active", ))
-			{ }*/
-			ImGui::Text("Icon:  *default*");
+			if (ImGui::Checkbox("Active", &active))
+			{ }
+			ImGui::Text("Icon:  ");
 			ImGui::SameLine();
-			ImGui::TextColored({ 255, 0, 0, 1 }, "  NOT FINISHED");
+			if (ImGui::Button(icon_name))
+			{
+				loadfile = !loadfile;
+			}
+			if (loadfile)
+			{
+				ImGui::SetNextWindowSize(ImVec2(380, 350), ImGuiSetCond_Once);
+				ImGui::SetNextWindowPos(ImVec2(400, 200), ImGuiSetCond_Once);
+				if (ImGui::Begin("Load File", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse))
+				{
+					ImGui::PushID(123);
+					ImGui::BeginChild(123, ImVec2(365, 290), true);
+					if (ImGui::TreeNode("Assets/"))
+					{
+						ImGui::TreePop();
+					}
+					if (ImGui::TreeNode("Library/"))
+					{
+						if (ImGui::TreeNode("Animations/"))
+						{
+							ImGui::TreePop();
+						}
+						if (ImGui::TreeNode("Audio/"))
+						{
+							ImGui::TreePop();
+						}
+						if (ImGui::TreeNode("Bones/"))
+						{
+							ImGui::TreePop();
+						}
+						if (ImGui::TreeNode("Meshes/"))
+						{
+							ImGui::TreePop();
+						}
+						if (ImGui::TreeNode("Scenes/"))
+						{
+							ImGui::TreePop();
+						}
+						if (ImGui::TreeNode("Textures/"))
+						{
+							ImGui::TreePop();
+						}
+
+						ImGui::TreePop();
+					}
+					if (ImGui::TreeNode("Settings/"))
+					{
+						ImGui::TreePop();
+					}
+					ImGui::EndChild();
+					ImGui::PopID();
+					
+					ImGui::InputText("", icon_name_new, IM_ARRAYSIZE(icon_name_new), ImGuiInputTextFlags_AutoSelectAll);
+					ImGui::SameLine();
+					if (ImGui::Button("OK", ImVec2(50.0, 0.0)))
+					{
+						sprintf_s(icon_name, icon_name_new);
+						loadfile = false;
+					}
+					ImGui::SameLine();
+					if (ImGui::Button("Cancel", ImVec2(50.0, 0.0)))
+					{
+						loadfile = false;
+					}
+
+					ImGui::End();
+				}
+			}
 			// Brightness
 			if (ImGui::SliderFloat("Brightness", &brightness, 0.0f, 1.0f))
 				SDL_SetWindowBrightness(App->window->window, brightness);
 			// Window size
-			if (ImGui::SliderInt("Width", &App->window->width, 640, 1920)) {}
-			App->window->SetWinWidth(App->window->width);
-			if (ImGui::SliderInt("Height", &height, 480, 1080)) {}
-			//App->window->SetWinHeight(height);
+			if (ImGui::SliderInt("Width", &App->window->width, 640, 1920))
+				App->window->SetWinWidth(App->window->width);
+			if (ImGui::SliderInt("Height", &App->window->height, 480, 1080))
+				App->window->SetWinHeight(App->window->height);
 			// FPS
 			ImGui::Text("Refresh Rate: ");
 			ImGui::SameLine();

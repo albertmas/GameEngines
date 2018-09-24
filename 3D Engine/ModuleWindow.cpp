@@ -150,4 +150,11 @@ int ModuleWindow::SetFullDesktop(bool fulldesktop)
 void ModuleWindow::SetWinWidth(int width_)
 {
 	width = width_;
+	SDL_SetWindowSize(window, width, height);
+}
+
+void ModuleWindow::SetWinHeight(int height_)
+{
+	height = height_;
+	SDL_SetWindowSize(window, width, height);
 }

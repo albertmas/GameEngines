@@ -134,11 +134,31 @@ update_status Application::Update()
 		}
 		fps_log.pop_back();
 	}
-
+	if (memory_log.size() >= 100)
+	{
+		for (int a = 0; a <= memory_log.size() - 2; a++)
+		{
+			memory_log[a] = memory_log[a + 1];
+		}
+		memory_log.pop_back();
+	}
+	// ms / frame log
 	last_frame_ms = ms_timer.Read();
 	ms_log.push_back((float)last_frame_ms);
+	// fps log
 	if (last_frame_ms != 0)
 		fps_log.push_back((float)(1000 / last_frame_ms));
+	// used memory log
+	MEMORYSTATUSEX memInfo;
+	memInfo.dwLength = sizeof(MEMORYSTATUSEX);
+	GlobalMemoryStatusEx(&memInfo);
+	DWORDLONG totalVirtualMem = memInfo.ullTotalPageFile;
+	DWORDLONG virtualMemUsed = memInfo.ullTotalPageFile - memInfo.ullAvailPageFile;
+	PROCESS_MEMORY_COUNTERS_EX pmc;
+	GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
+	SIZE_T virtualMemUsedByMe = pmc.PrivateUsage;
+	memory_log.push_back((float)virtualMemUsedByMe);
+
 
 	FinishUpdate();
 	return ret;

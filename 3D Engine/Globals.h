@@ -5,6 +5,7 @@
 #pragma warning( disable : 4530 ) // Warning that exceptions are disabled
 
 #include <windows.h>
+#include <psapi.h>
 #include <stdio.h>
 #include <list>
 

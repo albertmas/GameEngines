@@ -18,6 +18,8 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+	void ManageInput(SDL_Event* e)const;
+
 	// Menu functions
 	void RandomGenerator();
 	void TestWindow();
@@ -47,8 +49,6 @@ public:
 	bool configurationwindow = false;
 	bool aboutwindow = false;
 
-	int width = 1000;
-	int height = 1000;
 	int radius = 0;
 	int x = 0, y = 0, z = 0;
 	int a = 0, b = 0, c = 0;
@@ -66,12 +66,21 @@ public:
 
 
 	std::vector<char*> consolelog;
+	// char consolelog[4096];
 
 private:
 	bool fullscreen = false;
 	bool resizable = false;
 	bool borderless = false;
 	bool fulldesktop = false;
+
+	bool active = true;
+	bool loadfile = false;
+
+	char app_name[50] = "3D Engine";
+	char organization[50] = "UPC CITM";
+	char icon_name[50] = "*default*";
+	char icon_name_new[50] = "";
 };
 
 #endif //__ModuleImGui_H__
