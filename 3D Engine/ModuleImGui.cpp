@@ -306,6 +306,12 @@ void ModuleImGui::ConfigurationWindow()
 		}
 		if (ImGui::CollapsingHeader("Input"))
 		{
+			ImGui::Text("Mouse Position"); ImGui::SameLine();
+			ImGui::TextColored(ImVec4(0, 1, 0, 1), "%d, %d", App->input->mouse_x, App->input->mouse_y);
+			ImGui::Text("Mouse Motion:");  ImGui::SameLine();
+			ImGui::TextColored(ImVec4(0, 1, 0, 1), "%d, %d", App->input->mouse_x_motion, App->input->mouse_y_motion);
+			ImGui::Text("Mouse Wheel:"); ImGui::SameLine();
+			ImGui::TextColored(ImVec4(0, 1, 0, 1), "%d", App->input->mouse_z);
 
 		}
 		if (ImGui::CollapsingHeader("Hardware"))
