@@ -1,22 +1,22 @@
 #ifndef __APPLICATION_H__
 #define __APPLICATION_H__
 
-
 #include "Globals.h"
 #include "Timer.h"
 #include "ImGui\imgui.h"
+#include "SDL\include\SDL.h"
 
 #include <list>
+#include <string>
 
 class Module;
 class ModuleWindow;
 class ModuleInput;
 class ModuleAudio;
-class ModuleSceneIntro;
 class ModuleRenderer3D;
 class ModuleCamera3D;
 class ModulePhysics3D;
-class ModuleGUI;
+class ModuleImGui;
 
 class Application
 {

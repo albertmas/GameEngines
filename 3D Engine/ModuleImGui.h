@@ -2,7 +2,6 @@
 #define __ModuleImGui_H__
 
 #include "Module.h"
-#include "Globals.h"
 #include "PCG\pcg_basic.h"
 
 class ModuleImGui :	public Module
@@ -19,6 +18,7 @@ public:
 	bool CleanUp();
 
 	void ManageInput(SDL_Event* e)const;
+	void GetConsoleLog(const char* log);
 
 	// Menu functions
 	void RandomGenerator();
@@ -28,9 +28,6 @@ public:
 	void CreateSphere();
 	void CreateTriangle();
 	void GetHardWareData();
-	
-
-
 
 public:
 	int min_rand_int = 0, max_rand_int = 100;
@@ -65,8 +62,7 @@ public:
 
 
 
-	std::vector<char*> consolelog;
-	// char consolelog[4096];
+	std::list<const char*> consolelog;
 
 private:
 	bool fullscreen = false;

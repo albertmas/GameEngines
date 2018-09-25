@@ -5,6 +5,8 @@
 #include "SDL_mixer\include\SDL_mixer.h"
 
 #define DEFAULT_MUSIC_FADE_TIME 2.0f
+#define DEFAULT_MUSIC_VOLUME 128
+#define DEFAULT_FX_VOLUME 128
 
 class ModuleAudio : public Module
 {
@@ -29,6 +31,8 @@ private:
 
 	Mix_Music*			music;
 	std::list<Mix_Chunk*>	fx;
+	int fx_volume = DEFAULT_FX_VOLUME;
+	int music_volume = DEFAULT_MUSIC_VOLUME;
 };
 
 #endif // __ModuleAudio_H__

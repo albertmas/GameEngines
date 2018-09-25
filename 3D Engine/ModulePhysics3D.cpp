@@ -1,4 +1,3 @@
-#include "Globals.h"
 #include "Application.h"
 #include "ModulePhysics3D.h"
 
@@ -6,8 +5,6 @@
 ModulePhysics3D::ModulePhysics3D(bool start_enabled) : Module(start_enabled)
 {
 	debug = true;
-
-	
 }
 
 // Destructor

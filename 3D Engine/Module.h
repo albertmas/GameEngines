@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Globals.h"
 #include "MathGeoLib\MathGeoLib.h"
 
@@ -9,8 +10,6 @@ private :
 	bool enabled;
 
 public:
-	Application* App;
-
 	Module(bool start_enabled = true)
 	{}
 
@@ -50,5 +49,3 @@ public:
 	/*virtual void OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 	{}*/
 };
-
-extern Application* App;

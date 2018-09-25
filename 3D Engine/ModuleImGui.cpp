@@ -220,9 +220,8 @@ void ModuleImGui::Console()
 		ImGui::SetNextWindowSize(ImVec2(600, 300), ImGuiSetCond_Once);
 		ImGui::SetNextWindowPos(ImVec2(400, 200), ImGuiSetCond_Once);
 		ImGui::Begin("Console", &consolewindow);
-		for (int a = 0; a < consolelog.size(); a++)
-		{
-			ImGui::Text(consolelog[a]);
+		for (std::list<const char*>::iterator iter = consolelog.begin(); iter != consolelog.end(); iter++) {
+			ImGui::Text(*iter);
 		}
 
 		ImGui::End();
@@ -526,4 +525,9 @@ update_status ModuleImGui::PostUpdate(float dt)
 	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 
 	return UPDATE_CONTINUE;
+}
+
+void ModuleImGui::GetConsoleLog(const char* log)
+{
+	consolelog.push_back(log);
 }
