@@ -1,5 +1,4 @@
 #include "Application.h"
-#include "ModuleWindow.h"
 #include "ModuleImGui.h"
 #include "ImGui\imgui.h"
 #include "ImGui\imgui_impl_sdl.h"
@@ -7,8 +6,15 @@
 #include "ImGui\imgui_internal.h"
 #include "DeviceId\DeviceId.h"
 
+#include "ModuleWindow.h"
+#include "ModuleInput.h"
+#include "ModuleAudio.h"
+#include "ModuleRenderer3D.h"
+#include "ModuleCamera3D.h"
+#include "ModulePhysics3D.h"
 
-ModuleImGui::ModuleImGui(Application* app, bool start_enabled) : Module(app, start_enabled)
+
+ModuleImGui::ModuleImGui(bool start_enabled) : Module(start_enabled)
 {
 }
 
