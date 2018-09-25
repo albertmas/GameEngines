@@ -110,19 +110,29 @@ update_status ModuleImGui::Update(float dt)
 			ImGui::Text("3D Engine in development");
 			ImGui::Text("Guillem Arman & Albert Mas");			
 			ImGui::Spacing();
+
+			
 			if (ImGui::BeginMenu("Libraries"))
 			{
 				if (ImGui::MenuItem("DeviceId (Version December 2015)"))
 				{
 					App->OpenWeb("https://github.com/albertmas/GameEngines/tree/master2/3D%20Engine/DeviceId");
 				}
-				if (ImGui::MenuItem("ImGui (Version)"))
+				if (ImGui::MenuItem("ImGui (Version 1.66)"))
 				{
 					App->OpenWeb("https://github.com/albertmas/GameEngines/tree/master2/3D%20Engine/ImGui");
 				}
-				if (ImGui::MenuItem("MathGeoLib (Version)"))
+				if (ImGui::MenuItem("MathGeoLib (Version 2.0)"))
 				{
 					App->OpenWeb("https://github.com/albertmas/GameEngines/tree/master2/3D%20Engine/MathGeoLib");
+				}
+				if (ImGui::MenuItem("SDL (Version 2.0.8)"))
+				{
+					App->OpenWeb("https://github.com/albertmas/GameEngines/tree/master2/3D%20Engine/SDL");
+				}
+				if (ImGui::MenuItem("PCG (Version 2.0, January 2004)"))
+				{
+					App->OpenWeb("https://github.com/albertmas/GameEngines/tree/master2/3D%20Engine/PCG");
 				}
 				ImGui::EndMenu();
 			}
