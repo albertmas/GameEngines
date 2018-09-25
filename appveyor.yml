@@ -1,4 +1,9 @@
-version: 1.0.{build}
+version: 0.0.1{build}
+pull_requests:
+  do_not_increment_build_number: true
+branches:
+  only:
+  - master2
 image: Visual Studio 2017
 configuration:
 - Debug
@@ -6,14 +11,21 @@ configuration:
 build:
   verbosity: minimal
 before_package:
-- ps: Copy-Item C:\projects\GameEngines\3D Engine\$env:CONFIGURATION\3D Engine.exe C:\projects\GameEngines\3D Engine\Game\.
+- ps: Copy-Item C:\projects\GameEngines\$env:CONFIGURATION\3D Engine.exe C:\projects\GameEngines\Game\.
 artifacts:
 - path: 3D Engine\Game
   name: GameEngines
-  type: WebDeployPackage
 deploy:
 - provider: GitHub
+  release: Engine_release
   description: Auto-generated release
   auth_token:
-    secure: epekEMuEi7wy20Py93w3I9c4FfnhPJxdz1NmdDvYYoqGpEIkwjomuEbXpz0/FuEHU/fwHezJb/9XFneJa9ZbvkI9L+9VlKgRQS+0D+RGsyQ=
+    secure: O/JkOYZ/NVinQ/QqaAITbKH3dQ2zi/pXJdNA4WSFkxnAsoAJUUypLBcKFm3MTgjG
+  repository: albertmas/GameEngines
+  artifact: 3D Engine
   draft: true
+notifications:
+- provider: GitHubPullRequest
+  on_build_success: true
+  on_build_failure: true
+  on_build_status_changed: false
