@@ -1,9 +1,14 @@
-#include "Globals.h"
 #include "Application.h"
 #include "ModuleCamera3D.h"
+#include "ModuleWindow.h"
+#include "ModuleInput.h"
+#include "ModuleAudio.h"
+#include "ModuleRenderer3D.h"
+#include "ModulePhysics3D.h"
+#include "ModuleImGui.h"
 
 
-ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
+ModuleCamera3D::ModuleCamera3D(bool start_enabled) : Module(start_enabled)
 {
 	CalculateViewMatrix();
 

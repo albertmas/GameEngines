@@ -1,5 +1,4 @@
 #include "Application.h"
-#include "ModuleWindow.h"
 #include "ModuleImGui.h"
 #include "ImGui\imgui.h"
 #include "ImGui\imgui_impl_sdl.h"
@@ -7,8 +6,15 @@
 #include "ImGui\imgui_internal.h"
 #include "DeviceId\DeviceId.h"
 
+#include "ModuleWindow.h"
+#include "ModuleInput.h"
+#include "ModuleAudio.h"
+#include "ModuleRenderer3D.h"
+#include "ModuleCamera3D.h"
+#include "ModulePhysics3D.h"
 
-ModuleImGui::ModuleImGui(Application* app, bool start_enabled) : Module(app, start_enabled)
+
+ModuleImGui::ModuleImGui(bool start_enabled) : Module(start_enabled)
 {
 }
 
@@ -237,16 +243,14 @@ void ModuleImGui::TestWindow()
 void ModuleImGui::Console()
 {
 	
-		ImGui::SetNextWindowSize(ImVec2(600, 300), ImGuiSetCond_Once);
-		ImGui::SetNextWindowPos(ImVec2(400, 200), ImGuiSetCond_Once);
+		ImGui::SetNextWindowSize(ImVec2(800, 200), ImGuiSetCond_Once);
+		ImGui::SetNextWindowPos(ImVec2(20, 40), ImGuiSetCond_Once);
 		ImGui::Begin("Console", &consolewindow);
-		for (int a = 0; a < consolelog.size(); a++)
-		{
-			ImGui::Text(consolelog[a]);
+		for (std::list<const char*>::iterator iter = consolelog.begin(); iter != consolelog.end(); iter++) {
+			ImGui::Text(*iter);
 		}
 
 		ImGui::End();
-	
 }
 
 void ModuleImGui::ConfigurationWindow()
@@ -546,4 +550,9 @@ update_status ModuleImGui::PostUpdate(float dt)
 	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 
 	return UPDATE_CONTINUE;
+}
+
+void ModuleImGui::GetConsoleLog(const char* log)
+{
+	consolelog.push_back(log);
 }

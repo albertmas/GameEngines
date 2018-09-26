@@ -1,6 +1,5 @@
 #pragma once
 #include "Module.h"
-#include "Globals.h"
 #include "Light.h"
 
 #define MAX_LIGHTS 8
@@ -8,7 +7,7 @@
 class ModuleRenderer3D : public Module
 {
 public:
-	ModuleRenderer3D(Application* app, bool start_enabled = true);
+	ModuleRenderer3D(bool start_enabled = true);
 	~ModuleRenderer3D();
 
 	bool Init();
