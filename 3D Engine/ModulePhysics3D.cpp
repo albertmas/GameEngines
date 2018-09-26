@@ -15,7 +15,7 @@ ModulePhysics3D::~ModulePhysics3D()
 }
 
 // Render not available yet----------------------------------
-bool ModulePhysics3D::Init()
+bool ModulePhysics3D::Init(Document& document)
 {
 	LOG("Creating 3D Physics simulation");
 	bool ret = true;
@@ -63,6 +63,20 @@ bool ModulePhysics3D::CleanUp()
 	
 
 	return true;
+}
+
+bool ModulePhysics3D::Save(Document& document, FileWriteStream& fws)
+{
+	bool ret = true;
+
+	return ret;
+}
+
+bool ModulePhysics3D::Load(Document& document)
+{
+	bool ret = true;
+
+	return ret;
 }
 
 void ModulePhysics3D::Create_Sphere(const float3 position, int radius)

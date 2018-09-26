@@ -5,7 +5,9 @@
 #include "Timer.h"
 #include "ImGui\imgui.h"
 #include "SDL\include\SDL.h"
-
+#include "rapidjson/rapidjson.h"
+#include "rapidjson/prettywriter.h"
+#include "rapidjson/filewritestream.h"
 
 class Module;
 class ModuleWindow;
@@ -51,8 +53,8 @@ public:
 	update_status Update();
 	bool CleanUp();
 	void OpenWeb(const char* url);
-	void Save(Document save);
-	void Load(Document load);
+	bool SaveGame();
+	bool LoadGame();
 
 	int					framerate_cap = 0;
 

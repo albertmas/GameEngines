@@ -5,9 +5,10 @@
 #include "PCG\pcg_basic.h"
 #include "SDL/include/SDL.h"
 #include "rapidjson/document.h"
-#include "rapidjson/filereadstream.h"
+#include "rapidjson/prettywriter.h"
 #include "rapidjson/filewritestream.h"
-#include "rapidjson/writer.h"
+#include "rapidjson/filereadstream.h"
+//#include "rapidjson/writer.h"
 
 using namespace rapidjson;
 
@@ -24,7 +25,7 @@ public:
 	virtual ~Module()
 	{}
 
-	virtual bool Init() 
+	virtual bool Init(Document& document)
 	{
 		return true; 
 	}
@@ -52,6 +53,18 @@ public:
 	virtual bool CleanUp() 
 	{ 
 		return true; 
+	}
+
+	virtual bool Save(Document& document, FileWriteStream& fws)
+	{
+		Document::AllocatorType& allocator = document.GetAllocator();
+		Writer<FileWriteStream> writer(fws);
+		return true;
+	}
+
+	virtual bool Load(Document& document)
+	{
+		return true;
 	}
 
 	/*virtual void OnCollision(PhysBody3D* body1, PhysBody3D* body2)

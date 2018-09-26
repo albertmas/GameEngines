@@ -23,7 +23,7 @@ ModuleImGui::~ModuleImGui()
 }
 
 
-bool ModuleImGui::Init()
+bool ModuleImGui::Init(Document& document)
 {
 	LOG("Loading ImGui");
 	bool ret = true;	
@@ -182,6 +182,20 @@ update_status ModuleImGui::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
+bool ModuleImGui::Save(Document& document, FileWriteStream& fws)
+{
+	bool ret = true;
+
+	return ret;
+}
+
+bool ModuleImGui::Load(Document& document)
+{
+	bool ret = true;
+
+	return ret;
+}
+
 void ModuleImGui::ManageInput(SDL_Event * e) const
 {
 	ImGui_ImplSDL2_ProcessEvent(e);
@@ -248,7 +262,7 @@ void ModuleImGui::Console()
 {
 	
 		ImGui::SetNextWindowSize(ImVec2(800, 200), ImGuiSetCond_Once);
-		ImGui::SetNextWindowPos(ImVec2(20, 40), ImGuiSetCond_Once);
+		ImGui::SetNextWindowPos(ImVec2(10, 510), ImGuiSetCond_Once);
 		ImGui::Begin("Console", &consolewindow);
 		for (std::list<const char*>::iterator iter = consolelog.begin(); iter != consolelog.end(); iter++) {
 			ImGui::Text(*iter);
@@ -262,7 +276,7 @@ void ModuleImGui::ConfigurationWindow()
 	
 	
 		ImGui::SetNextWindowSize(ImVec2(600, 300), ImGuiSetCond_Once);
-		ImGui::SetNextWindowPos(ImVec2(20, 40), ImGuiSetCond_Once);
+		ImGui::SetNextWindowPos(ImVec2(10, 40), ImGuiSetCond_Once);
 		ImGui::Begin("Configuration", &configurationwindow, ImGuiWindowFlags_MenuBar);
 
 		if (ImGui::BeginMenuBar())
@@ -275,11 +289,11 @@ void ModuleImGui::ConfigurationWindow()
 				}
 				if (ImGui::MenuItem("Load"))
 				{
-					// Load
+					App->LoadGame();
 				}
 				if (ImGui::MenuItem("Save"))
 				{
-					// Save
+					App->SaveGame();
 				}
 				ImGui::EndMenu();
 			}
@@ -305,8 +319,8 @@ void ModuleImGui::ConfigurationWindow()
 		}
 		if (ImGui::CollapsingHeader("Window"))
 		{
-			if (ImGui::Checkbox("Active", &active))
-			{ }
+			/*if (ImGui::Checkbox("Active", &active))
+			{ }*/
 			ImGui::Text("Icon:  ");
 			ImGui::SameLine();
 			if (ImGui::Button(icon_name))
@@ -386,11 +400,10 @@ void ModuleImGui::ConfigurationWindow()
 			if (ImGui::SliderInt("Height", &App->window->height, 480, 1080))
 				App->window->SetWinHeight(App->window->height);
 			// FPS
-			ImGui::Text("Refresh Rate: ");
+			/*ImGui::Text("Refresh Rate: ");
 			ImGui::SameLine();
-			ImGui::TextColored({ 255, 255, 0, 1 }, "60");
+			ImGui::TextColored({ 255, 255, 0, 1 }, "60");*/
 			// Window flag
-			//ImGui::CheckboxFlags("Flags", (unsigned int *)&io.ConfigFlags, ImGuiConfigFlags_NavEnableKeyboard);
 			if (ImGui::Checkbox("Fullscreen", &fullscreen))
 				App->window->SetFullscreen(fullscreen);
 			ImGui::SameLine();

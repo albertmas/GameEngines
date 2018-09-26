@@ -10,11 +10,14 @@ public:
 	~ModuleImGui();
 
 	
-	bool Init();
+	bool Init(Document& document);
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 	bool CleanUp();
+
+	bool Save(Document& document, FileWriteStream& fws);
+	bool Load(Document& document);
 
 	void ManageInput(SDL_Event* e)const;
 	void GetConsoleLog(const char* log);
