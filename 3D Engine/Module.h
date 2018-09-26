@@ -2,6 +2,8 @@
 
 #include "Globals.h"
 #include "MathGeoLib\MathGeoLib.h"
+#include "PCG\pcg_basic.h"
+#include "SDL/include/SDL.h"
 
 
 class Module
@@ -10,6 +12,7 @@ private :
 	bool enabled;
 
 public:
+	std::string name;
 	Module(bool start_enabled = true)
 	{}
 

@@ -6,8 +6,6 @@
 #include "ImGui\imgui.h"
 #include "SDL\include\SDL.h"
 
-#include <list>
-#include <string>
 
 class Module;
 class ModuleWindow;
