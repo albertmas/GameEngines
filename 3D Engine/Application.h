@@ -4,7 +4,10 @@
 #include "Globals.h"
 #include "Timer.h"
 #include "ImGui\imgui.h"
-#include "SDL\include\SDL.h"
+#include "Glew\include\glew.h"
+#include "SDL\include\SDL_opengl.h"
+#include <gl/GL.h>
+#include <gl/GLU.h>
 
 
 class Module;
@@ -51,8 +54,8 @@ public:
 	update_status Update();
 	bool CleanUp();
 	void OpenWeb(const char* url);
-	void Save(Document save);
-	void Load(Document load);
+//	void Save(Document save);
+//	void Load(Document load);
 
 	int					framerate_cap = 0;
 

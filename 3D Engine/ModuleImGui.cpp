@@ -126,23 +126,23 @@ update_status ModuleImGui::Update(float dt)
 				}
 				if (ImGui::MenuItem("ImGui (Version 1.66)"))
 				{
-					App->OpenWeb("https://github.com/albertmas/GameEngines/tree/master2/3D%20Engine/ImGui");
+					App->OpenWeb("https://github.com/ocornut/imgui");
 				}
 				if (ImGui::MenuItem("MathGeoLib (Version 2.0)"))
 				{
-					App->OpenWeb("https://github.com/albertmas/GameEngines/tree/master2/3D%20Engine/MathGeoLib");
+					App->OpenWeb("https://github.com/juj/MathGeoLib");
 				}
 				if (ImGui::MenuItem("SDL (Version 2.0.8)"))
 				{
-					App->OpenWeb("https://github.com/albertmas/GameEngines/tree/master2/3D%20Engine/SDL");
+					App->OpenWeb("https://www.libsdl.org/");
 				}
 				if (ImGui::MenuItem("PCG (Version 2.0, January 2004)"))
 				{
-					App->OpenWeb("https://github.com/albertmas/GameEngines/tree/master2/3D%20Engine/PCG");
+					App->OpenWeb("http://www.pcg-random.org/");
 				}
 				if (ImGui::MenuItem("Glew (Version 2.1)"))
 				{
-					App->OpenWeb("https://github.com/albertmas/GameEngines/tree/master2/3D%20Engine/Glew");
+					App->OpenWeb("https://github.com/nigels-com/glew");
 				}
 				ImGui::EndMenu();
 			}
