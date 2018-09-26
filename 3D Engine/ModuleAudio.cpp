@@ -171,7 +171,7 @@ bool ModuleAudio::Save(Document& document, FileWriteStream& fws)
 
 bool ModuleAudio::Load(Document& document)
 {
-	assert(document.IsObject());
+	assert(document.IsObject()); // If it doesn't exist it crashes (put if)
 	assert(document["name"].IsString());
 	LOG("%s \n", document["name"].GetString()); // Remove later on
 	

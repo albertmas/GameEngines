@@ -29,4 +29,11 @@ public:
 	SDL_GLContext context;
 	float3x3 NormalMatrix;
 	float4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
+
+	bool Wireframe = false;
+	bool Depth_Test = false;
+	bool Cull_Face = false;
+	bool Lighting = false;
+	bool Color_Material = false;
+	bool Texture_2D = false;
 };

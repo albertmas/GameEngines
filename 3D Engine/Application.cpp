@@ -190,7 +190,6 @@ bool Application::CleanUp()
 		ret = (*item)->CleanUp();
 	}
 
-
 	return ret;
 }
 
