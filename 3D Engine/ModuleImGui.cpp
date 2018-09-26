@@ -217,15 +217,14 @@ void ModuleImGui::TestWindow()
 void ModuleImGui::Console()
 {
 	
-		ImGui::SetNextWindowSize(ImVec2(600, 300), ImGuiSetCond_Once);
-		ImGui::SetNextWindowPos(ImVec2(400, 200), ImGuiSetCond_Once);
+		ImGui::SetNextWindowSize(ImVec2(800, 200), ImGuiSetCond_Once);
+		ImGui::SetNextWindowPos(ImVec2(20, 40), ImGuiSetCond_Once);
 		ImGui::Begin("Console", &consolewindow);
 		for (std::list<const char*>::iterator iter = consolelog.begin(); iter != consolelog.end(); iter++) {
 			ImGui::Text(*iter);
 		}
 
 		ImGui::End();
-	
 }
 
 void ModuleImGui::ConfigurationWindow()
