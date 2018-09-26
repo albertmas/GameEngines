@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "ModulePhysics3D.h"
+#include "ModuleImGui.h"
 
 
 ModulePhysics3D::ModulePhysics3D(bool start_enabled) : Module(start_enabled)
@@ -64,12 +65,15 @@ bool ModulePhysics3D::CleanUp()
 	return true;
 }
 
-void ModulePhysics3D::CreateSphere(const float3 position, int radius)
+void ModulePhysics3D::Create_Sphere(const float3 position, int radius)
 {
+	App->imgui->GetConsoleLog("Sphere reset");
 	Sphere new_sphere;
 	new_sphere.pos = position;
 	new_sphere.r = radius;
 	spheres_list.push_back(new_sphere);
+	
+	
 }
 
 void ModulePhysics3D::CreateTriangle(const float3 &a_, const float3 &b_, const float3 &c_)
@@ -84,6 +88,7 @@ void ModulePhysics3D::CreateTriangle(const float3 &a_, const float3 &b_, const f
 
 std::list<float2> ModulePhysics3D::GetSphereCollisions()
 {
+
 	int listener = 0;
 	int candidate = 0;
 

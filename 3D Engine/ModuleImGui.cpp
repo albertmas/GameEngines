@@ -140,6 +140,10 @@ update_status ModuleImGui::Update(float dt)
 				{
 					App->OpenWeb("https://github.com/albertmas/GameEngines/tree/master2/3D%20Engine/PCG");
 				}
+				if (ImGui::MenuItem("Glew (Version 2.1)"))
+				{
+					App->OpenWeb("https://github.com/albertmas/GameEngines/tree/master2/3D%20Engine/Glew");
+				}
 				ImGui::EndMenu();
 			}
 			if (ImGui::MenuItem("Link to Repository"))
@@ -505,11 +509,13 @@ void ModuleImGui::CreateSphere()
 		if (ImGui::SmallButton("Create Sphere"));
 		{
 			pos.Set(x, y, z);
-			App->physics->CreateSphere(pos, radius);
+			App->physics->Create_Sphere(pos, radius);
+			
 		}
 		if (ImGui::SmallButton("Reset"))
 		{
 			x = y = z = radius = 0;
+			
 		}
 		if (ImGui::SmallButton("Check Collision"))
 		{
@@ -533,6 +539,7 @@ void ModuleImGui::CreateTriangle()
 	{
 		pos.Set(a, b, c);
 		App->physics->CreateTriangle(pos_a,pos_b,pos_c);
+		
 	}
 	if (ImGui::SmallButton("Reset"))
 	{
