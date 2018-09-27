@@ -1,18 +1,20 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
+#include "Glew\include\glew.h"
+#include "SDL\include\SDL_opengl.h"
+#include <gl/GL.h>
+#include <gl/GLU.h>
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "ModuleAudio.h"
 #include "ModuleCamera3D.h"
 #include "ModulePhysics3D.h"
-#include "SDL\include\SDL_opengl.h"
-#include "SDL\include\SDL.h"
+#include "ModuleImGui.h"
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
+#pragma comment (lib, "Glew/lib/glew32.lib") /* link Microsoft OpenGL lib   */
 
-
-	
 ModuleRenderer3D::ModuleRenderer3D(bool start_enabled) : Module(start_enabled)
 {
 }
@@ -35,7 +37,7 @@ bool ModuleRenderer3D::Init(Document& document)
 		ret = false;
 	}
 	
-	//GLenum err = glewInit();
+	GLenum err = glewInit();
 
 	if(ret == true)
 	{
@@ -51,7 +53,7 @@ bool ModuleRenderer3D::Init(Document& document)
 		GLenum error = glGetError();
 		if(error != GL_NO_ERROR)
 		{
-			//LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
+			LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
 			ret = false;
 		}
 
@@ -63,7 +65,7 @@ bool ModuleRenderer3D::Init(Document& document)
 		error = glGetError();
 		if(error != GL_NO_ERROR)
 		{
-			//LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
+			LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
 			ret = false;
 		}
 		
@@ -77,7 +79,7 @@ bool ModuleRenderer3D::Init(Document& document)
 		error = glGetError();
 		if(error != GL_NO_ERROR)
 		{
-			//LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
+			LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
 			ret = false;
 		}
 		
@@ -157,7 +159,6 @@ bool ModuleRenderer3D::Load(Document& document)
 
 	return ret;
 }
-
 
 void ModuleRenderer3D::OnResize(int width, int height)
 {

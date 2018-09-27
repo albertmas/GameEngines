@@ -26,7 +26,8 @@ public:
 	bool Save(Document& document, FileWriteStream& fws);
 	bool Load(Document& document);
 
-	void Create_Sphere(const float3 position, int radius);
+
+	void CreateSphere(const float3 position, int radius);
 	void CreateTriangle(const float3 &a_, const float3 &b_, const float3 &c_);
 	std::list<float2> GetSphereCollisions();
 	

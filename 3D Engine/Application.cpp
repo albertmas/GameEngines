@@ -203,7 +203,6 @@ void Application::AddModule(Module* mod)
 void Application::OpenWeb(const char * url)
 {
 	ShellExecute(NULL, "open", url, NULL, NULL, SW_SHOWNORMAL);
-
 }
 
 bool Application::SaveGame()

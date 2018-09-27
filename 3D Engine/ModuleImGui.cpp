@@ -6,7 +6,6 @@
 #include "ImGui\imgui_internal.h"
 #include "DeviceId\DeviceId.h"
 #include "SDL\include\SDL_opengl.h"
-
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "ModuleAudio.h"
@@ -136,13 +135,13 @@ update_status ModuleImGui::Update(float dt)
 				}
 				if (ImGui::MenuItem("SDL (Version 2.0.8)"))
 				{
-					App->OpenWeb("https://www.libsdl.org/");
+					App->OpenWeb("https://github.com/albertmas/GameEngines/tree/master2/3D%20Engine/SDL");
 				}
 				if (ImGui::MenuItem("PCG (Version 2.0, January 2004)"))
 				{
 					App->OpenWeb("http://www.pcg-random.org/");
 				}
-				if (ImGui::MenuItem("Glew (Version 2.1)"))
+				if (ImGui::MenuItem("Glew (Version 2.0)"))
 				{
 					App->OpenWeb("https://github.com/nigels-com/glew");
 				}
@@ -184,6 +183,11 @@ update_status ModuleImGui::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
+void ModuleImGui::ManageInput(SDL_Event * e) const
+{
+	ImGui_ImplSDL2_ProcessEvent(e);
+}
+
 bool ModuleImGui::Save(Document& document, FileWriteStream& fws)
 {
 	return true;
@@ -192,11 +196,6 @@ bool ModuleImGui::Save(Document& document, FileWriteStream& fws)
 bool ModuleImGui::Load(Document& document)
 {
 	return true;
-}
-
-void ModuleImGui::ManageInput(SDL_Event * e) const
-{
-	ImGui_ImplSDL2_ProcessEvent(e);
 }
 
 void ModuleImGui::RandomGenerator()
@@ -287,10 +286,12 @@ void ModuleImGui::ConfigurationWindow()
 				}
 				if (ImGui::MenuItem("Load"))
 				{
+					// Load
 					App->LoadGame();
 				}
 				if (ImGui::MenuItem("Save"))
 				{
+					// Save
 					App->SaveGame();
 				}
 				ImGui::EndMenu();
@@ -398,10 +399,11 @@ void ModuleImGui::ConfigurationWindow()
 			if (ImGui::SliderInt("Height", &App->window->height, 480, 1080))
 				App->window->SetWinHeight(App->window->height);
 			// FPS
-			/*ImGui::Text("Refresh Rate: ");
-			ImGui::SameLine();
-			ImGui::TextColored({ 255, 255, 0, 1 }, "60");*/
+			//ImGui::Text("Refresh Rate: ");
+			//ImGui::SameLine();
+			//ImGui::TextColored({ 255, 255, 0, 1 }, "60");
 			// Window flag
+			//ImGui::CheckboxFlags("Flags", (unsigned int *)&io.ConfigFlags, ImGuiConfigFlags_NavEnableKeyboard);
 			if (ImGui::Checkbox("Fullscreen", &fullscreen))
 				App->window->SetFullscreen(fullscreen);
 			ImGui::SameLine();
@@ -481,6 +483,7 @@ void ModuleImGui::ConfigurationWindow()
 
 
 		}
+
 		if (ImGui::CollapsingHeader("3D Renderer"))
 		{
 			if (ImGui::Checkbox("Wireframe", &App->renderer3D->Wireframe))
@@ -567,13 +570,11 @@ void ModuleImGui::CreateSphere()
 		if (ImGui::SmallButton("Create Sphere"));
 		{
 			pos.Set(x, y, z);
-			App->physics->Create_Sphere(pos, radius);
-			
+			App->physics->CreateSphere(pos, radius);
 		}
 		if (ImGui::SmallButton("Reset"))
 		{
 			x = y = z = radius = 0;
-			
 		}
 		if (ImGui::SmallButton("Check Collision"))
 		{
@@ -597,7 +598,6 @@ void ModuleImGui::CreateTriangle()
 	{
 		pos.Set(a, b, c);
 		App->physics->CreateTriangle(pos_a,pos_b,pos_c);
-		
 	}
 	if (ImGui::SmallButton("Reset"))
 	{

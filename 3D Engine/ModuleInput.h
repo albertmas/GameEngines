@@ -24,7 +24,7 @@ public:
 
 	bool Save(Document& document, FileWriteStream& fws);
 	bool Load(Document& document);
-
+		
 	KEY_STATE GetKey(int id) const
 	{
 		return keyboard[id];
