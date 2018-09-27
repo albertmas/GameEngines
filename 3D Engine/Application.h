@@ -51,8 +51,6 @@ public:
 	update_status Update();
 	bool CleanUp();
 	void OpenWeb(const char* url);
-	void Save(Document save);
-	void Load(Document load);
 
 	int					framerate_cap = 0;
 
