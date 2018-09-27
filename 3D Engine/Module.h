@@ -4,7 +4,12 @@
 #include "MathGeoLib\MathGeoLib.h"
 #include "PCG\pcg_basic.h"
 #include "SDL/include/SDL.h"
+#include "rapidjson/document.h"
+#include "rapidjson/filereadstream.h"
+#include "rapidjson/filewritestream.h"
+#include "rapidjson/writer.h"
 
+using namespace rapidjson;
 
 class Module
 {
