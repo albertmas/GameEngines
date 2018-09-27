@@ -13,9 +13,6 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-	bool Save(Document& document, FileWriteStream& fws);
-	bool Load(Document& document);
-
 	void Look(const float3 &Position, const float3 &Reference, bool RotateAroundReference = false);
 	void LookAt(const float3 &Spot);
 	void Move(const float3 &Movement);

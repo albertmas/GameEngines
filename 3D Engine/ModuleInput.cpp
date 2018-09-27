@@ -24,7 +24,7 @@ ModuleInput::~ModuleInput()
 }
 
 // Called before render is available
-bool ModuleInput::Init(Document& document)
+bool ModuleInput::Init()
 {
 	LOG("Init SDL input event system");
 	bool ret = true;
@@ -133,18 +133,4 @@ bool ModuleInput::CleanUp()
 	LOG("Quitting SDL input event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	return true;
-}
-
-bool ModuleInput::Save(Document& document, FileWriteStream& fws)
-{
-	bool ret = true;
-
-	return ret;
-}
-
-bool ModuleInput::Load(Document& document)
-{
-	bool ret = true;
-
-	return ret;
 }

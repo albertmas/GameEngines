@@ -18,12 +18,9 @@ public:
 	ModuleInput(bool start_enabled = true);
 	~ModuleInput();
 
-	bool Init(Document& document);
+	bool Init();
 	update_status PreUpdate(float dt);
 	bool CleanUp();
-
-	bool Save(Document& document, FileWriteStream& fws);
-	bool Load(Document& document);
 
 	KEY_STATE GetKey(int id) const
 	{

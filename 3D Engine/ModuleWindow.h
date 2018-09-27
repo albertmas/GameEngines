@@ -13,11 +13,8 @@ public:
 	// Destructor
 	virtual ~ModuleWindow();
 
-	bool Init(Document& document);
+	bool Init();
 	bool CleanUp();
-
-	bool Save(Document& document, FileWriteStream& fws);
-	bool Load(Document& document);
 
 	void SetTitle(const char* title);
 
