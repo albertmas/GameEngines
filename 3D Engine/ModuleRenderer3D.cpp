@@ -23,7 +23,7 @@ ModuleRenderer3D::~ModuleRenderer3D()
 {}
 
 // Called before render is available
-bool ModuleRenderer3D::Init()
+bool ModuleRenderer3D::Init(Document& document)
 {
 	LOG("Creating 3D Renderer context");
 	bool ret = true;
@@ -143,6 +143,19 @@ bool ModuleRenderer3D::CleanUp()
 	return true;
 }
 
+bool ModuleRenderer3D::Save(Document& document, FileWriteStream& fws)
+{
+	bool ret = true;
+
+	return ret;
+}
+
+bool ModuleRenderer3D::Load(Document& document)
+{
+	bool ret = true;
+
+	return ret;
+}
 
 void ModuleRenderer3D::OnResize(int width, int height)
 {

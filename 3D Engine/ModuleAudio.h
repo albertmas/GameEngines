@@ -15,7 +15,7 @@ public:
 	ModuleAudio(bool start_enabled = true);
 	~ModuleAudio();
 
-	bool Init();
+	bool Init(Document& document);
 	bool CleanUp();
 
 	// Play a music file
@@ -26,6 +26,9 @@ public:
 
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0, int channel = -1);
+
+	bool Save(Document& document, FileWriteStream& fws);
+	bool Load(Document& document);
 
 private:
 

@@ -50,10 +50,18 @@ bool Application::Init()
 {
 	bool ret = true;
 
+	FILE* fp = fopen("config.json", "rb");
+	if (!fp)
+		printf("Schema file 'config.json' not found\n");
+	char readBuffer[65536];
+	FileReadStream is(fp, readBuffer, sizeof(readBuffer));
+	Document document;
+	document.ParseStream(is);
+
 	// Call Init() in all modules
 	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)
 	{
-		ret = (*item)->Init();
+		ret = (*item)->Init(document);
 	}
 
 	// After all Init calls we call Start() in all modules
@@ -63,6 +71,7 @@ bool Application::Init()
 		ret = (*item)->Start();
 	}
 	
+	fclose(fp);
 	ms_timer.Start();
 	startup_time.Start();
 	return ret;
@@ -194,4 +203,64 @@ void Application::OpenWeb(const char * url)
 {
 	ShellExecute(NULL, "open", url, NULL, NULL, SW_SHOWNORMAL);
 
+}
+
+
+
+bool Application::SaveGame()
+{
+	bool ret = true;
+
+	FILE* fp = fopen("save.json", "wb");
+	if (!fp)
+	{
+		LOG("Schema file 'save.json' not found");
+		ret = false;
+	}
+	else
+	{
+		LOG("Game Saving --------------");
+		char writeBuffer[65536];
+		FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
+		Document document;
+		document.SetObject();
+		// Call Save() in all modules
+		for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)
+		{
+			ret = (*item)->Save(document, os);
+		}
+		Writer<FileWriteStream> writer(os);
+		document.Accept(writer);
+		fclose(fp);
+	}
+
+	return ret;
+}
+
+bool Application::LoadGame()
+{
+	bool ret = true;
+
+	FILE* fp = fopen("save.json", "rb");
+	if (!fp)
+	{
+		LOG("Schema file 'save.json' not found");
+		ret = false;
+	}
+	else
+	{
+		LOG("Game Loading --------------");
+		char readBuffer[65536];
+		FileReadStream is(fp, readBuffer, sizeof(readBuffer));
+		Document document;
+		document.ParseStream(is);
+		// Call Load() in all modules
+		for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)
+		{
+			ret = (*item)->Load(document);
+		}
+		fclose(fp);
+	}
+
+	return ret;
 }

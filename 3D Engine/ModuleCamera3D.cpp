@@ -110,6 +110,19 @@ update_status ModuleCamera3D::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
+bool ModuleCamera3D::Save(Document& document, FileWriteStream& fws)
+{
+	bool ret = true;
+
+	return ret;
+}
+
+bool ModuleCamera3D::Load(Document& document)
+{
+	bool ret = true;
+
+	return ret;
+}
 // -----------------------------------------------------------------
 void ModuleCamera3D::Look(const float3 &Position, const float3 &Reference, bool RotateAroundReference)
 {

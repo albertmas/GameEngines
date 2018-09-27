@@ -11,7 +11,7 @@ ModuleAudio::~ModuleAudio()
 {}
 
 // Called before render is available
-bool ModuleAudio::Init()
+bool ModuleAudio::Init(Document& document)
 {
 	LOG("Loading Audio Mixer");
 	bool ret = true;
@@ -158,4 +158,22 @@ bool ModuleAudio::PlayFx(unsigned int id, int repeat, int channel)
 
 
 	return ret;
+}
+
+bool ModuleAudio::Save(Document& document, FileWriteStream& fws)
+{
+	Document::AllocatorType& allocator = document.GetAllocator();
+	document.AddMember("name", "audio", allocator);
+	Writer<FileWriteStream> writer(fws);
+
+	return true;
+}
+
+bool ModuleAudio::Load(Document& document)
+{
+	assert(document.IsObject());
+	assert(document["name"].IsString());
+	LOG("%s \n", document["name"].GetString()); // Remove later on
+
+	return true;
 }

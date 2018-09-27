@@ -13,10 +13,13 @@ ModuleWindow::~ModuleWindow()
 }
 
 // Called before render is available
-bool ModuleWindow::Init()
+bool ModuleWindow::Init(Document& document)
 {
 	LOG("Init SDL window & surface");
 	bool ret = true;
+
+	assert(document.IsObject());
+	assert(document["window"].IsString()); // Should load defaults here
 
 	if(SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
@@ -85,6 +88,20 @@ bool ModuleWindow::CleanUp()
 	//Quit SDL subsystems
 	SDL_Quit();
 	return true;
+}
+
+bool ModuleWindow::Save(Document& document, FileWriteStream& fws)
+{
+	bool ret = true;
+
+	return ret;
+}
+
+bool ModuleWindow::Load(Document& document)
+{
+	bool ret = true;
+
+	return ret;
 }
 
 void ModuleWindow::SetTitle(const char* title)
