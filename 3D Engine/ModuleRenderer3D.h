@@ -26,6 +26,13 @@ public:
 
 public:
 
+	bool Wireframe = false;
+	bool Depth_Test = false;
+	bool Cull_Face = false;
+	bool Lighting = false;
+	bool Color_Material = false;
+	bool Texture_2D = false;
+
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;
 	float3x3 NormalMatrix;
