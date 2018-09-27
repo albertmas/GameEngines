@@ -1,6 +1,5 @@
 #include "Application.h"
 #include "ModuleImGui.h"
-#include "ImGui\imgui.h"
 #include "ImGui\imgui_impl_sdl.h"
 #include "ImGui\imgui_impl_opengl2.h"
 #include "ImGui\imgui_internal.h"
@@ -12,6 +11,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModulePhysics3D.h"
+#include "ModuleScene.h"
 
 
 ModuleImGui::ModuleImGui(bool start_enabled) : Module(start_enabled)
@@ -26,7 +26,7 @@ ModuleImGui::~ModuleImGui()
 bool ModuleImGui::Init(Document& document)
 {
 	LOG("Loading ImGui");
-	bool ret = true;	
+	bool ret = true;
 
 	ImGui::CreateContext();
 
@@ -189,16 +189,12 @@ void ModuleImGui::ManageInput(SDL_Event * e) const
 
 bool ModuleImGui::Save(Document& document, FileWriteStream& fws)
 {
-	bool ret = true;
-
-	return ret;
+	return true;
 }
 
 bool ModuleImGui::Load(Document& document)
 {
-	bool ret = true;
-
-	return ret;
+	return true;
 }
 
 void ModuleImGui::RandomGenerator()
@@ -264,8 +260,11 @@ void ModuleImGui::Console()
 		ImGui::SetNextWindowSize(ImVec2(800, 200), ImGuiSetCond_Once);
 		ImGui::SetNextWindowPos(ImVec2(10, 510), ImGuiSetCond_Once);
 		ImGui::Begin("Console", &consolewindow);
-		for (std::list<const char*>::iterator iter = consolelog.begin(); iter != consolelog.end(); iter++) {
-			ImGui::Text(*iter);
+		ImGui::TextUnformatted(consolelog.begin());
+		if (scrollconsole)
+		{
+			ImGui::SetScrollHere(1.0f);
+			scrollconsole = false;
 		}
 
 		ImGui::End();
@@ -403,7 +402,7 @@ void ModuleImGui::ConfigurationWindow()
 				App->window->SetWinHeight(App->window->height);
 			// FPS
 			//ImGui::Text("Refresh Rate: ");
-			ImGui::SameLine();
+			//ImGui::SameLine();
 			//ImGui::TextColored({ 255, 255, 0, 1 }, "60");
 			// Window flag
 			//ImGui::CheckboxFlags("Flags", (unsigned int *)&io.ConfigFlags, ImGuiConfigFlags_NavEnableKeyboard);
@@ -622,5 +621,6 @@ update_status ModuleImGui::PostUpdate(float dt)
 
 void ModuleImGui::GetConsoleLog(const char* log)
 {
-	consolelog.push_back(log);
+	consolelog.appendf(log);
+	scrollconsole = true;
 }

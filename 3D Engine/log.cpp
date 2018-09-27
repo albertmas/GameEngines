@@ -17,7 +17,8 @@ void log(const char file[], int line, const char* format, ...)
 	OutputDebugString(tmp_string2);
 	if (App)
 	{
-		App->imgui->GetConsoleLog(tmp_string2);
+		sprintf_s(tmp_string, 4096, "%s \n", tmp_string);
+		App->imgui->GetConsoleLog(tmp_string);
 	}
 }
 

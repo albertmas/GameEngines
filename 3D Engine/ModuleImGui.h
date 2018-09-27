@@ -2,6 +2,7 @@
 #define __ModuleImGui_H__
 
 #include "Module.h"
+#include "ImGui\imgui.h"
 
 class ModuleImGui :	public Module
 {
@@ -64,7 +65,7 @@ public:
 
 
 
-	std::list<const char*> consolelog;
+	ImGuiTextBuffer consolelog;
 
 private:
 	bool fullscreen = false;
@@ -74,6 +75,8 @@ private:
 
 	bool active = true;
 	bool loadfile = false;
+
+	bool scrollconsole = false;
 
 	char app_name[50] = "3D Engine";
 	char organization[50] = "UPC CITM";

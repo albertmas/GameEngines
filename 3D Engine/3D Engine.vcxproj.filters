@@ -276,6 +276,9 @@
     <ClInclude Include="DeviceId\dxgi1_4.h">
       <Filter>Sources\Tools\DeviceId</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleScene.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -430,6 +433,9 @@
     </ClCompile>
     <ClCompile Include="DeviceId\DeviceId.cpp">
       <Filter>Sources\Tools\DeviceId</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleScene.cpp">
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

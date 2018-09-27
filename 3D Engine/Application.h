@@ -18,6 +18,7 @@ class ModuleRenderer3D;
 class ModuleCamera3D;
 class ModulePhysics3D;
 class ModuleImGui;
+class ModuleScene;
 
 class Application
 {
@@ -29,6 +30,7 @@ public:
 	ModuleCamera3D* camera;
 	ModulePhysics3D* physics;
 	ModuleImGui* imgui;
+	ModuleScene* scene;
 	
 private:
 

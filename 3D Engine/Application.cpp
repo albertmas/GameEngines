@@ -7,6 +7,7 @@
 #include "ModuleCamera3D.h"
 #include "ModulePhysics3D.h"
 #include "ModuleImGui.h"
+#include "ModuleScene.h"
 
 Application::Application()
 {
@@ -17,6 +18,7 @@ Application::Application()
 	camera = new ModuleCamera3D();
 	physics = new ModulePhysics3D();
 	imgui = new ModuleImGui();
+	scene = new ModuleScene();
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -30,7 +32,7 @@ Application::Application()
 	AddModule(physics);
 	
 	// Scenes
-
+	AddModule(scene);
 	// GUI
 	AddModule(imgui);
 
@@ -190,7 +192,6 @@ bool Application::CleanUp()
 		ret = (*item)->CleanUp();
 	}
 
-
 	return ret;
 }
 
@@ -202,10 +203,7 @@ void Application::AddModule(Module* mod)
 void Application::OpenWeb(const char * url)
 {
 	ShellExecute(NULL, "open", url, NULL, NULL, SW_SHOWNORMAL);
-
 }
-
-
 
 bool Application::SaveGame()
 {
@@ -255,6 +253,7 @@ bool Application::LoadGame()
 		Document document;
 		document.ParseStream(is);
 		// Call Load() in all modules
+		assert(!document.IsNull());
 		for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)
 		{
 			ret = (*item)->Load(document);

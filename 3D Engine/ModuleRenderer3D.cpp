@@ -38,6 +38,7 @@ bool ModuleRenderer3D::Init(Document& document)
 	}
 	
 	GLenum err = glewInit();
+	LOG("Using Glew %s", glewGetString(GLEW_VERSION));
 
 	if(ret == true)
 	{
