@@ -253,6 +253,7 @@ bool Application::LoadGame()
 		Document document;
 		document.ParseStream(is);
 		// Call Load() in all modules
+		assert(!document.IsNull());
 		for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)
 		{
 			ret = (*item)->Load(document);

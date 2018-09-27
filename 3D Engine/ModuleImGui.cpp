@@ -1,6 +1,5 @@
 #include "Application.h"
 #include "ModuleImGui.h"
-#include "ImGui\imgui.h"
 #include "ImGui\imgui_impl_sdl.h"
 #include "ImGui\imgui_impl_opengl2.h"
 #include "ImGui\imgui_internal.h"
@@ -261,8 +260,11 @@ void ModuleImGui::Console()
 		ImGui::SetNextWindowSize(ImVec2(800, 200), ImGuiSetCond_Once);
 		ImGui::SetNextWindowPos(ImVec2(10, 510), ImGuiSetCond_Once);
 		ImGui::Begin("Console", &consolewindow);
-		for (std::list<const char*>::iterator iter = consolelog.begin(); iter != consolelog.end(); iter++) {
-			ImGui::Text(*iter);
+		ImGui::TextUnformatted(consolelog.begin());
+		if (scrollconsole)
+		{
+			ImGui::SetScrollHere(1.0f);
+			scrollconsole = false;
 		}
 
 		ImGui::End();
@@ -619,5 +621,6 @@ update_status ModuleImGui::PostUpdate(float dt)
 
 void ModuleImGui::GetConsoleLog(const char* log)
 {
-	consolelog.push_back(log);
+	consolelog.appendf(log);
+	scrollconsole = true;
 }

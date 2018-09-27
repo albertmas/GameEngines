@@ -53,7 +53,7 @@ bool ModuleAudio::CleanUp()
 		Mix_FreeMusic(music);
 	}
 
-	std::list<Mix_Chunk*>* item;
+	//std::list<Mix_Chunk*>* item;
 
 	for (std::list<Mix_Chunk*>::iterator item = fx.begin(); item != fx.end(); item++)
 	{
@@ -173,7 +173,6 @@ bool ModuleAudio::Load(Document& document)
 {
 	assert(document.IsObject()); // If it doesn't exist it crashes (put if)
 	assert(document["name"].IsString());
-	LOG("%s \n", document["name"].GetString()); // Remove later on
 
 	return true;
 }
