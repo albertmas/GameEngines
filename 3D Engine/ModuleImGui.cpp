@@ -126,23 +126,23 @@ update_status ModuleImGui::Update(float dt)
 				}
 				if (ImGui::MenuItem("ImGui (Version 1.66)"))
 				{
-					App->OpenWeb("https://github.com/ocornut/imgui");
+					App->OpenWeb("https://github.com/albertmas/GameEngines/tree/master2/3D%20Engine/ImGui");
 				}
 				if (ImGui::MenuItem("MathGeoLib (Version 2.0)"))
 				{
-					App->OpenWeb("https://github.com/juj/MathGeoLib");
+					App->OpenWeb("https://github.com/albertmas/GameEngines/tree/master2/3D%20Engine/MathGeoLib");
 				}
 				if (ImGui::MenuItem("SDL (Version 2.0.8)"))
 				{
-					App->OpenWeb("https://www.libsdl.org/");
+					App->OpenWeb("https://github.com/albertmas/GameEngines/tree/master2/3D%20Engine/SDL");
 				}
 				if (ImGui::MenuItem("PCG (Version 2.0, January 2004)"))
 				{
-					App->OpenWeb("http://www.pcg-random.org/");
+					App->OpenWeb("https://github.com/albertmas/GameEngines/tree/master2/3D%20Engine/PCG");
 				}
 				if (ImGui::MenuItem("Glew (Version 2.1)"))
 				{
-					App->OpenWeb("https://github.com/nigels-com/glew");
+					App->OpenWeb("https://github.com/albertmas/GameEngines/tree/master2/3D%20Engine/Glew");
 				}
 				ImGui::EndMenu();
 			}
@@ -419,7 +419,10 @@ void ModuleImGui::ConfigurationWindow()
 			if (ImGui::Checkbox("Full Desktop", &fulldesktop))
 				App->window->SetFullDesktop(fulldesktop);
 		}
-		
+		if (ImGui::CollapsingHeader("File System"))
+		{
+
+		}
 		if (ImGui::CollapsingHeader("Input"))
 		{
 			ImGui::Text("Mouse Position"); ImGui::SameLine();
@@ -482,56 +485,6 @@ void ModuleImGui::ConfigurationWindow()
 			ImGui::TextColored(green, "%.2f Mb", App->reservedVideoMemF);
 
 
-		}
-		if (ImGui::CollapsingHeader("3D Renderer"))
-		{
-			if (ImGui::Checkbox("Wireframe", &App->renderer3D->Wireframe))
-			{
-				if (App->renderer3D->Wireframe)
-					glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-				else
-					glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-			}
-			if (ImGui::Checkbox("Depth Test", &App->renderer3D->Depth_Test))
-			{
-				if (App->renderer3D->Depth_Test)
-					glEnable(GL_DEPTH_TEST);
-
-				else
-					glDisable(GL_DEPTH_TEST);
-			}
-			if (ImGui::Checkbox("Cull Face", &App->renderer3D->Cull_Face))
-			{
-				if (App->renderer3D->Depth_Test)
-					glEnable(GL_CULL_FACE);
-
-				else
-					glDisable(GL_CULL_FACE);
-			}
-			if (ImGui::Checkbox("Lighting", &App->renderer3D->Lighting))
-			{
-				if (App->renderer3D->Depth_Test)
-					glEnable(GL_LIGHTING);
-
-				else
-					glDisable(GL_LIGHTING);
-			}
-			if (ImGui::Checkbox("Color Material", &App->renderer3D->Color_Material))
-			{
-				if (App->renderer3D->Depth_Test)
-					glEnable(GL_COLOR_MATERIAL);
-
-				else
-					glDisable(GL_COLOR_MATERIAL);
-			}
-			if (ImGui::Checkbox("Texture 2D", &App->renderer3D->Texture_2D))
-			{
-				if (App->renderer3D->Depth_Test)
-					glEnable(GL_TEXTURE_2D);
-
-				else
-					glDisable(GL_TEXTURE_2D);
-			}
 		}
 		/*if (ImGui::BeginChild("Application"))
 		{
