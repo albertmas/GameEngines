@@ -5,6 +5,7 @@
 #include "ImGui\imgui_impl_opengl2.h"
 #include "ImGui\imgui_internal.h"
 #include "DeviceId\DeviceId.h"
+#include "SDL\include\SDL_opengl.h"
 
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
