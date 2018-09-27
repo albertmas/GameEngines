@@ -17,6 +17,8 @@ public:
 	bool Save(Document& document, FileWriteStream& fws);
 	bool Load(Document& document);
 
+	bool Draw()const;
+
 private:
 
 };

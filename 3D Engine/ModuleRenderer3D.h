@@ -32,6 +32,7 @@ public:
 	bool Lighting = false;
 	bool Color_Material = false;
 	bool Texture_2D = false;
+	bool debug_draw = false;
 
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;

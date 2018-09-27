@@ -62,3 +62,8 @@ bool ModuleScene::Load(Document& document)
 {
 	return true;
 }
+
+bool ModuleScene::Draw()const
+{
+	return true;
+}
