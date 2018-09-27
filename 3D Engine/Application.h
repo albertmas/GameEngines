@@ -5,11 +5,14 @@
 #include "Timer.h"
 #include "ImGui\imgui.h"
 
-
-
+#include "SDL\include\SDL.h"
+#include "SDL\include\SDL_opengl.h"
 #include "rapidjson/rapidjson.h"
 #include "rapidjson/prettywriter.h"
 #include "rapidjson/filewritestream.h"
+//#include "Glew\include\glew.h"
+//#include <gl/GL.h>
+//#include <gl/GLU.h>
 
 
 class Module;
