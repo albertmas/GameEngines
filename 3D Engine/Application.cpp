@@ -7,6 +7,7 @@
 #include "ModuleCamera3D.h"
 #include "ModulePhysics3D.h"
 #include "ModuleImGui.h"
+#include "ModuleScene.h"
 
 Application::Application()
 {
@@ -17,6 +18,7 @@ Application::Application()
 	camera = new ModuleCamera3D();
 	physics = new ModulePhysics3D();
 	imgui = new ModuleImGui();
+	scene = new ModuleScene();
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -30,7 +32,7 @@ Application::Application()
 	AddModule(physics);
 	
 	// Scenes
-
+	AddModule(scene);
 	// GUI
 	AddModule(imgui);
 

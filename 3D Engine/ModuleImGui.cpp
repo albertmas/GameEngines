@@ -13,6 +13,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModulePhysics3D.h"
+#include "ModuleScene.h"
 
 
 ModuleImGui::ModuleImGui(bool start_enabled) : Module(start_enabled)
@@ -27,7 +28,7 @@ ModuleImGui::~ModuleImGui()
 bool ModuleImGui::Init(Document& document)
 {
 	LOG("Loading ImGui");
-	bool ret = true;	
+	bool ret = true;
 
 	ImGui::CreateContext();
 
@@ -185,16 +186,12 @@ update_status ModuleImGui::Update(float dt)
 
 bool ModuleImGui::Save(Document& document, FileWriteStream& fws)
 {
-	bool ret = true;
-
-	return ret;
+	return true;
 }
 
 bool ModuleImGui::Load(Document& document)
 {
-	bool ret = true;
-
-	return ret;
+	return true;
 }
 
 void ModuleImGui::ManageInput(SDL_Event * e) const
