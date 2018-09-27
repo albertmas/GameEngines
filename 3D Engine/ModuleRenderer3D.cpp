@@ -14,6 +14,7 @@
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
+
 ModuleRenderer3D::ModuleRenderer3D(bool start_enabled) : Module(start_enabled)
 {
 }
@@ -36,7 +37,6 @@ bool ModuleRenderer3D::Init()
 		ret = false;
 	}
 	
-
 	if(ret == true)
 	{
 		//Use Vsync
