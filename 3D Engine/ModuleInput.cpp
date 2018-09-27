@@ -135,6 +135,7 @@ bool ModuleInput::CleanUp()
 	return true;
 }
 
+
 bool ModuleInput::Save(Document& document, FileWriteStream& fws)
 {
 	bool ret = true;

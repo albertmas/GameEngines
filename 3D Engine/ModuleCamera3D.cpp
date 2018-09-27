@@ -123,7 +123,6 @@ bool ModuleCamera3D::Load(Document& document)
 
 	return ret;
 }
-
 // -----------------------------------------------------------------
 void ModuleCamera3D::Look(const float3 &Position, const float3 &Reference, bool RotateAroundReference)
 {

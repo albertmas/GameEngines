@@ -5,10 +5,10 @@
 #include "PCG\pcg_basic.h"
 #include "SDL/include/SDL.h"
 #include "rapidjson/document.h"
-#include "rapidjson/prettywriter.h"
+#include "rapidjson\prettywriter.h"
 #include "rapidjson/filewritestream.h"
-#include "rapidjson/filereadstream.h"
-//#include "rapidjson/writer.h"
+#include "rapidjson\filereadstream.h"
+#include "rapidjson\writer.h"
 
 using namespace rapidjson;
 
@@ -25,7 +25,7 @@ public:
 	virtual ~Module()
 	{}
 
-	virtual bool Init(Document& document)
+	virtual bool Init(Document& document) 
 	{
 		return true; 
 	}
