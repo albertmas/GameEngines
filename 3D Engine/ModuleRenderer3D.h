@@ -1,6 +1,7 @@
 #pragma once
 #include "Module.h"
 #include "Light.h"
+#include "Globals.h"
 
 #define MAX_LIGHTS 8
 
