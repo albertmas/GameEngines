@@ -12,6 +12,7 @@
 #include "ModuleImGui.h"
 #include "ModuleScene.h"
 
+
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 #pragma comment (lib, "Glew/lib/glew32.lib") /* link Microsoft OpenGL lib   */
@@ -78,6 +79,8 @@ bool ModuleRenderer3D::Init(Document& document)
 		
 		//Initialize clear color
 		glClearColor(0.f, 0.f, 0.f, 1.f);
+
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		//Check for error
 		error = glGetError();
@@ -207,4 +210,55 @@ void ModuleRenderer3D::Info_init_Console()
 	LOG("Renderer: %s", glGetString(GL_RENDERER));
 	LOG("OpenGL version supported %s", glGetString(GL_VERSION));
 	LOG("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+}
+
+void ModuleRenderer3D::FunctionsRender()
+{
+	if (ImGui::Checkbox("Wireframe", &App->renderer3D->Wireframe))
+	{
+		if (App->renderer3D->Wireframe)
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		else
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+	if (ImGui::Checkbox("Depth Test", &App->renderer3D->Depth_Test))
+	{
+		if (App->renderer3D->Depth_Test)
+			glEnable(GL_DEPTH_TEST);
+
+		else
+			glDisable(GL_DEPTH_TEST);
+	}
+	if (ImGui::Checkbox("Cull Face", &App->renderer3D->Cull_Face))
+	{
+		if (App->renderer3D->Depth_Test)
+			glEnable(GL_CULL_FACE);
+
+		else
+			glDisable(GL_CULL_FACE);
+	}
+	if (ImGui::Checkbox("Lighting", &App->renderer3D->Lighting))
+	{
+		if (App->renderer3D->Depth_Test)
+			glEnable(GL_LIGHTING);
+
+		else
+			glDisable(GL_LIGHTING);
+	}
+	if (ImGui::Checkbox("Color Material", &App->renderer3D->Color_Material))
+	{
+		if (App->renderer3D->Depth_Test)
+			glEnable(GL_COLOR_MATERIAL);
+
+		else
+			glDisable(GL_COLOR_MATERIAL);
+	}
+	if (ImGui::Checkbox("Texture 2D", &App->renderer3D->Texture_2D))
+	{
+		if (App->renderer3D->Depth_Test)
+			glEnable(GL_TEXTURE_2D);
+
+		else
+			glDisable(GL_TEXTURE_2D);
+	}
 }

@@ -21,6 +21,7 @@ public:
 
 	void OnResize(int width, int height);
 	void Info_init_Console();
+	void FunctionsRender();
 
 	char* GetGraphicsVendor();
 	char* GetGraphicsModel();
@@ -39,4 +40,6 @@ public:
 	SDL_GLContext context;
 	float3x3 NormalMatrix;
 	float4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
+
+	
 };
