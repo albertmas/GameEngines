@@ -20,6 +20,7 @@ public:
 
 
 	void OnResize(int width, int height);
+	void Info_init_Console();
 
 	char* GetGraphicsVendor();
 	char* GetGraphicsModel();
