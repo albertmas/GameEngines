@@ -2,6 +2,7 @@
 #include "Module.h"
 #include "Light.h"
 #include "Globals.h"
+#include "glmath.h"
 
 #define MAX_LIGHTS 8
 
@@ -30,6 +31,18 @@ public:
 
 public:
 
+	
+
+	Light lights[MAX_LIGHTS];
+	SDL_GLContext context;
+	/*float3x3 NormalMatrix;
+	float4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;*/
+
+	mat3x3 NormalMatrix;
+	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
+
+private:
+
 	bool Wireframe = false;
 	bool GetWireframe()const { return Wireframe; }
 
@@ -39,13 +52,12 @@ public:
 	bool Color_Material = false;
 	bool Texture_2D = false;
 	bool debug_draw = false;
+	
+
+	void CreatePlane();
 	bool plane = true;
 
-	Light lights[MAX_LIGHTS];
-	SDL_GLContext context;
-	float3x3 NormalMatrix;
-	float4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
-
-	
+	void CreateAxis();
+	bool axis = true;
 	
 };

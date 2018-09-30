@@ -282,6 +282,9 @@
     <ClInclude Include="Primitive.h">
       <Filter>Sources\Containers</Filter>
     </ClInclude>
+    <ClInclude Include="glmath.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -441,6 +444,9 @@
       <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="Primitive.cpp">
+      <Filter>Sources\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="glmath.cpp">
       <Filter>Sources\Containers</Filter>
     </ClCompile>
   </ItemGroup>
