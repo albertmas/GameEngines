@@ -23,6 +23,7 @@ ModuleScene::~ModuleScene()
 bool ModuleScene::Init(Document& document)
 {
 	LOG("Loading Scene");
+	LOG("Loading Plane");
 	bool ret = true;
 
 	App->camera->Move(float3(0.0f, 10.0f, 0.0f));

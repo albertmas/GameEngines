@@ -220,6 +220,8 @@ void ModuleRenderer3D::Info_init_Console()
 	LOG("Renderer: %s", glGetString(GL_RENDERER));
 	LOG("OpenGL version supported %s", glGetString(GL_VERSION));
 	LOG("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+	
+	
 }
 
 void ModuleRenderer3D::FunctionsRender()
