@@ -23,6 +23,7 @@ public:
 	void OnResize(int width, int height);
 	void Info_init_Console();
 	void FunctionsRender();
+	void Active_Wireframe(bool active);
 
 	char* GetGraphicsVendor();
 	char* GetGraphicsModel();
@@ -30,17 +31,21 @@ public:
 public:
 
 	bool Wireframe = false;
+	bool GetWireframe()const { return Wireframe; }
+
 	bool Depth_Test = false;
 	bool Cull_Face = false;
 	bool Lighting = false;
 	bool Color_Material = false;
 	bool Texture_2D = false;
 	bool debug_draw = false;
+	bool plane = true;
 
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;
 	float3x3 NormalMatrix;
 	float4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 
+	
 	
 };

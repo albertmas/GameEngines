@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
+#include "Primitive.h"
 #include "Glew\include\glew.h"
 #include "SDL\include\SDL_opengl.h"
 #include <gl/GL.h>
@@ -11,6 +12,7 @@
 #include "ModulePhysics3D.h"
 #include "ModuleImGui.h"
 #include "ModuleScene.h"
+
 
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
@@ -139,6 +141,14 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
+
+	if (plane == true)
+	{
+		PPlane base(0, 1, 0, 0);
+		base.axis = true;
+		base.Render();
+	}
+
 	/*App->scene->Draw();
 	if (debug_draw == true)
 	{
@@ -214,12 +224,12 @@ void ModuleRenderer3D::Info_init_Console()
 
 void ModuleRenderer3D::FunctionsRender()
 {
-	if (ImGui::Checkbox("Wireframe", &App->renderer3D->Wireframe))
+	//bool activeWireframe = GetWireframe();
+
+	if (ImGui::Checkbox("Wireframe",&Wireframe))
 	{
-		if (App->renderer3D->Wireframe)
-			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		else
-			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	//	Active_Wireframe(activeWireframe);
+
 	}
 	if (ImGui::Checkbox("Depth Test", &App->renderer3D->Depth_Test))
 	{
@@ -261,4 +271,15 @@ void ModuleRenderer3D::FunctionsRender()
 		else
 			glDisable(GL_TEXTURE_2D);
 	}
+}
+
+void ModuleRenderer3D::Active_Wireframe(bool active)
+{
+	/*if (active = true)
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	else
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);*/
+
+	//Wireframe = active;
+
 }
