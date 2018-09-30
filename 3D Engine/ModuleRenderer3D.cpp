@@ -144,6 +144,24 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	// We should render the geometry here
 
+	glLineWidth(2.0f);
+	glBegin(GL_TRIANGLES);
+	glVertex3f(10.0f, 0.0f, 10.0f);		glVertex3f(10.0f, 10.0f, 10.0f);	glVertex3f(0.0f, 10.0f, 10.0f);
+	glVertex3f(0.0f, 0.0f, 10.0f);		glVertex3f(10.0f, 0.0f, 10.0f);		glVertex3f(0.0f, 10.0f, 10.0f);
+	glVertex3f(0.0f, 0.0f, 0.0f);		glVertex3f(0.0f, 10.0f, 0.0f);		glVertex3f(10.0f, 10.0f, 0.0f);
+	glVertex3f(10.0f, 0.0f, 0.0f);		glVertex3f(0.0f, 0.0f, 0.0f);		glVertex3f(10.0f, 10.0f, 0.0f);
+	glVertex3f(10.0f, 0.0f, 0.0f);		glVertex3f(10.0f, 10.0f, 0.0f);		glVertex3f(10.0f, 10.0f, 10.0f);
+	glVertex3f(10.0f, 0.0f, 10.0f);		glVertex3f(10.0f, 0.0f, 0.0f);		glVertex3f(10.0f, 10.0f, 10.0f);
+	glVertex3f(0.0f, 0.0f, 10.0f);		glVertex3f(0.0f, 10.0f, 10.0f);		glVertex3f(0.0f, 10.0f, 0.0f);
+	glVertex3f(0.0f, 0.0f, 0.0f);		glVertex3f(0.0f, 0.0f, 10.0f);		glVertex3f(0.0f, 10.0f, 0.0f);
+	glVertex3f(10.0f, 10.0f, 10.0f);	glVertex3f(10.0f, 10.0f, 0.0f);		glVertex3f(0.0f, 10.0f, 0.0f);
+	glVertex3f(0.0f, 10.0f, 10.0f);		glVertex3f(10.0f, 10.0f, 10.0f);	glVertex3f(0.0f, 10.0f, 0.0f);
+	glVertex3f(10.0f, 0.0f, 0.0f);		glVertex3f(10.0f, 0.0f, 10.0f);		glVertex3f(0.0f, 0.0f, 10.0f);
+	glVertex3f(0.0f, 0.0f, 0.0f);		glVertex3f(10.0f, 0.0f, 0.0f);		glVertex3f(0.0f, 0.0f, 10.0f);
+	glEnd();
+	glLineWidth(1.0f);
+	
+
 	if (plane)
 	{ 
 		CreatePlane(); 
