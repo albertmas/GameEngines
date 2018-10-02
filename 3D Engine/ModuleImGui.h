@@ -32,6 +32,8 @@ public:
 	void CreateTriangle();
 	void GetHardWareData();
 
+	void DrawImgui();
+
 public:
 	int min_rand_int = 0, max_rand_int = 100;
 	int rand_int = 0;

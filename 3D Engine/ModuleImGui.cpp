@@ -567,8 +567,8 @@ void ModuleImGui::CreateTriangle()
 
 update_status ModuleImGui::PostUpdate(float dt)
 {
-	ImGui::Render();
-	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
+	//ImGui::Render();
+	//ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 
 	return UPDATE_CONTINUE;
 }
@@ -577,4 +577,11 @@ void ModuleImGui::GetConsoleLog(const char* log)
 {
 	consolelog.appendf(log);
 	scrollconsole = true;
+}
+
+void ModuleImGui::DrawImgui()
+{
+	ImGui::Render();
+	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
+
 }
