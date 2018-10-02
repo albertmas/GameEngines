@@ -146,6 +146,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	glLineWidth(2.0f);
 	glBegin(GL_TRIANGLES);
+
 	glVertex3f(5.0f, 0.0f, 5.0f);		glVertex3f(5.0f, 5.0f, 5.0f);	glVertex3f(0.0f, 5.0f, 5.0f);
 	glVertex3f(0.0f, 0.0f, 5.0f);		glVertex3f(5.0f, 0.0f, 5.0f);		glVertex3f(0.0f, 5.0f, 5.0f);
 	glVertex3f(0.0f, 0.0f, 0.0f);		glVertex3f(0.0f, 5.0f, 0.0f);		glVertex3f(5.0f, 5.0f, 0.0f);
