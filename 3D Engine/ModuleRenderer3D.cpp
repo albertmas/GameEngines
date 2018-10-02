@@ -310,13 +310,12 @@ void ModuleRenderer3D::FunctionsRender()
 		Active_Wireframe(activeWireframe);
 
 	}
-	if (ImGui::Checkbox("Depth Test", &App->renderer3D->Depth_Test))
-	{
-		if (App->renderer3D->Depth_Test)
-			glEnable(GL_DEPTH_TEST);
 
-		else
-			glDisable(GL_DEPTH_TEST);
+	bool activeDepth = GetDepth();
+
+	if (ImGui::Checkbox("Depth Test", &Depth_Test))
+	{
+		Active_Depth(activeDepth);
 	}
 	if (ImGui::Checkbox("Cull Face", &App->renderer3D->Cull_Face))
 	{
@@ -357,18 +356,26 @@ void ModuleRenderer3D::Active_Wireframe(bool active)
 	
 
 	if (active == false)
-	{
+	
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		
-	}
 	
+
 	else
-	{
+	
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		
-	}
+	
 
-	
-	
+}
+
+void ModuleRenderer3D::Active_Depth(bool active)
+{
+	if (active == true)
+		glEnable(GL_DEPTH_TEST);
+
+	else
+		glDisable(GL_DEPTH_TEST);
+
 
 }

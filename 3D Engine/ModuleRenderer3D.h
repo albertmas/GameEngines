@@ -25,6 +25,7 @@ public:
 	void Info_init_Console();
 	void FunctionsRender();
 	void Active_Wireframe(bool active);
+	void Active_Depth(bool active);
 
 	char* GetGraphicsVendor();
 	char* GetGraphicsModel();
@@ -47,6 +48,8 @@ private:
 	bool GetWireframe()const { return Wireframe; }
 
 	bool Depth_Test = false;
+	bool GetDepth() const { return Depth_Test; }
+
 	bool Cull_Face = false;
 	bool Lighting = false;
 	bool Color_Material = false;
