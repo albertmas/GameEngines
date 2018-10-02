@@ -317,37 +317,33 @@ void ModuleRenderer3D::FunctionsRender()
 	{
 		Active_Depth(activeDepth);
 	}
-	if (ImGui::Checkbox("Cull Face", &App->renderer3D->Cull_Face))
-	{
-		if (App->renderer3D->Depth_Test)
-			glEnable(GL_CULL_FACE);
 
-		else
-			glDisable(GL_CULL_FACE);
+	bool activeCull = GetCullFace();
+
+	if (ImGui::Checkbox("Cull Face", &Cull_Face))
+	{
+		Active_Cull(activeCull);
 	}
-	if (ImGui::Checkbox("Lighting", &App->renderer3D->Lighting))
-	{
-		if (App->renderer3D->Depth_Test)
-			glEnable(GL_LIGHTING);
 
-		else
-			glDisable(GL_LIGHTING);
+	bool activelight = GetLight();
+
+	if (ImGui::Checkbox("Lighting", &Lighting))
+	{
+		Active_Light(activelight);
 	}
-	if (ImGui::Checkbox("Color Material", &App->renderer3D->Color_Material))
-	{
-		if (App->renderer3D->Depth_Test)
-			glEnable(GL_COLOR_MATERIAL);
 
-		else
-			glDisable(GL_COLOR_MATERIAL);
+	bool activecolor = GetColor();
+
+	if (ImGui::Checkbox("Color Material", &Color_Material))
+	{
+		Active_ColorMat(activecolor);
 	}
-	if (ImGui::Checkbox("Texture 2D", &App->renderer3D->Texture_2D))
-	{
-		if (App->renderer3D->Depth_Test)
-			glEnable(GL_TEXTURE_2D);
 
-		else
-			glDisable(GL_TEXTURE_2D);
+	bool activeTexture2D = GetTexture2D();
+
+	if (ImGui::Checkbox("Texture 2D", &Texture_2D))
+	{
+		Active_Texture2D(activeTexture2D);
 	}
 }
 
@@ -377,5 +373,45 @@ void ModuleRenderer3D::Active_Depth(bool active)
 	else
 		glDisable(GL_DEPTH_TEST);
 
+}
+
+void ModuleRenderer3D::Active_Cull(bool active)
+{
+	if (active == true)
+		glEnable(GL_CULL_FACE);
+
+	else
+		glDisable(GL_CULL_FACE);
+
+}
+
+void ModuleRenderer3D::Active_Light(bool active)
+{
+	if (active == true)
+		glEnable(GL_LIGHTING);
+
+	else
+		glDisable(GL_LIGHTING);
+
+}
+
+void ModuleRenderer3D::Active_ColorMat(bool active)
+{
+
+	if (active == true)
+		glEnable(GL_COLOR_MATERIAL);
+
+	else
+		glDisable(GL_COLOR_MATERIAL);
+
+}
+
+void ModuleRenderer3D::Active_Texture2D(bool active)
+{
+	if (active == true)
+		glEnable(GL_TEXTURE_2D);
+
+	else
+		glDisable(GL_TEXTURE_2D);
 
 }

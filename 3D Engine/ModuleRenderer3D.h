@@ -26,6 +26,10 @@ public:
 	void FunctionsRender();
 	void Active_Wireframe(bool active);
 	void Active_Depth(bool active);
+	void Active_Cull(bool active);
+	void Active_Light(bool active);
+	void Active_ColorMat(bool active);
+	void Active_Texture2D(bool active);
 
 	char* GetGraphicsVendor();
 	char* GetGraphicsModel();
@@ -51,9 +55,17 @@ private:
 	bool GetDepth() const { return Depth_Test; }
 
 	bool Cull_Face = false;
+	bool GetCullFace() const { return Cull_Face; }
+
 	bool Lighting = false;
+	bool GetLight() const { return Lighting; }
+
 	bool Color_Material = false;
-	bool Texture_2D = false;
+	bool GetColor() const { return Color_Material; }
+
+	bool Texture_2D = false; 
+	bool GetTexture2D() const { return Texture_2D; }
+
 	bool debug_draw = false;
 	
 
