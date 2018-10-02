@@ -146,18 +146,18 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	glLineWidth(2.0f);
 	glBegin(GL_TRIANGLES);
-	glVertex3f(10.0f, 0.0f, 10.0f);		glVertex3f(10.0f, 10.0f, 10.0f);	glVertex3f(0.0f, 10.0f, 10.0f);
-	glVertex3f(0.0f, 0.0f, 10.0f);		glVertex3f(10.0f, 0.0f, 10.0f);		glVertex3f(0.0f, 10.0f, 10.0f);
-	glVertex3f(0.0f, 0.0f, 0.0f);		glVertex3f(0.0f, 10.0f, 0.0f);		glVertex3f(10.0f, 10.0f, 0.0f);
-	glVertex3f(10.0f, 0.0f, 0.0f);		glVertex3f(0.0f, 0.0f, 0.0f);		glVertex3f(10.0f, 10.0f, 0.0f);
-	glVertex3f(10.0f, 0.0f, 0.0f);		glVertex3f(10.0f, 10.0f, 0.0f);		glVertex3f(10.0f, 10.0f, 10.0f);
-	glVertex3f(10.0f, 0.0f, 10.0f);		glVertex3f(10.0f, 0.0f, 0.0f);		glVertex3f(10.0f, 10.0f, 10.0f);
-	glVertex3f(0.0f, 0.0f, 10.0f);		glVertex3f(0.0f, 10.0f, 10.0f);		glVertex3f(0.0f, 10.0f, 0.0f);
-	glVertex3f(0.0f, 0.0f, 0.0f);		glVertex3f(0.0f, 0.0f, 10.0f);		glVertex3f(0.0f, 10.0f, 0.0f);
-	glVertex3f(10.0f, 10.0f, 10.0f);	glVertex3f(10.0f, 10.0f, 0.0f);		glVertex3f(0.0f, 10.0f, 0.0f);
-	glVertex3f(0.0f, 10.0f, 10.0f);		glVertex3f(10.0f, 10.0f, 10.0f);	glVertex3f(0.0f, 10.0f, 0.0f);
-	glVertex3f(10.0f, 0.0f, 0.0f);		glVertex3f(10.0f, 0.0f, 10.0f);		glVertex3f(0.0f, 0.0f, 10.0f);
-	glVertex3f(0.0f, 0.0f, 0.0f);		glVertex3f(10.0f, 0.0f, 0.0f);		glVertex3f(0.0f, 0.0f, 10.0f);
+	glVertex3f(5.0f, 0.0f, 5.0f);		glVertex3f(5.0f, 5.0f, 5.0f);	glVertex3f(0.0f, 5.0f, 5.0f);
+	glVertex3f(0.0f, 0.0f, 5.0f);		glVertex3f(5.0f, 0.0f, 5.0f);		glVertex3f(0.0f, 5.0f, 5.0f);
+	glVertex3f(0.0f, 0.0f, 0.0f);		glVertex3f(0.0f, 5.0f, 0.0f);		glVertex3f(5.0f, 5.0f, 0.0f);
+	glVertex3f(5.0f, 0.0f, 0.0f);		glVertex3f(0.0f, 0.0f, 0.0f);		glVertex3f(5.0f, 5.0f, 0.0f);
+	glVertex3f(5.0f, 0.0f, 0.0f);		glVertex3f(5.0f, 5.0f, 0.0f);		glVertex3f(5.0f, 5.0f, 5.0f);
+	glVertex3f(5.0f, 0.0f, 5.0f);		glVertex3f(5.0f, 0.0f, 0.0f);		glVertex3f(5.0f, 5.0f, 5.0f);
+	glVertex3f(0.0f, 0.0f, 5.0f);		glVertex3f(0.0f, 5.0f, 5.0f);		glVertex3f(0.0f, 5.0f, 0.0f);
+	glVertex3f(0.0f, 0.0f, 0.0f);		glVertex3f(0.0f, 0.0f, 5.0f);		glVertex3f(0.0f, 5.0f, 0.0f);
+	glVertex3f(5.0f, 5.0f, 5.0f);	glVertex3f(5.0f, 5.0f, 0.0f);		glVertex3f(0.0f, 5.0f, 0.0f);
+	glVertex3f(0.0f, 5.0f, 5.0f);		glVertex3f(5.0f, 5.0f, 5.0f);	glVertex3f(0.0f, 5.0f, 0.0f);
+	glVertex3f(5.0f, 0.0f, 0.0f);		glVertex3f(5.0f, 0.0f, 5.0f);		glVertex3f(0.0f, 0.0f, 5.0f);
+	glVertex3f(0.0f, 0.0f, 0.0f);		glVertex3f(5.0f, 0.0f, 0.0f);		glVertex3f(0.0f, 0.0f, 5.0f);
 	glEnd();
 	glLineWidth(1.0f);
 	
@@ -303,11 +303,11 @@ void ModuleRenderer3D::CreatePlane()
 
 void ModuleRenderer3D::FunctionsRender()
 {
-	//bool activeWireframe = GetWireframe();
+	bool activeWireframe = GetWireframe();
 
 	if (ImGui::Checkbox("Wireframe",&Wireframe))
 	{
-	//	Active_Wireframe(activeWireframe);
+		Active_Wireframe(activeWireframe);
 
 	}
 	if (ImGui::Checkbox("Depth Test", &App->renderer3D->Depth_Test))
@@ -354,11 +354,21 @@ void ModuleRenderer3D::FunctionsRender()
 
 void ModuleRenderer3D::Active_Wireframe(bool active)
 {
-	/*if (active = true)
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	else
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);*/
+	
 
-	//Wireframe = active;
+	if (active == false)
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		
+	}
+	
+	else
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		
+	}
+
+	
+	
 
 }
