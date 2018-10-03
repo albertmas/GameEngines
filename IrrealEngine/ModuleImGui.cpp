@@ -117,7 +117,7 @@ update_status ModuleImGui::Update(float dt)
 
 		if (ImGui::BeginMenu("About"))
 		{
-			ImGui::Text("3D Engine");
+			ImGui::Text("Irreal Engine");
 			ImGui::Text("3D Engine in development");
 			ImGui::Text("Guillem Arman & Albert Mas");			
 			ImGui::Spacing();
