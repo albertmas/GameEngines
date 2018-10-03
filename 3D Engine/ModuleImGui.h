@@ -46,6 +46,7 @@ public:
 	bool testwindow = false;
 	bool spherewindow = false;
 	bool trianglewindow = false;
+	bool cubewindow = false;
 	bool randomwindow = false;
 	bool consolewindow = false;
 	bool configurationwindow = false;

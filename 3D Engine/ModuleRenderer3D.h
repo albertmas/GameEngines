@@ -24,6 +24,8 @@ public:
 	void OnResize(int width, int height);
 	void Info_init_Console();
 	void FunctionsRender();
+	void CreateCube();
+
 	void Active_Wireframe(bool active);
 	void Active_Depth(bool active);
 	void Active_Cull(bool active);

@@ -107,6 +107,11 @@ update_status ModuleImGui::Update(float dt)
 			{
 				trianglewindow = !trianglewindow;
 			}
+
+			if (ImGui::MenuItem("Create Cube"))
+			{
+				cubewindow = !cubewindow;
+			}
 				ImGui::EndMenu();
 		}
 
@@ -167,6 +172,7 @@ update_status ModuleImGui::Update(float dt)
 	if (configurationwindow)ConfigurationWindow();
 	if (spherewindow)CreateSphere();
 	if (trianglewindow)CreateTriangle();
+	if (cubewindow)App->renderer3D->CreateCube();
 	
 	// Hotkeys
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
