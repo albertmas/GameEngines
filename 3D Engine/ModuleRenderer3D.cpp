@@ -288,7 +288,7 @@ void ModuleRenderer3D::CreatePlane()
 
 void ModuleRenderer3D::CreateCube()
 {
-	//ImGui::Begin("Create a Cube", &App->imgui->cubewindow, ImGuiWindowFlags_MenuBar);
+	
 
 	glLineWidth(2.0f);
 	glBegin(GL_TRIANGLES);
@@ -308,7 +308,7 @@ void ModuleRenderer3D::CreateCube()
 	glEnd();
 	glLineWidth(1.0f);
 
-	//ImGui::End();
+	
 }
 
 void ModuleRenderer3D::FunctionsRender()
