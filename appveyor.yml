@@ -11,7 +11,7 @@ configuration:
 build:
   verbosity: minimal
 before_package:
-- ps: Copy-Item C:\projects\GameEngines\$env:CONFIGURATION\IrrealEngine.exe C:\projects\GameEngines\IrrealEngine\Game\.
+- ps: Copy-Item C:\projects\GameEngines\IrrealEngine\$env:CONFIGURATION\IrrealEngine.exe C:\projects\GameEngines\IrrealEngine\Game\.
 artifacts:
 - path: IrrealEngine\Game
   name: GameEngines
