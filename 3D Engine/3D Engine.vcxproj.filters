@@ -285,8 +285,13 @@
     <ClInclude Include="glmath.h">
       <Filter>Sources\Containers</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Mesh.h">
       <Filter>Sources\Containers</Filter>
+=======
+    <ClInclude Include="ModuleFBXLoader.h">
+      <Filter>Sources\Modules</Filter>
+>>>>>>> 730052bdceb93266eb555d7108198713a9693a0f
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -452,8 +457,13 @@
     <ClCompile Include="glmath.cpp">
       <Filter>Sources\Containers</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Mesh.cpp">
       <Filter>Sources\Containers</Filter>
+=======
+    <ClCompile Include="ModuleFBXLoader.cpp">
+      <Filter>Sources\Modules</Filter>
+>>>>>>> 730052bdceb93266eb555d7108198713a9693a0f
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
