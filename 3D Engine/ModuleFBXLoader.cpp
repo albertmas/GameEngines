@@ -33,7 +33,7 @@ bool ModuleFBXLoader::Init(Document& document)
 	struct aiLogStream stream;
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
-	LoadFile(".\Assets\warrior.FBX");
+	LoadFile("../Assets/warrior.FBX");
 	return true;
 }
 
