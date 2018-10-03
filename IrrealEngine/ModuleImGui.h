@@ -1,8 +1,11 @@
 #ifndef __ModuleImGui_H__
 #define __ModuleImGui_H__
 
+
 #include "Module.h"
 #include "ImGui\imgui.h"
+
+
 
 class ModuleImGui :	public Module
 {
@@ -47,6 +50,7 @@ public:
 	bool spherewindow = false;
 	bool trianglewindow = false;
 	bool cubewindow = false;
+	
 	bool randomwindow = false;
 	bool consolewindow = false;
 	bool configurationwindow = false;

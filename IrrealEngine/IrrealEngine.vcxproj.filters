@@ -130,9 +130,6 @@
     <ClCompile Include="MathGeoLib\Math\MathOps.cpp">
       <Filter>Sources\MathGeolib</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>Sources\MathGeolib</Filter>
-    </ClCompile>
     <ClCompile Include="MathGeoLib\Geometry\OBB.cpp">
       <Filter>Sources\MathGeolib</Filter>
     </ClCompile>
@@ -168,6 +165,9 @@
     </ClCompile>
     <ClCompile Include="MathGeoLib\Geometry\TriangleMesh.cpp">
       <Filter>Sources\MathGeolib</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Sources\Containers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -372,9 +372,6 @@
     <ClInclude Include="MathGeoLib\Math\MatrixProxy.h">
       <Filter>Sources\MathGeolib</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Sources\MathGeolib</Filter>
-    </ClInclude>
     <ClInclude Include="MathGeoLib\Math\myassert.h">
       <Filter>Sources\MathGeolib</Filter>
     </ClInclude>
@@ -431,6 +428,12 @@
     </ClInclude>
     <ClInclude Include="MathGeoLib\Geometry\TriangleMesh.h">
       <Filter>Sources\MathGeolib</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Open_GL.h">
+      <Filter>Sources\Helpers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,17 +1,11 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 #include "Primitive.h"
-#include "Glew\include\glew.h"
-#include "SDL\include\SDL_opengl.h"
-#include <gl/GL.h>
-#include <gl/GLU.h>
 #include "ModuleWindow.h"
-#include "ModuleInput.h"
-#include "ModuleAudio.h"
 #include "ModuleCamera3D.h"
-#include "ModulePhysics3D.h"
 #include "ModuleImGui.h"
-#include "ModuleScene.h"
+#include "Open_GL.h"
+
 
 
 
@@ -144,7 +138,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	// We should render the geometry here
 
-	
+
 
 	if (plane)
 	{ 

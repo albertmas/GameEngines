@@ -1,8 +1,11 @@
-#pragma once
+#ifndef _MODULE_RENDERER_
+#define _MODULE_RENDERER_
+
 #include "Module.h"
 #include "Light.h"
 #include "Globals.h"
 #include "glmath.h"
+
 
 #define MAX_LIGHTS 8
 
@@ -48,6 +51,7 @@ public:
 	mat3x3 NormalMatrix;
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 
+
 private:
 
 	bool Wireframe = false;
@@ -76,5 +80,10 @@ private:
 
 	void CreateAxis();
 	bool axis = true;
-	
+
+	bool Cube = true;
+
+
 };
+
+#endif

@@ -1,14 +1,9 @@
 #include "Application.h"
 #include "ModuleScene.h"
-#include "SDL\include\SDL_opengl.h"
-
-#include "ModuleWindow.h"
-#include "ModuleInput.h"
-#include "ModuleAudio.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
-#include "ModulePhysics3D.h"
-#include "ModuleImGui.h"
+
+
 
 
 ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled)

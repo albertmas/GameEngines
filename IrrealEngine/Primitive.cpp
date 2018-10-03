@@ -2,7 +2,7 @@
 #include "Module.h"
 #include "Primitive.h"
 #include "GLEW/include/glew.h"
-#include "SDL\include\SDL_opengl.h"
+
 
 
 // ------------------------------------------------------------

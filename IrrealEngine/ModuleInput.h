@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _MODULE_H_	
+#define _MODULE_H_
 #include "Module.h"
 
 #define MAX_MOUSE_BUTTONS 5
@@ -70,3 +71,5 @@ public:
 	int mouse_y_motion;
 	//int mouse_z_motion;
 };
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _MODULE_PHYSICS_
+#define _MODULE_PHYSICS_
 #include "Module.h"
 
 // Recommended scale is 1.0f == 1 meter, no less than 0.2 objects
@@ -44,3 +45,4 @@ public:
 	
 };
 
+#endif

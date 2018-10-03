@@ -2,16 +2,13 @@
 #include "ModuleImGui.h"
 #include "ImGui\imgui_impl_sdl.h"
 #include "ImGui\imgui_impl_opengl2.h"
-#include "ImGui\imgui_internal.h"
 #include "DeviceId\DeviceId.h"
-#include "SDL\include\SDL_opengl.h"
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
-#include "ModuleAudio.h"
 #include "ModuleRenderer3D.h"
-#include "ModuleCamera3D.h"
 #include "ModulePhysics3D.h"
-#include "ModuleScene.h"
+
+
 
 
 ModuleImGui::ModuleImGui(bool start_enabled) : Module(start_enabled)
@@ -90,7 +87,7 @@ update_status ModuleImGui::Update(float dt)
 			ImGui::EndMenu();
 		}
 
-		if (ImGui::BeginMenu("Homework"))
+		if (ImGui::BeginMenu("Functions"))
 		{
 
 			if (ImGui::MenuItem("Random Number"))
@@ -173,6 +170,7 @@ update_status ModuleImGui::Update(float dt)
 	if (spherewindow)CreateSphere();
 	if (trianglewindow)CreateTriangle();
 	if (cubewindow)App->renderer3D->CreateCube();
+	
 	
 	// Hotkeys
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)

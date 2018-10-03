@@ -158,6 +158,7 @@
     <ClInclude Include="ModuleInput.h" />
     <ClInclude Include="ModuleScene.h" />
     <ClInclude Include="ModuleWindow.h" />
+    <ClInclude Include="Open_GL.h" />
     <ClInclude Include="PCG\pcg_basic.h" />
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="Timer.h" />

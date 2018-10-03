@@ -4,10 +4,7 @@
 #include "Globals.h"
 #include "Primitive.h"
 #include "MathGeoLib\MathGeoLib.h"
-#include "GLEW/include/glew.h"
-#include "SDL\include\SDL_opengl.h"
-#include <gl/GL.h>
-#include <gl/GLU.h>
+#include "Open_GL.h"
 
 enum MESH_TYPE { //All geometric forms will be included here
 	CUBE_MESH = 0,
