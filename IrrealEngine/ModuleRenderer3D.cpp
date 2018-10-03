@@ -4,6 +4,7 @@
 #include "ModuleWindow.h"
 #include "ModuleCamera3D.h"
 #include "ModuleImGui.h"
+#include "ModuleFBXLoader.h"
 #include "Open_GL.h"
 
 
@@ -156,8 +157,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		BeginDebugDraw();
 		App->DebugDraw();
 		EndDebugDraw();
-	}
-	App->imgui->Draw();*/
+	}*/
 	App->imgui->DrawImgui();
 
 	SDL_GL_SwapWindow(App->window->window);
@@ -419,3 +419,4 @@ void ModuleRenderer3D::Active_Texture2D(bool active)
 		glDisable(GL_TEXTURE_2D);
 
 }
+

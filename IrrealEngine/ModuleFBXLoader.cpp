@@ -1,14 +1,6 @@
 #include "Application.h"
 #include "ModuleFBXLoader.h"
-
-#include "ModuleWindow.h"
-#include "ModuleInput.h"
-#include "ModuleAudio.h"
 #include "ModuleRenderer3D.h"
-#include "ModuleCamera3D.h"
-#include "ModulePhysics3D.h"
-#include "ModuleImGui.h"
-#include "ModuleScene.h"
 
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
@@ -68,6 +60,45 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 	if (scene != nullptr && scene->HasMeshes())
 	{
 		// Use scene->mNumMeshes to iterate on scene->mMeshes array
+		for (int meshNum = 0; meshNum < scene->mNumMeshes; meshNum++)
+		{
+			FBXMesh* mesh = new FBXMesh();
+			aiMesh* currentMesh = scene->mMeshes[meshNum];
+
+			mesh->num_vertices = currentMesh->mNumVertices;
+			mesh->vertices = new float[mesh->num_vertices * 3];
+			memcpy(mesh->vertices, currentMesh->mVertices, sizeof(float) * mesh->num_vertices * 3);
+			LOG("New mesh with %d vertices", mesh->num_vertices);	
+			mesh->num_normals = currentMesh->mNumVertices;
+			mesh->normals = new float[mesh->num_normals * 3];
+			memcpy(mesh->normals, currentMesh->mNormals, sizeof(float) * mesh->num_normals * 3);
+			LOG("New mesh with %d normals", mesh->num_normals);
+
+			if (currentMesh->HasFaces())
+			{
+				mesh->num_indices = currentMesh->mNumFaces * 3;
+				mesh->indices = new uint[mesh->num_indices]; // assume each face is a triangle
+
+				bool verticeError = false;
+
+				for (uint i = 0; i < currentMesh->mNumFaces; ++i)
+				{
+					if (currentMesh->mFaces[i].mNumIndices != 3)
+					{
+						LOG("WARNING, geometry face with != 3 indices!");
+						verticeError = true;
+					}
+					else
+					{
+						memcpy(&mesh->indices[i * 3], currentMesh->mFaces[i].mIndices, 3 * sizeof(uint));
+					}
+				}
+				if (!verticeError)
+				{
+					//App->renderer3D->renderMesh(mesh);
+				}
+			}
+		}
 		aiReleaseImport(scene);
 	}
 	else

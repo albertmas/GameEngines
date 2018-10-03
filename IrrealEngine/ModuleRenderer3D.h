@@ -9,6 +9,23 @@
 
 #define MAX_LIGHTS 8
 
+struct FBXMesh
+{
+	uint id_indices = 0;
+	uint num_indices = 0;
+	uint* indices = nullptr;
+
+	uint id_vertices = 0;
+	uint num_vertices = 0;
+	float* vertices = nullptr;
+
+	uint id_normal = 0;
+	uint num_normals = 0;
+	float* normals = nullptr;
+
+	//void Draw();
+};
+
 class ModuleRenderer3D : public Module
 {
 public:
@@ -28,6 +45,7 @@ public:
 	void Info_init_Console();
 	void FunctionsRender();
 	void CreateCube();
+	//void renderMesh(FBXMesh* mesh);
 
 	void Active_Wireframe(bool active);
 	void Active_Depth(bool active);
@@ -83,7 +101,7 @@ private:
 
 	bool Cube = true;
 
-
+	std::list<FBXMesh*> meshes;
 };
 
 #endif
