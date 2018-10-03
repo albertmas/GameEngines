@@ -431,3 +431,17 @@ void ModuleRenderer3D::Active_Texture2D(bool active)
 
 }
 
+void ModuleRenderer3D::renderMesh(FBXMesh* mesh)
+{
+	glGenBuffers(1, (GLuint*)&(mesh->id_indices));
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * mesh->num_indices, &mesh->indices[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	meshes.push_back(mesh);
+}
+
+void FBXMesh::Draw()
+{
+	
+}

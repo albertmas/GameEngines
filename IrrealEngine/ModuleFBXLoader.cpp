@@ -25,7 +25,7 @@ bool ModuleFBXLoader::Init(Document& document)
 	struct aiLogStream stream;
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
-	LoadFile("../Assets/warrior.FBX");
+	
 	return true;
 }
 
@@ -68,7 +68,8 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 			mesh->num_vertices = currentMesh->mNumVertices;
 			mesh->vertices = new float[mesh->num_vertices * 3];
 			memcpy(mesh->vertices, currentMesh->mVertices, sizeof(float) * mesh->num_vertices * 3);
-			LOG("New mesh with %d vertices", mesh->num_vertices);	
+			LOG("New mesh with %d vertices", mesh->num_vertices);
+
 			mesh->num_normals = currentMesh->mNumVertices;
 			mesh->normals = new float[mesh->num_normals * 3];
 			memcpy(mesh->normals, currentMesh->mNormals, sizeof(float) * mesh->num_normals * 3);
@@ -95,7 +96,7 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 				}
 				if (!verticeError)
 				{
-					//App->renderer3D->renderMesh(mesh);
+					App->renderer3D->renderMesh(mesh);
 				}
 			}
 		}

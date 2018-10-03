@@ -23,7 +23,7 @@ struct FBXMesh
 	uint num_normals = 0;
 	float* normals = nullptr;
 
-	//void Draw();
+	void Draw();
 };
 
 class ModuleRenderer3D : public Module
@@ -45,7 +45,7 @@ public:
 	void Info_init_Console();
 	void FunctionsRender();
 	void CreateCube();
-	//void renderMesh(FBXMesh* mesh);
+	void renderMesh(FBXMesh* mesh);
 
 	void Active_Wireframe(bool active);
 	void Active_Depth(bool active);
