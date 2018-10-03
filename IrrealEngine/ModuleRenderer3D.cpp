@@ -107,6 +107,10 @@ bool ModuleRenderer3D::Init(Document& document)
 		lights[0].Active(true);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
+
+		
+		VertexArrayCube.DefineVerticesForACube(float3(8.f, 1.f, 4.f), 3);
+		VertexAndIndexCube.DefineVerticesAndIndicesForACube(float3(15.f, 1.f, 4.f), 5);
 	}
 
 	// Projection matrix for
@@ -139,10 +143,17 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	// We should render the geometry here
 
-
+	if (Cube)
+	{
+		glColor3f(1.0, 0.0, 1.0);
+		App->renderer3D->VertexArrayCube.DrawCube();
+		
+	}
 
 	if (plane)
 	{ 
+		glColor3f(1.0, 0.0, 0.0);
+		App->renderer3D->VertexAndIndexCube.DrawIndexCube(); // Cube created with indices. Unique vertex
 		CreatePlane(); 
 	}
 

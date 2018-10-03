@@ -5,7 +5,7 @@
 #include "Light.h"
 #include "Globals.h"
 #include "glmath.h"
-
+#include "Mesh.h"
 
 #define MAX_LIGHTS 8
 
@@ -69,6 +69,9 @@ public:
 	mat3x3 NormalMatrix;
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 
+public:
+	Mesh VertexAndIndexCube;
+	Mesh VertexArrayCube;
 
 private:
 
