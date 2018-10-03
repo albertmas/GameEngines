@@ -7,6 +7,7 @@
 #include "ModuleCamera3D.h"
 #include "ModulePhysics3D.h"
 #include "ModuleImGui.h"
+#include "ModuleFBXLoader.h"
 #include "ModuleScene.h"
 
 Application::Application()
@@ -18,6 +19,7 @@ Application::Application()
 	camera = new ModuleCamera3D();
 	physics = new ModulePhysics3D();
 	imgui = new ModuleImGui();
+	fbxloader = new ModuleFBXLoader();
 	scene = new ModuleScene();
 
 	// The order of calls is very important!
@@ -30,9 +32,11 @@ Application::Application()
 	AddModule(input);
 	AddModule(audio);
 	AddModule(physics);
+	AddModule(fbxloader);
 	
 	// Scenes
 	AddModule(scene);
+
 	// GUI
 	AddModule(imgui);
 
@@ -67,7 +71,7 @@ bool Application::Init()
 	}
 
 	// After all Init calls we call Start() in all modules
-	LOG("Application Start --------------");
+	LOG("--------------- Application Start ---------------");
 	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)
 	{
 		ret = (*item)->Start();
@@ -217,7 +221,7 @@ bool Application::SaveGame()
 	}
 	else
 	{
-		LOG("Game Saving --------------");
+		LOG("--------------- Game Saving ---------------");
 		char writeBuffer[65536];
 		FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
 		Document document;
@@ -247,7 +251,7 @@ bool Application::LoadGame()
 	}
 	else
 	{
-		LOG("Game Loading --------------");
+		LOG("--------------- Game Loading ---------------");
 		char readBuffer[65536];
 		FileReadStream is(fp, readBuffer, sizeof(readBuffer));
 		Document document;
