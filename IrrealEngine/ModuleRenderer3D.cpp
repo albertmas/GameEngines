@@ -143,12 +143,12 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	// We should render the geometry here
 
-	if (Cube)
+	/*if (Cube)
 	{
 		glColor3f(1.0, 0.0, 1.0);
 		App->renderer3D->VertexArrayCube.DrawCube();
 		
-	}
+	}*/
 
 	if (plane)
 	{ 
