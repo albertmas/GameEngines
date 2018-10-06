@@ -34,7 +34,6 @@ void Mesh::DrawIndexCube() const
 }
 
 
-
 void Mesh::DefineVerticesAndIndicesForACube(float3 _position, float size)
 {
 	position = _position;
@@ -338,4 +337,64 @@ void Mesh::DefineVerticesForACube(float3 _position, float size)
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	LOG("VERTEX CUBE LOADED BUFFER_ID: %d", id_vertices);
+}
+
+void Mesh::DrawSphere() const
+{
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(3, GL_FLOAT, 0, sphere_vertices.data());
+	glDrawElements(GL_TRIANGLES, (uint)sphere_indices.size(), GL_UNSIGNED_INT, sphere_indices.data());
+	glDisableClientState(GL_VERTEX_ARRAY);
+}
+
+void Mesh::DefineVerticesForASphere(float3 _position, float radius, uint secCount, uint stCount)
+{
+	type = SPHERE_MESH;
+	position = _position;
+	float x, y, z, xz;                              // vertex position
+	float sectorStep = 2 * PI / secCount;
+	float stackStep = PI / stCount;
+	float sectorAngle, stackAngle;
+
+	for (int i = 0; i <= stCount; ++i)
+	{
+		stackAngle = PI / 2 - i * stackStep;				  // starting from pi/2 to -pi/2
+		xz = radius * cosf(stackAngle);						 // r * cos(u)
+		y = position.y + (radius * sinf(stackAngle));            // r * sin(u) + initial pos variation
+															  // add (sectorCount+1) vertices per stack
+															  // the first and last vertices have same position and normal, but different tex coods
+		for (int j = 0; j <= secCount; ++j)
+		{
+			sectorAngle = j * sectorStep;
+			// vertex position
+			z = (position.z + xz) * cosf(sectorAngle);             // r * cos(u) * cos(v) + initial pos variation
+			x = (position.x + xz) * sinf(sectorAngle);             // r * cos(u) * sin(v) + initial pos variation
+			sphere_vertices.push_back(x);
+			sphere_vertices.push_back(y);
+			sphere_vertices.push_back(z);
+		}
+	}
+	// indices
+	uint k1, k2;
+	for (int i = 0; i < stCount; ++i)
+	{
+		k1 = i * (secCount + 1);     // beginning of current stack
+		k2 = k1 + secCount + 1;      // beginning of next stack
+		for (int j = 0; j < secCount; ++j, ++k1, ++k2)
+		{
+			// 2 triangles per sector excluding 1st and last stacks
+			if (i != 0)
+			{
+				sphere_indices.push_back(k1);
+				sphere_indices.push_back(k2);
+				sphere_indices.push_back(k1 + 1);
+			}
+			if (i != (stCount - 1))
+			{
+				sphere_indices.push_back(k1 + 1);
+				sphere_indices.push_back(k2);
+				sphere_indices.push_back(k2 + 1);
+			}
+		}
+	}
 }
