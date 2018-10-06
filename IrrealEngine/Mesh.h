@@ -20,9 +20,11 @@ public:
 
 	void DrawCube()const;
 	void DrawIndexCube() const;
+	void DrawSphere() const;
 
-	void DefineVerticesAndIndicesForACube(float3 _position, float size);
 	void DefineVerticesForACube(float3 _position, float size);
+	void DefineVerticesAndIndicesForACube(float3 _position, float size);
+	void DefineVerticesForASphere(float3 _position, float radius,uint secCount, uint stCount);
 
 
 private:
@@ -46,9 +48,10 @@ private:
 	uint id_unique_vertices;
 	uint id_indices;
 
+	//Sphere 
 
-
-
+	std::vector<float> sphere_vertices;
+	std::vector<uint> sphere_indices;
 
 
 

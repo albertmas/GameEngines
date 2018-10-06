@@ -72,6 +72,7 @@ public:
 public:
 	Mesh VertexAndIndexCube;
 	Mesh VertexArrayCube;
+	Mesh VertexSphere;
 
 private:
 
@@ -103,6 +104,7 @@ private:
 	bool axis = true;
 
 	bool Cube = true;
+	bool Sphere = true;
 
 	std::list<FBXMesh*> meshes;
 };
