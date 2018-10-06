@@ -1,5 +1,5 @@
 #ifndef _MESH_
-#define _MESH
+#define _MESH_
 
 #include "Globals.h"
 #include "Primitive.h"
@@ -46,17 +46,7 @@ private:
 	uint id_unique_vertices;
 	uint id_indices;
 
-
-
-
-
-
-
 };
-
-
-
-
 
 
 #endif

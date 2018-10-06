@@ -2,6 +2,7 @@
 #include "ModuleScene.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
+#include "ModuleFBXLoader.h"
 
 
 
@@ -23,6 +24,8 @@ bool ModuleScene::Init(Document& document)
 
 	App->camera->Move(float3(0.0f, 10.0f, 0.0f));
 	App->camera->LookAt(float3(0.0f, 0.0f, 0.0f));
+
+	//App->fbxloader->LoadFile("../Assets/warrior.FBX");
 
 	return ret;
 }

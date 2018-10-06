@@ -162,6 +162,12 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		CreateAxis();
 	}
 
+	for (std::list<FBXMesh*>::iterator iter = meshes.begin(); iter != meshes.end(); iter++)
+	{
+		(*iter)->Draw();
+	}
+
+
 	/*App->scene->Draw();
 	if (debug_draw == true)
 	{
@@ -298,7 +304,7 @@ void ModuleRenderer3D::CreateCube()
 	glLineWidth(2.0f);
 	glBegin(GL_TRIANGLES);
 
-	glVertex3f(5.0f, 0.0f, 5.0f);		glVertex3f(5.0f, 5.0f, 5.0f);	glVertex3f(0.0f, 5.0f, 5.0f);
+	glVertex3f(5.0f, 0.0f, 5.0f);		glVertex3f(5.0f, 5.0f, 5.0f);		glVertex3f(0.0f, 5.0f, 5.0f);
 	glVertex3f(0.0f, 0.0f, 5.0f);		glVertex3f(5.0f, 0.0f, 5.0f);		glVertex3f(0.0f, 5.0f, 5.0f);
 	glVertex3f(0.0f, 0.0f, 0.0f);		glVertex3f(0.0f, 5.0f, 0.0f);		glVertex3f(5.0f, 5.0f, 0.0f);
 	glVertex3f(5.0f, 0.0f, 0.0f);		glVertex3f(0.0f, 0.0f, 0.0f);		glVertex3f(5.0f, 5.0f, 0.0f);
@@ -306,8 +312,8 @@ void ModuleRenderer3D::CreateCube()
 	glVertex3f(5.0f, 0.0f, 5.0f);		glVertex3f(5.0f, 0.0f, 0.0f);		glVertex3f(5.0f, 5.0f, 5.0f);
 	glVertex3f(0.0f, 0.0f, 5.0f);		glVertex3f(0.0f, 5.0f, 5.0f);		glVertex3f(0.0f, 5.0f, 0.0f);
 	glVertex3f(0.0f, 0.0f, 0.0f);		glVertex3f(0.0f, 0.0f, 5.0f);		glVertex3f(0.0f, 5.0f, 0.0f);
-	glVertex3f(5.0f, 5.0f, 5.0f);	glVertex3f(5.0f, 5.0f, 0.0f);		glVertex3f(0.0f, 5.0f, 0.0f);
-	glVertex3f(0.0f, 5.0f, 5.0f);		glVertex3f(5.0f, 5.0f, 5.0f);	glVertex3f(0.0f, 5.0f, 0.0f);
+	glVertex3f(5.0f, 5.0f, 5.0f);		glVertex3f(5.0f, 5.0f, 0.0f);		glVertex3f(0.0f, 5.0f, 0.0f);
+	glVertex3f(0.0f, 5.0f, 5.0f);		glVertex3f(5.0f, 5.0f, 5.0f);		glVertex3f(0.0f, 5.0f, 0.0f);
 	glVertex3f(5.0f, 0.0f, 0.0f);		glVertex3f(5.0f, 0.0f, 5.0f);		glVertex3f(0.0f, 0.0f, 5.0f);
 	glVertex3f(0.0f, 0.0f, 0.0f);		glVertex3f(5.0f, 0.0f, 0.0f);		glVertex3f(0.0f, 0.0f, 5.0f);
 	glEnd();
@@ -431,7 +437,7 @@ void ModuleRenderer3D::Active_Texture2D(bool active)
 
 }
 
-void ModuleRenderer3D::renderMesh(FBXMesh* mesh)
+void ModuleRenderer3D::setMesh(FBXMesh* mesh)
 {
 	glGenBuffers(1, (GLuint*)&(mesh->id_indices));
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
@@ -443,5 +449,11 @@ void ModuleRenderer3D::renderMesh(FBXMesh* mesh)
 
 void FBXMesh::Draw()
 {
-	
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
+	glVertexPointer(num_indices, GL_FLOAT, 0, &vertices[0]);
+
+	//glDrawArrays(GL_TRIANGLES, vertices[0], num_vertices);
+	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
+	glDisableClientState(GL_VERTEX_ARRAY);
 }

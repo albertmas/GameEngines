@@ -45,7 +45,7 @@ public:
 	void Info_init_Console();
 	void FunctionsRender();
 	void CreateCube();
-	void renderMesh(FBXMesh* mesh);
+	void setMesh(FBXMesh* mesh);
 
 	void Active_Wireframe(bool active);
 	void Active_Depth(bool active);
