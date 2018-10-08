@@ -8,6 +8,8 @@
 #include "Mesh.h"
 
 #define MAX_LIGHTS 8
+#define CHECKERS_WIDTH 100
+#define CHECKERS_HEIGHT 100
 
 struct FBXMesh
 {
@@ -107,6 +109,8 @@ private:
 	bool Sphere = true;
 
 	std::list<FBXMesh*> meshes;
+
+	uint tex_buff_id = 0;
 };
 
 #endif

@@ -117,6 +117,28 @@ bool ModuleRenderer3D::Init(Document& document)
 	// Projection matrix for
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
+	// Checkered Texture
+	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
+	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
+		for (int j = 0; j < CHECKERS_WIDTH; j++) {
+			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
+			checkImage[i][j][0] = (GLubyte)c;
+			checkImage[i][j][1] = (GLubyte)c;
+			checkImage[i][j][2] = (GLubyte)c;
+			checkImage[i][j][3] = (GLubyte)255;
+		}
+	}
+
+	// Texture Buffer
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glGenTextures(1, &tex_buff_id);
+	glBindTexture(GL_TEXTURE_2D, tex_buff_id);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
+
 	return ret;
 }
 
@@ -148,19 +170,19 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	if (Cube)
 	{
 		glColor3f(1.0, 0.0, 1.0);
-		App->renderer3D->VertexArrayCube.DrawCube();
+		VertexArrayCube.DrawCube();
 		
 	}
 
 	if (Sphere)
 	{
 		
-		App->renderer3D->VertexSphere.DrawSphere();
+		VertexSphere.DrawSphere();
 	}
 	if (plane)
 	{ 
 		glColor3f(1.0, 0.0, 0.0);
-		App->renderer3D->VertexAndIndexCube.DrawIndexCube(); // Cube created with indices. Unique vertex
+		VertexAndIndexCube.DrawIndexCube(); // Cube created with indices. Unique vertex
 		CreatePlane(); 
 	}
 
@@ -174,6 +196,64 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		(*iter)->Draw();
 	}
 
+	//glLineWidth(2.0f);
+
+	//glBindTexture(GL_TEXTURE_2D, 0);
+	//glBindTexture(GL_TEXTURE_2D, tex_buff_id);
+
+	//glBegin(GL_TRIANGLES);
+
+	//glTexCoord2f(0,1);glVertex3f(0.0f, 10.0f, 0.0f);	//BE
+	//glTexCoord2f(1,0);glVertex3f(10.0f, 0.0f, 0.0f);
+	//glTexCoord2f(0,0);glVertex3f(0.0f, 0.0f, 0.0f);
+
+	//glTexCoord2f(0,1);glVertex3f(0.0f, 10.0f, 0.0f);	//BE
+	//glTexCoord2f(1,1);glVertex3f(10.0f, 10.0f, 0.0f);
+	//glTexCoord2f(1,0);glVertex3f(10.0f, 0.0f, 0.0f);
+
+	//glTexCoord2f(0, 1); glVertex3f(10.0f, 10.0f, 0.0f);	//BE
+	//glTexCoord2f(1, 0); glVertex3f(10.0f, 0.0f, 10.0f);
+	//glTexCoord2f(0, 0); glVertex3f(10.0f, 0.0f, 0.0f);
+
+	//glTexCoord2f(0, 1); glVertex3f(10.0f, 10.0f, 0.0f);	//BE
+	//glTexCoord2f(1, 1); glVertex3f(10.0f, 10.0f, 10.0f);
+	//glTexCoord2f(1, 0); glVertex3f(10.0f, 0.0f, 10.0f);
+
+	//glTexCoord2f(0, 1); glVertex3f(0.0f, 10.0f, 10.0f);	//BE
+	//glTexCoord2f(1, 0); glVertex3f(10.0f, 0.0f, 10.0f);
+	//glTexCoord2f(0, 0); glVertex3f(10.0f, 10.0f, 10.0f);
+
+	//glTexCoord2f(0, 1); glVertex3f(0.0f, 10.0f, 10.0f);	//BE
+	//glTexCoord2f(1, 1); glVertex3f(0.0f, 0.0f, 10.0f);
+	//glTexCoord2f(1, 0); glVertex3f(10.0f, 0.0f, 10.0f);
+
+	//glTexCoord2f(1, 0); glVertex3f(0.0f, 0.0f, 0.0f);	//BE	
+	//glTexCoord2f(0, 0); glVertex3f(0.0f, 0.0f, 10.0f);
+	//glTexCoord2f(0, 1); glVertex3f(0.0f, 10.0f, 10.0f);
+
+	//glTexCoord2f(1, 1); glVertex3f(0.0f, 10.0f, 0.0f);	//BE
+	//glTexCoord2f(1, 0); glVertex3f(0.0f, 0.0f, 0.0f);
+	//glTexCoord2f(0, 1); glVertex3f(0.0f, 10.0f, 10.0f);
+
+	//glTexCoord2f(0, 1); glVertex3f(10.0f, 10.0f, 0.0f);	//BE 
+	//glTexCoord2f(0, 0); glVertex3f(0.0f, 10.0f, 0.0f);
+	//glTexCoord2f(1, 0); glVertex3f(0.0f, 10.0f, 10.0f);
+
+	//glTexCoord2f(0, 1); glVertex3f(0.0f, 10.0f, 10.0f);	//BE
+	//glTexCoord2f(1, 1); glVertex3f(10.0f, 10.0f, 10.0f);
+	//glTexCoord2f(1, 0); glVertex3f(10.0f, 10.0f, 0.0f);
+
+	//glTexCoord2f(1, 0); glVertex3f(10.0f, 0.0f, 10.0f);
+	//glTexCoord2f(0, 0); glVertex3f(0.0f, 0.0f, 10.0f);
+	//glTexCoord2f(1, 1); glVertex3f(10.0f, 0.0f, 0.0f);
+
+	//glTexCoord2f(0, 0); glVertex3f(0.0f, 0.0f, 10.0f);
+	//glTexCoord2f(0, 1); glVertex3f(0.0f, 0.0f, 0.0f);
+	//glTexCoord2f(1, 1); glVertex3f(10.0f, 0.0f, 0.0f);
+
+	//glEnd();
+	//glLineWidth(1.0f);
+	glBindTexture(GL_TEXTURE_2D, 0);
 
 	/*App->scene->Draw();
 	if (debug_draw == true)
@@ -309,6 +389,10 @@ void ModuleRenderer3D::CreateCube() // Direct Mode
 	
 
 	glLineWidth(2.0f);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindTexture(GL_TEXTURE_2D, tex_buff_id);
+
 	glBegin(GL_TRIANGLES);
 
 	glVertex3f(5.0f, 0.0f, 5.0f);		glVertex3f(5.0f, 5.0f, 5.0f);		glVertex3f(0.0f, 5.0f, 5.0f);
@@ -323,9 +407,10 @@ void ModuleRenderer3D::CreateCube() // Direct Mode
 	glVertex3f(0.0f, 5.0f, 5.0f);		glVertex3f(5.0f, 5.0f, 5.0f);		glVertex3f(0.0f, 5.0f, 0.0f);
 	glVertex3f(5.0f, 0.0f, 0.0f);		glVertex3f(5.0f, 0.0f, 5.0f);		glVertex3f(0.0f, 0.0f, 5.0f);
 	glVertex3f(0.0f, 0.0f, 0.0f);		glVertex3f(5.0f, 0.0f, 0.0f);		glVertex3f(0.0f, 0.0f, 5.0f);
+
 	glEnd();
 	glLineWidth(1.0f);
-
+	glBindTexture(GL_TEXTURE_2D, 0);
 	
 }
 
