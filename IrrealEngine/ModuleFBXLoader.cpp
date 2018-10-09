@@ -96,7 +96,8 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 				}
 				if (!verticeError)
 				{
-					App->renderer3D->setMesh(mesh);
+					mesh->setMeshBuffer();
+					App->renderer3D->meshes.push_back(mesh);
 				}
 			}
 		}

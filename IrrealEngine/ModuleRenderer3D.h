@@ -25,6 +25,7 @@ struct FBXMesh
 	uint num_normals = 0;
 	float* normals = nullptr;
 
+	void setMeshBuffer();
 	void Draw();
 };
 
@@ -47,7 +48,7 @@ public:
 	void Info_init_Console();
 	void FunctionsRender();
 	void CreateCube();
-	void setMesh(FBXMesh* mesh);
+	
 
 	void Active_Wireframe(bool active);
 	void Active_Depth(bool active);
@@ -108,6 +109,7 @@ private:
 	bool Cube = true;
 	bool Sphere = true;
 
+public:
 	std::list<FBXMesh*> meshes;
 
 	uint tex_buff_id = 0;

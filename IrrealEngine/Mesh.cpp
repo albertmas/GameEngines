@@ -12,7 +12,6 @@ Mesh::~Mesh()
 
 void Mesh::DrawCube() const
 {
-
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
@@ -22,7 +21,6 @@ void Mesh::DrawCube() const
 }
 void Mesh::DrawIndexCube() const
 {
-
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, id_unique_vertices);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);

@@ -3,7 +3,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModuleFBXLoader.h"
-
+#include "ModuleInput.h"
 
 
 
@@ -25,9 +25,14 @@ bool ModuleScene::Init(Document& document)
 	App->camera->Move(float3(0.0f, 10.0f, 0.0f));
 	App->camera->LookAt(float3(0.0f, 0.0f, 0.0f));
 
-	//App->fbxloader->LoadFile("../Assets/warrior.FBX");
-
 	return ret;
+}
+
+bool ModuleScene::Start()
+{
+	App->fbxloader->LoadFile("../Assets/BakerHouse.FBX");
+
+	return true;
 }
 
 update_status ModuleScene::PreUpdate(float dt)
@@ -36,7 +41,8 @@ update_status ModuleScene::PreUpdate(float dt)
 }
 update_status ModuleScene::Update(float dt)
 {
-
+	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+		App->fbxloader->LoadFile("../Assets/BakerHouse.FBX");
 
 	return UPDATE_CONTINUE;
 }

@@ -529,23 +529,27 @@ void ModuleRenderer3D::Active_Texture2D(bool active)
 
 }
 
-void ModuleRenderer3D::setMesh(FBXMesh* mesh)
+void FBXMesh::setMeshBuffer()
 {
-	glGenBuffers(1, (GLuint*)&(mesh->id_indices));
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * mesh->num_indices, &mesh->indices[0], GL_STATIC_DRAW);
+	glGenBuffers(1, (GLuint*)&(id_indices));
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * num_indices, &indices[0], GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-	meshes.push_back(mesh);
+	glGenBuffers(1, (GLuint*)&(id_vertices));
+	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * num_vertices * 3, vertices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void FBXMesh::Draw()
 {
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
-	glVertexPointer(num_indices, GL_FLOAT, 0, &vertices[0]);
-
-	//glDrawArrays(GL_TRIANGLES, vertices[0], num_vertices);
+	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
 	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glDisableClientState(GL_VERTEX_ARRAY);
 }
