@@ -111,7 +111,7 @@ bool ModuleRenderer3D::Init(Document& document)
 		
 		VertexArrayCube.DefineVerticesForACube(float3(8.f, 1.f, 4.f), 3);
 		VertexAndIndexCube.DefineVerticesAndIndicesForACube(float3(15.f, 1.f, 4.f), 5);
-		//VertexSphere.DefineVerticesForASphere(float3(10.f, 10.f, 0.f), 2, 16, 16);
+		VertexSphere.DefineVerticesForASphere(float3(0.f, 10.f, 0.f), 1, 10, 16);
 	}
 
 	// Projection matrix for
