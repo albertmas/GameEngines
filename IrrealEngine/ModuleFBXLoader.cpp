@@ -5,8 +5,16 @@
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
-#include "Assimp/include/cfileio.h"
+#include "DevIL\include\il.h"
+#include "DevIL\include\ilu.h"
+#include "DevIL\include\ilut.h"
+
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
+#pragma comment (lib, "DevIL/libx86/DevIL.lib")
+#pragma comment (lib, "DevIL/libx86/ILU.lib")
+#pragma comment (lib, "DevIL/libx86/ILUT.lib")
+
+
 
 
 ModuleFBXLoader::ModuleFBXLoader(bool start_enabled) : Module(start_enabled)
@@ -25,6 +33,12 @@ bool ModuleFBXLoader::Init(Document& document)
 	struct aiLogStream stream;
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
+
+	// DevIL
+	ilInit();
+	iluInit();
+	ilutInit();
+	ilutRenderer(ILUT_OPENGL);
 	
 	return true;
 }
@@ -98,6 +112,7 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 				{
 					mesh->setMeshBuffer();
 					App->renderer3D->meshes.push_back(mesh);
+					//mesh->texture = loadTexture("../Assets/Textures/Lenna.png");
 				}
 			}
 		}
@@ -110,4 +125,72 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 	}
 
 	return ret;
+}
+
+GLuint ModuleFBXLoader::loadTexture(const char* full_path)
+{
+	ILuint imageID;
+	GLuint textureID;
+
+	ILboolean success;
+	ILenum error;
+
+	ilGenImages(1, &imageID);
+	ilBindImage(imageID);
+
+	success = ilLoadImage(full_path);
+
+	if (success)
+	{
+		// If the image is flipped (i.e. upside-down and mirrored, flip it the right way up!)
+		ILinfo ImageInfo;
+		iluGetImageInfo(&ImageInfo);
+		if (ImageInfo.Origin == IL_ORIGIN_UPPER_LEFT)
+		{
+			iluFlipImage();
+		}
+
+		// Convert the image into a suitable format to work with
+		success = ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
+
+		if (!success)
+		{
+			error = ilGetError();
+			LOG("Image conversion failed - IL reports error: %s", iluErrorString(error));
+			return -1;
+		}
+		
+		glGenTextures(1, &textureID);
+		glBindTexture(GL_TEXTURE_2D, textureID);
+
+		// Set texture clamping method
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+		// Set texture interpolation method
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+		// Specify the texture specification
+		glTexImage2D(GL_TEXTURE_2D, 0,				// Pyramid level (for mip-mapping) - 0 is the top level
+			ilGetInteger(IL_IMAGE_FORMAT),	// Internal pixel format to use. Can be a generic type like GL_RGB or GL_RGBA, or a sized type
+			ilGetInteger(IL_IMAGE_WIDTH),	// Image width
+			ilGetInteger(IL_IMAGE_HEIGHT),	// Image height
+			0,				// Border width in pixels (can either be 1 or 0)
+			ilGetInteger(IL_IMAGE_FORMAT),	// Format of image pixel data
+			GL_UNSIGNED_BYTE,		// Image data type
+			ilGetData());			// The actual image data itself
+	}
+	else
+	{
+		error = ilGetError();
+		LOG("Image load failed - IL reports error: %s", iluErrorString(error));
+		return -1;
+	}
+
+	ilDeleteImages(1, &imageID);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+
+	LOG("Texture creation successful.");
+
+	return textureID;
 }

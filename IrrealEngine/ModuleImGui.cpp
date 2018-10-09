@@ -7,6 +7,7 @@
 #include "ModuleInput.h"
 #include "ModuleRenderer3D.h"
 #include "ModulePhysics3D.h"
+#include "DevIL\include\il.h"
 
 
 
@@ -122,29 +123,45 @@ update_status ModuleImGui::Update(float dt)
 			
 			if (ImGui::BeginMenu("Libraries"))
 			{
-				if (ImGui::MenuItem("DeviceId (Version December 2015)"))
+				if (ImGui::MenuItem("DeviceId - Version December 2015"))
 				{
 					App->OpenWeb("https://github.com/albertmas/GameEngines/tree/master2/3D%20Engine/DeviceId");
 				}
-				if (ImGui::MenuItem("ImGui (Version 1.66)"))
+				std::string imgui_version = "ImGui - Version ";
+				imgui_version += ImGui::GetVersion();
+				if (ImGui::MenuItem(imgui_version.c_str()))
 				{
 					App->OpenWeb("https://github.com/ocornut/imgui");
 				}
-				if (ImGui::MenuItem("MathGeoLib (Version 2.0)"))
+				if (ImGui::MenuItem("MathGeoLib - Version 2.0"))
 				{
 					App->OpenWeb("https://github.com/juj/MathGeoLib");
 				}
-				if (ImGui::MenuItem("SDL (Version 2.0.8)"))
+				if (ImGui::MenuItem("SDL - Version 2.0.8"))
 				{
 					App->OpenWeb("https://github.com/albertmas/GameEngines/tree/master2/3D%20Engine/SDL");
 				}
-				if (ImGui::MenuItem("PCG (Version 2.0, January 2004)"))
+				if (ImGui::MenuItem("PCG - Version 2.0, January 2004"))
 				{
 					App->OpenWeb("http://www.pcg-random.org/");
 				}
-				if (ImGui::MenuItem("Glew (Version 2.0)"))
+				std::string opengl_version = "OpenGL - version ";
+				opengl_version += (const char*)glGetString(GL_VERSION);
+				if (ImGui::MenuItem(opengl_version.c_str()))
+				{
+					App->OpenWeb("https://www.opengl.org/");
+				}
+				std::string glew_version = "Glew - Version ";
+				glew_version += (const char*)glewGetString(GLEW_VERSION);
+				if (ImGui::MenuItem(glew_version.c_str()))
 				{
 					App->OpenWeb("https://github.com/nigels-com/glew");
+				}
+				std::string devil_version = "DevIL - Version ";
+				devil_version += std::to_string(IL_VERSION);
+				if (ImGui::MenuItem(devil_version.c_str()))
+				{
+					App->OpenWeb("http://openil.sourceforge.net/");
 				}
 				ImGui::EndMenu();
 			}

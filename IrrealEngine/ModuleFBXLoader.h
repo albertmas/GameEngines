@@ -2,6 +2,7 @@
 #define __ModuleFBXLoader_H__
 
 #include "Module.h"
+#include "Open_GL.h"
 
 struct FBXMesh;
 
@@ -18,6 +19,7 @@ public:
 	bool CleanUp();
 
 	bool LoadFile(const char* full_path);
+	GLuint loadTexture(const char* full_path);
 };
 
 #endif

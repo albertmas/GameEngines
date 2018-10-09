@@ -37,6 +37,12 @@ bool ModuleRenderer3D::Init(Document& document)
 	}
 	
 	GLenum err = glewInit();
+	if (GLEW_OK != err)
+	{
+		LOG("GLEW initialisation error: %s", glewGetErrorString(err));
+		ret = false;
+	}
+	LOG("GLEW intialised successfully. Using GLEW version: %s", glewGetString(GLEW_VERSION));
 
 	Info_init_Console();
 	
@@ -545,11 +551,13 @@ void FBXMesh::setMeshBuffer()
 void FBXMesh::Draw()
 {
 	glEnableClientState(GL_VERTEX_ARRAY);
+	glBindTexture(GL_TEXTURE_2D, App->renderer3D->tex_buff_id);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisableClientState(GL_VERTEX_ARRAY);
 }

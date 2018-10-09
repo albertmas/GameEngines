@@ -25,6 +25,13 @@ struct FBXMesh
 	uint num_normals = 0;
 	float* normals = nullptr;
 
+	vec3 color = { 0,0,0 };
+
+	uint texture = 0;
+	float* texCoords = nullptr;
+	//uint width = 0;
+	//uint height = 0;
+
 	void setMeshBuffer();
 	void Draw();
 };
