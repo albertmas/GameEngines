@@ -551,7 +551,8 @@ void FBXMesh::setMeshBuffer()
 void FBXMesh::Draw()
 {
 	glEnableClientState(GL_VERTEX_ARRAY);
-	glBindTexture(GL_TEXTURE_2D, App->renderer3D->tex_buff_id);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	//glBindTexture(GL_TEXTURE_2D, App->renderer3D->tex_buff_id);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);

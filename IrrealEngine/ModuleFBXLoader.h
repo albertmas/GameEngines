@@ -20,6 +20,12 @@ public:
 
 	bool LoadFile(const char* full_path);
 	GLuint loadTexture(const char* full_path);
+
+	//Saved used texture info
+	std::string texPath = "";
+	uint usedTexture = 0;
+	uint usedTextureWidth = 0;
+	uint usedTextureHeight = 0;
 };
 
 #endif
