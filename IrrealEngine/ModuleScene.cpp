@@ -7,6 +7,7 @@
 
 
 
+
 ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled)
 {
 }
@@ -42,6 +43,7 @@ update_status ModuleScene::PreUpdate(float dt)
 }
 update_status ModuleScene::Update(float dt)
 {
+	Draw();
 	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
 		App->fbxloader->LoadFile("Assets/warrior.FBX");
 
@@ -70,7 +72,13 @@ bool ModuleScene::Load(Document& document)
 	return true;
 }
 
-bool ModuleScene::Draw()const
+void ModuleScene::Draw()
 {
-	return true;
+	for (std::list<Mesh*>::iterator it = scene_objects.begin(); it != scene_objects.end(); it++)
+	{
+		(*it)->DrawMesh();
+	}
+
 }
+
+

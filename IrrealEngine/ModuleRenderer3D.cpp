@@ -263,13 +263,13 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	//glLineWidth(1.0f);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	/*App->scene->Draw();
+	App->scene->Draw();
 	if (debug_draw == true)
 	{
-		BeginDebugDraw();
+		/*BeginDebugDraw();
 		App->DebugDraw();
-		EndDebugDraw();
-	}*/
+		EndDebugDraw();*/
+	}
 	App->imgui->DrawImgui();
 
 	SDL_GL_SwapWindow(App->window->window);

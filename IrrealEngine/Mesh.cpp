@@ -31,6 +31,18 @@ void Mesh::DrawIndexCube() const
 	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
+void Mesh::DrawMesh() const
+{
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glBindBuffer(GL_ARRAY_BUFFER, data.id_vertex);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, data.id_index);
+	glDrawElements(GL_TRIANGLES, data.num_index, GL_UNSIGNED_INT, NULL);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glDisableClientState(GL_VERTEX_ARRAY);
+}
 
 void Mesh::DefineVerticesAndIndicesForACube(float3 _position, float size)
 {

@@ -20,6 +20,7 @@ class ModulePhysics3D;
 class ModuleImGui;
 class ModuleFBXLoader;
 class ModuleScene;
+class Importer;
 
 class Application
 {
@@ -33,6 +34,7 @@ public:
 	ModuleImGui* imgui;
 	ModuleFBXLoader* fbxloader;
 	ModuleScene* scene;
+	Importer* importer;
 	
 private:
 

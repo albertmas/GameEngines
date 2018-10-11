@@ -11,7 +11,14 @@ enum MESH_TYPE { //All geometric forms will be included here
 	SPHERE_MESH
 	
 };
-
+struct VertexData {
+	uint id_index = 0; // index in VRAM
+	uint num_index = 0;
+	uint* index = nullptr;
+	uint id_vertex = 0; // unique vertex in VRAM
+	uint num_vertex = 0;
+	float3* vertex = nullptr;
+};
 class Mesh
 {
 public:
@@ -21,12 +28,13 @@ public:
 	void DrawCube()const;
 	void DrawIndexCube() const;
 	void DrawSphere() const;
+	void DrawMesh() const;
 
 	void DefineVerticesForACube(float3 _position, float size);
 	void DefineVerticesAndIndicesForACube(float3 _position, float size);
 	void DefineVerticesForASphere(float3 _position, float radius,uint secCount, uint stCount);
 
-
+	VertexData data;
 private:
 
 	float3 color;
