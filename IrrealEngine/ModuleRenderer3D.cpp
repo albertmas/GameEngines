@@ -114,10 +114,11 @@ bool ModuleRenderer3D::Init(Document& document)
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
 
+		glEnable(GL_TEXTURE_2D);
 		
-		VertexArrayCube.DefineVerticesForACube(float3(8.f, 1.f, 4.f), 3);
+		/*VertexArrayCube.DefineVerticesForACube(float3(8.f, 1.f, 4.f), 3);
 		VertexAndIndexCube.DefineVerticesAndIndicesForACube(float3(15.f, 1.f, 4.f), 5);
-		VertexSphere.DefineVerticesForASphere(float3(0.f, 10.f, 0.f), 1, 10, 16);
+		VertexSphere.DefineVerticesForASphere(float3(0.f, 10.f, 0.f), 1, 10, 16);*/
 	}
 
 	// Projection matrix for
@@ -177,7 +178,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	{
 		glColor3f(1.0, 0.0, 1.0);
 		VertexArrayCube.DrawCube();
-		
+		glColor3f(1.0, 1.0, 1.0);
 	}
 
 	if (Sphere)
@@ -189,7 +190,8 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	{ 
 		glColor3f(1.0, 0.0, 0.0);
 		VertexAndIndexCube.DrawIndexCube(); // Cube created with indices. Unique vertex
-		CreatePlane(); 
+		CreatePlane();
+		glColor3f(1.0, 1.0, 1.0);
 	}
 
 	if (axis) 
@@ -365,7 +367,7 @@ void ModuleRenderer3D::CreateAxis()
 
 	glEnd();
 
-
+	glColor3f(1.0, 1.0, 1.0);
 }
 
 void ModuleRenderer3D::CreatePlane()
@@ -387,7 +389,7 @@ void ModuleRenderer3D::CreatePlane()
 
 	glEnd();
 
-
+	glColor4f(0.0, 0.0, 0.0, 1.0);
 }
 
 void ModuleRenderer3D::CreateCube() // Direct Mode
@@ -422,76 +424,57 @@ void ModuleRenderer3D::CreateCube() // Direct Mode
 
 void ModuleRenderer3D::FunctionsRender()
 {
-	bool activeWireframe = GetWireframe();
-
 	if (ImGui::Checkbox("Wireframe",&Wireframe))
 	{
-		Active_Wireframe(activeWireframe);
-
+		Active_Wireframe(Wireframe);
 	}
 
-	bool activeDepth = GetDepth();
-
+	
 	if (ImGui::Checkbox("Depth Test", &Depth_Test))
 	{
-		Active_Depth(activeDepth);
+		Active_Depth(Depth_Test);
 	}
 
-	bool activeCull = GetCullFace();
-
+	
 	if (ImGui::Checkbox("Cull Face", &Cull_Face))
 	{
-		Active_Cull(activeCull);
+		Active_Cull(Cull_Face);
 	}
 
-	bool activelight = GetLight();
-
+	
 	if (ImGui::Checkbox("Lighting", &Lighting))
 	{
-		Active_Light(activelight);
+		Active_Light(Lighting);
 	}
 
-	bool activecolor = GetColor();
-
+	
 	if (ImGui::Checkbox("Color Material", &Color_Material))
 	{
-		Active_ColorMat(activecolor);
+		Active_ColorMat(Color_Material);
 	}
 
-	bool activeTexture2D = GetTexture2D();
-
+	
 	if (ImGui::Checkbox("Texture 2D", &Texture_2D))
 	{
-		Active_Texture2D(activeTexture2D);
+		Active_Texture2D(Texture_2D);
 	}
 }
 
 void ModuleRenderer3D::Active_Wireframe(bool active)
 {
-	
-
-	if (active == false)
-	
+	if (active == true)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		
-	
-
 	else
-	
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		
-	
-
 }
 
 void ModuleRenderer3D::Active_Depth(bool active)
 {
-	if (active == true)
+	if (active == false)
 		glEnable(GL_DEPTH_TEST);
 
 	else
 		glDisable(GL_DEPTH_TEST);
-
 }
 
 void ModuleRenderer3D::Active_Cull(bool active)
@@ -501,7 +484,6 @@ void ModuleRenderer3D::Active_Cull(bool active)
 
 	else
 		glDisable(GL_CULL_FACE);
-
 }
 
 void ModuleRenderer3D::Active_Light(bool active)
@@ -511,7 +493,6 @@ void ModuleRenderer3D::Active_Light(bool active)
 
 	else
 		glDisable(GL_LIGHTING);
-
 }
 
 void ModuleRenderer3D::Active_ColorMat(bool active)
@@ -522,7 +503,6 @@ void ModuleRenderer3D::Active_ColorMat(bool active)
 
 	else
 		glDisable(GL_COLOR_MATERIAL);
-
 }
 
 void ModuleRenderer3D::Active_Texture2D(bool active)
@@ -532,7 +512,6 @@ void ModuleRenderer3D::Active_Texture2D(bool active)
 
 	else
 		glDisable(GL_TEXTURE_2D);
-
 }
 
 void FBXMesh::setMeshBuffer()
@@ -542,23 +521,34 @@ void FBXMesh::setMeshBuffer()
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * num_indices, &indices[0], GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-	glGenBuffers(1, (GLuint*)&(id_vertices));
+	/*glGenBuffers(1, (GLuint*)&(id_vertices));
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * num_vertices * 3, vertices, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);*/
 }
 
 void FBXMesh::Draw()
 {
+	glColor3f(1.0, 1.0, 1.0);
+
 	glEnableClientState(GL_VERTEX_ARRAY);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	//glBindTexture(GL_TEXTURE_2D, App->renderer3D->tex_buff_id);
+	if (texture != 0)
+		glBindTexture(GL_TEXTURE_2D, texture);
+	else
+		glColor3f(color.x, color.y, color.z);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
-	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
+	//glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
+	glVertexPointer(3, GL_FLOAT, 0, &vertices[0]);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glTexCoordPointer(2, GL_FLOAT, 0, &texCoords[0]);
 	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	//glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	glBindTexture(GL_TEXTURE_2D, 0);
+	if (texture != 0)
+		glBindTexture(GL_TEXTURE_2D, 0);
+	else
+		glColor3f(1, 1, 1);
 	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }

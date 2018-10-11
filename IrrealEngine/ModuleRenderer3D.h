@@ -25,7 +25,7 @@ struct FBXMesh
 	uint num_normals = 0;
 	float* normals = nullptr;
 
-	vec3 color = { 0,0,0 };
+	vec3 color = { 0, 0, 0 };
 
 	uint texture = 0;
 	float* texCoords = nullptr;
@@ -101,7 +101,7 @@ private:
 	bool Color_Material = false;
 	bool GetColor() const { return Color_Material; }
 
-	bool Texture_2D = false; 
+	bool Texture_2D = true;
 	bool GetTexture2D() const { return Texture_2D; }
 
 	bool debug_draw = false;

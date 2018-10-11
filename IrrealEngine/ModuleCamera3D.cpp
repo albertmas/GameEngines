@@ -16,7 +16,7 @@ ModuleCamera3D::ModuleCamera3D(bool start_enabled) : Module(start_enabled)
 	Y = float3(0.0f, 1.0f, 0.0f);
 	Z = float3(0.0f, 0.0f, 1.0f);
 
-	Position = float3(0.0f, 0.0f, 30.0f);
+	Position = float3(0.0f, -5.0f, 10.0f);
 	Reference = float3(0.0f, 0.0f, 0.0f);
 }
 
@@ -45,23 +45,25 @@ update_status ModuleCamera3D::Update(float dt)
 {
 	////Debug camera
 
-	
-		float3 newPos(0,0,0);
-		float speed = 50.0f * dt;
-		if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
-			speed = 80.0f * dt;
+	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+	{
+	float3 newPos(0,0,0);
+	float speed = 10.0f * dt;
+	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
+		speed *= 2;
 
-		if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
-		if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
+	if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
+	if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
 
-		if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos.z -= speed;
-		if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos.z += speed;
+	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos.z -= speed;
+	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos.z += speed;
 		
-		if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos.x -= speed;
-		if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos.x += speed;
+	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos.x -= speed;
+	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos.x += speed;
 
-		Position += newPos;
-		Reference += newPos;
+	Position += newPos;
+	Reference += newPos;
+	}
 
 	//	// Mouse motion ----------------
 
