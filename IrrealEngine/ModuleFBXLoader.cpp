@@ -77,6 +77,8 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 		// Use scene->mNumMeshes to iterate on scene->mMeshes array
 		for (int meshNum = 0; meshNum < scene->mNumMeshes; meshNum++)
 		{
+			LOG("Loading mesh %i of %i -------", meshNum + 1, scene->mNumMeshes);
+
 			FBXMesh* mesh = new FBXMesh();
 			aiMesh* currentMesh = scene->mMeshes[meshNum];
 
@@ -88,7 +90,6 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 			mesh->num_normals = currentMesh->mNumVertices;
 			mesh->normals = new float[mesh->num_normals * 3];
 			memcpy(mesh->normals, currentMesh->mNormals, sizeof(float) * mesh->num_normals * 3);
-			LOG("New mesh with %d normals", mesh->num_normals);
 
 			aiMaterial* material = scene->mMaterials[currentMesh->mMaterialIndex];
 			aiColor3D color(0.f, 0.f, 0.f);
@@ -97,38 +98,8 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 			mesh->color.y = color.g;
 			mesh->color.z = color.b;
 
-			aiString path;
-			aiReturn error = material->GetTexture(aiTextureType::aiTextureType_DIFFUSE, 0, &path);
-
-			if (error == aiReturn::aiReturn_SUCCESS)
-			{
-				std::string Path = full_path;
-				for (int i = Path.size() - 1; i >= 0; i--)
-					if (Path[i] == '/')
-						break;
-					else
-						Path.pop_back();
-				Path += "Textures/";
-				Path += path.C_Str();
-				mesh->texture = loadTexture(Path.c_str());
-			}
-			else
-				LOG("Couldn't load the texture from .fbx file");
-
 			if (currentMesh->HasFaces())
 			{
-				if (currentMesh->HasTextureCoords(0))
-				{
-					int c = 0;
-					mesh->texCoords = new float[mesh->num_vertices * 2];
-					for (uint num = 0; num < mesh->num_vertices * 2; num += 2)
-					{
-						mesh->texCoords[num] = currentMesh->mTextureCoords[0][c].x;
-						mesh->texCoords[num + 1] = currentMesh->mTextureCoords[0][c].y;
-						c++;
-					}
-				}
-
 				mesh->num_indices = currentMesh->mNumFaces * 3;
 				mesh->indices = new uint[mesh->num_indices]; // assume each face is a triangle
 
@@ -148,9 +119,41 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 				}
 				if (!verticeError)
 				{
+					LOG("New mesh with %d indices", mesh->num_indices);
 					mesh->setMeshBuffer();
 					App->renderer3D->meshes.push_back(mesh);
-					//mesh->texture = loadTexture("../Assets/Textures/Lenna.png");
+				}
+
+				// Searching Texture
+				aiString path;
+				aiReturn error = material->GetTexture(aiTextureType::aiTextureType_DIFFUSE, 0, &path);
+
+				if (error == aiReturn::aiReturn_SUCCESS)
+				{
+					// Searches for a texture with the same name in the /Textures folder
+					std::string Path = full_path;
+					for (int i = Path.size() - 1; i >= 0; i--)
+						if (Path[i] == '/')
+							break;
+						else
+							Path.pop_back();
+					Path += "Textures/";
+					Path += path.C_Str();
+					mesh->texture = loadTexture(Path.c_str());
+				}
+				else
+					LOG("Couldn't load the texture from .fbx file");
+
+				if (currentMesh->HasTextureCoords(0))
+				{
+					int c = 0;
+					mesh->texCoords = new float[mesh->num_vertices * 2];
+					for (uint num = 0; num < mesh->num_vertices * 2; num += 2)
+					{
+						mesh->texCoords[num] = currentMesh->mTextureCoords[0][c].x;
+						mesh->texCoords[num + 1] = currentMesh->mTextureCoords[0][c].y;
+						c++;
+					}
 				}
 			}
 		}

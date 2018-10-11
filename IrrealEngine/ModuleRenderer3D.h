@@ -29,9 +29,7 @@ struct FBXMesh
 
 	uint texture = 0;
 	float* texCoords = nullptr;
-	//uint width = 0;
-	//uint height = 0;
-
+	
 	void setMeshBuffer();
 	void Draw();
 };
