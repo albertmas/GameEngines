@@ -295,8 +295,8 @@ void ModuleImGui::ConfigurationWindow()
 {
 	
 	
-		ImGui::SetNextWindowSize(ImVec2(600, 300), ImGuiSetCond_Once);
-		ImGui::SetNextWindowPos(ImVec2(10, 40), ImGuiSetCond_Once);
+		ImGui::SetNextWindowSize(ImVec2(400, 600), ImGuiSetCond_Once);
+		ImGui::SetNextWindowPos(ImVec2(App->window->width - 400, 40), ImGuiSetCond_Once);
 		ImGui::Begin("Configuration", &configurationwindow, ImGuiWindowFlags_MenuBar);
 
 		if (ImGui::BeginMenuBar())

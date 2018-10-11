@@ -37,6 +37,8 @@ public:
 
 	int width = 0;
 	int height = 0;
+
+	SDL_DisplayMode DM;
 };
 
 #endif // __ModuleWindow_H__

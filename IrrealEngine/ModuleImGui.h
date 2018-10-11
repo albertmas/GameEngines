@@ -53,7 +53,7 @@ public:
 	
 	bool randomwindow = false;
 	bool consolewindow = false;
-	bool configurationwindow = false;
+	bool configurationwindow = true;
 	bool aboutwindow = false;
 
 	int radius = 0;

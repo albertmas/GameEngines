@@ -71,6 +71,8 @@ bool ModuleWindow::Init(Document& document)
 		}
 	}
 
+	SDL_GetCurrentDisplayMode(0, &DM);
+
 	return ret;
 }
 
