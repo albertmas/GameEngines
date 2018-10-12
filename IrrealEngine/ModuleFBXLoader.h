@@ -4,6 +4,8 @@
 #include "Module.h"
 #include "Open_GL.h"
 #include "Mesh.h"
+#include "Assimp.h"
+#include "ModuleScene.h"
 #include <list>
 
 
@@ -22,6 +24,8 @@ public:
 	bool CleanUp();
 
 	bool LoadFile(const char* full_path);
+	bool Import(const std::string &full_path);
+	void LoadMesh(const aiMesh* mesh);
 	GLuint loadTexture(const char* full_path);
 
 	//Saved used texture info

@@ -1,6 +1,5 @@
 #include "Application.h"
 #include "ModuleInput.h"
-#include "Importer.h"
 #include "ModuleWindow.h"
 #include "ModuleAudio.h"
 #include "ModuleRenderer3D.h"
@@ -100,10 +99,10 @@ update_status ModuleInput::PreUpdate(float dt)
 		{
 		case SDL_DROPFILE:
 			{
-			App->renderer3D->meshes.clear();
+				App->renderer3D->meshes.clear();
 				App->scene->scene_objects.clear();
 				std::string file_path = e.drop.file;
-				App->importer->Import(file_path.c_str());
+				App->fbxloader->Import(file_path.c_str());
 
 			}
 			case SDL_MOUSEWHEEL:
