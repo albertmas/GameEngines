@@ -169,9 +169,6 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Sources\Containers</Filter>
     </ClCompile>
-    <ClCompile Include="Importer.cpp">
-      <Filter>Sources\Tools</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -437,9 +434,6 @@
     </ClInclude>
     <ClInclude Include="Open_GL.h">
       <Filter>Sources\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="Importer.h">
-      <Filter>Sources\Tools</Filter>
     </ClInclude>
     <ClInclude Include="Assimp.h">
       <Filter>Sources\Helpers</Filter>

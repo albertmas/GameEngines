@@ -1,12 +1,12 @@
 #include "Application.h"
 #include "ModuleInput.h"
-#include "Importer.h"
 #include "ModuleWindow.h"
 #include "ModuleAudio.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModulePhysics3D.h"
 #include "ModuleImGui.h"
+#include "ModuleFBXLoader.h"
 
 #define MAX_KEYS 300
 
@@ -99,9 +99,22 @@ update_status ModuleInput::PreUpdate(float dt)
 		{
 		case SDL_DROPFILE:
 			{
-				App->scene->scene_objects.clear();
 				std::string file_path = e.drop.file;
-				App->importer->Import(file_path.c_str());
+				std::string type = "";
+				for (int i = file_path.size() - 1; i >= 0; i--)
+				{
+					if (file_path.at(i) == '.')
+						break;
+					else
+						type = file_path.at(i) + type;
+				}
+				if (type == "fbx" || type == "FBX")
+				{
+					App->renderer3D->meshes.clear();
+					App->fbxloader->LoadFile(file_path.c_str());
+				}
+				else if (type == "png" || type == "PNG" || type == "dds" || type == "DDS")
+					App->fbxloader->ChangeTexure(file_path.c_str());
 
 			}
 			case SDL_MOUSEWHEEL:

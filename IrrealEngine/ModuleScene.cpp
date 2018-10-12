@@ -32,7 +32,7 @@ bool ModuleScene::Init(Document& document)
 bool ModuleScene::Start()
 {
 	//App->fbxloader->texPath = "Assets/Textures/Lenna.png";
-	App->fbxloader->LoadFile("Assets/BakerHouse.FBX");
+	App->fbxloader->LoadFile("Assets/BakerHouse/BakerHouse.FBX");
 
 	return true;
 }
@@ -45,7 +45,7 @@ update_status ModuleScene::Update(float dt)
 {
 	Draw();
 	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
-		App->fbxloader->LoadFile("Assets/warrior.FBX");
+		App->fbxloader->LoadFile("Assets/Warrior/warrior.FBX");
 	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
 		App->fbxloader->LoadTexture("Assets/Textures/Lenna.png");
 
