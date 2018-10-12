@@ -9,18 +9,20 @@
 #include "ModuleImGui.h"
 #include "ModuleFBXLoader.h"
 #include "ModuleScene.h"
+#include "Importer.h"
 
 Application::Application()
 {
 	window = new ModuleWindow();
 	input = new ModuleInput();
 	audio = new ModuleAudio(true);
+	importer = new Importer(this);
 	renderer3D = new ModuleRenderer3D();
 	camera = new ModuleCamera3D();
 	physics = new ModulePhysics3D();
 	imgui = new ModuleImGui();
 	fbxloader = new ModuleFBXLoader();
-	scene = new ModuleScene();
+	scene = new ModuleScene(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -29,6 +31,7 @@ Application::Application()
 	// Main Modules
 	AddModule(window);
 	AddModule(camera);
+	AddModule(importer);
 	AddModule(input);
 	AddModule(audio);
 	AddModule(physics);

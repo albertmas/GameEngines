@@ -2,6 +2,8 @@
 #define __ModuleScene_H__
 
 #include "Module.h"
+#include "Mesh.h"
+#include <list>
 
 class ModuleScene :	public Module
 {
@@ -19,9 +21,11 @@ public:
 	bool Save(Document& document, FileWriteStream& fws);
 	bool Load(Document& document);
 
-	bool Draw()const;
+	void Draw();
 
-private:
+public:
+	std::list<Mesh*> scene_objects;
+
 
 };
 

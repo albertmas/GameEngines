@@ -1,6 +1,6 @@
 #include "Application.h"
 #include "ModuleInput.h"
-
+#include "Importer.h"
 #include "ModuleWindow.h"
 #include "ModuleAudio.h"
 #include "ModuleRenderer3D.h"
@@ -97,6 +97,13 @@ update_status ModuleInput::PreUpdate(float dt)
 		App->imgui->ManageInput(&e);
 		switch(e.type)
 		{
+		case SDL_DROPFILE:
+			{
+				App->scene->scene_objects.clear();
+				std::string file_path = e.drop.file;
+				App->importer->Import(file_path.c_str());
+
+			}
 			case SDL_MOUSEWHEEL:
 			mouse_z = e.wheel.y;
 			break;

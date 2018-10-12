@@ -6,6 +6,7 @@
 #include "Globals.h"
 #include "glmath.h"
 #include "Mesh.h"
+#include "ModuleScene.h"
 
 #define MAX_LIGHTS 8
 #define CHECKERS_WIDTH 100
