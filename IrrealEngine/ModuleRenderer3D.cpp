@@ -458,6 +458,11 @@ void ModuleRenderer3D::FunctionsRender()
 	{
 		Active_Texture2D(Texture_2D);
 	}
+
+	if(ImGui::Checkbox("Normals", &Normals))
+	{
+		Active_Normals(Normals);
+	}
 }
 
 void ModuleRenderer3D::Active_Wireframe(bool active)
@@ -512,6 +517,11 @@ void ModuleRenderer3D::Active_Texture2D(bool active)
 
 	else
 		glDisable(GL_TEXTURE_2D);
+}
+
+void ModuleRenderer3D::Active_Normals(bool active)
+{
+
 }
 
 void FBXMesh::setMeshBuffer()

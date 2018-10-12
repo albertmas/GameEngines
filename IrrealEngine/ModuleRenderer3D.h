@@ -62,6 +62,7 @@ public:
 	void Active_Light(bool active);
 	void Active_ColorMat(bool active);
 	void Active_Texture2D(bool active);
+	void Active_Normals(bool active);
 
 	char* GetGraphicsVendor();
 	char* GetGraphicsModel();
@@ -102,6 +103,9 @@ private:
 
 	bool Texture_2D = true;
 	bool GetTexture2D() const { return Texture_2D; }
+
+	bool Normals = false;
+	bool GetNormals() const { return Normals; }
 
 	bool debug_draw = false;
 	
