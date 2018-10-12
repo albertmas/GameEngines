@@ -7,6 +7,7 @@
 #include "ModuleInput.h"
 #include "ModuleRenderer3D.h"
 #include "ModulePhysics3D.h"
+#include "Assimp/include/version.h"
 #include "DevIL\include\il.h"
 
 
@@ -80,10 +81,13 @@ update_status ModuleImGui::Update(float dt)
 			{
 				consolewindow = !consolewindow;
 			}
-
-			if (ImGui::MenuItem("Configuration", "4"))
+			if (ImGui::MenuItem("Configuration", "2"))
 			{
 				configurationwindow = !configurationwindow;
+			}
+			if (ImGui::MenuItem("Properties", "3"))
+			{
+				propertieswindow = !propertieswindow;
 			}
 			ImGui::EndMenu();
 		}
@@ -117,9 +121,16 @@ update_status ModuleImGui::Update(float dt)
 		{
 			ImGui::Text("Irreal Engine");
 			ImGui::Text("3D Engine in development");
-			ImGui::Text("Guillem Arman & Albert Mas");			
-			ImGui::Spacing();
-
+			ImGui::NewLine();
+			ImGui::Text("Created by:");
+			if (ImGui::Selectable("Guillem Arman", false, 0, { 90, 13 }))
+				App->OpenWeb("https://github.com/GuillemArman");
+			ImGui::SameLine(110);
+			ImGui::Text("&");
+			ImGui::SameLine(130);
+			if (ImGui::Selectable("Albert Mas", false, 0, { 70, 13 }))
+				App->OpenWeb("https://github.com/albertmas");
+			ImGui::NewLine();
 			
 			if (ImGui::BeginMenu("Libraries"))
 			{
@@ -137,25 +148,41 @@ update_status ModuleImGui::Update(float dt)
 				{
 					App->OpenWeb("https://github.com/juj/MathGeoLib");
 				}
-				if (ImGui::MenuItem("SDL - Version 2.0.8"))
+				std::string sdl_version = "SDL - Version ";
+				SDL_version version;
+				SDL_GetVersion(&version);
+				sdl_version += std::to_string(version.major) + '.' + std::to_string(version.minor) + '.' + std::to_string(version.patch);
+				if (ImGui::MenuItem(sdl_version.c_str()))
 				{
 					App->OpenWeb("https://github.com/albertmas/GameEngines/tree/master2/3D%20Engine/SDL");
 				}
-				if (ImGui::MenuItem("PCG - Version 2.0, January 2004"))
+				if (ImGui::MenuItem("PCG - Version 0.9 (Minimal C Implementation)"))
 				{
 					App->OpenWeb("http://www.pcg-random.org/");
 				}
-				std::string opengl_version = "OpenGL - version ";
+				std::string opengl_version = "OpenGL - Version ";
 				opengl_version += (const char*)glGetString(GL_VERSION);
 				if (ImGui::MenuItem(opengl_version.c_str()))
 				{
 					App->OpenWeb("https://www.opengl.org/");
+				}
+				std::string rapidjson_version = "RapidJSON - Version ";
+				rapidjson_version += RAPIDJSON_VERSION_STRING;
+				if (ImGui::MenuItem(rapidjson_version.c_str()))
+				{
+					App->OpenWeb("http://rapidjson.org/index.html");
 				}
 				std::string glew_version = "Glew - Version ";
 				glew_version += (const char*)glewGetString(GLEW_VERSION);
 				if (ImGui::MenuItem(glew_version.c_str()))
 				{
 					App->OpenWeb("https://github.com/nigels-com/glew");
+				}
+				std::string assimp_version = "Assimp - Version ";
+				assimp_version += std::to_string(aiGetVersionMajor()) + '.' + std::to_string(aiGetVersionMinor()) + '.' + std::to_string(aiGetVersionRevision());
+				if (ImGui::MenuItem(assimp_version.c_str()))
+				{
+					App->OpenWeb("http://www.assimp.org/");
 				}
 				std::string devil_version = "DevIL - Version ";
 				devil_version += std::to_string(IL_VERSION);
@@ -165,11 +192,13 @@ update_status ModuleImGui::Update(float dt)
 				}
 				ImGui::EndMenu();
 			}
-			if (ImGui::MenuItem("Link to Repository"))
+			ImGui::NewLine();
+			if (ImGui::MenuItem("-> GitHub Repository <-"))
 			{
 				App->OpenWeb("https://github.com/albertmas/GameEngines");
 			}
-			if (ImGui::MenuItem("License"))
+			ImGui::NewLine();
+			if (ImGui::MenuItem("-> MIT License <-"))
 			{
 				App->OpenWeb("https://github.com/albertmas/GameEngines/blob/master2/LICENSE");
 			}
@@ -184,6 +213,7 @@ update_status ModuleImGui::Update(float dt)
 	if (testwindow)TestWindow();
 	if (consolewindow)Console();
 	if (configurationwindow)ConfigurationWindow();
+	if (propertieswindow)PropertiesWindow();
 	if (spherewindow)CreateSphere();
 	if (trianglewindow)CreateTriangle();
 	if (cubewindow)App->renderer3D->CreateCube();
@@ -192,8 +222,10 @@ update_status ModuleImGui::Update(float dt)
 	// Hotkeys
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		consolewindow = !consolewindow;
-	if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 		configurationwindow = !configurationwindow;
+	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+		propertieswindow = !propertieswindow;
 
 	if (aboutwindow)
 	{
@@ -278,9 +310,9 @@ void ModuleImGui::TestWindow()
 void ModuleImGui::Console()
 {
 	
-		ImGui::SetNextWindowSize(ImVec2(800, 200), ImGuiSetCond_Once);
-		ImGui::SetNextWindowPos(ImVec2(10, 510), ImGuiSetCond_Once);
-		ImGui::Begin("Console", &consolewindow);
+		ImGui::SetNextWindowSize(ImVec2(App->window->width - config_width - properties_width - 4, 200), ImGuiSetCond_Once);
+		ImGui::SetNextWindowPos(ImVec2(252, App->window->height - 201), ImGuiSetCond_Once);
+		ImGui::Begin("Console", &consolewindow, ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoMove);
 		ImGui::TextUnformatted(consolelog.begin());
 		if (scrollconsole)
 		{
@@ -295,9 +327,9 @@ void ModuleImGui::ConfigurationWindow()
 {
 	
 	
-		ImGui::SetNextWindowSize(ImVec2(400, 600), ImGuiSetCond_Once);
-		ImGui::SetNextWindowPos(ImVec2(App->window->width - 400, 40), ImGuiSetCond_Once);
-		ImGui::Begin("Configuration", &configurationwindow, ImGuiWindowFlags_MenuBar);
+		ImGui::SetNextWindowSize(ImVec2(300, App->window->height - 22), ImGuiSetCond_Once);
+		ImGui::SetNextWindowPos(ImVec2(App->window->width - 301, 21), ImGuiSetCond_Once);
+		ImGui::Begin("Configuration", &configurationwindow, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoFocusOnAppearing);
 
 		if (ImGui::BeginMenuBar())
 		{
@@ -430,17 +462,17 @@ void ModuleImGui::ConfigurationWindow()
 			if (ImGui::Checkbox("Fullscreen", &fullscreen))
 				App->window->SetFullscreen(fullscreen);
 			ImGui::SameLine();
-			if (ImGui::Checkbox("Resizable", &resizable))
-				App->window->SetResizable(resizable);
-			if (ImGui::IsItemHovered())
-				ImGui::SetTooltip("Useless on Fullscreen");
+			if (ImGui::Checkbox("Full Desktop", &fulldesktop))
+				App->window->SetFullDesktop(fulldesktop);
 			if (ImGui::Checkbox("Borderless", &borderless))
 				App->window->SetBorderless(borderless);
 			if (ImGui::IsItemHovered())
 				ImGui::SetTooltip("Useless on Fullscreen");
 			ImGui::SameLine();
-			if (ImGui::Checkbox("Full Desktop", &fulldesktop))
-				App->window->SetFullDesktop(fulldesktop);
+			if (ImGui::Checkbox("Resizable", &resizable))
+				App->window->SetResizable(resizable);
+			if (ImGui::IsItemHovered())
+				ImGui::SetTooltip("Useless on Fullscreen");
 		}
 		
 		if (ImGui::CollapsingHeader("Input"))
@@ -478,7 +510,7 @@ void ModuleImGui::ConfigurationWindow()
 			if (SDL_HasAltiVec()) ImGui::TextColored(green, "AltiVec,"); ImGui::SameLine();
 			if (SDL_HasMMX()) ImGui::TextColored(green, "MMX,"); ImGui::SameLine();
 			if (SDL_HasRDTSC()) ImGui::TextColored(green, "RDTSC,"); ImGui::SameLine();
-			if (SDL_HasSSE()) ImGui::TextColored(green, "SSE,"); ImGui::SameLine();
+			if (SDL_HasSSE()) ImGui::TextColored(green, "SSE,");
 			if (SDL_HasSSE2()) ImGui::TextColored(green, "SSE2,"); ImGui::SameLine();
 			if (SDL_HasSSE3()) ImGui::TextColored(green, "SSE3,"); ImGui::SameLine();
 			if (SDL_HasSSE41()) ImGui::TextColored(green, "SSE41,"); ImGui::SameLine();
@@ -506,18 +538,35 @@ void ModuleImGui::ConfigurationWindow()
 
 
 		}
-
 		if (ImGui::CollapsingHeader("3D Renderer"))
 		{
 			App->renderer3D->FunctionsRender();
 		}
-		/*if (ImGui::BeginChild("Application"))
-		{
-		ImGui::EndChild();
-		}*/
 
 		ImGui::End();
+}
+
+void ModuleImGui::PropertiesWindow()
+{
+	ImGui::SetNextWindowSize(ImVec2(250, App->window->height - 22), ImGuiSetCond_Once);
+	ImGui::SetNextWindowPos(ImVec2(1, 21), ImGuiSetCond_Once);
+	ImGui::Begin("Properties", &propertieswindow, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoFocusOnAppearing);
+
 	
+	if (ImGui::CollapsingHeader("Transformation"))// pos, rot, scale
+	{
+
+	}
+	if (ImGui::CollapsingHeader("Geometry"))// triangle, vertex count
+	{
+
+	}
+	if (ImGui::CollapsingHeader("Texture"))// size, name
+	{
+
+	}
+
+	ImGui::End();
 }
 
 void ModuleImGui::GetHardWareData()

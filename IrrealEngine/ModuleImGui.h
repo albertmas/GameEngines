@@ -31,6 +31,7 @@ public:
 	void TestWindow();
 	void Console();
 	void ConfigurationWindow();
+	void PropertiesWindow();
 	void CreateSphere();
 	void CreateTriangle();
 	void GetHardWareData();
@@ -52,8 +53,9 @@ public:
 	bool cubewindow = false;
 	
 	bool randomwindow = false;
-	bool consolewindow = false;
+	bool consolewindow = true;
 	bool configurationwindow = true;
+	bool propertieswindow = true;
 	bool aboutwindow = false;
 
 	int radius = 0;
@@ -70,8 +72,6 @@ public:
 	float3 pos_b;
 	float3 pos_c;
 
-
-
 	ImGuiTextBuffer consolelog;
 
 private:
@@ -85,7 +85,10 @@ private:
 
 	bool scrollconsole = false;
 
-	char app_name[50] = "3D Engine";
+	int config_width = 300;
+	int properties_width = 250;
+
+	char app_name[50] = "IrrealEngine";
 	char organization[50] = "UPC CITM";
 	char icon_name[50] = "*default*";
 	char icon_name_new[50] = "";
