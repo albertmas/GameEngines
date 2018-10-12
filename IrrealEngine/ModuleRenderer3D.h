@@ -94,7 +94,7 @@ private:
 	bool Depth_Test = false;
 	bool GetDepth() const { return Depth_Test; }
 
-	bool Cull_Face = false;
+	bool Cull_Face = true;
 	bool GetCullFace() const { return Cull_Face; }
 
 	bool Lighting = false;
