@@ -97,7 +97,7 @@ update_status ModuleInput::PreUpdate(float dt)
 		App->imgui->ManageInput(&e);
 		switch(e.type)
 		{
-		case SDL_DROPFILE:
+			case SDL_DROPFILE:
 			{
 				std::string file_path = e.drop.file;
 				std::string type = "";
@@ -113,7 +113,7 @@ update_status ModuleInput::PreUpdate(float dt)
 					App->renderer3D->meshes.clear();
 					App->fbxloader->LoadFile(file_path.c_str());
 				}
-				else if (type == "png" || type == "PNG" || type == "dds" || type == "DDS")
+				else if (type == "png" || type == "dds" || type == "jpg")
 					App->fbxloader->ChangeTexure(file_path.c_str());
 
 			}

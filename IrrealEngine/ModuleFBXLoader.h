@@ -24,8 +24,8 @@ public:
 	bool CleanUp();
 
 	bool LoadFile(const char* full_path);
-	bool Import(const std::string &full_path);
-	void LoadMesh(const aiMesh* mesh);
+	/*bool Import(const std::string &full_path);
+	void LoadMesh(const aiMesh* mesh);*/
 	GLuint LoadTexture(const char* full_path);
 	void ChangeTexure(const char* full_path);
 

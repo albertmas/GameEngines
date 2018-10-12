@@ -493,7 +493,7 @@ void ModuleRenderer3D::Active_Cull(bool active)
 
 void ModuleRenderer3D::Active_Light(bool active)
 {
-	if (active == true)
+	if (active == false)
 		glEnable(GL_LIGHTING);
 
 	else

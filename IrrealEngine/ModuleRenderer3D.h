@@ -30,6 +30,8 @@ struct FBXMesh
 
 	uint texture = 0;
 	float* texCoords = nullptr;
+
+	AABB bounding_box;
 	
 	void setMeshBuffer();
 	void Draw();
@@ -92,13 +94,13 @@ private:
 	bool Depth_Test = false;
 	bool GetDepth() const { return Depth_Test; }
 
-	bool Cull_Face = false;
+	bool Cull_Face = true;
 	bool GetCullFace() const { return Cull_Face; }
 
 	bool Lighting = false;
 	bool GetLight() const { return Lighting; }
 
-	bool Color_Material = false;
+	bool Color_Material = true;
 	bool GetColor() const { return Color_Material; }
 
 	bool Texture_2D = true;
