@@ -97,7 +97,7 @@ update_status ModuleInput::PreUpdate(float dt)
 		App->imgui->ManageInput(&e);
 		switch(e.type)
 		{
-		case SDL_DROPFILE:
+			case SDL_DROPFILE:
 			{
 				std::string file_path = e.drop.file;
 				std::string type = "";

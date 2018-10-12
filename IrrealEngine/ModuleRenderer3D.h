@@ -30,6 +30,8 @@ struct FBXMesh
 
 	uint texture = 0;
 	float* texCoords = nullptr;
+
+	AABB bounding_box;
 	
 	void setMeshBuffer();
 	void Draw();
@@ -98,7 +100,7 @@ private:
 	bool Lighting = false;
 	bool GetLight() const { return Lighting; }
 
-	bool Color_Material = false;
+	bool Color_Material = true;
 	bool GetColor() const { return Color_Material; }
 
 	bool Texture_2D = true;
