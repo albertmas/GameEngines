@@ -35,6 +35,20 @@ struct FBXMesh
 	
 	void setMeshBuffer();
 	void Draw();
+
+	// Mesh info
+	std::string meshName = "";
+	std::string meshPath = "";
+	float meshPos[3] = { 0, 0, 0, };
+	float meshRot[3] = { 0, 0, 0, };
+	int meshScale = 0;
+	uint num_triangles = 0;
+
+	// Texture info
+	std::string texPath = "";
+	std::string texName = "";
+	uint texWidth = 0;
+	uint texHeight = 0;
 };
 
 class ModuleRenderer3D : public Module

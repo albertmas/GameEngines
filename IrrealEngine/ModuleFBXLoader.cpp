@@ -139,7 +139,7 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 						else
 							Path.pop_back();
 					Path += path.C_Str();
-					mesh->texture = LoadTexture(Path.c_str());
+					mesh->texture = LoadTexture(Path.c_str(), mesh->texWidth, mesh->texHeight);
 				}
 				else
 					LOG("Couldn't load the default texture from .fbx file");
@@ -156,6 +156,10 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 					}
 				}
 				
+				// Get info
+				mesh->meshPath = full_path;
+				mesh->meshName = currentMesh->mName.C_Str();
+				mesh->num_triangles = currentMesh->mNumFaces;
 			}
 
 		}
@@ -172,7 +176,7 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 	return ret;
 }
 
-GLuint ModuleFBXLoader::LoadTexture(const char* full_path)
+GLuint ModuleFBXLoader::LoadTexture(const char* full_path, uint &width, uint &height)
 {
 	ILuint imageID;
 	GLuint textureID;
@@ -224,6 +228,9 @@ GLuint ModuleFBXLoader::LoadTexture(const char* full_path)
 			ilGetInteger(IL_IMAGE_FORMAT),	// Format of image pixel data
 			GL_UNSIGNED_BYTE,		// Image data type
 			ilGetData());			// The actual image data itself
+
+		width = ImageInfo.Width;
+		height = ImageInfo.Height;
 	}
 	else
 	{
@@ -245,7 +252,7 @@ void ModuleFBXLoader::ChangeTexure(const char* full_path)
 	LOG("Changing Textures-------")
 	for (std::list<FBXMesh*>::iterator iter = App->renderer3D->meshes.begin(); iter != App->renderer3D->meshes.end(); iter++)
 	{
-		(*iter)->texture = LoadTexture(full_path);
+		(*iter)->texture = LoadTexture(full_path, (*iter)->texWidth, (*iter)->texHeight);
 	}
 }
 

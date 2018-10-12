@@ -77,15 +77,15 @@ update_status ModuleImGui::Update(float dt)
 
 		if (ImGui::BeginMenu("View"))
 		{
-			if (ImGui::MenuItem("Console", "1"))
+			if (ImGui::MenuItem("Console", "Shift + 1"))
 			{
 				consolewindow = !consolewindow;
 			}
-			if (ImGui::MenuItem("Configuration", "2"))
+			if (ImGui::MenuItem("Configuration", "Shift + 2"))
 			{
 				configurationwindow = !configurationwindow;
 			}
-			if (ImGui::MenuItem("Properties", "3"))
+			if (ImGui::MenuItem("Properties", "Shift + 3"))
 			{
 				propertieswindow = !propertieswindow;
 			}
@@ -114,7 +114,7 @@ update_status ModuleImGui::Update(float dt)
 			{
 				cubewindow = !cubewindow;
 			}
-				ImGui::EndMenu();
+			ImGui::EndMenu();
 		}
 
 		if (ImGui::BeginMenu("About"))
@@ -220,11 +220,11 @@ update_status ModuleImGui::Update(float dt)
 	
 	
 	// Hotkeys
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		consolewindow = !consolewindow;
-	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		configurationwindow = !configurationwindow;
-	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		propertieswindow = !propertieswindow;
 
 	if (aboutwindow)
@@ -550,20 +550,50 @@ void ModuleImGui::PropertiesWindow()
 {
 	ImGui::SetNextWindowSize(ImVec2(250, App->window->height - 22), ImGuiSetCond_Once);
 	ImGui::SetNextWindowPos(ImVec2(1, 21), ImGuiSetCond_Once);
-	ImGui::Begin("Properties", &propertieswindow, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoFocusOnAppearing);
+	ImGui::Begin("Properties", &propertieswindow, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_HorizontalScrollbar);
 
-	
-	if (ImGui::CollapsingHeader("Transformation"))// pos, rot, scale
+	for (std::list<FBXMesh*>::iterator iter = App->renderer3D->meshes.begin(); iter != App->renderer3D->meshes.end(); iter++)
 	{
+		std::string text = (*iter)->meshName;
+		if (ImGui::TreeNodeEx(text.c_str(), ImGuiTreeNodeFlags_Framed))
+		{
+			ImGui::Text("Path: %s", (*iter)->meshPath.c_str());
+			ImGui::Spacing();
 
-	}
-	if (ImGui::CollapsingHeader("Geometry"))// triangle, vertex count
-	{
+			if (ImGui::TreeNode("Transformation"))
+			{
+				ImGui::InputFloat3("Position", (*iter)->meshPos, 1);
+				ImGui::InputFloat3("Rotation", (*iter)->meshRot, 1);
+				ImGui::InputInt("Scale", &(*iter)->meshScale);
 
-	}
-	if (ImGui::CollapsingHeader("Texture"))// size, name
-	{
+				ImGui::TreePop();
+			}
+			ImGui::Spacing();
+			if (ImGui::TreeNode("Geometry"))
+			{
+				ImGui::Text("Triangles: %i", (*iter)->num_triangles);
+				ImGui::Text("Vertices: %i", (*iter)->num_vertices);
 
+				ImGui::TreePop();
+			}
+			ImGui::Spacing();
+			if (ImGui::TreeNode("Texture"))// preview
+			{
+				if (ImGui::TreeNode((*iter)->texName.c_str()))
+				{
+					ImGui::Text("Path: %s", (*iter)->texPath.c_str());
+					ImGui::Text("Width: %i", (*iter)->texWidth);
+					ImGui::Text("Height: %i", (*iter)->texHeight);
+
+					ImGui::TreePop();
+				}
+
+				ImGui::TreePop();
+			}
+			ImGui::Separator();
+
+			ImGui::TreePop();
+		}
 	}
 
 	ImGui::End();
