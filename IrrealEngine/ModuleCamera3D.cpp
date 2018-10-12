@@ -45,6 +45,8 @@ bool ModuleCamera3D::CleanUp()
 update_status ModuleCamera3D::Update(float dt)
 {
 	////Debug camera
+	vec3 newPos(0, 0, 0);
+	float speed = 30.0f * dt;
 
 	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
@@ -64,6 +66,23 @@ update_status ModuleCamera3D::Update(float dt)
 
 	Position += newPos;
 	Reference += newPos;
+	focus = true;
+	}
+
+	if (App->input->GetMouseZ() > 0)
+	{
+		newPos -= Z * speed;
+
+		focus = true;
+		Position += newPos;
+		Reference += newPos;
+
+	}
+	if (App->input->GetMouseZ() < 0) {
+		newPos += Z * speed; focus = true;
+		Position += newPos;
+		Reference += newPos;
+
 	}
 
 		// Mouse motion ----------------

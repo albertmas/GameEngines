@@ -30,6 +30,7 @@ private:
 public:
 	
 	vec3 X, Y, Z, Position, Reference;
+	bool focus = false;
 
 private:
 
