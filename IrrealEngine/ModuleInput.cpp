@@ -99,6 +99,7 @@ update_status ModuleInput::PreUpdate(float dt)
 		{
 		case SDL_DROPFILE:
 			{
+				App->scene->scene_objects.clear();
 				std::string file_path = e.drop.file;
 				App->importer->Import(file_path.c_str());
 
