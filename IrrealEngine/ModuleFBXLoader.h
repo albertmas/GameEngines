@@ -19,7 +19,7 @@ public:
 	bool CleanUp();
 
 	bool LoadFile(const char* full_path);
-	GLuint loadTexture(const char* full_path);
+	GLuint LoadTexture(const char* full_path);
 
 	//Saved used texture info
 	std::string texPath = "";

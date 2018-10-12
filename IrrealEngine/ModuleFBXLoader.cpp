@@ -133,16 +133,16 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 					// Searches for a texture with the same name in the /Textures folder
 					std::string Path = full_path;
 					for (int i = Path.size() - 1; i >= 0; i--)
-						if (Path[i] == '/')
+						if (Path[i] == '/' | Path[i] == '\\')
 							break;
 						else
 							Path.pop_back();
 					Path += "Textures/";
 					Path += path.C_Str();
-					mesh->texture = loadTexture(Path.c_str());
+					mesh->texture = LoadTexture(Path.c_str());
 				}
 				else
-					LOG("Couldn't load the texture from .fbx file");
+					LOG("Couldn't load the default texture from .fbx file");
 
 				if (currentMesh->HasTextureCoords(0))
 				{
@@ -168,7 +168,7 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 	return ret;
 }
 
-GLuint ModuleFBXLoader::loadTexture(const char* full_path)
+GLuint ModuleFBXLoader::LoadTexture(const char* full_path)
 {
 	ILuint imageID;
 	GLuint textureID;
