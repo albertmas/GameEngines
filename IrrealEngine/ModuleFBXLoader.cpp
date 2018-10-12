@@ -2,6 +2,7 @@
 #include "ModuleFBXLoader.h"
 #include "ModuleRenderer3D.h"
 
+
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
@@ -155,9 +156,12 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 						c++;
 					}
 				}
+				
 			}
+
 		}
 		aiReleaseImport(scene);
+	
 	}
 	else
 	{
@@ -165,6 +169,7 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 		ret = false;
 	}
 
+	
 	return ret;
 }
 

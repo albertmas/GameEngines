@@ -7,6 +7,7 @@
 #include "ModuleCamera3D.h"
 #include "ModulePhysics3D.h"
 #include "ModuleImGui.h"
+#include "ModuleFBXLoader.h"
 
 #define MAX_KEYS 300
 
@@ -99,6 +100,7 @@ update_status ModuleInput::PreUpdate(float dt)
 		{
 		case SDL_DROPFILE:
 			{
+			App->renderer3D->meshes.clear();
 				App->scene->scene_objects.clear();
 				std::string file_path = e.drop.file;
 				App->importer->Import(file_path.c_str());

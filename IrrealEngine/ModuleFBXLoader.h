@@ -3,6 +3,9 @@
 
 #include "Module.h"
 #include "Open_GL.h"
+#include "Mesh.h"
+#include <list>
+
 
 struct FBXMesh;
 
@@ -26,6 +29,10 @@ public:
 	uint usedTexture = 0;
 	uint usedTextureWidth = 0;
 	uint usedTextureHeight = 0;
+
+public:
+	std::list<Mesh*> object;
+
 };
 
 #endif
