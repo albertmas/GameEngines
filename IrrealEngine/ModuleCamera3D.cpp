@@ -55,6 +55,8 @@ update_status ModuleCamera3D::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed *= 2;
 
+
+
 	if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
 	if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
 
@@ -63,6 +65,11 @@ update_status ModuleCamera3D::Update(float dt)
 		
 	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos.x -= speed;
 	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos.x += speed;
+
+	
+
+		
+		
 
 	Position += newPos;
 	Reference += newPos;
@@ -84,6 +91,9 @@ update_status ModuleCamera3D::Update(float dt)
 		Reference += newPos;
 
 	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+		LookAt({ 0,0,0 });
 
 		// Mouse motion ----------------
 
@@ -120,7 +130,10 @@ update_status ModuleCamera3D::Update(float dt)
 			}
 
 			Position = Reference + Z * length(Position);
+			LookAt({ 0,0,0 });
 		}
+
+		
 
 		// Recalculate matrix -------------
 	
