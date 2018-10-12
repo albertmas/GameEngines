@@ -50,6 +50,7 @@ update_status ModuleCamera3D::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed *= 2;
 
+
 	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
 		if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
@@ -84,6 +85,9 @@ update_status ModuleCamera3D::Update(float dt)
 
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+		LookAt({ 0,0,0 });
+
 	// Mouse motion ----------------
 
 	if ((App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT)))
@@ -116,14 +120,14 @@ update_status ModuleCamera3D::Update(float dt)
 				Z = vec3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
 				Y = cross(Z, X);
 			}
+
 		}
 
 		Position = Reference + Z * length(Position);
+		LookAt({ 0,0,0 });
 	}
 
 	// Recalculate matrix -------------
-	
-	
 	CalculateViewMatrix();
 	
 	return UPDATE_CONTINUE;
