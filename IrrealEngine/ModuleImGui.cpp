@@ -558,6 +558,8 @@ void ModuleImGui::PropertiesWindow()
 		if (ImGui::TreeNodeEx(text.c_str(), ImGuiTreeNodeFlags_Framed))
 		{
 			ImGui::Text("Path: %s", (*iter)->meshPath.c_str());
+			if (ImGui::IsItemHovered())
+				ImGui::SetTooltip((*iter)->meshPath.c_str());
 			ImGui::Spacing();
 
 			if (ImGui::TreeNode("Transformation"))
@@ -582,6 +584,8 @@ void ModuleImGui::PropertiesWindow()
 				if (ImGui::TreeNode((*iter)->texName.c_str()))
 				{
 					ImGui::Text("Path: %s", (*iter)->texPath.c_str());
+					if (ImGui::IsItemHovered())
+						ImGui::SetTooltip((*iter)->texPath.c_str());
 					ImGui::Text("Width: %i", (*iter)->texWidth);
 					ImGui::Text("Height: %i", (*iter)->texHeight);
 

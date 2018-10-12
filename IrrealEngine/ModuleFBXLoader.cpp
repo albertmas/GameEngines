@@ -140,6 +140,7 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 							Path.pop_back();
 					Path += path.C_Str();
 					mesh->texture = LoadTexture(Path.c_str(), mesh->texWidth, mesh->texHeight);
+					mesh->texPath = Path.c_str();
 				}
 				else
 					LOG("Couldn't load the default texture from .fbx file");
@@ -253,6 +254,7 @@ void ModuleFBXLoader::ChangeTexure(const char* full_path)
 	for (std::list<FBXMesh*>::iterator iter = App->renderer3D->meshes.begin(); iter != App->renderer3D->meshes.end(); iter++)
 	{
 		(*iter)->texture = LoadTexture(full_path, (*iter)->texWidth, (*iter)->texHeight);
+		(*iter)->texPath = full_path;
 	}
 }
 
