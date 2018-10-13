@@ -70,12 +70,16 @@ bool ModuleFBXLoader::CleanUp()
 	aiDetachAllLogStreams();
 	ilShutDown();
 
+	RELEASE(ObjectBB);
+
 	return true;
 }
 
 bool ModuleFBXLoader::ImportMesh(const char* full_path)
 {
 	bool ret = true;
+
+	mesh_number = 0;
 
 	const aiScene* scene = aiImportFile(full_path, aiProcessPreset_TargetRealtime_MaxQuality);
 	if (scene != nullptr && scene->HasMeshes())
@@ -110,15 +114,13 @@ bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNo
 	Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
 
 	
-	// Use scene->mNumMeshes to iterate on scene->mMeshes array
 	for (int meshNum = 0; meshNum < node->mNumMeshes; meshNum++)
 	{
-		LOG("\nLoading mesh %i of %i -------", meshNum + 1, node->mNumMeshes);
+		mesh_number++;
+		LOG("\nLoading mesh %i of %i -------", mesh_number, scene->mNumMeshes);
 
 		FBXMesh* mesh = new FBXMesh();
 		aiMesh* currentMesh = scene->mMeshes[node->mMeshes[meshNum]];
-
-			
 
 		mesh->num_vertices = currentMesh->mNumVertices;
 		mesh->vertices = new float[mesh->num_vertices * 3];
@@ -195,7 +197,7 @@ bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNo
 			// Get info
 			mesh->meshPath = full_path;
 			mesh->meshName = currentMesh->mName.C_Str();
-			mesh->meshNum = meshNum + 1;
+			mesh->meshNum = mesh_number;
 			mesh->num_triangles = currentMesh->mNumFaces;
 			mesh->bounding_box.SetNegativeInfinity();
 			mesh->bounding_box.Enclose((float3*)currentMesh->mVertices, currentMesh->mNumVertices);
@@ -206,13 +208,12 @@ bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNo
 			mesh->meshRot *= 180 / pi;
 			mesh->meshScale.Set(scaling.x, scaling.y, scaling.z);
 		}
-	
-		if (App->camera->first_time == false)
-		{
-			App->camera->FocusBox(*ObjectBB);
-		}
 	}
-	
+
+	if (App->camera->first_time == false)
+	{
+		App->camera->FocusBox(*ObjectBB);
+	}
 	
 	App->camera->first_time = false;
 	

@@ -32,7 +32,7 @@ bool ModuleScene::Init(Document& document)
 bool ModuleScene::Start()
 {
 	//App->fbxloader->texPath = "Assets/Textures/Lenna.png";
-	App->fbxloader->ImportMesh("Assets/BakerHouse/BakerHouse.FBX");
+	App->fbxloader->ImportMesh("Assets/BakerHouse/BakerHouse.fbx");
 
 	return true;
 }

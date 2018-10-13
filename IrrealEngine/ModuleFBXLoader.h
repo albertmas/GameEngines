@@ -28,6 +28,7 @@ public:
 	
 public:
 	std::list<Mesh*> object;
+	uint mesh_number = 0;
 	AABB* ObjectBB = nullptr;
 
 };

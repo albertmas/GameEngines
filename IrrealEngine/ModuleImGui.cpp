@@ -253,7 +253,7 @@ bool ModuleImGui::Load(Document& document)
 void ModuleImGui::RandomGenerator()
 {
 	
-		ImGui::SetNextWindowSize(ImVec2(400, 200), ImGuiSetCond_Once);
+		ImGui::SetNextWindowSize(ImVec2(400, 220), ImGuiSetCond_Once);
 		ImGui::SetNextWindowPos(ImVec2(100, 100), ImGuiSetCond_Once);
 		if (ImGui::Begin("Random Number Generator", &randomwindow, ImGuiWindowFlags_MenuBar))
 		{
@@ -560,6 +560,7 @@ void ModuleImGui::PropertiesWindow()
 		text += (*iter)->meshName;
 		if (ImGui::TreeNodeEx(text.c_str(), ImGuiTreeNodeFlags_Framed))
 		{
+			ImGui::Spacing();
 			ImGui::TextColored({ 0,1,1,1 }, "Mesh Path");
 			if (ImGui::IsItemHovered())
 				ImGui::SetTooltip((*iter)->meshPath.c_str());
@@ -666,7 +667,7 @@ void ModuleImGui::CreateSphere()
 void ModuleImGui::CreateTriangle()
 {
 	ImGui::SetNextWindowSize(ImVec2(400, 200), ImGuiSetCond_Once);
-	ImGui::SetNextWindowPos(ImVec2(600, 100), ImGuiSetCond_Once);
+	ImGui::SetNextWindowPos(ImVec2(550, 120), ImGuiSetCond_Once);
 	ImGui::Begin("Create a Triangle", &trianglewindow, ImGuiWindowFlags_MenuBar);
 	ImGui::InputInt("Position A", &a);
 	ImGui::InputInt("Position B", &b);
