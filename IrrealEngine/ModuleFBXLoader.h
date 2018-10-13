@@ -2,11 +2,7 @@
 #define __ModuleFBXLoader_H__
 
 #include "Module.h"
-#include "Open_GL.h"
 #include "Mesh.h"
-#include "Assimp.h"
-#include "ModuleScene.h"
-#include <list>
 
 
 struct FBXMesh;

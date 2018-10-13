@@ -3,10 +3,8 @@
 
 #include "Module.h"
 #include "Light.h"
-#include "Globals.h"
 #include "glmath.h"
 #include "Mesh.h"
-#include "ModuleScene.h"
 
 #define MAX_LIGHTS 8
 #define CHECKERS_WIDTH 100
@@ -14,6 +12,8 @@
 
 struct FBXMesh
 {
+	~FBXMesh();
+
 	uint id_indices = 0;
 	uint num_indices = 0;
 	uint* indices = nullptr;
@@ -35,13 +35,14 @@ struct FBXMesh
 	
 	void setMeshBuffer();
 	void Draw();
+	void DrawBB()const;
 
 	// Mesh info
 	std::string meshName = "";
 	std::string meshPath = "";
 	float meshPos[3] = { 0, 0, 0, };
 	float meshRot[3] = { 0, 0, 0, };
-	int meshScale = 0;
+	float meshScale[3] = { 0, 0, 0, };
 	uint num_triangles = 0;
 
 	// Texture info
@@ -122,8 +123,9 @@ private:
 
 	bool Normals = false;
 	bool GetNormals() const { return Normals; }
-
-	bool debug_draw = false;
+	
+	bool BB = false;
+	bool GetBB() const { return BB; }
 	
 
 	void CreatePlane();

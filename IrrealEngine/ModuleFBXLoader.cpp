@@ -176,6 +176,8 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 				mesh->meshPath = full_path;
 				mesh->meshName = currentMesh->mName.C_Str();
 				mesh->num_triangles = currentMesh->mNumFaces;
+				mesh->bounding_box.SetNegativeInfinity();
+				mesh->bounding_box.Enclose((float3*)currentMesh->mVertices, currentMesh->mNumVertices);
 			}
 
 		}

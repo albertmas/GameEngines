@@ -88,7 +88,7 @@ private:
 	int config_width = 300;
 	int properties_width = 250;
 
-	char app_name[50] = "IrrealEngine";
+	char app_name[50] = TITLE;
 	char organization[50] = "UPC CITM";
 	char icon_name[50] = "*default*";
 	char icon_name_new[50] = "";

@@ -5,6 +5,7 @@
 #include "ModuleCamera3D.h"
 #include "ModuleImGui.h"
 #include "ModuleFBXLoader.h"
+#include "ModuleScene.h"
 #include "Open_GL.h"
 
 
@@ -202,6 +203,8 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	for (std::list<FBXMesh*>::iterator iter = meshes.begin(); iter != meshes.end(); iter++)
 	{
 		(*iter)->Draw();
+		if (BB)
+			(*iter)->DrawBB();
 	}
 
 	//glLineWidth(2.0f);
@@ -264,15 +267,10 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	App->scene->Draw();
-	if (debug_draw == true)
-	{
-		/*BeginDebugDraw();
-		App->DebugDraw();
-		EndDebugDraw();*/
-	}
 	App->imgui->DrawImgui();
 
 	SDL_GL_SwapWindow(App->window->window);
+
 	return UPDATE_CONTINUE;
 }
 
@@ -428,31 +426,26 @@ void ModuleRenderer3D::FunctionsRender()
 	{
 		Active_Wireframe(Wireframe);
 	}
-
 	
 	if (ImGui::Checkbox("Depth Test", &Depth_Test))
 	{
 		Active_Depth(Depth_Test);
 	}
-
 	
 	if (ImGui::Checkbox("Cull Face", &Cull_Face))
 	{
 		Active_Cull(Cull_Face);
 	}
-
 	
 	if (ImGui::Checkbox("Lighting", &Lighting))
 	{
 		Active_Light(Lighting);
 	}
-
 	
 	if (ImGui::Checkbox("Color Material", &Color_Material))
 	{
 		Active_ColorMat(Color_Material);
 	}
-
 	
 	if (ImGui::Checkbox("Texture 2D", &Texture_2D))
 	{
@@ -463,6 +456,8 @@ void ModuleRenderer3D::FunctionsRender()
 	{
 		Active_Normals(Normals);
 	}
+	
+	ImGui::Checkbox("Bounding Box", &BB);
 }
 
 void ModuleRenderer3D::Active_Wireframe(bool active)
@@ -524,6 +519,20 @@ void ModuleRenderer3D::Active_Normals(bool active)
 
 }
 
+FBXMesh::~FBXMesh()
+{
+	RELEASE_ARRAY(vertices);
+
+	RELEASE_ARRAY(normals);
+
+	RELEASE_ARRAY(texCoords);
+
+	glDeleteBuffers(1, &id_indices);
+	RELEASE_ARRAY(indices);
+
+	glDeleteTextures(1, &texture);
+}
+
 void FBXMesh::setMeshBuffer()
 {
 	glGenBuffers(1, (GLuint*)&(id_indices));
@@ -558,7 +567,55 @@ void FBXMesh::Draw()
 	if (texture != 0)
 		glBindTexture(GL_TEXTURE_2D, 0);
 	else
-		glColor3f(1, 1, 1);
+		glColor3f(1.0, 1.0, 1.0);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+}
+
+void FBXMesh::DrawBB()const
+{
+	glColor3f(1.0, 0.0, 0.0);
+	glLineWidth(2.0f);
+	glBegin(GL_LINES);
+
+	glVertex3f(bounding_box.CornerPoint(0).x, bounding_box.CornerPoint(0).y, bounding_box.CornerPoint(0).z);
+	glVertex3f(bounding_box.CornerPoint(1).x, bounding_box.CornerPoint(1).y, bounding_box.CornerPoint(1).z);
+
+	glVertex3f(bounding_box.CornerPoint(0).x, bounding_box.CornerPoint(0).y, bounding_box.CornerPoint(0).z);
+	glVertex3f(bounding_box.CornerPoint(2).x, bounding_box.CornerPoint(2).y, bounding_box.CornerPoint(2).z);
+
+	glVertex3f(bounding_box.CornerPoint(0).x, bounding_box.CornerPoint(0).y, bounding_box.CornerPoint(0).z);
+	glVertex3f(bounding_box.CornerPoint(4).x, bounding_box.CornerPoint(4).y, bounding_box.CornerPoint(4).z);
+
+	glVertex3f(bounding_box.CornerPoint(3).x, bounding_box.CornerPoint(3).y, bounding_box.CornerPoint(3).z);
+	glVertex3f(bounding_box.CornerPoint(1).x, bounding_box.CornerPoint(1).y, bounding_box.CornerPoint(1).z);
+
+	glVertex3f(bounding_box.CornerPoint(3).x, bounding_box.CornerPoint(3).y, bounding_box.CornerPoint(3).z);
+	glVertex3f(bounding_box.CornerPoint(2).x, bounding_box.CornerPoint(2).y, bounding_box.CornerPoint(2).z);
+
+	glVertex3f(bounding_box.CornerPoint(3).x, bounding_box.CornerPoint(3).y, bounding_box.CornerPoint(3).z);
+	glVertex3f(bounding_box.CornerPoint(7).x, bounding_box.CornerPoint(7).y, bounding_box.CornerPoint(7).z);
+
+	glVertex3f(bounding_box.CornerPoint(6).x, bounding_box.CornerPoint(6).y, bounding_box.CornerPoint(6).z);
+	glVertex3f(bounding_box.CornerPoint(2).x, bounding_box.CornerPoint(2).y, bounding_box.CornerPoint(2).z);
+
+	glVertex3f(bounding_box.CornerPoint(6).x, bounding_box.CornerPoint(6).y, bounding_box.CornerPoint(6).z);
+	glVertex3f(bounding_box.CornerPoint(4).x, bounding_box.CornerPoint(4).y, bounding_box.CornerPoint(4).z);
+
+	glVertex3f(bounding_box.CornerPoint(6).x, bounding_box.CornerPoint(6).y, bounding_box.CornerPoint(6).z);
+	glVertex3f(bounding_box.CornerPoint(7).x, bounding_box.CornerPoint(7).y, bounding_box.CornerPoint(7).z);
+
+	glVertex3f(bounding_box.CornerPoint(5).x, bounding_box.CornerPoint(5).y, bounding_box.CornerPoint(5).z);
+	glVertex3f(bounding_box.CornerPoint(1).x, bounding_box.CornerPoint(1).y, bounding_box.CornerPoint(1).z);
+
+	glVertex3f(bounding_box.CornerPoint(5).x, bounding_box.CornerPoint(5).y, bounding_box.CornerPoint(5).z);
+	glVertex3f(bounding_box.CornerPoint(4).x, bounding_box.CornerPoint(4).y, bounding_box.CornerPoint(4).z);
+
+	glVertex3f(bounding_box.CornerPoint(5).x, bounding_box.CornerPoint(5).y, bounding_box.CornerPoint(5).z);
+	glVertex3f(bounding_box.CornerPoint(7).x, bounding_box.CornerPoint(7).y, bounding_box.CornerPoint(7).z);
+
+	glEnd();
+	glLineWidth(1.0f);
+	glColor3f(1.0, 1.0, 1.0);
+
 }

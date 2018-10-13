@@ -565,8 +565,16 @@ void ModuleImGui::PropertiesWindow()
 			if (ImGui::TreeNode("Transformation"))
 			{
 				ImGui::InputFloat3("Position", (*iter)->meshPos, 1);
+				if (ImGui::IsItemHovered())
+					ImGui::SetTooltip("Position of the mesh");
+
 				ImGui::InputFloat3("Rotation", (*iter)->meshRot, 1);
-				ImGui::InputInt("Scale", &(*iter)->meshScale);
+				if (ImGui::IsItemHovered())
+					ImGui::SetTooltip("Rotation of the mesh");
+
+				ImGui::InputFloat3("Scale", (*iter)->meshScale, 1);
+				if (ImGui::IsItemHovered())
+					ImGui::SetTooltip("Rotation of the mesh");
 
 				ImGui::TreePop();
 			}

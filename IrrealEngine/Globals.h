@@ -10,9 +10,29 @@
 #include <list>
 #include <vector>
 #include <string>
+#include "Open_GL.h"
 
 #define LOG(format, ...) log(__FILE__, __LINE__, format, __VA_ARGS__);
 
+#define RELEASE( x ) \
+    {                        \
+    if( x != NULL )        \
+	    {                      \
+      delete x;            \
+	  x = NULL;              \
+	    }                      \
+    }
+
+// Deletes an array of buffers
+#define RELEASE_ARRAY( x ) \
+    {                              \
+    if( x != NULL )              \
+	    {                            \
+      delete[] x;                \
+	  x = NULL;                    \
+	    }                            \
+                              \
+}
 
 void log(const char file[], int line, const char* format, ...);
 
