@@ -73,152 +73,147 @@ bool ModuleFBXLoader::CleanUp()
 	return true;
 }
 
-//bool ModuleFBXLoader::ImportMesh(const char* &full_path)
-//{
-//	bool ret = true;
-//
-//	const aiScene* scene = aiImportFile(full_path, aiProcessPreset_TargetRealtime_MaxQuality);
-//	if (scene != nullptr && scene->HasMeshes())
-//	{
-//		aiNode* root = scene->mRootNode;
-//		LoadFile(scene, root, full_path);
-//
-//		aiReleaseImport(scene);
-//	}
-//	else
-//	{
-//		LOG("Error loading scene %s", full_path);
-//	}
-//
-//	return ret;
-//}
-
-bool ModuleFBXLoader::LoadFile(const char* full_path)
+bool ModuleFBXLoader::ImportMesh(const char* full_path)
 {
 	bool ret = true;
-	
-	const aiScene* scene = aiImportFile(full_path, aiProcessPreset_TargetRealtime_MaxQuality); // It's important to choose a good flag
-	aiNode* rootNode = scene->mRootNode;
 
-	aiVector3D position;
-	aiQuaternion rotation;
-	aiVector3D scaling;
-	rootNode->mTransformation.Decompose(scaling, rotation, position);
-	
-	Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
-
-
+	const aiScene* scene = aiImportFile(full_path, aiProcessPreset_TargetRealtime_MaxQuality);
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		// Use scene->mNumMeshes to iterate on scene->mMeshes array
-		for (int meshNum = 0; meshNum < scene->mNumMeshes; meshNum++)
-		{
-			LOG("Loading mesh %i of %i -------", meshNum + 1, scene->mNumMeshes);
+		aiNode* rootNode = scene->mRootNode;
+		ObjectBB = new AABB({ 0,0,0 }, { 0,0,0 });
 
-			FBXMesh* mesh = new FBXMesh();
-			aiMesh* currentMesh = scene->mMeshes[meshNum];
+		LoadFile(full_path, scene, rootNode);
 
-			mesh->num_vertices = currentMesh->mNumVertices;
-			mesh->vertices = new float[mesh->num_vertices * 3];
-			memcpy(mesh->vertices, currentMesh->mVertices, sizeof(float) * mesh->num_vertices * 3);
-			LOG("New mesh with %d vertices", mesh->num_vertices);
-
-			mesh->num_normals = currentMesh->mNumVertices;
-			mesh->normals = new float[mesh->num_normals * 3];
-			memcpy(mesh->normals, currentMesh->mNormals, sizeof(float) * mesh->num_normals * 3);
-
-			aiMaterial* material = scene->mMaterials[currentMesh->mMaterialIndex];
-			aiColor3D color(0.0f, 0.0f, 0.0f);
-			material->Get(AI_MATKEY_COLOR_DIFFUSE, color);
-			mesh->color.Set(color.r, color.g, color.b);
-			
-			if (currentMesh->HasFaces())
-			{
-				mesh->num_indices = currentMesh->mNumFaces * 3;
-				mesh->indices = new uint[mesh->num_indices]; // assume each face is a triangle
-
-				bool verticeError = false;
-
-				for (uint i = 0; i < currentMesh->mNumFaces; ++i)
-				{
-					if (currentMesh->mFaces[i].mNumIndices != 3)
-					{
-						LOG("WARNING, geometry face with != 3 indices!");
-						verticeError = true;
-					}
-					else
-					{
-						memcpy(&mesh->indices[i * 3], currentMesh->mFaces[i].mIndices, 3 * sizeof(uint));
-					}
-				}
-				if (!verticeError)
-				{
-					LOG("New mesh with %d indices", mesh->num_indices);
-					mesh->setMeshBuffer();
-					App->renderer3D->meshes.push_back(mesh);
-				}
-
-				// Searching Texture
-				aiString path;
-				aiReturn error = material->GetTexture(aiTextureType::aiTextureType_DIFFUSE, 0, &path);
-
-				if (error == aiReturn::aiReturn_SUCCESS)
-				{
-					// Searches for the texture specified in the .fbx file
-					std::string Path = full_path;
-					for (int i = Path.size() - 1; i >= 0; i--)
-						if (Path[i] == '/' | Path[i] == '\\')
-							break;
-						else
-							Path.pop_back();
-					Path += path.C_Str();
-					mesh->texture = LoadTexture(Path.c_str(), mesh->texWidth, mesh->texHeight);
-					mesh->texPath = Path.c_str();
-				}
-				else
-					LOG("Couldn't load the default texture from .fbx file");
-
-				if (currentMesh->HasTextureCoords(0))
-				{
-					int c = 0;
-					mesh->texCoords = new float[mesh->num_vertices * 2];
-					for (uint num = 0; num < mesh->num_vertices * 2; num += 2)
-					{
-						mesh->texCoords[num] = currentMesh->mTextureCoords[0][c].x;
-						mesh->texCoords[num + 1] = currentMesh->mTextureCoords[0][c].y;
-						c++;
-					}
-				}
-				
-				// Get info
-				mesh->meshPath = full_path;
-				mesh->meshName = currentMesh->mName.C_Str();
-				mesh->meshNum = meshNum + 1;
-				mesh->num_triangles = currentMesh->mNumFaces;
-				mesh->bounding_box.SetNegativeInfinity();
-				mesh->bounding_box.Enclose((float3*)currentMesh->mVertices, currentMesh->mNumVertices);
-
-				mesh->meshPos.Set(position.x, position.y, position.z);
-				mesh->meshRot.Set(rot.ToEulerXYZ().x, rot.ToEulerXYZ().y, rot.ToEulerXYZ().z);
-				mesh->meshRot *= 180 / pi;
-				mesh->meshScale.Set(scaling.x, scaling.y, scaling.z);
-				
-				if (App->camera->first_time == false)
-				{
-					App->camera->FocusBox(mesh->bounding_box);
-				}
-				
-			}
-
-		}
 		aiReleaseImport(scene);
-	
 	}
 	else
 	{
-		LOG("Error loading scene %s", full_path);
-		ret = false;
+		LOG("Error loading mesh scene %s", full_path);
 	}
+
+	return ret;
+}
+
+bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNode* node)
+{
+	bool ret = true;
+
+	for (int i = 0; i < node->mNumChildren; i++)
+		LoadFile(full_path, scene, node->mChildren[i]);
+	
+	aiVector3D position;
+	aiQuaternion rotation;
+	aiVector3D scaling;
+	node->mTransformation.Decompose(scaling, rotation, position);
+	
+	Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
+
+	
+	// Use scene->mNumMeshes to iterate on scene->mMeshes array
+	for (int meshNum = 0; meshNum < node->mNumMeshes; meshNum++)
+	{
+		LOG("\nLoading mesh %i of %i -------", meshNum + 1, node->mNumMeshes);
+
+		FBXMesh* mesh = new FBXMesh();
+		aiMesh* currentMesh = scene->mMeshes[node->mMeshes[meshNum]];
+
+			
+
+		mesh->num_vertices = currentMesh->mNumVertices;
+		mesh->vertices = new float[mesh->num_vertices * 3];
+		memcpy(mesh->vertices, currentMesh->mVertices, sizeof(float) * mesh->num_vertices * 3);
+		LOG("New mesh with %d vertices", mesh->num_vertices);
+
+		mesh->num_normals = currentMesh->mNumVertices;
+		mesh->normals = new float[mesh->num_normals * 3];
+		memcpy(mesh->normals, currentMesh->mNormals, sizeof(float) * mesh->num_normals * 3);
+
+		aiMaterial* material = scene->mMaterials[currentMesh->mMaterialIndex];
+		aiColor3D color(0.0f, 0.0f, 0.0f);
+		material->Get(AI_MATKEY_COLOR_DIFFUSE, color);
+		mesh->color.Set(color.r, color.g, color.b);
+			
+		if (currentMesh->HasFaces())
+		{
+			mesh->num_indices = currentMesh->mNumFaces * 3;
+			mesh->indices = new uint[mesh->num_indices]; // assume each face is a triangle
+
+			bool verticeError = false;
+
+			for (uint i = 0; i < currentMesh->mNumFaces; ++i)
+			{
+				if (currentMesh->mFaces[i].mNumIndices != 3)
+				{
+					LOG("WARNING, geometry face with != 3 indices!");
+					verticeError = true;
+				}
+				else
+				{
+					memcpy(&mesh->indices[i * 3], currentMesh->mFaces[i].mIndices, 3 * sizeof(uint));
+				}
+			}
+			if (!verticeError)
+			{
+				LOG("New mesh with %d indices", mesh->num_indices);
+				mesh->setMeshBuffer();
+				App->renderer3D->meshes.push_back(mesh);
+			}
+
+			// Searching Texture
+			aiString path;
+			aiReturn error = material->GetTexture(aiTextureType::aiTextureType_DIFFUSE, 0, &path);
+
+			if (error == aiReturn::aiReturn_SUCCESS)
+			{
+				// Searches for the texture specified in the .fbx file
+				std::string Path = full_path;
+				for (int i = Path.size() - 1; i >= 0; i--)
+					if (Path[i] == '/' | Path[i] == '\\')
+						break;
+					else
+						Path.pop_back();
+				Path += path.C_Str();
+				mesh->texture = LoadTexture(Path.c_str(), mesh->texWidth, mesh->texHeight);
+				mesh->texPath = Path.c_str();
+			}
+			else
+				LOG("Couldn't load the default texture from .fbx file");
+
+			if (currentMesh->HasTextureCoords(0))
+			{
+				int c = 0;
+				mesh->texCoords = new float[mesh->num_vertices * 2];
+				for (uint num = 0; num < mesh->num_vertices * 2; num += 2)
+				{
+					mesh->texCoords[num] = currentMesh->mTextureCoords[0][c].x;
+					mesh->texCoords[num + 1] = currentMesh->mTextureCoords[0][c].y;
+					c++;
+				}
+			}
+				
+			// Get info
+			mesh->meshPath = full_path;
+			mesh->meshName = currentMesh->mName.C_Str();
+			mesh->meshNum = meshNum + 1;
+			mesh->num_triangles = currentMesh->mNumFaces;
+			mesh->bounding_box.SetNegativeInfinity();
+			mesh->bounding_box.Enclose((float3*)currentMesh->mVertices, currentMesh->mNumVertices);
+			ObjectBB->Enclose(mesh->bounding_box);
+
+			mesh->meshPos.Set(position.x, position.y, position.z);
+			mesh->meshRot.Set(rot.ToEulerXYZ().x, rot.ToEulerXYZ().y, rot.ToEulerXYZ().z);
+			mesh->meshRot *= 180 / pi;
+			mesh->meshScale.Set(scaling.x, scaling.y, scaling.z);
+		}
+	
+		if (App->camera->first_time == false)
+		{
+			App->camera->FocusBox(*ObjectBB);
+		}
+	}
+	
+	
 	App->camera->first_time = false;
 	
 	return ret;
@@ -313,73 +308,4 @@ void AssimpLog(const char* str, char* userData)
 
 	LOG("%s", msg.c_str());
 }
-
-//bool ModuleFBXLoader::Import(const std::string &full_path)
-//{
-//	bool ret = true;
-//
-//	const aiScene* scene = aiImportFile(full_path.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
-//	if (scene != nullptr && scene->HasMeshes())
-//	{
-//		// Use scene->mNumMeshes to iterate on scene->mMeshes array
-//		for (uint i = 0; i < scene->mNumMeshes; i++)
-//		{
-//			const aiMesh* mesh = scene->mMeshes[i];
-//			LoadMesh(mesh);
-//		}
-//		aiReleaseImport(scene);
-//	}
-//	else
-//	{
-//		LOG("Error loading scene %s", full_path);
-//		LOG("ERROR! %s", full_path);
-//	}
-//
-//
-//	return ret;
-//}
-//
-//
-//void ModuleFBXLoader::LoadMesh(const aiMesh * mesh)
-//{
-//	Mesh* my_mesh = new Mesh();
-//
-//	my_mesh->data.num_vertex = mesh->mNumVertices;
-//	my_mesh->data.vertex = new float3[my_mesh->data.num_vertex];
-//	memcpy(my_mesh->data.vertex, mesh->mVertices, sizeof(float3)*my_mesh->data.num_vertex);
-//	LOG("New Mesh with %d vertices", my_mesh->data.num_vertex);
-//	LOG("New Mesh with %d vertices", my_mesh->data.num_vertex);
-//
-//	glGenBuffers(1, (GLuint*) &(my_mesh->data.id_vertex));
-//
-//	glBindBuffer(GL_ARRAY_BUFFER, my_mesh->data.id_vertex);
-//	glBufferData(GL_ARRAY_BUFFER, sizeof(float3)*my_mesh->data.num_vertex, my_mesh->data.vertex, GL_STATIC_DRAW);
-//	glBindBuffer(GL_ARRAY_BUFFER, 0);
-//
-//	if (mesh->HasFaces())
-//	{
-//		my_mesh->data.num_index = mesh->mNumFaces * 3;
-//		my_mesh->data.index = new uint[my_mesh->data.num_index];
-//		for (uint i = 0; i < mesh->mNumFaces; ++i)
-//		{
-//			if (mesh->mFaces[i].mNumIndices != 3)
-//			{
-//				LOG("WARNING, geometry face with != 3 indices!");
-//			}
-//			else
-//			{
-//				memcpy(&my_mesh->data.index[i * 3], mesh->mFaces[i].mIndices, sizeof(uint) * 3);
-//			}
-//
-//		}
-//	}
-//	glGenBuffers(1, (GLuint*) &(my_mesh->data.id_index));
-//
-//	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_mesh->data.id_index);
-//	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*my_mesh->data.num_index, my_mesh->data.index, GL_STATIC_DRAW);
-//	LOG("New Mesh with %d indices", my_mesh->data.num_index);
-//	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-//
-//	App->scene->scene_objects.push_back(my_mesh);
-//}
 

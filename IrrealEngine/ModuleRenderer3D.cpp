@@ -203,9 +203,13 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	for (std::list<FBXMesh*>::iterator iter = meshes.begin(); iter != meshes.end(); iter++)
 	{
 		(*iter)->Draw();
-		if (BB)
-			(*iter)->DrawBB();
+		if (BB && meshes.size() > 1)
+		{
+			DrawBB((*iter)->bounding_box, { 1.0f, 0.0f, 0.0f });
+		}
 	}
+	if (BB)
+		DrawBB(*App->fbxloader->ObjectBB, { 0.0f, 1.0f, 0.0f });
 
 	//glLineWidth(2.0f);
 
@@ -572,9 +576,9 @@ void FBXMesh::Draw()
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
-void FBXMesh::DrawBB()const
+void ModuleRenderer3D::DrawBB(AABB bounding_box, float3 color)const
 {
-	glColor3f(1.0, 0.0, 0.0);
+	glColor3f(color.x, color.y, color.z);
 	glLineWidth(2.0f);
 	glBegin(GL_LINES);
 

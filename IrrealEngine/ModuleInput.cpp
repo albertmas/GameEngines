@@ -111,7 +111,7 @@ update_status ModuleInput::PreUpdate(float dt)
 				if (type == "fbx" || type == "FBX")
 				{
 					App->renderer3D->meshes.clear();
-					App->fbxloader->LoadFile(file_path.c_str());
+					App->fbxloader->ImportMesh(file_path.c_str());
 				}
 				else if (type == "png" || type == "dds" || type == "jpg")
 					App->fbxloader->ChangeTexure(file_path.c_str());

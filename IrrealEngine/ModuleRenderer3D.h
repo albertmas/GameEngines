@@ -35,7 +35,6 @@ struct FBXMesh
 	
 	void setMeshBuffer();
 	void Draw();
-	void DrawBB()const;
 
 	// Mesh info
 	std::string meshName = "";
@@ -72,6 +71,7 @@ public:
 	void Info_init_Console();
 	void FunctionsRender();
 	void CreateCube();
+	void DrawBB(AABB bounding_box, float3 color)const;
 	
 
 	void Active_Wireframe(bool active);

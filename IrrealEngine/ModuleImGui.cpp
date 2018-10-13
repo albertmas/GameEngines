@@ -560,12 +560,12 @@ void ModuleImGui::PropertiesWindow()
 		text += (*iter)->meshName;
 		if (ImGui::TreeNodeEx(text.c_str(), ImGuiTreeNodeFlags_Framed))
 		{
-			ImGui::Text("Path: %s", (*iter)->meshPath.c_str());
+			ImGui::TextColored({ 0,1,1,1 }, "Mesh Path");
 			if (ImGui::IsItemHovered())
 				ImGui::SetTooltip((*iter)->meshPath.c_str());
 			ImGui::Spacing();
 
-			if (ImGui::TreeNode("Transformation"))
+			if (ImGui::TreeNodeEx("Transformation", ImGuiTreeNodeFlags_Framed))
 			{
 				float pos[3] = {(*iter)->meshPos.x, (*iter)->meshPos.y, (*iter)->meshPos.z };
 				ImGui::InputFloat3("Position", pos, 1);
@@ -585,7 +585,7 @@ void ModuleImGui::PropertiesWindow()
 				ImGui::TreePop();
 			}
 			ImGui::Spacing();
-			if (ImGui::TreeNode("Geometry"))
+			if (ImGui::TreeNodeEx("Geometry", ImGuiTreeNodeFlags_Framed))
 			{
 				ImGui::Text("Triangles: %i", (*iter)->num_triangles);
 				ImGui::Text("Vertices: %i", (*iter)->num_vertices);
@@ -593,11 +593,11 @@ void ModuleImGui::PropertiesWindow()
 				ImGui::TreePop();
 			}
 			ImGui::Spacing();
-			if (ImGui::TreeNode("Texture"))
+			if (ImGui::TreeNodeEx("Texture", ImGuiTreeNodeFlags_Framed))
 			{
 				if ((*iter)->texture > 0)//(ImGui::TreeNode((*iter)->texName.c_str()))
 				{
-					ImGui::Text("Path: %s", (*iter)->texPath.c_str());
+					ImGui::TextColored({ 0,1,1,1 }, "Texture Path");
 					if (ImGui::IsItemHovered())
 						ImGui::SetTooltip((*iter)->texPath.c_str());
 					ImGui::Text("Width: %i", (*iter)->texWidth);

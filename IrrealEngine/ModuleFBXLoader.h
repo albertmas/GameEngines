@@ -6,6 +6,8 @@
 
 
 struct FBXMesh;
+struct aiScene;
+struct aiNode;
 
 class ModuleFBXLoader :	public Module
 {
@@ -19,15 +21,14 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	//bool ImportMesh(const char* &full_path);
-	bool LoadFile(const char* full_path);
-	/*bool Import(const std::string &full_path);
-	void LoadMesh(const aiMesh* mesh);*/
+	bool ImportMesh(const char* full_path);
+	bool LoadFile(const char* full_path, const aiScene* scene, aiNode* node);
 	GLuint LoadTexture(const char* full_path, uint &width, uint &height);
 	void ChangeTexure(const char* full_path);
 	
 public:
 	std::list<Mesh*> object;
+	AABB* ObjectBB = nullptr;
 
 };
 
