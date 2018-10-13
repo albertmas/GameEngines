@@ -40,9 +40,10 @@ struct FBXMesh
 	// Mesh info
 	std::string meshName = "";
 	std::string meshPath = "";
-	float meshPos[3] = { 0, 0, 0, };
-	float meshRot[3] = { 0, 0, 0, };
-	float meshScale[3] = { 0, 0, 0, };
+	uint meshNum = 0;
+	float3 meshPos = { 0, 0, 0, };
+	float3 meshRot = { 0, 0, 0, };
+	float3 meshScale = { 0, 0, 0, };
 	uint num_triangles = 0;
 
 	// Texture info

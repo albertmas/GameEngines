@@ -33,6 +33,7 @@ bool ModuleFBXLoader::Init(Document& document)
 	// Stream log messages to Debug window
 	struct aiLogStream stream;
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
+	stream.callback = AssimpLog;
 	aiAttachLogStream(&stream);
 
 	// DevIL
@@ -69,10 +70,40 @@ bool ModuleFBXLoader::CleanUp()
 	return true;
 }
 
+//bool ModuleFBXLoader::ImportMesh(const char* &full_path)
+//{
+//	bool ret = true;
+//
+//	const aiScene* scene = aiImportFile(full_path, aiProcessPreset_TargetRealtime_MaxQuality);
+//	if (scene != nullptr && scene->HasMeshes())
+//	{
+//		aiNode* root = scene->mRootNode;
+//		LoadFile(scene, root, full_path);
+//
+//		aiReleaseImport(scene);
+//	}
+//	else
+//	{
+//		LOG("Error loading scene %s", full_path);
+//	}
+//
+//	return ret;
+//}
+
 bool ModuleFBXLoader::LoadFile(const char* full_path)
 {
 	bool ret = true;
 	const aiScene* scene = aiImportFile(full_path, aiProcessPreset_TargetRealtime_MaxQuality); // It's important to choose a good flag
+	aiNode* rootNode = scene->mRootNode;
+
+	aiVector3D position;
+	aiQuaternion rotation;
+	aiVector3D scaling;
+	rootNode->mTransformation.Decompose(scaling, rotation, position);
+	
+	Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
+
+
 	if (scene != nullptr && scene->HasMeshes())
 	{
 		// Use scene->mNumMeshes to iterate on scene->mMeshes array
@@ -93,27 +124,10 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 			memcpy(mesh->normals, currentMesh->mNormals, sizeof(float) * mesh->num_normals * 3);
 
 			aiMaterial* material = scene->mMaterials[currentMesh->mMaterialIndex];
-			aiColor3D color(0.f, 0.f, 0.f);
+			aiColor3D color(0.0f, 0.0f, 0.0f);
 			material->Get(AI_MATKEY_COLOR_DIFFUSE, color);
-			mesh->color.x = color.r;
-			mesh->color.y = color.g;
-			mesh->color.z = color.b;
-
-			// Get mesh size
-			float3 size(0, 0, 0);
-		/*	for (int i = 0; i < mesh->num_vertices; i++)
-			{
-				int x = mesh->num_vertices[i].x;
-				int y = mesh->num_vertices[i].y;
-				int z = mesh->num_vertices[i].z;
-				if (x > size.x)
-					size.x = x;
-				if (y > size.y)
-					size.y = y;
-				if (z > size.z)
-					size.z = z;
-			}*/
-
+			mesh->color.Set(color.r, color.g, color.b);
+			
 			if (currentMesh->HasFaces())
 			{
 				mesh->num_indices = currentMesh->mNumFaces * 3;
@@ -175,9 +189,15 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 				// Get info
 				mesh->meshPath = full_path;
 				mesh->meshName = currentMesh->mName.C_Str();
+				mesh->meshNum = meshNum + 1;
 				mesh->num_triangles = currentMesh->mNumFaces;
 				mesh->bounding_box.SetNegativeInfinity();
 				mesh->bounding_box.Enclose((float3*)currentMesh->mVertices, currentMesh->mNumVertices);
+
+				mesh->meshPos.Set(position.x, position.y, position.z);
+				mesh->meshRot.Set(rot.ToEulerXYZ().x, rot.ToEulerXYZ().y, rot.ToEulerXYZ().z);
+				mesh->meshRot *= 180 / pi;
+				mesh->meshScale.Set(scaling.x, scaling.y, scaling.z);
 			}
 
 		}
@@ -254,7 +274,7 @@ GLuint ModuleFBXLoader::LoadTexture(const char* full_path, uint &width, uint &he
 	{
 		error = ilGetError();
 		LOG("Image load failed - IL reports error: %s", iluErrorString(error));
-		return -1;
+		return 0;
 	}
 
 	ilDeleteImages(1, &imageID);
@@ -273,6 +293,15 @@ void ModuleFBXLoader::ChangeTexure(const char* full_path)
 		(*iter)->texture = LoadTexture(full_path, (*iter)->texWidth, (*iter)->texHeight);
 		(*iter)->texPath = full_path;
 	}
+}
+
+void AssimpLog(const char* str, char* userData)
+{
+	std::string msg = str;
+	msg.pop_back();
+	msg.pop_back();
+
+	LOG("%s", msg.c_str());
 }
 
 //bool ModuleFBXLoader::Import(const std::string &full_path)

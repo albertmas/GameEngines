@@ -115,6 +115,8 @@ update_status ModuleInput::PreUpdate(float dt)
 				}
 				else if (type == "png" || type == "dds" || type == "jpg")
 					App->fbxloader->ChangeTexure(file_path.c_str());
+				else
+					LOG("Couldn't load file. Wrong format: %s", type.c_str())
 
 			}
 			case SDL_MOUSEWHEEL:

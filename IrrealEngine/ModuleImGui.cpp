@@ -312,7 +312,7 @@ void ModuleImGui::Console()
 	
 		ImGui::SetNextWindowSize(ImVec2(App->window->width - config_width - properties_width - 4, 200), ImGuiSetCond_Once);
 		ImGui::SetNextWindowPos(ImVec2(252, App->window->height - 201), ImGuiSetCond_Once);
-		ImGui::Begin("Console", &consolewindow, ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoMove);
+		ImGui::Begin("Console", &consolewindow, ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_HorizontalScrollbar);
 		ImGui::TextUnformatted(consolelog.begin());
 		if (scrollconsole)
 		{
@@ -554,7 +554,10 @@ void ModuleImGui::PropertiesWindow()
 
 	for (std::list<FBXMesh*>::iterator iter = App->renderer3D->meshes.begin(); iter != App->renderer3D->meshes.end(); iter++)
 	{
-		std::string text = (*iter)->meshName;
+		std::string text = "Mesh ";
+		text += std::to_string((*iter)->meshNum);
+		text += ": ";
+		text += (*iter)->meshName;
 		if (ImGui::TreeNodeEx(text.c_str(), ImGuiTreeNodeFlags_Framed))
 		{
 			ImGui::Text("Path: %s", (*iter)->meshPath.c_str());
@@ -564,15 +567,18 @@ void ModuleImGui::PropertiesWindow()
 
 			if (ImGui::TreeNode("Transformation"))
 			{
-				ImGui::InputFloat3("Position", (*iter)->meshPos, 1);
+				float pos[3] = {(*iter)->meshPos.x, (*iter)->meshPos.y, (*iter)->meshPos.z };
+				ImGui::InputFloat3("Position", pos, 1);
 				if (ImGui::IsItemHovered())
 					ImGui::SetTooltip("Position of the mesh");
 
-				ImGui::InputFloat3("Rotation", (*iter)->meshRot, 1);
+				float rot[3] = { (*iter)->meshRot.x, (*iter)->meshRot.y, (*iter)->meshRot.z };
+				ImGui::InputFloat3("Rotation", rot, 1);
 				if (ImGui::IsItemHovered())
 					ImGui::SetTooltip("Rotation of the mesh");
 
-				ImGui::InputFloat3("Scale", (*iter)->meshScale, 1);
+				float scale[3] = { (*iter)->meshScale.x, (*iter)->meshScale.y, (*iter)->meshScale.z };
+				ImGui::InputFloat3("Scale", scale, 1);
 				if (ImGui::IsItemHovered())
 					ImGui::SetTooltip("Rotation of the mesh");
 
@@ -587,9 +593,9 @@ void ModuleImGui::PropertiesWindow()
 				ImGui::TreePop();
 			}
 			ImGui::Spacing();
-			if (ImGui::TreeNode("Texture"))// preview
+			if (ImGui::TreeNode("Texture"))
 			{
-				if (ImGui::TreeNode((*iter)->texName.c_str()))
+				if ((*iter)->texture > 0)//(ImGui::TreeNode((*iter)->texName.c_str()))
 				{
 					ImGui::Text("Path: %s", (*iter)->texPath.c_str());
 					if (ImGui::IsItemHovered())
@@ -597,8 +603,12 @@ void ModuleImGui::PropertiesWindow()
 					ImGui::Text("Width: %i", (*iter)->texWidth);
 					ImGui::Text("Height: %i", (*iter)->texHeight);
 
-					ImGui::TreePop();
+					float winWidth = ImGui::GetWindowContentRegionWidth();
+					ImVec2 texSize = { (*iter)->texHeight * winWidth / (*iter)->texWidth, winWidth };
+					ImGui::Image((ImTextureID)(*iter)->texture, texSize);
 				}
+				else
+					ImGui::TextColored({ 1, 0, 0, 1 }, "Mesh has no texture");
 
 				ImGui::TreePop();
 			}

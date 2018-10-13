@@ -19,6 +19,7 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+	//bool ImportMesh(const char* &full_path);
 	bool LoadFile(const char* full_path);
 	/*bool Import(const std::string &full_path);
 	void LoadMesh(const aiMesh* mesh);*/
@@ -29,5 +30,8 @@ public:
 	std::list<Mesh*> object;
 
 };
+
+void AssimpLog(const char* str, char* userData);
+
 
 #endif
