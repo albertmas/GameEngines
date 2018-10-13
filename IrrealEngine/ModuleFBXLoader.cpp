@@ -99,6 +99,21 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 			mesh->color.y = color.g;
 			mesh->color.z = color.b;
 
+			// Get mesh size
+			float3 size(0, 0, 0);
+		/*	for (int i = 0; i < mesh->num_vertices; i++)
+			{
+				int x = mesh->num_vertices[i].x;
+				int y = mesh->num_vertices[i].y;
+				int z = mesh->num_vertices[i].z;
+				if (x > size.x)
+					size.x = x;
+				if (y > size.y)
+					size.y = y;
+				if (z > size.z)
+					size.z = z;
+			}*/
+
 			if (currentMesh->HasFaces())
 			{
 				mesh->num_indices = currentMesh->mNumFaces * 3;

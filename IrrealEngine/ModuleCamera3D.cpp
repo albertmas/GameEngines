@@ -88,8 +88,10 @@ update_status ModuleCamera3D::Update(float dt)
 	}
 
 	// Look at mesh (currently centered)
-	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
 		LookAt({ 0,0,0 });
+		// Adapt position depending on size of the mesh
+	}
 
 	// Mouse motion ----------------
 
