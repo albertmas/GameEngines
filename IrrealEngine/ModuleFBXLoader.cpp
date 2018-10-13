@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "ModuleFBXLoader.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleCamera3D.h"
 
 
 #include "Assimp/include/cimport.h"
@@ -41,6 +42,8 @@ bool ModuleFBXLoader::Init(Document& document)
 	iluInit();
 	ilutInit();
 	ilutRenderer(ILUT_OPENGL);
+
+	
 	
 	return true;
 }
@@ -93,6 +96,7 @@ bool ModuleFBXLoader::CleanUp()
 bool ModuleFBXLoader::LoadFile(const char* full_path)
 {
 	bool ret = true;
+	
 	const aiScene* scene = aiImportFile(full_path, aiProcessPreset_TargetRealtime_MaxQuality); // It's important to choose a good flag
 	aiNode* rootNode = scene->mRootNode;
 
@@ -198,6 +202,12 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 				mesh->meshRot.Set(rot.ToEulerXYZ().x, rot.ToEulerXYZ().y, rot.ToEulerXYZ().z);
 				mesh->meshRot *= 180 / pi;
 				mesh->meshScale.Set(scaling.x, scaling.y, scaling.z);
+				
+				if (App->camera->first_time == false)
+				{
+					App->camera->FocusBox(mesh->bounding_box);
+				}
+				
 			}
 
 		}
@@ -209,7 +219,7 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 		LOG("Error loading scene %s", full_path);
 		ret = false;
 	}
-
+	App->camera->first_time = false;
 	
 	return ret;
 }
