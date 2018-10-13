@@ -41,6 +41,8 @@ bool ModuleFBXLoader::Init(Document& document)
 	iluInit();
 	ilutInit();
 	ilutRenderer(ILUT_OPENGL);
+
+	
 	
 	return true;
 }
@@ -73,6 +75,7 @@ bool ModuleFBXLoader::CleanUp()
 bool ModuleFBXLoader::LoadFile(const char* full_path)
 {
 	bool ret = true;
+	
 	const aiScene* scene = aiImportFile(full_path, aiProcessPreset_TargetRealtime_MaxQuality); // It's important to choose a good flag
 	if (scene != nullptr && scene->HasMeshes())
 	{
@@ -180,8 +183,10 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 				mesh->bounding_box.SetNegativeInfinity();
 				mesh->bounding_box.Enclose((float3*)currentMesh->mVertices, currentMesh->mNumVertices);
 				
-				
-				App->camera->FocusBox(mesh->bounding_box);
+				if (App->camera->first_time == false)
+				{
+					App->camera->FocusBox(mesh->bounding_box);
+				}
 					
 				
 			}
@@ -195,7 +200,7 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 		LOG("Error loading scene %s", full_path);
 		ret = false;
 	}
-
+	App->camera->first_time = false;
 	
 	return ret;
 }

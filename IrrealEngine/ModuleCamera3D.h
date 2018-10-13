@@ -25,6 +25,10 @@ public:
 	void FocusBox(AABB & box);
 	float* GetViewMatrix();
 
+
+
+	bool first_time;
+
 private:
 
 	void CalculateViewMatrix();
