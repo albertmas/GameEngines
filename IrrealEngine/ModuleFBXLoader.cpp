@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "ModuleFBXLoader.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleCamera3D.h"
 
 
 #include "Assimp/include/cimport.h"
@@ -178,6 +179,11 @@ bool ModuleFBXLoader::LoadFile(const char* full_path)
 				mesh->num_triangles = currentMesh->mNumFaces;
 				mesh->bounding_box.SetNegativeInfinity();
 				mesh->bounding_box.Enclose((float3*)currentMesh->mVertices, currentMesh->mNumVertices);
+				
+				
+				App->camera->FocusBox(mesh->bounding_box);
+					
+				
 			}
 
 		}

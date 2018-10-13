@@ -213,3 +213,18 @@ void ModuleCamera3D::Camera_Rot()
 	}
 	
 }
+void ModuleCamera3D::FocusBox(AABB & box)
+{
+	Position.x = box.maxPoint.x;
+	Position.y = box.maxPoint.y + 20;
+	Position.z = box.maxPoint.z;
+	vec3 focus_position;
+	focus_position.x = box.CenterPoint().x;
+	focus_position.y = box.CenterPoint().y;
+	focus_position.z = box.CenterPoint().z;
+	Z = normalize(Position - focus_position);
+	X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), Z));
+	Y = cross(Z, X);
+	CalculateViewMatrix();
+
+}
