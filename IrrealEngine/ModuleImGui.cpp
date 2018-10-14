@@ -581,7 +581,20 @@ void ModuleImGui::ConfigurationWindow()
 					ImGui::PushID(123);
 					ImGui::BeginChild(123, ImVec2(365, 290), true);
 
-					SearchFolder("C:/Users/almac/Documents/GitHub/GameEngines/IrrealEngine/Game/Assets/*");
+					// Search executing path
+					char result[MAX_PATH];
+					std::string(result, GetModuleFileName(NULL, result, MAX_PATH));
+					std::string path_string = std::string(result, GetModuleFileName(NULL, result, MAX_PATH));
+
+					// Remove name of exe
+					for (int i = path_string.size() - 1; i >= 0; i--)
+						if (path_string[i] == '/' | path_string[i] == '\\')
+							break;
+						else
+							path_string.pop_back();
+					// Add the assets folder to the path
+					path_string += "Assets/*";
+					SearchFolder(path_string.c_str());// Path for debug "C:/Users/almac/Documents/GitHub/GameEngines/IrrealEngine/Game/Assets/*"
 
 					
 					ImGui::EndChild();
