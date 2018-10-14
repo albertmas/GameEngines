@@ -57,6 +57,7 @@ public:
 	bool configurationwindow = true;
 	bool propertieswindow = true;
 	bool aboutwindow = false;
+	bool editorwindow = true;
 
 	int radius = 0;
 	int x = 0, y = 0, z = 0;

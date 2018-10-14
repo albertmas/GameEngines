@@ -89,6 +89,11 @@ update_status ModuleImGui::Update(float dt)
 			{
 				propertieswindow = !propertieswindow;
 			}
+			if (ImGui::MenuItem("Editor", "Shift + 4"))
+			{
+				editorwindow = !editorwindow;
+			}
+
 			ImGui::EndMenu();
 		}
 
@@ -226,6 +231,8 @@ update_status ModuleImGui::Update(float dt)
 		configurationwindow = !configurationwindow;
 	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		propertieswindow = !propertieswindow;
+	if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
+		editorwindow = !editorwindow;
 
 	if (aboutwindow)
 	{

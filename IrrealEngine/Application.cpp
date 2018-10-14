@@ -2,7 +2,6 @@
 #include "Module.h"
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
-#include "ModuleAudio.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModulePhysics3D.h"
@@ -15,7 +14,6 @@ Application::Application()
 {
 	window = new ModuleWindow();
 	input = new ModuleInput();
-	audio = new ModuleAudio(true);
 	renderer3D = new ModuleRenderer3D();
 	camera = new ModuleCamera3D();
 	physics = new ModulePhysics3D();
@@ -31,7 +29,6 @@ Application::Application()
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
-	AddModule(audio);
 	AddModule(physics);
 	AddModule(fbxloader);
 	

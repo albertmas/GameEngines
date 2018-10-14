@@ -37,9 +37,6 @@
     <ClCompile Include="ImGui\imgui_widgets.cpp">
       <Filter>Sources\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleAudio.cpp">
-      <Filter>Sources\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleCamera3D.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
@@ -214,9 +211,6 @@
       <Filter>Sources\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="Module.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleAudio.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleCamera3D.h">
