@@ -67,13 +67,13 @@ public:
 
 	float brightness = 1.0f;
 
-	float3 pos;
-	float3 min_pos;
-	float3 max_pos;
+	float3 pos = { 0.0f, 0.0f, 0.0f };
+	float3 min_pos = { 0.0f, 0.0f, 0.0f };
+	float3 max_pos = { 0.0f, 0.0f, 0.0f };
 
-	float3 pos_a;
-	float3 pos_b;
-	float3 pos_c;
+	float3 pos_a = { 0.0f, 0.0f, 0.0f };
+	float3 pos_b = { 0.0f, 0.0f, 0.0f };
+	float3 pos_c = { 0.0f, 0.0f, 0.0f };
 
 	ImGuiTextBuffer consolelog;
 
