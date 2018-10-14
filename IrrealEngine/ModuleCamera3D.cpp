@@ -216,9 +216,9 @@ void ModuleCamera3D::Camera_Rot()
 }
 void ModuleCamera3D::FocusBox(AABB & box)
 {
-	Position.x = box.maxPoint.x;
-	Position.y = box.maxPoint.y + 20;
-	Position.z = box.maxPoint.z;
+	Position.x = box.maxPoint.x ;
+	Position.y = box.maxPoint.y  ;
+	Position.z = box.maxPoint.z +8 ;
 	vec3 focus_position;
 	focus_position.x = box.CenterPoint().x;
 	focus_position.y = box.CenterPoint().y;
