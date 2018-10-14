@@ -17,7 +17,7 @@ bool ModuleWindow::Init(Document& document)
 {
 	LOG("Init SDL window & surface");
 	bool ret = true;
-
+	
 	assert(document.IsObject());
 	assert(document["window"].IsString()); // Should load defaults here
 
@@ -29,8 +29,8 @@ bool ModuleWindow::Init(Document& document)
 	else
 	{
 		//Create window
-		width = SCREEN_WIDTH * SCREEN_SIZE;
-		height = SCREEN_HEIGHT * SCREEN_SIZE;
+		width = GetSystemMetrics(SM_CXSCREEN) * SCREEN_SIZE * 0.9f;
+		height = GetSystemMetrics(SM_CYSCREEN) * SCREEN_SIZE * 0.9f;
 		Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
 
 		//Use OpenGL 2.1
@@ -70,8 +70,6 @@ bool ModuleWindow::Init(Document& document)
 			screen_surface = SDL_GetWindowSurface(window);
 		}
 	}
-
-	SDL_GetCurrentDisplayMode(0, &DM);
 
 	return ret;
 }

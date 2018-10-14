@@ -366,6 +366,19 @@ void ModuleImGui::ConfigurationWindow()
 			ImGui::InputText("App Name", app_name, IM_ARRAYSIZE(app_name));
 			ImGui::InputText("Organization", organization, IM_ARRAYSIZE(organization));
 			ImGui::SliderInt("Max FPS", &App->framerate_cap, 0, 125);
+			if (ImGui::Checkbox("VSync", &vsync))
+			{
+				if (vsync)
+				{
+					SDL_GL_SetSwapInterval(1);
+					LOG("VSync ON ------");
+				}
+				else
+				{
+					SDL_GL_SetSwapInterval(0);
+					LOG("VSync OFF ------")
+				}
+			}
 			ImGui::Text("Limit Framerate: ");
 			ImGui::SameLine();
 			ImGui::TextColored({ 255, 255, 0, 1 }, "%i", App->framerate_cap);
@@ -381,8 +394,6 @@ void ModuleImGui::ConfigurationWindow()
 		}
 		if (ImGui::CollapsingHeader("Window"))
 		{
-			/*if (ImGui::Checkbox("Active", &active))
-			{ }*/
 			//ImGui::Text("Icon:  ");
 			//ImGui::SameLine();
 			//if (ImGui::Button(icon_name))

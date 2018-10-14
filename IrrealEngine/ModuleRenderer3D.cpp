@@ -150,6 +150,13 @@ bool ModuleRenderer3D::Init(Document& document)
 	return ret;
 }
 
+bool ModuleRenderer3D::Start()
+{
+	OnResize(App->window->width, App->window->height);
+
+	return true;
+}
+
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {

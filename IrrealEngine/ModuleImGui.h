@@ -87,7 +87,7 @@ private:
 	bool borderless = false;
 	bool fulldesktop = false;
 
-	bool active = true;
+	bool vsync = true;
 	bool loadfile = false;
 
 	bool scrollconsole = false;
