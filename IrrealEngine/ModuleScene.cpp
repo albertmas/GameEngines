@@ -31,7 +31,7 @@ bool ModuleScene::Init(Document& document)
 
 bool ModuleScene::Start()
 {
-	//App->fbxloader->texPath = "Assets/Textures/Lenna.png";
+	
 	App->fbxloader->ImportMesh("Assets/BakerHouse/BakerHouse.fbx");
 
 	return true;
@@ -45,8 +45,7 @@ update_status ModuleScene::Update(float dt)
 {
 	Draw();
 	
-	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
-		App->fbxloader->ChangeTexure("Assets/Textures/Lenna.png");
+	
 
 	return UPDATE_CONTINUE;
 }
