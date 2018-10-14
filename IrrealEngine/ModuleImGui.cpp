@@ -7,6 +7,7 @@
 #include "ModuleInput.h"
 #include "ModuleRenderer3D.h"
 #include "ModulePhysics3D.h"
+#include "ModuleFBXLoader.h"
 #include "Assimp/include/version.h"
 #include "DevIL\include\il.h"
 
@@ -382,76 +383,79 @@ void ModuleImGui::ConfigurationWindow()
 		{
 			/*if (ImGui::Checkbox("Active", &active))
 			{ }*/
-			ImGui::Text("Icon:  ");
-			ImGui::SameLine();
-			if (ImGui::Button(icon_name))
-			{
-				loadfile = !loadfile;
-			}
-			if (loadfile)
-			{
-				ImGui::SetNextWindowSize(ImVec2(380, 350), ImGuiSetCond_Once);
-				ImGui::SetNextWindowPos(ImVec2(400, 200), ImGuiSetCond_Once);
-				if (ImGui::Begin("Load File", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse))
-				{
-					ImGui::PushID(123);
-					ImGui::BeginChild(123, ImVec2(365, 290), true);
-					if (ImGui::TreeNode("Assets/"))
-					{
-						ImGui::TreePop();
-					}
-					if (ImGui::TreeNode("Library/"))
-					{
-						if (ImGui::TreeNode("Animations/"))
-						{
-							ImGui::TreePop();
-						}
-						if (ImGui::TreeNode("Audio/"))
-						{
-							ImGui::TreePop();
-						}
-						if (ImGui::TreeNode("Bones/"))
-						{
-							ImGui::TreePop();
-						}
-						if (ImGui::TreeNode("Meshes/"))
-						{
-							ImGui::TreePop();
-						}
-						if (ImGui::TreeNode("Scenes/"))
-						{
-							ImGui::TreePop();
-						}
-						if (ImGui::TreeNode("Textures/"))
-						{
-							ImGui::TreePop();
-						}
+			//ImGui::Text("Icon:  ");
+			//ImGui::SameLine();
+			//if (ImGui::Button(icon_name))
+			//{
+			//	loadfile = !loadfile;
+			//}
+			//if (loadfile)
+			//{
+			//	ImGui::SetNextWindowSize(ImVec2(380, 350), ImGuiSetCond_Once);
+			//	ImGui::SetNextWindowPos(ImVec2(400, 200), ImGuiSetCond_Once);
+			//	if (ImGui::Begin("Load File", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse))
+			//	{
+			//		ImGui::PushID(123);
+			//		ImGui::BeginChild(123, ImVec2(365, 290), true);
+			//		
+			//		SearchFolder("C:/Users/almac/Documents/GitHub/GameEngines/IrrealEngine/Game/Assets/*");
 
-						ImGui::TreePop();
-					}
-					if (ImGui::TreeNode("Settings/"))
-					{
-						ImGui::TreePop();
-					}
-					ImGui::EndChild();
-					ImGui::PopID();
-					
-					ImGui::InputText("", icon_name_new, IM_ARRAYSIZE(icon_name_new), ImGuiInputTextFlags_AutoSelectAll);
-					ImGui::SameLine();
-					if (ImGui::Button("OK", ImVec2(50.0, 0.0)))
-					{
-						sprintf_s(icon_name, icon_name_new);
-						loadfile = false;
-					}
-					ImGui::SameLine();
-					if (ImGui::Button("Cancel", ImVec2(50.0, 0.0)))
-					{
-						loadfile = false;
-					}
+			//		/*if (ImGui::TreeNode("Assets/"))
+			//		{
+			//			ImGui::TreePop();
+			//		}
+			//		if (ImGui::TreeNode("Library/"))
+			//		{
+			//			if (ImGui::TreeNode("Animations/"))
+			//			{
+			//				ImGui::TreePop();
+			//			}
+			//			if (ImGui::TreeNode("Audio/"))
+			//			{
+			//				ImGui::TreePop();
+			//			}
+			//			if (ImGui::TreeNode("Bones/"))
+			//			{
+			//				ImGui::TreePop();
+			//			}
+			//			if (ImGui::TreeNode("Meshes/"))
+			//			{
+			//				ImGui::TreePop();
+			//			}
+			//			if (ImGui::TreeNode("Scenes/"))
+			//			{
+			//				ImGui::TreePop();
+			//			}
+			//			if (ImGui::TreeNode("Textures/"))
+			//			{
+			//				ImGui::TreePop();
+			//			}
 
-					ImGui::End();
-				}
-			}
+			//			ImGui::TreePop();
+			//		}
+			//		if (ImGui::TreeNode("Settings/"))
+			//		{
+			//			ImGui::TreePop();
+			//		}*/
+			//		ImGui::EndChild();
+			//		ImGui::PopID();
+			//		
+			//		ImGui::InputText("", icon_name_new, IM_ARRAYSIZE(icon_name_new), ImGuiInputTextFlags_AutoSelectAll);
+			//		ImGui::SameLine();
+			//		if (ImGui::Button("OK", ImVec2(50.0, 0.0)))
+			//		{
+			//			sprintf_s(icon_name, icon_name_new);
+			//			loadfile = false;
+			//		}
+			//		ImGui::SameLine();
+			//		if (ImGui::Button("Cancel", ImVec2(50.0, 0.0)))
+			//		{
+			//			loadfile = false;
+			//		}
+
+			//		ImGui::End();
+			//	}
+			//}
 			// Brightness
 			if (ImGui::SliderFloat("Brightness", &brightness, 0.0f, 1.0f))
 				SDL_SetWindowBrightness(App->window->window, brightness);
@@ -548,6 +552,58 @@ void ModuleImGui::ConfigurationWindow()
 		if (ImGui::CollapsingHeader("3D Renderer"))
 		{
 			App->renderer3D->FunctionsRender();
+		}
+		if (ImGui::CollapsingHeader("Import Files"))
+		{
+			ImGui::Text("Explore:  ");
+			ImGui::SameLine();
+			if (ImGui::Button("Assets"))
+			{
+				loadfile = !loadfile;
+			}
+			if (loadfile)
+			{
+				ImGui::SetNextWindowSize(ImVec2(380, 350), ImGuiSetCond_Once);
+				ImGui::SetNextWindowPos(ImVec2(400, 200), ImGuiSetCond_Once);
+				if (ImGui::Begin("Load File", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse))
+				{
+					ImGui::PushID(123);
+					ImGui::BeginChild(123, ImVec2(365, 290), true);
+
+					SearchFolder("C:/Users/almac/Documents/GitHub/GameEngines/IrrealEngine/Game/Assets/*");
+
+					
+					ImGui::EndChild();
+					ImGui::PopID();
+
+					ImGui::InputText("", selected_file, IM_ARRAYSIZE(selected_file), ImGuiInputTextFlags_AutoSelectAll);
+					ImGui::SameLine();
+					if (ImGui::Button("OK", ImVec2(50.0, 0.0)))
+					{
+						if (selected_file != "" && selected_file_type != "")
+						{
+							if (selected_file_type == "fbx" | selected_file_type == "FBX")
+							{
+								App->renderer3D->meshes.clear();
+								App->fbxloader->ImportMesh(selected_file_path.c_str());
+							}
+							else if (selected_file_type == "dds" | selected_file_type == "png" | selected_file_type == "jpg")
+							{
+								App->fbxloader->ChangeTexure(selected_file_path.c_str());
+							}
+						}
+						
+						loadfile = false;
+					}
+					ImGui::SameLine();
+					if (ImGui::Button("Cancel", ImVec2(50.0, 0.0)))
+					{
+						loadfile = false;
+					}
+
+					ImGui::End();
+				}
+			}
 		}
 
 		ImGui::End();
@@ -713,5 +769,60 @@ void ModuleImGui::DrawImgui()
 {
 	ImGui::Render();
 	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
+}
 
+void ModuleImGui::SearchFolder(const char* path)
+{
+	WIN32_FIND_DATA file;
+	HANDLE search_handle = FindFirstFile(path, &file);
+	uint id = 0;
+	if (search_handle)
+	{
+		do
+		{
+			if (file.dwFileAttributes && FILE_ATTRIBUTE_DIRECTORY)	
+			{
+				// Check type of flie
+				std::string name = file.cFileName;
+				std::string extension = "";
+				for (int i = name.size() - 1; i >= 0; i--)
+					if (name[i] == '.' | name[i] == ' ')
+						break;
+					else
+						extension = name[i] + extension;
+
+				if (extension == "fbx" | extension == "FBX" | extension == "dds" | extension == "png" | extension == "jpg")
+				{
+					//ImGui::PushID(id);
+					id++;
+
+					/*ImGui::TextColored({ 0, 1, 0, 1 }, file.cFileName);
+					ImGui::SameLine();*/
+					if (ImGui::Button(file.cFileName))
+					{
+						std::string newpath = path;
+						newpath.pop_back();
+						newpath += name;
+						sprintf_s(selected_file, file.cFileName);
+						selected_file_path = newpath;
+						selected_file_type = extension;
+					}
+				}
+				else
+				{
+					if (ImGui::TreeNodeEx(file.cFileName))
+					{
+						std::string newpath = path;
+						newpath.pop_back();
+						newpath += file.cFileName;
+						newpath += "/*";
+						SearchFolder(newpath.c_str());
+
+						ImGui::TreePop();
+					}
+				}
+			}
+		} while (FindNextFile(search_handle, &file));
+		FindClose(search_handle);
+	}
 }

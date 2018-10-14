@@ -38,6 +38,8 @@ public:
 
 	void DrawImgui();
 
+	void SearchFolder(const char* path);
+
 public:
 	int min_rand_int = 0, max_rand_int = 100;
 	int rand_int = 0;
@@ -74,6 +76,10 @@ public:
 	float3 pos_c;
 
 	ImGuiTextBuffer consolelog;
+
+	char selected_file[50] = "";
+	std::string selected_file_path = "";
+	std::string selected_file_type = "";
 
 private:
 	bool fullscreen = false;
