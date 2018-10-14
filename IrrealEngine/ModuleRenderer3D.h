@@ -20,11 +20,13 @@ struct FBXMesh
 
 	uint id_vertices = 0;
 	uint num_vertices = 0;
-	float* vertices = nullptr;
+	float3* vertices = nullptr;
+	
 
 	uint id_normal = 0;
 	uint num_normals = 0;
-	float* normals = nullptr;
+	float3* normals = nullptr;
+	
 
 	vec3 color = { 0, 0, 0 };
 
@@ -82,6 +84,7 @@ public:
 	void Active_ColorMat(bool active);
 	void Active_Texture2D(bool active);
 	void Active_Normals(bool active);
+	
 
 	char* GetGraphicsVendor();
 	char* GetGraphicsModel();
@@ -103,7 +106,7 @@ public:
 	Mesh VertexArrayCube;
 	Mesh VertexSphere;
 
-private:
+public:
 
 	bool Wireframe = false;
 	bool GetWireframe()const { return Wireframe; }
@@ -125,6 +128,7 @@ private:
 
 	bool Normals = false;
 	bool GetNormals() const { return Normals; }
+	void SetNormals(bool active) { Normals = active; }
 	
 	bool BB = false;
 	bool GetBB() const { return BB; }

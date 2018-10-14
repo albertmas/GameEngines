@@ -406,7 +406,7 @@ void ModuleRenderer3D::FunctionsRender()
 
 	if(ImGui::Checkbox("Normals", &Normals))
 	{
-		Active_Normals(Normals);
+		App->renderer3D->SetNormals(Normals);
 	}
 	
 	ImGui::Checkbox("Bounding Box", &BB);
@@ -522,6 +522,16 @@ void FBXMesh::Draw()
 		glColor3f(1.0, 1.0, 1.0);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	if (App->renderer3D->GetNormals()) {
+		for (int j = 0; j < num_normals; j++) {
+			glBegin(GL_LINES);
+			glVertex3f(vertices[j].x, vertices[j].y, vertices[j].z);
+			glVertex3f(vertices[j].x - normals[j].x, vertices[j].y - normals[j].y, vertices[j].z - normals[j].z);
+			glLineWidth(1.0f);
+			glEnd();
+		}
+	}
 }
 
 void ModuleRenderer3D::DrawBB(AABB bounding_box, float3 color)const
