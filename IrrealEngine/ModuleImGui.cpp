@@ -318,8 +318,8 @@ void ModuleImGui::TestWindow()
 void ModuleImGui::Console()
 {
 	
-		ImGui::SetNextWindowSize(ImVec2(App->window->width - config_width - properties_width - 4, 200), ImGuiSetCond_Once);
-		ImGui::SetNextWindowPos(ImVec2(252, App->window->height - 201), ImGuiSetCond_Once);
+		ImGui::SetNextWindowSize(ImVec2(App->window->width - config_width - properties_width - 4, 200), ImGuiSetCond_Always);
+		ImGui::SetNextWindowPos(ImVec2(302, App->window->height - 201), ImGuiSetCond_Always);
 		ImGui::Begin("Console", &consolewindow, ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_HorizontalScrollbar);
 		ImGui::TextUnformatted(consolelog.begin());
 		if (scrollconsole)
@@ -335,8 +335,8 @@ void ModuleImGui::ConfigurationWindow()
 {
 	
 	
-		ImGui::SetNextWindowSize(ImVec2(300, App->window->height - 22), ImGuiSetCond_Once);
-		ImGui::SetNextWindowPos(ImVec2(App->window->width - 301, 21), ImGuiSetCond_Once);
+		ImGui::SetNextWindowSize(ImVec2(300, App->window->height - 22), ImGuiSetCond_Always);
+		ImGui::SetNextWindowPos(ImVec2(1, 21), ImGuiSetCond_Always);
 		ImGui::Begin("Configuration", &configurationwindow, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoFocusOnAppearing);
 
 		if (ImGui::BeginMenuBar())
@@ -394,93 +394,17 @@ void ModuleImGui::ConfigurationWindow()
 		}
 		if (ImGui::CollapsingHeader("Window"))
 		{
-			//ImGui::Text("Icon:  ");
-			//ImGui::SameLine();
-			//if (ImGui::Button(icon_name))
-			//{
-			//	loadfile = !loadfile;
-			//}
-			//if (loadfile)
-			//{
-			//	ImGui::SetNextWindowSize(ImVec2(380, 350), ImGuiSetCond_Once);
-			//	ImGui::SetNextWindowPos(ImVec2(400, 200), ImGuiSetCond_Once);
-			//	if (ImGui::Begin("Load File", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse))
-			//	{
-			//		ImGui::PushID(123);
-			//		ImGui::BeginChild(123, ImVec2(365, 290), true);
-			//		
-			//		SearchFolder("C:/Users/almac/Documents/GitHub/GameEngines/IrrealEngine/Game/Assets/*");
-
-			//		/*if (ImGui::TreeNode("Assets/"))
-			//		{
-			//			ImGui::TreePop();
-			//		}
-			//		if (ImGui::TreeNode("Library/"))
-			//		{
-			//			if (ImGui::TreeNode("Animations/"))
-			//			{
-			//				ImGui::TreePop();
-			//			}
-			//			if (ImGui::TreeNode("Audio/"))
-			//			{
-			//				ImGui::TreePop();
-			//			}
-			//			if (ImGui::TreeNode("Bones/"))
-			//			{
-			//				ImGui::TreePop();
-			//			}
-			//			if (ImGui::TreeNode("Meshes/"))
-			//			{
-			//				ImGui::TreePop();
-			//			}
-			//			if (ImGui::TreeNode("Scenes/"))
-			//			{
-			//				ImGui::TreePop();
-			//			}
-			//			if (ImGui::TreeNode("Textures/"))
-			//			{
-			//				ImGui::TreePop();
-			//			}
-
-			//			ImGui::TreePop();
-			//		}
-			//		if (ImGui::TreeNode("Settings/"))
-			//		{
-			//			ImGui::TreePop();
-			//		}*/
-			//		ImGui::EndChild();
-			//		ImGui::PopID();
-			//		
-			//		ImGui::InputText("", icon_name_new, IM_ARRAYSIZE(icon_name_new), ImGuiInputTextFlags_AutoSelectAll);
-			//		ImGui::SameLine();
-			//		if (ImGui::Button("OK", ImVec2(50.0, 0.0)))
-			//		{
-			//			sprintf_s(icon_name, icon_name_new);
-			//			loadfile = false;
-			//		}
-			//		ImGui::SameLine();
-			//		if (ImGui::Button("Cancel", ImVec2(50.0, 0.0)))
-			//		{
-			//			loadfile = false;
-			//		}
-
-			//		ImGui::End();
-			//	}
-			//}
 			// Brightness
 			if (ImGui::SliderFloat("Brightness", &brightness, 0.0f, 1.0f))
 				SDL_SetWindowBrightness(App->window->window, brightness);
+
 			// Window size
 			if (ImGui::SliderInt("Width", &App->window->width, 640, 1920))
 				App->window->SetWinWidth(App->window->width);
 			if (ImGui::SliderInt("Height", &App->window->height, 480, 1080))
 				App->window->SetWinHeight(App->window->height);
-			// FPS
-			//ImGui::Text("Refresh Rate: ");
-			//ImGui::SameLine();
-			//ImGui::TextColored({ 255, 255, 0, 1 }, "60");
-			// Window flag
-			//ImGui::CheckboxFlags("Flags", (unsigned int *)&io.ConfigFlags, ImGuiConfigFlags_NavEnableKeyboard);
+			
+			// Window type
 			if (ImGui::Checkbox("Fullscreen", &fullscreen))
 				App->window->SetFullscreen(fullscreen);
 			ImGui::SameLine();
@@ -635,8 +559,8 @@ void ModuleImGui::ConfigurationWindow()
 
 void ModuleImGui::PropertiesWindow()
 {
-	ImGui::SetNextWindowSize(ImVec2(250, App->window->height - 22), ImGuiSetCond_Once);
-	ImGui::SetNextWindowPos(ImVec2(1, 21), ImGuiSetCond_Once);
+	ImGui::SetNextWindowSize(ImVec2(250, App->window->height - 22), ImGuiSetCond_Always);
+	ImGui::SetNextWindowPos(ImVec2(App->window->width - 251, 21), ImGuiSetCond_Always);
 	ImGui::Begin("Properties", &propertieswindow, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_HorizontalScrollbar);
 
 	for (std::list<FBXMesh*>::iterator iter = App->renderer3D->meshes.begin(); iter != App->renderer3D->meshes.end(); iter++)
