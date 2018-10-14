@@ -9,8 +9,6 @@
 #include "Open_GL.h"
 
 
-
-
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 #pragma comment (lib, "Glew/lib/glew32.lib") /* link Microsoft OpenGL lib   */
@@ -182,20 +180,20 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	// We should render the geometry here
 	
 
-	if (Cube)
-	{
-		glColor3f(1.0, 0.0, 1.0);
-		VertexArrayCube.DrawCube();
-		glColor3f(1.0, 1.0, 1.0);
-	}
-	if (Sphere)
-	{
-		VertexSphere.DrawSphere();
-	}
+	//if (Cube)
+	//{
+	//	glColor3f(1.0, 0.0, 1.0);
+	//	VertexArrayCube.DrawCube();
+	//	glColor3f(1.0, 1.0, 1.0);
+	//}
+	//if (Sphere)
+	//{
+	//	VertexSphere.DrawSphere();
+	//}
 	if (plane)
 	{ 
 		glColor3f(1.0, 0.0, 0.0);
-		VertexAndIndexCube.DrawIndexCube(); // Cube created with indices. Unique vertex
+		//VertexAndIndexCube.DrawIndexCube(); // Cube created with indices. Unique vertex
 		CreatePlane();
 		glColor3f(1.0, 1.0, 1.0);
 	}
@@ -218,7 +216,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	//glBindTexture(GL_TEXTURE_2D, 0);
 
-	App->scene->Draw();
+	//App->scene->Draw();
 	App->imgui->DrawImgui();
 
 	SDL_GL_SwapWindow(App->window->window);

@@ -102,9 +102,9 @@ public:
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 
 public:
-	Mesh VertexAndIndexCube;
+	/*Mesh VertexAndIndexCube;
 	Mesh VertexArrayCube;
-	Mesh VertexSphere;
+	Mesh VertexSphere;*/
 
 public:
 
@@ -140,8 +140,8 @@ public:
 	void CreateAxis();
 	bool axis = true;
 
-	bool Cube = true;
-	bool Sphere = true;
+	/*bool Cube = true;
+	bool Sphere = true;*/
 
 public:
 	std::list<FBXMesh*> meshes;
