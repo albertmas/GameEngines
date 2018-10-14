@@ -142,7 +142,7 @@ update_status ModuleImGui::Update(float dt)
 			{
 				if (ImGui::MenuItem("DeviceId - Version December 2015"))
 				{
-					App->OpenWeb("https://github.com/albertmas/GameEngines/tree/master2/3D%20Engine/DeviceId");
+					App->OpenWeb("https://github.com/MatthewKing/DeviceId");
 				}
 				std::string imgui_version = "ImGui - Version ";
 				imgui_version += ImGui::GetVersion();
@@ -160,7 +160,7 @@ update_status ModuleImGui::Update(float dt)
 				sdl_version += std::to_string(version.major) + '.' + std::to_string(version.minor) + '.' + std::to_string(version.patch);
 				if (ImGui::MenuItem(sdl_version.c_str()))
 				{
-					App->OpenWeb("https://github.com/albertmas/GameEngines/tree/master2/3D%20Engine/SDL");
+					App->OpenWeb("https://www.libsdl.org/");
 				}
 				if (ImGui::MenuItem("PCG - Version 0.9 (Minimal C Implementation)"))
 				{
