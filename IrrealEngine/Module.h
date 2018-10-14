@@ -15,7 +15,7 @@ using namespace rapidjson;
 class Module
 {
 private :
-	bool enabled;
+	bool enabled = false;
 
 public:
 	std::string name;

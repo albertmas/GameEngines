@@ -37,7 +37,7 @@ public:
 	void AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB, const vec3& axisS, const vec3& axisB, bool disable_collision = false);*/
 	//Usefull functions
 	
-	bool debug;
+	bool debug = false;
 
 
 	std::vector<Sphere> spheres_list;

@@ -32,7 +32,7 @@ public:
 
 	Color color;
 	float4x4 transform;
-	bool axis, wire;
+	bool axis = false; bool wire = false;
 
 protected:
 	PrimitiveTypes type;

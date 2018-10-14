@@ -27,7 +27,7 @@ public:
 
 
 
-	bool first_time;
+	bool first_time = false;
 
 private:
 
