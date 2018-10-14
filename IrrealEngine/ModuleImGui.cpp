@@ -758,15 +758,18 @@ void ModuleImGui::SearchFolder(const char* path)
 				}
 				else
 				{
-					if (ImGui::TreeNodeEx(file.cFileName))
+					if (name != "." && name != "..")
 					{
-						std::string newpath = path;
-						newpath.pop_back();
-						newpath += file.cFileName;
-						newpath += "/*";
-						SearchFolder(newpath.c_str());
+						if (ImGui::TreeNodeEx(file.cFileName))
+						{
+							std::string newpath = path;
+							newpath.pop_back();
+							newpath += file.cFileName;
+							newpath += "/*";
+							SearchFolder(newpath.c_str());
 
-						ImGui::TreePop();
+							ImGui::TreePop();
+						}
 					}
 				}
 			}
