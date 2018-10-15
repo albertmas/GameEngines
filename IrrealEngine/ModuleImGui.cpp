@@ -90,10 +90,10 @@ update_status ModuleImGui::Update(float dt)
 			{
 				propertieswindow = !propertieswindow;
 			}
-			if (ImGui::MenuItem("Editor", "Shift + 4"))
+			/*if (ImGui::MenuItem("Editor", "Shift + 4"))
 			{
 				editorwindow = !editorwindow;
-			}
+			}*/
 
 			ImGui::EndMenu();
 		}
@@ -524,7 +524,7 @@ void ModuleImGui::ConfigurationWindow()
 					ImGui::EndChild();
 					ImGui::PopID();
 
-					ImGui::InputText("", selected_file, IM_ARRAYSIZE(selected_file), ImGuiInputTextFlags_AutoSelectAll);
+					ImGui::InputText("", selected_file, IM_ARRAYSIZE(selected_file), ImGuiInputTextFlags_ReadOnly);
 					ImGui::SameLine();
 					if (ImGui::Button("OK", ImVec2(50.0, 0.0)))
 					{
@@ -744,9 +744,14 @@ void ModuleImGui::SearchFolder(const char* path)
 					//ImGui::PushID(id);
 					id++;
 
-					/*ImGui::TextColored({ 0, 1, 0, 1 }, file.cFileName);
-					ImGui::SameLine();*/
-					if (ImGui::Button(file.cFileName))
+					ImGui::TextColored({ 0, 1, 0, 1 }, file.cFileName);
+					
+					if (ImGui::IsItemHovered())
+					{
+						ImGui::SameLine(30);
+						ImGui::TextColored({ 1, 1, 0, 1 }, file.cFileName);
+					}
+					if (ImGui::IsItemClicked())
 					{
 						std::string newpath = path;
 						newpath.pop_back();
@@ -766,7 +771,7 @@ void ModuleImGui::SearchFolder(const char* path)
 							newpath.pop_back();
 							newpath += file.cFileName;
 							newpath += "/*";
-							SearchFolder(newpath.c_str());
+							SearchFolder(newpath.c_str());// Recursive function to get all subfloders
 
 							ImGui::TreePop();
 						}

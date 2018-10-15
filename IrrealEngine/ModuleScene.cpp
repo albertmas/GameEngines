@@ -31,7 +31,6 @@ bool ModuleScene::Init(Document& document)
 
 bool ModuleScene::Start()
 {
-	
 	App->fbxloader->ImportMesh("Assets/BakerHouse/BakerHouse.fbx");
 
 	return true;
@@ -44,8 +43,6 @@ update_status ModuleScene::PreUpdate(float dt)
 update_status ModuleScene::Update(float dt)
 {
 	Draw();
-	
-	
 
 	return UPDATE_CONTINUE;
 }
