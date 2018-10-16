@@ -8,8 +8,8 @@
 //{
 //public:
 //
-//	Component();
-//	~Component();
+//	virtual Component();
+//	virtual ~Component();
 //	
 //	virtual void Enable();
 //	virtual void Update();

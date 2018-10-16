@@ -320,7 +320,7 @@ void ModuleImGui::Console()
 	
 		ImGui::SetNextWindowSize(ImVec2(App->window->width - config_width - properties_width - 4, 200), ImGuiSetCond_Always);
 		ImGui::SetNextWindowPos(ImVec2(302, App->window->height - 201), ImGuiSetCond_Always);
-		ImGui::Begin("Console", &consolewindow, ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_HorizontalScrollbar);
+		ImGui::Begin("Console", &consolewindow, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_HorizontalScrollbar);
 		ImGui::TextUnformatted(consolelog.begin());
 		if (scrollconsole)
 		{
@@ -337,7 +337,7 @@ void ModuleImGui::ConfigurationWindow()
 	
 		ImGui::SetNextWindowSize(ImVec2(300, App->window->height - 22), ImGuiSetCond_Always);
 		ImGui::SetNextWindowPos(ImVec2(1, 21), ImGuiSetCond_Always);
-		ImGui::Begin("Configuration", &configurationwindow, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoFocusOnAppearing);
+		ImGui::Begin("Configuration", &configurationwindow, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoFocusOnAppearing);
 
 		if (ImGui::BeginMenuBar())
 		{
@@ -561,7 +561,7 @@ void ModuleImGui::PropertiesWindow()
 {
 	ImGui::SetNextWindowSize(ImVec2(250, App->window->height - 22), ImGuiSetCond_Always);
 	ImGui::SetNextWindowPos(ImVec2(App->window->width - 251, 21), ImGuiSetCond_Always);
-	ImGui::Begin("Properties", &propertieswindow, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_HorizontalScrollbar);
+	ImGui::Begin("Properties", &propertieswindow, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_HorizontalScrollbar);
 
 	for (std::list<FBXMesh*>::iterator iter = App->renderer3D->meshes.begin(); iter != App->renderer3D->meshes.end(); iter++)
 	{

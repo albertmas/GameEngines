@@ -175,6 +175,7 @@
     <ClCompile Include="ComponentMaterial.cpp">
       <Filter>Sources\Components</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -453,6 +454,7 @@
     <ClInclude Include="ComponentMaterial.h">
       <Filter>Sources\Components</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MathGeoLib\Geometry\KDTree.inl">
