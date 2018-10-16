@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "Mesh.h"
+#include "GameObject.h"
 #include <list>
 
 class ModuleScene :	public Module
@@ -22,10 +23,12 @@ public:
 	bool Load(Document& document);
 
 	void Draw();
+	GameObject* CreateGameObject();
 
 public:
 	std::list<Mesh*> scene_objects;
-
+	std::vector<GameObject*> game_objects;
+	GameObject* root = nullptr;
 
 };
 

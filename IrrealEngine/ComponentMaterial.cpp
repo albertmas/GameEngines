@@ -1,12 +1,12 @@
-//#include "ComponentMaterial.h"
-//
-//
-//
-//ComponentMaterial::ComponentMaterial()
-//{
-//}
-//
-//
-//ComponentMaterial::~ComponentMaterial()
-//{
-//}
+#include "ComponentMaterial.h"
+
+
+
+ComponentMaterial::ComponentMaterial()
+{
+}
+
+
+ComponentMaterial::~ComponentMaterial()
+{
+}

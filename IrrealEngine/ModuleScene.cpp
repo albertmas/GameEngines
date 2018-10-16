@@ -78,4 +78,7 @@ void ModuleScene::Draw()
 
 }
 
-
+//GameObject* ModuleScene::CreateGameObject()
+//{
+//
+//}
