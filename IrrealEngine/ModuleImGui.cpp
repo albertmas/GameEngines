@@ -30,7 +30,7 @@ bool ModuleImGui::Init(Document& document)
 
 	ImGui::CreateContext();
 
-	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
+	ImGui_ImplSdl_Init(App->window->window);
 	ImGui_ImplOpenGL2_Init();
 	
 	return ret;
@@ -40,7 +40,7 @@ bool ModuleImGui::CleanUp()
 {
 	LOG("Freeing all ImGui elements");
 	ImGui_ImplOpenGL2_Shutdown();
-	ImGui_ImplSDL2_Shutdown();
+	ImGui_ImplSdl_Shutdown();
 
 	return true;
 }
@@ -48,8 +48,8 @@ bool ModuleImGui::CleanUp()
 update_status ModuleImGui::PreUpdate(float dt)
 {
 	ImGui_ImplOpenGL2_NewFrame();
-	ImGui_ImplSDL2_NewFrame(App->window->window);
-	ImGui::NewFrame();
+	ImGui_ImplSdl_NewFrame(App->window->window);
+	
 
 	return UPDATE_CONTINUE;
 }
@@ -245,7 +245,7 @@ update_status ModuleImGui::Update(float dt)
 
 void ModuleImGui::ManageInput(SDL_Event * e) const
 {
-	ImGui_ImplSDL2_ProcessEvent(e);
+	ImGui_ImplSdl_ProcessEvent(e);
 }
 
 bool ModuleImGui::Save(Document& document, FileWriteStream& fws)
