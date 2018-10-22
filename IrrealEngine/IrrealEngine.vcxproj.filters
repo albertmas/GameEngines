@@ -179,6 +179,15 @@
     <ClCompile Include="imgui_docking.cpp">
       <Filter>Sources\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="Panel.cpp">
+      <Filter>Sources\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="Panel_Scene.cpp">
+      <Filter>Sources\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -461,6 +470,15 @@
     <ClInclude Include="imgui_docking.h">
       <Filter>Sources\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="Panel.h">
+      <Filter>Sources\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="Panel_Scene.h">
+      <Filter>Sources\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="MathGeoLib\Geometry\KDTree.inl">
@@ -512,6 +530,9 @@
     </Filter>
     <Filter Include="Sources\Components">
       <UniqueIdentifier>{f36c0b57-fdb8-4ce6-a953-305d2b5be676}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Panels">
+      <UniqueIdentifier>{b3da7bcf-267a-422e-a467-78560f17aaee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -5,6 +5,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModulePhysics3D.h"
 #include "ModuleImGui.h"
+#include "Texture.h"
 #include "Globals.h"
 
 
@@ -229,4 +230,9 @@ void ModuleCamera3D::FocusBox(AABB & box)
 	Y = cross(Z, X);
 	CalculateViewMatrix();
 
+}
+
+Texture * ModuleCamera3D::SceneT()
+{
+	return viewport_texture;
 }

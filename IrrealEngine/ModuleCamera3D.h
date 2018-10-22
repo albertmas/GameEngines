@@ -5,6 +5,8 @@
 #include "Globals.h"
 #include "glmath.h"
 
+class Texture;
+
 class ModuleCamera3D : public Module
 {
 public:
@@ -26,6 +28,7 @@ public:
 	float* GetViewMatrix();
 
 
+	Texture* SceneT();
 
 	bool first_time = false;
 
@@ -41,6 +44,7 @@ public:
 private:
 
 	mat4x4 ViewMatrix, ViewMatrixInverse;
+	Texture* viewport_texture;
 };
 
 #endif

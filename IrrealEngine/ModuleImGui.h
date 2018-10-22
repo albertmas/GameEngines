@@ -5,7 +5,8 @@
 #include "Module.h"
 #include "ImGui\imgui.h"
 
-
+class Panel;
+class PanelScene;
 
 class ModuleImGui :	public Module
 {
@@ -25,6 +26,7 @@ public:
 
 	void ManageInput(SDL_Event* e)const;
 	void GetConsoleLog(const char* log);
+	
 
 	// Menu functions
 	void RandomGenerator();
@@ -37,6 +39,7 @@ public:
 	void GetHardWareData();
 
 	void DrawImgui();
+	void BlitPanels();
 
 	void SearchFolder(const char* path);
 
@@ -80,6 +83,14 @@ public:
 	char selected_file[50] = "";
 	std::string selected_file_path = "";
 	std::string selected_file_type = "";
+
+public:
+	std::vector<Panel*> panels;
+
+public:
+
+	PanelScene* scene = nullptr;
+
 
 private:
 	bool fullscreen = false;

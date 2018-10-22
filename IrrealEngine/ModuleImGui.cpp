@@ -11,6 +11,7 @@
 #include "ModuleFBXLoader.h"
 #include "Assimp/include/version.h"
 #include "DevIL\include\il.h"
+#include "Panel_Scene.h"
 
 
 
@@ -35,7 +36,8 @@ bool ModuleImGui::Init(Document& document)
 	ImGui_ImplOpenGL2_Init();
 	ImGui::InitDock();
 	// We should add the panels here
-	
+	/*scene = new PanelScene();
+	panels.push_back(scene);*/
 	return ret;
 }
 
@@ -93,10 +95,7 @@ update_status ModuleImGui::Update(float dt)
 			{
 				propertieswindow = !propertieswindow;
 			}
-			/*if (ImGui::MenuItem("Editor", "Shift + 4"))
-			{
-				editorwindow = !editorwindow;
-			}*/
+			
 
 			ImGui::EndMenu();
 		}
@@ -242,6 +241,14 @@ update_status ModuleImGui::Update(float dt)
 	{
 		ImGui::MenuItem("Names");
 	}
+
+	return UPDATE_CONTINUE;
+}
+
+update_status ModuleImGui::PostUpdate(float dt)
+{
+	//ImGui::Render();
+	//ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 
 	return UPDATE_CONTINUE;
 }
@@ -702,13 +709,7 @@ void ModuleImGui::CreateTriangle()
 }
 
 
-update_status ModuleImGui::PostUpdate(float dt)
-{
-	//ImGui::Render();
-	//ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 
-	return UPDATE_CONTINUE;
-}
 
 void ModuleImGui::GetConsoleLog(const char* log)
 {
@@ -718,8 +719,30 @@ void ModuleImGui::GetConsoleLog(const char* log)
 
 void ModuleImGui::DrawImgui()
 {
+	
+	ImGuiWindowFlags flags = ImGuiWindowFlags_NoTitleBar;
+	flags |= ImGuiWindowFlags_NoMove;
+	flags |= ImGuiWindowFlags_NoBringToFrontOnFocus;
+	flags |= ImGuiWindowFlags_NoResize;
+
+	float h_offset = 6.0f;
+	float w_offset = 0.0f;
+
+	ImGui::SetNextWindowPos(ImVec2(w_offset, h_offset));
+	ImGui::SetNextWindowSize(ImVec2(App->window->width - w_offset, App->window->height - h_offset));
+
+
+	if (ImGui::Begin("Dock", 0, flags))
+	{
+		ImGui::BeginDockspace();
+
+		BlitPanels();
+
+		ImGui::EndDockspace();
+	}
+	ImGui::End();
+
 	ImGui::Render();
-	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 }
 
 void ModuleImGui::SearchFolder(const char* path)
@@ -784,4 +807,16 @@ void ModuleImGui::SearchFolder(const char* path)
 		} while (FindNextFile(search_handle, &file));
 		FindClose(search_handle);
 	}
+}
+
+void ModuleImGui::BlitPanels()
+{
+	for (std::vector<Panel*>::iterator item = panels.begin(); item != panels.end(); ++item)
+	{
+		if ((*item)->IsActive())
+		{
+			(*item)->Draw();
+		}
+	}
+
 }
