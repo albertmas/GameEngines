@@ -2,6 +2,7 @@
 #include "ModuleImGui.h"
 #include "ImGui\imgui_impl_sdl.h"
 #include "ImGui\imgui_impl_opengl2.h"
+#include "imgui_docking.h"
 #include "DeviceId\DeviceId.h"
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
@@ -32,6 +33,8 @@ bool ModuleImGui::Init(Document& document)
 
 	ImGui_ImplSdl_Init(App->window->window);
 	ImGui_ImplOpenGL2_Init();
+	ImGui::InitDock();
+	// We should add the panels here
 	
 	return ret;
 }

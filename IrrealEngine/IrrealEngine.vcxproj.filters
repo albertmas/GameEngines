@@ -176,6 +176,9 @@
       <Filter>Sources\Components</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="imgui_docking.cpp">
+      <Filter>Sources\ImGui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -455,6 +458,9 @@
       <Filter>Sources\Components</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="imgui_docking.h">
+      <Filter>Sources\ImGui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="MathGeoLib\Geometry\KDTree.inl">
