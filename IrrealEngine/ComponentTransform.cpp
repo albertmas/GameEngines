@@ -1,12 +1,11 @@
-//#include "ComponentTransform.h"
-//
-//
-//
-//ComponentTransform::ComponentTransform()
-//{
-//}
-//
-//
-//ComponentTransform::~ComponentTransform()
-//{
-//}
+#include "ComponentTransform.h"
+
+
+ComponentTransform::ComponentTransform()
+{
+}
+
+
+ComponentTransform::~ComponentTransform()
+{
+}

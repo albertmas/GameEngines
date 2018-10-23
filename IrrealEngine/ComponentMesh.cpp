@@ -1,12 +1,11 @@
-//#include "ComponentMesh.h"
-//
-//
-//
-//ComponentMesh::ComponentMesh()
-//{
-//}
-//
-//
-//ComponentMesh::~ComponentMesh()
-//{
-//}
+#include "ComponentMesh.h"
+
+
+ComponentMesh::ComponentMesh()
+{
+}
+
+
+ComponentMesh::~ComponentMesh()
+{
+}

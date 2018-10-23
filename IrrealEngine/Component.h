@@ -1,9 +1,13 @@
 #pragma once
 
-#include "Globals.h"
-#include "GameObject.h"
-
 class GameObject;
+
+enum COMP_TYPE {
+	MESH,
+	TRANSFORMATION,
+	TEXTURE,
+	MATERIAL
+};
 
 class Component
 {
@@ -23,14 +27,6 @@ public:
 
 
 public:
-
-	//Game Object
-	enum COMP_TYPE {
-		MESH,
-		MATERIAL,
-		TRANSFORMATION,
-		TEXTURE
-	};
 
 	bool comp_active = false;
 	GameObject* my_go = nullptr;
