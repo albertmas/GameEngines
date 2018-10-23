@@ -188,6 +188,9 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
+    <ClCompile Include="Panel_Configuration.cpp">
+      <Filter>Sources\Panels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -478,6 +481,9 @@
     </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Panel_Configuration.h">
+      <Filter>Sources\Panels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

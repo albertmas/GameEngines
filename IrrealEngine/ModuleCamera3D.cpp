@@ -32,6 +32,8 @@ bool ModuleCamera3D::Start()
 {
 	LOG("Setting up the camera");
 	bool ret = true;
+	viewport_texture = new Texture();
+	viewport_texture->Create(App->window->screen_surface->w, App->window->screen_surface->h);
 
 	return ret;
 }

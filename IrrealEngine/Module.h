@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Globals.h"
+#include "ImGui/imgui.h"
+#include "ImGui/imgui_impl_sdl.h"
 #include "MathGeoLib\MathGeoLib.h"
 #include "PCG\pcg_basic.h"
 #include "SDL/include/SDL.h"
@@ -55,6 +57,7 @@ public:
 		return true; 
 	}
 
+	virtual void DrawModuleConfig() {}
 	virtual bool Save(Document& document, FileWriteStream& fws)
 	{
 		Document::AllocatorType& allocator = document.GetAllocator();

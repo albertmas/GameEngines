@@ -6,6 +6,7 @@
 #include "ModuleImGui.h"
 #include "ModuleFBXLoader.h"
 #include "ModuleScene.h"
+#include "Texture.h"
 #include "Open_GL.h"
 
 

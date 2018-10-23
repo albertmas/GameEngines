@@ -12,6 +12,7 @@
 #include "Assimp/include/version.h"
 #include "DevIL\include\il.h"
 #include "Panel_Scene.h"
+#include "Panel_Configuration.h"
 
 
 
@@ -36,8 +37,8 @@ bool ModuleImGui::Init(Document& document)
 	ImGui_ImplOpenGL2_Init();
 	ImGui::InitDock();
 	// We should add the panels here
-	/*scene = new PanelScene();
-	panels.push_back(scene);*/
+	scene = new Panel_Scene();
+	panels.push_back(scene);
 	return ret;
 }
 

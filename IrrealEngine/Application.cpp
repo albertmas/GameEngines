@@ -1,5 +1,4 @@
 #include "Application.h"
-#include "Module.h"
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "ModuleRenderer3D.h"
@@ -8,6 +7,8 @@
 #include "ModuleImGui.h"
 #include "ModuleFBXLoader.h"
 #include "ModuleScene.h"
+#include "Panel_Configuration.h"
+#include "ImGui/imgui.h"
 
 
 Application::Application()
@@ -205,6 +206,23 @@ void Application::AddModule(Module* mod)
 void Application::OpenWeb(const char * url)
 {
 	ShellExecute(NULL, "open", url, NULL, NULL, SW_SHOWNORMAL);
+}
+
+Module * Application::GetModule(int index)
+{
+	if (index <= list_modules.size())
+	{
+		int i = 0;
+
+		for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)
+		{
+			if (i == index)
+				return (*item);
+
+			i++;
+		}
+	}
+	return nullptr;
 }
 
 bool Application::SaveGame()

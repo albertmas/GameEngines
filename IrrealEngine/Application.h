@@ -2,6 +2,7 @@
 #define __APPLICATION_H__
 
 #include "Globals.h"
+#include "Module.h"
 #include "Timer.h"
 #include "ImGui\imgui.h"
 #include "SDL\include\SDL.h"
@@ -60,6 +61,7 @@ public:
 	void OpenWeb(const char* url);
 	bool SaveGame();
 	bool LoadGame();
+	Module* GetModule(int index);
 
 	int					framerate_cap = 0;
 
@@ -76,6 +78,8 @@ private:
 	void AddModule(Module* mod);
 	void PrepareUpdate();
 	void FinishUpdate();
+
+	
 };
 
 extern Application* App;

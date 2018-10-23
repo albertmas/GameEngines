@@ -6,7 +6,7 @@
 #include "ImGui\imgui.h"
 
 class Panel;
-class PanelScene;
+class Panel_Scene;
 
 class ModuleImGui :	public Module
 {
@@ -89,7 +89,7 @@ public:
 
 public:
 
-	PanelScene* scene = nullptr;
+	Panel_Scene* scene = nullptr;
 
 
 private:
