@@ -11,9 +11,9 @@ configuration:
 build:
   verbosity: minimal
 before_package:
-- ps: Copy-Item C:\projects\GameEngines\$env:CONFIGURATION\3D Engine.exe C:\projects\GameEngines\3DEngine\Game\.
+- ps: Copy-Item C:\projects\GameEngines\IrrealEngine\$env:CONFIGURATION\IrrealEngine.exe C:\projects\GameEngines\IrrealEngine\Game\.
 artifacts:
-- path: 3D Engine\Game
+- path: IrrealEngine\Game
   name: GameEngines
 deploy:
 - provider: GitHub
@@ -22,7 +22,6 @@ deploy:
   auth_token:
     secure: O/JkOYZ/NVinQ/QqaAITbKH3dQ2zi/pXJdNA4WSFkxnAsoAJUUypLBcKFm3MTgjG
   repository: albertmas/GameEngines
-  artifact: 3D Engine
   draft: true
 notifications:
 - provider: GitHubPullRequest
