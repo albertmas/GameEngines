@@ -1,7 +1,7 @@
 #include "ComponentTransform.h"
 
 
-ComponentTransform::ComponentTransform()
+ComponentTransform::ComponentTransform(GameObject* gameobject)
 {
 }
 

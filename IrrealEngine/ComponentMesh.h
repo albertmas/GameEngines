@@ -7,8 +7,8 @@
 class ComponentMesh :public Component
 {
 public:
-	ComponentMesh();
-	~ComponentMesh();
+	ComponentMesh(GameObject* gameobject);
+	~ComponentMesh() override;
 };
 
 #endif

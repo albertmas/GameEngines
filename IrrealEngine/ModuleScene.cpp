@@ -31,6 +31,9 @@ bool ModuleScene::Init(Document& document)
 
 bool ModuleScene::Start()
 {
+	root = new GameObject(nullptr, "root");
+	game_objects.push_back(root);
+
 	App->fbxloader->ImportMesh("Assets/BakerHouse/BakerHouse.fbx");
 
 	return true;
@@ -71,14 +74,13 @@ bool ModuleScene::Load(Document& document)
 
 void ModuleScene::Draw()
 {
-	for (std::list<Mesh*>::iterator it = scene_objects.begin(); it != scene_objects.end(); it++)
-	{
-		(*it)->DrawMesh();
-	}
 
 }
 
-//GameObject* ModuleScene::CreateGameObject()
-//{
-//
-//}
+GameObject* ModuleScene::CreateGameObject()
+{
+	GameObject* gameobject = new GameObject(root, "");
+	game_objects.push_back(gameobject);
+
+	return gameobject;
+}

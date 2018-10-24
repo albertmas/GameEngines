@@ -583,8 +583,9 @@ void ModuleImGui::PropertiesWindow()
 				ImGui::InputFloat3("Position", pos, 1);
 				if (ImGui::IsItemHovered())
 					ImGui::SetTooltip("Position of the mesh");
-
-				float rot[3] = { (*iter)->meshRot.x, (*iter)->meshRot.y, (*iter)->meshRot.z };
+				float3 euler_deg_rot = (*iter)->meshRot.ToEulerXYZ();
+				euler_deg_rot *= 180 / pi;
+				float rot[3] = { euler_deg_rot.x, euler_deg_rot.y, euler_deg_rot.z };
 				ImGui::InputFloat3("Rotation", rot, 1);
 				if (ImGui::IsItemHovered())
 					ImGui::SetTooltip("Rotation of the mesh");

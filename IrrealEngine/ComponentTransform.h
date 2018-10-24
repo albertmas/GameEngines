@@ -7,8 +7,8 @@
 class ComponentTransform : public Component
 {
 public:
-	ComponentTransform();
-	~ComponentTransform();
+	ComponentTransform(GameObject* gameobject);
+	~ComponentTransform() override;
 };
 
 #endif

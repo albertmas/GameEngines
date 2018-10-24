@@ -6,14 +6,20 @@
 #include "ComponentMaterial.h"
 
 
-GameObject::GameObject()
+GameObject::GameObject(GameObject* parent, const char* name)
 {
+	if (parent)
+	{
+		go_parent = parent;
+		parent->go_children.push_back(this);
+	}
+	go_name = name;
 }
-
 
 GameObject::~GameObject()
 {
 }
+
 
 bool GameObject::Init()
 {
@@ -30,29 +36,28 @@ void GameObject::Update()
 
 }
 
-Component* GameObject::CreateComponent(COMP_TYPE type)
+Component* GameObject::CreateComponent(Component::COMP_TYPE type)
 {
-	Component* comp;
+	Component* comp = nullptr;
 
 	switch (type)
 	{
-	case MESH:
-		comp = new ComponentMesh();
+	case Component::MESH:
+		comp = new ComponentMesh(this);
 		go_components.push_back(comp);
 		break;
-	case TRANSFORMATION:
-		comp = new ComponentTransform();
+	case Component::TRANSFORMATION:
+		comp = new ComponentTransform(this);
 		go_components.push_back(comp);
 		break;
-	case TEXTURE:
-		comp = new ComponentMaterial();
+	case Component::TEXTURE:
+		comp = new ComponentMaterial(this);
 		go_components.push_back(comp);
 		break;
-	case MATERIAL:
-		comp = new ComponentMaterial();
+	case Component::MATERIAL:
+		comp = new ComponentMaterial(this);
 		go_components.push_back(comp);
 		break;
-
 	default:
 		break;
 	}

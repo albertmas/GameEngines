@@ -2,12 +2,6 @@
 
 class GameObject;
 
-enum COMP_TYPE {
-	MESH,
-	TRANSFORMATION,
-	TEXTURE,
-	MATERIAL
-};
 
 class Component
 {
@@ -28,7 +22,16 @@ public:
 
 public:
 
-	bool comp_active = false;
+	enum COMP_TYPE {
+		MESH,
+		TRANSFORMATION,
+		TEXTURE,
+		MATERIAL
+	};
+
+public:
+
+	bool comp_active = true;
 	GameObject* my_go = nullptr;
 
 };

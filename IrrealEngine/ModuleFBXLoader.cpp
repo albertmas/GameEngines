@@ -110,8 +110,6 @@ bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNo
 	aiQuaternion rotation;
 	aiVector3D scaling;
 	node->mTransformation.Decompose(scaling, rotation, position);
-	
-	Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
 
 	
 	for (int meshNum = 0; meshNum < node->mNumMeshes; meshNum++)
@@ -204,8 +202,7 @@ bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNo
 			ObjectBB->Enclose(mesh->bounding_box);
 
 			mesh->meshPos.Set(position.x, position.y, position.z);
-			mesh->meshRot.Set(rot.ToEulerXYZ().x, rot.ToEulerXYZ().y, rot.ToEulerXYZ().z);
-			mesh->meshRot *= 180 / pi;
+			mesh->meshRot.Set(rotation.x, rotation.y, rotation.z, rotation.w);
 			mesh->meshScale.Set(scaling.x, scaling.y, scaling.z);
 		}
 	}

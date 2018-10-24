@@ -8,8 +8,8 @@
 class ComponentMaterial : public Component
 {
 public:
-	ComponentMaterial();
-	~ComponentMaterial();
+	ComponentMaterial(GameObject* gameobject);
+	~ComponentMaterial() override;
 };
 
 #endif

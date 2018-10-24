@@ -2,7 +2,7 @@
 
 
 
-ComponentMaterial::ComponentMaterial()
+ComponentMaterial::ComponentMaterial(GameObject* gameobject)
 {
 }
 

@@ -7,8 +7,8 @@ class ComponentTexture :
 	public Component
 {
 public:
-	ComponentTexture();
-	~ComponentTexture();
+	ComponentTexture(GameObject* gameobject);
+	~ComponentTexture() override;
 };
 
 #endif
