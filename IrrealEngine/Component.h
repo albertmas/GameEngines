@@ -11,6 +11,8 @@ public:
 
 	Component()
 	{}
+	Component(GameObject* parent)
+	{}
 	virtual ~Component()
 	{}
 	
