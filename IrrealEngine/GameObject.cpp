@@ -2,7 +2,8 @@
 #include "Component.h"
 #include "ComponentMesh.h"
 #include "ComponentTransform.h"
-#include "ComponentTransform.h"
+#include "ComponentTexture.h"
+#include "ComponentMaterial.h"
 
 
 GameObject::GameObject()
@@ -37,13 +38,19 @@ Component* GameObject::CreateComponent(COMP_TYPE type)
 	{
 	case MESH:
 		comp = new ComponentMesh();
+		go_components.push_back(comp);
 		break;
 	case TRANSFORMATION:
+		comp = new ComponentTransform();
+		go_components.push_back(comp);
 		break;
 	case TEXTURE:
+		comp = new ComponentMaterial();
+		go_components.push_back(comp);
 		break;
 	case MATERIAL:
 		comp = new ComponentMaterial();
+		go_components.push_back(comp);
 		break;
 
 	default:
