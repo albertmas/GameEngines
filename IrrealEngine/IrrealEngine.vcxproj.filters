@@ -176,7 +176,7 @@
       <Filter>Sources\Components</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="Component_Texture.cpp">
+    <ClCompile Include="ComponentTexture.cpp">
       <Filter>Sources\Components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -458,7 +458,7 @@
       <Filter>Sources\Components</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="Component_Texture.h">
+    <ClInclude Include="ComponentTexture.h">
       <Filter>Sources\Components</Filter>
     </ClInclude>
   </ItemGroup>

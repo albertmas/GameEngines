@@ -18,8 +18,8 @@ public:
 	
 	virtual void Enable()
 	{}
-	virtual void Update()
-	{}
+	virtual bool Update() { return true; }
+	
 	virtual void Disable()
 	{}
 
