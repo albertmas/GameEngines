@@ -2,9 +2,6 @@
 
 
 
-
-
-
 ComponentTexture::~ComponentTexture()
 {
 }

@@ -1,5 +1,10 @@
+#include "Application.h"
+#include "ModuleRenderer3D.h"
 #include "GameObject.h"
-
+#include "Component.h"
+#include "ComponentMesh.h"
+#include "ComponentTexture.h"
+#include "ComponentTransform.h"
 
 
 GameObject::GameObject()
@@ -26,7 +31,29 @@ void GameObject::Update()
 
 }
 
-//Component* GameObject::CreateComponent(Component component)
-//{
-//
-//}
+Component* GameObject::CreateComponent(COMP_TYPE type)
+{
+	Component* ret;
+
+	switch (type)
+	{
+	case TRANSFORMATION:
+		ret = CreateComponentTransform();
+		break;
+	case MESH:
+		ret = App->renderer3D->CreateComponentMesh();
+		break;
+	case MATERIAL:
+		ret = App->renderer3D->CreateComponentTexture();
+		break;
+
+	}
+
+}
+
+ComponentTransform* GameObject::CreateComponentTransform()
+{
+	ComponentTransform* ret;
+
+	return ret;
+}

@@ -172,9 +172,6 @@
     <ClCompile Include="ComponentMesh.cpp">
       <Filter>Sources\Components</Filter>
     </ClCompile>
-    <ClCompile Include="ComponentMaterial.cpp">
-      <Filter>Sources\Components</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="ComponentTexture.cpp">
       <Filter>Sources\Components</Filter>
@@ -452,9 +449,6 @@
       <Filter>Sources\Components</Filter>
     </ClInclude>
     <ClInclude Include="ComponentMesh.h">
-      <Filter>Sources\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="ComponentMaterial.h">
       <Filter>Sources\Components</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h" />

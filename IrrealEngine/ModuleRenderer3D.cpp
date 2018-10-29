@@ -7,7 +7,8 @@
 #include "ModuleFBXLoader.h"
 #include "ModuleScene.h"
 #include "Open_GL.h"
-
+#include "ComponentMesh.h"
+#include "ComponentTexture.h"
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
@@ -179,17 +180,6 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	// We should render the geometry here
 	
-
-	//if (Cube)
-	//{
-	//	glColor3f(1.0, 0.0, 1.0);
-	//	VertexArrayCube.DrawCube();
-	//	glColor3f(1.0, 1.0, 1.0);
-	//}
-	//if (Sphere)
-	//{
-	//	VertexSphere.DrawSphere();
-	//}
 	if (plane)
 	{ 
 		glColor3f(1.0, 0.0, 0.0);
@@ -467,6 +457,19 @@ void ModuleRenderer3D::Active_Texture2D(bool active)
 void ModuleRenderer3D::Active_Normals(bool active)
 {
 
+}
+
+ComponentMesh* ModuleRenderer3D::CreateComponentMesh()
+{
+	ComponentMesh* ret;
+
+	return ret;
+}
+ComponentTexture* ModuleRenderer3D::CreateComponentTexture()
+{
+	ComponentTexture* ret;
+
+	return ret;
 }
 
 FBXMesh::~FBXMesh()

@@ -1,10 +1,10 @@
 #ifndef _GameObject_H_
 #define _GameObject_H_
 
-#include "Globals.h"
-#include "Component.h"
+
 
 class Component;
+class ComponentTransform;
 enum COMP_TYPE;
 
 class GameObject
@@ -17,9 +17,10 @@ public:
 	void Update();
 	bool CleanUp();
 
-	void RemoveComponent(COMP_TYPE type);
+	void RemoveComponent(Component component);
+	Component* CreateComponent(COMP_TYPE type);
 
-	Component* CreateComponent(Component component);
+	ComponentTransform* CreateComponentTransform();
 
 
 public:

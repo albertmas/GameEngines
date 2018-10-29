@@ -10,6 +10,10 @@
 #define CHECKERS_WIDTH 100
 #define CHECKERS_HEIGHT 100
 
+class Component;
+class ComponentMesh;
+class ComponentTexture;
+
 struct FBXMesh
 {
 	~FBXMesh();
@@ -69,6 +73,8 @@ public:
 	bool Save(Document& document, FileWriteStream& fws);
 	bool Load(Document& document);
 
+	ComponentMesh* CreateComponentMesh();
+	ComponentTexture* CreateComponentTexture();
 
 	void OnResize(int width, int height);
 	void Info_init_Console();
