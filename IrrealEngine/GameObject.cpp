@@ -26,7 +26,7 @@ void GameObject::Update()
 
 }
 
-//Component* GameObject::CreateComponent(COMP_TYPE type)
+//Component* GameObject::CreateComponent(Component component)
 //{
 //
 //}

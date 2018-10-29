@@ -15,7 +15,8 @@ public:
 	{}
 	virtual ~Component()
 	{}
-	
+	virtual void DrawInfo() 
+	{}
 	virtual void Enable()
 	{}
 	virtual bool Update() { return true; }
