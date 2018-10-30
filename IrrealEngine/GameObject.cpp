@@ -49,6 +49,7 @@ Component* GameObject::CreateComponent(COMP_TYPE type)
 
 	}
 
+	return ret;
 }
 
 ComponentTransform* GameObject::CreateComponentTransform()

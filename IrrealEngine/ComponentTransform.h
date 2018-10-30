@@ -11,9 +11,9 @@ public:
 	ComponentTransform();
 	~ComponentTransform();
 
-	// void DrawInfo();
+	 void DrawInfo() override;
 	
-	// bool Update();
+	 bool Update() override;
 
 
 };

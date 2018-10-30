@@ -1,15 +1,15 @@
 #include "Application.h"
 #include "ModuleImGui.h"
-#include "ImGui\imgui_impl_sdl.h"
-#include "ImGui\imgui_impl_opengl2.h"
-#include "DeviceId\DeviceId.h"
+#include "ImGui/imgui_impl_sdl.h"
+#include "ImGui/imgui_impl_opengl2.h"
+#include "DeviceId/DeviceId.h"
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "ModuleRenderer3D.h"
 #include "ModulePhysics3D.h"
 #include "ModuleFBXLoader.h"
 #include "Assimp/include/version.h"
-#include "DevIL\include\il.h"
+#include "DevIL/include/il.h"
 
 
 
