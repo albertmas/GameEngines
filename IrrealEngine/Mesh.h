@@ -3,7 +3,7 @@
 
 #include "Globals.h"
 #include "Primitive.h"
-#include "MathGeoLib\MathGeoLib.h"
+#include "MathGeoLib/MathGeoLib.h"
 #include "Open_GL.h"
 
 enum MESH_TYPE { //All geometric forms will be included here

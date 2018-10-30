@@ -1,7 +1,7 @@
-#pragma once
+#ifndef __Component_H__
+#define __Component_H__
 
 class GameObject;
-
 
 class Component
 {
@@ -36,3 +36,4 @@ public:
 
 };
 
+#endif
