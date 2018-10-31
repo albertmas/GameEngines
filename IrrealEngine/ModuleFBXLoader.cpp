@@ -2,6 +2,7 @@
 #include "ModuleFBXLoader.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
+#include "ModuleScene.h"
 
 
 #include "Assimp/include/cimport.h"
@@ -84,9 +85,11 @@ bool ModuleFBXLoader::ImportMesh(const char* full_path)
 	const aiScene* scene = aiImportFile(full_path, aiProcessPreset_TargetRealtime_MaxQuality);
 	if (scene != nullptr && scene->HasMeshes())
 	{
+		GameObject* parent_go = App->scene->CreateGameObject();
+
 		aiNode* rootNode = scene->mRootNode;
 		ObjectBB = new AABB({ 0,0,0 }, { 0,0,0 });
-
+		parent_go->go_name = rootNode->mName.C_Str();
 		LoadFile(full_path, scene, rootNode);
 
 		aiReleaseImport(scene);
