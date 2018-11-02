@@ -1,6 +1,9 @@
 #ifndef __Component_H__
 #define __Component_H__
 
+#include "Globals.h"
+
+
 class GameObject;
 
 class Component

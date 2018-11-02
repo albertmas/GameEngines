@@ -3,7 +3,11 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModuleScene.h"
+#include "GameObject.h"
 
+#include "Component.h"
+#include "ComponentTransform.h"
+#include "ComponentMesh.h"
 
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
@@ -90,7 +94,7 @@ bool ModuleFBXLoader::ImportMesh(const char* full_path)
 		aiNode* rootNode = scene->mRootNode;
 		ObjectBB = new AABB({ 0,0,0 }, { 0,0,0 });
 		parent_go->go_name = rootNode->mName.C_Str();
-		LoadFile(full_path, scene, rootNode);
+		LoadFile(full_path, scene, rootNode, nullptr);
 
 		aiReleaseImport(scene);
 	}
@@ -102,19 +106,40 @@ bool ModuleFBXLoader::ImportMesh(const char* full_path)
 	return ret;
 }
 
-bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNode* node)
+bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNode* node, GameObject* parent)
 {
 	bool ret = true;
 
-	for (int i = 0; i < node->mNumChildren; i++)
-		LoadFile(full_path, scene, node->mChildren[i]);
-	
+	if (node == nullptr)
+		return false;
+
+	if (parent == nullptr)
+		parent = App->scene->root;
+
+	GameObject* gameobject = new GameObject(parent, node->mName.C_Str());
+
 	aiVector3D position;
 	aiQuaternion rotation;
 	aiVector3D scaling;
 	node->mTransformation.Decompose(scaling, rotation, position);
 
+	if (parent == App->scene->root)
+	{
+		App->scene->game_objects.push_back(gameobject);
+		ComponentTransform* comp_trans = (ComponentTransform*)gameobject->CreateComponent(Component::TRANSFORMATION);
+		comp_trans->position.Set(position.x, position.y, position.z);	
+		comp_trans->rotation.Set(rotation.x, rotation.y, rotation.z, rotation.w);
+		comp_trans->scale.Set(scaling.x, scaling.y, scaling.z);
+	}
+	else
+	{
+		parent->go_children.push_back(gameobject);
+	}
+
+	for (int i = 0; i < node->mNumChildren; i++)
+		LoadFile(full_path, scene, node->mChildren[i], gameobject);
 	
+		
 	for (int meshNum = 0; meshNum < node->mNumMeshes; meshNum++)
 	{
 		mesh_number++;
