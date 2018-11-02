@@ -9,7 +9,7 @@ class ComponentTexture : public Component
 
 public:
 
-	ComponentTexture(GameObject* gameobject, COMP_TYPE* comp_type) :Component(gameobject) {}
+	ComponentTexture(GameObject* gameobject, COMP_TYPE comp_type) :Component(gameobject, comp_type) {}
 	~ComponentTexture();
 
 	bool Update();

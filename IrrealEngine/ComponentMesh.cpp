@@ -14,3 +14,8 @@ bool ComponentMesh::Update()
 	return true;
 
 }
+
+void ComponentMesh::DrawInfo()
+{
+
+}

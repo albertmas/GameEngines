@@ -12,6 +12,12 @@ public:
 	~ComponentMesh();
 
 	bool Update();
+
+	void DrawInfo();
+	
+public:
+
+	Mesh * mesh;
 };
 
 #endif

@@ -4,22 +4,31 @@
 
 class GameObject;
 
+enum COMP_TYPE {
+
+	EMPTY = 0,
+	MESH,
+	MATERIAL,
+	TRANSFORMATION,
+
+};
+
 class Component
 {
 public:
 
 	Component()
 	{}
-	Component(GameObject* parent)
+	Component(GameObject* gameobject, COMP_TYPE type) :my_go(gameobject), type(type) 
 	{}
 	virtual ~Component()
 	{}
 	virtual void DrawInfo() 
 	{}
+	virtual bool Update() { return true; }
+
 	virtual void Enable()
 	{}
-	virtual bool Update() { return true; }
-	
 	virtual void Disable()
 	{}
 
@@ -31,15 +40,11 @@ public:
 
 	bool comp_active = false;
 	GameObject* my_go = nullptr;
+	COMP_TYPE type = EMPTY;
 
 };
 
-enum COMP_TYPE {
-	MESH,
-	MATERIAL,
-	TRANSFORMATION,
-	
-};
+
 
 
 #endif _COMPONENT_H_
