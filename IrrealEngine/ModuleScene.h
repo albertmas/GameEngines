@@ -26,7 +26,6 @@ public:
 	GameObject* CreateGameObject();
 
 public:
-	std::list<Mesh*> scene_objects;
 	std::vector<GameObject*> game_objects;
 	GameObject* root = nullptr;
 

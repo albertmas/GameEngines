@@ -2,14 +2,19 @@
 #include "ModuleFBXLoader.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
+#include "ModuleScene.h"
+#include "GameObject.h"
 
+#include "Component.h"
+#include "ComponentTransform.h"
+#include "ComponentMesh.h"
 
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
-#include "DevIL\include\il.h"
-#include "DevIL\include\ilu.h"
-#include "DevIL\include\ilut.h"
+#include "DevIL/include/il.h"
+#include "DevIL/include/ilu.h"
+#include "DevIL/include/ilut.h"
 
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 #pragma comment (lib, "DevIL/libx86/DevIL.lib")
@@ -86,8 +91,7 @@ bool ModuleFBXLoader::ImportMesh(const char* full_path)
 	{
 		aiNode* rootNode = scene->mRootNode;
 		ObjectBB = new AABB({ 0,0,0 }, { 0,0,0 });
-
-		LoadFile(full_path, scene, rootNode);
+		LoadFile(full_path, scene, rootNode, nullptr);
 
 		aiReleaseImport(scene);
 	}
@@ -99,21 +103,40 @@ bool ModuleFBXLoader::ImportMesh(const char* full_path)
 	return ret;
 }
 
-bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNode* node)
+bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNode* node, GameObject* parent)
 {
 	bool ret = true;
 
-	for (int i = 0; i < node->mNumChildren; i++)
-		LoadFile(full_path, scene, node->mChildren[i]);
-	
+	if (node == nullptr)
+		return false;
+
+	if (parent == nullptr)
+		parent = App->scene->root;
+
+	GameObject* gameobject = new GameObject(parent, node->mName.C_Str());
+
 	aiVector3D position;
 	aiQuaternion rotation;
 	aiVector3D scaling;
 	node->mTransformation.Decompose(scaling, rotation, position);
-	
-	Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
 
+	if (parent == App->scene->root)
+	{
+		// Setting a counter for GameObjects
+		parent_number++;
+		gameobject->go_name = std::to_string(parent_number) + ": " + gameobject->go_name;
+		App->scene->game_objects.push_back(gameobject);
+
+		ComponentTransform* comp_trans = (ComponentTransform*)gameobject->CreateComponent(Component::TRANSFORMATION);
+		comp_trans->position.Set(position.x, position.y, position.z);	
+		comp_trans->rotation.Set(rotation.x, rotation.y, rotation.z, rotation.w);
+		comp_trans->scale.Set(scaling.x, scaling.y, scaling.z);
+	}
+
+	for (int i = 0; i < node->mNumChildren; i++)
+		LoadFile(full_path, scene, node->mChildren[i], gameobject);
 	
+		
 	for (int meshNum = 0; meshNum < node->mNumMeshes; meshNum++)
 	{
 		mesh_number++;
@@ -204,9 +227,17 @@ bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNo
 			ObjectBB->Enclose(mesh->bounding_box);
 
 			mesh->meshPos.Set(position.x, position.y, position.z);
-			mesh->meshRot.Set(rot.ToEulerXYZ().x, rot.ToEulerXYZ().y, rot.ToEulerXYZ().z);
-			mesh->meshRot *= 180 / pi;
+			mesh->meshRot.Set(rotation.x, rotation.y, rotation.z, rotation.w);
 			mesh->meshScale.Set(scaling.x, scaling.y, scaling.z);
+
+			// Set GO components
+			ComponentTransform* c_trans = (ComponentTransform*)gameobject->CreateComponent(Component::TRANSFORMATION);
+			c_trans->position = mesh->meshPos;
+			c_trans->rotation = mesh->meshRot;
+			c_trans->scale = mesh->meshScale;
+			ComponentMesh* c_mesh = (ComponentMesh*)gameobject->CreateComponent(Component::MESH);
+			c_mesh->SetMesh(mesh);
+
 		}
 	}
 

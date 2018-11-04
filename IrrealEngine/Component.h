@@ -1,7 +1,8 @@
-#pragma once
+#ifndef __Component_H__
+#define __Component_H__
 
 #include "Globals.h"
-#include "GameObject.h"
+
 
 class GameObject;
 
@@ -23,19 +24,25 @@ public:
 	virtual void Disable()
 	{}
 
+	virtual void SetInspectorInfo()
+	{}
 
 public:
 
-	//Game Object
 	enum COMP_TYPE {
+		NONE,
 		MESH,
-		MATERIAL,
 		TRANSFORMATION,
-		TEXTURE
+		TEXTURE,
+		MATERIAL
 	};
 
-	bool comp_active = false;
+public:
+
+	bool comp_active = true;
 	GameObject* my_go = nullptr;
+	COMP_TYPE type = NONE;
 
 };
 
+#endif

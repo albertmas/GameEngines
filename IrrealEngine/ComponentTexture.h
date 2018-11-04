@@ -1,6 +1,8 @@
-#ifndef _COMPONENT_TEXTURE_
-#define _COMPONENT_TEXTURE_
+#ifndef COMPONENT_TEXTURE_H_
+#define COMPONENT_TEXTURE_H_
+
 #include "Component.h"
+
 
 class Texture;
 
@@ -9,15 +11,16 @@ class ComponentTexture : public Component
 
 public:
 
-	ComponentTexture(GameObject* gameobject, COMP_TYPE* comp_type) :Component(gameobject) {}
+	ComponentTexture(GameObject* gameobject);
 	~ComponentTexture();
 
-	bool Update();
+	bool Update() override;
 
 
 public:
 
 	Texture * material;
+
 };
 
 #endif
