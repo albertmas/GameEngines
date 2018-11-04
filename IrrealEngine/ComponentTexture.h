@@ -3,12 +3,24 @@
 
 #include "Component.h"
 
-class ComponentTexture :
-	public Component
+
+class Texture;
+
+class ComponentTexture : public Component
 {
+
 public:
+
 	ComponentTexture(GameObject* gameobject);
-	~ComponentTexture() override;
+	~ComponentTexture();
+
+	bool Update() override;
+
+
+public:
+
+	Texture * material;
+
 };
 
 #endif

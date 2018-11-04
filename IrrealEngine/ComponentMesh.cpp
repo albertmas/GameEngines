@@ -9,12 +9,12 @@ ComponentMesh::ComponentMesh(GameObject* gameobject)
 	type = MESH;
 }
 
-
 ComponentMesh::~ComponentMesh()
 {
 }
 
-void ComponentMesh::Update()
+
+bool ComponentMesh::Update()
 {
 	if (comp_active)
 	{
@@ -25,6 +25,8 @@ void ComponentMesh::Update()
 		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glDisableClientState(GL_VERTEX_ARRAY);
 	}
+
+	return true;
 }
 
 void ComponentMesh::SetMesh(FBXMesh* mesh)

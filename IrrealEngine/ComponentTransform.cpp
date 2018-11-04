@@ -3,6 +3,8 @@
 
 ComponentTransform::ComponentTransform(GameObject* gameobject)
 {
+	my_go = gameobject;
+	type = TRANSFORMATION;
 }
 
 

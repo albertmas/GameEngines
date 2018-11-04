@@ -5,19 +5,24 @@
 #include "ModuleFBXLoader.h"
 
 
+class Mesh;
+class GameObject;
+
 class ComponentMesh :public Component
 {
 public:
+
 	ComponentMesh(GameObject* gameobject);
 	~ComponentMesh() override;
 
-	void Update() override;
+	bool Update() override;
 
 	void SetMesh(FBXMesh* mesh);
 	void SetInspectorInfo() override;
 
 private:
 	FBXMesh* go_mesh = nullptr;
+
 };
 
 #endif

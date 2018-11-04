@@ -12,13 +12,15 @@ public:
 
 	Component()
 	{}
+	Component(GameObject* parent)
+	{}
 	virtual ~Component()
 	{}
 	
 	virtual void Enable()
 	{}
-	virtual void Update()
-	{}
+	virtual bool Update() { return true; }
+	
 	virtual void Disable()
 	{}
 
