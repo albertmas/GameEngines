@@ -203,20 +203,13 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		CreateAxis();
 	}
 
-	for (std::list<FBXMesh*>::iterator iter = meshes.begin(); iter != meshes.end(); iter++)
-	{
-		(*iter)->Draw();
-		if (BB && meshes.size() > 1)
-		{
-			DrawBB((*iter)->bounding_box, { 1.0f, 0.0f, 0.0f });
-		}
-	}
+	
 	if (BB)
 		DrawBB(*App->fbxloader->ObjectBB, { 0.0f, 1.0f, 0.0f });
 
 	//glBindTexture(GL_TEXTURE_2D, 0);
 
-	//App->scene->Draw();
+	App->scene->Draw();
 	App->imgui->DrawImgui();
 
 	SDL_GL_SwapWindow(App->window->window);

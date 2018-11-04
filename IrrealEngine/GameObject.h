@@ -16,6 +16,9 @@ public:
 	void Update();
 	bool CleanUp();
 
+	void Draw();
+	//void DrawBB(const AABB& BB, vec3 color) const;
+
 	Component* CreateComponent(Component::COMP_TYPE type);
 
 public:

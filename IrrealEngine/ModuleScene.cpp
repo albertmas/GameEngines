@@ -74,7 +74,14 @@ bool ModuleScene::Load(Document& document)
 
 void ModuleScene::Draw()
 {
-
+	for (int i = 0; i < game_objects.size(); i++)
+	{
+		game_objects[i]->Draw();
+		/*if (BB && game_objects.size() > 1)
+		{
+			DrawBB((*iter)->bounding_box, { 1.0f, 0.0f, 0.0f });
+		}*/
+	}
 }
 
 GameObject* ModuleScene::CreateGameObject()

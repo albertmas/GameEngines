@@ -36,6 +36,33 @@ void GameObject::Update()
 
 }
 
+void GameObject::Draw()
+{
+	for (int i = 0; i < go_components.size(); i++)
+	{
+		if (go_components[i]->comp_active)
+		{
+			if (go_components[i]->type == Component::TRANSFORMATION)
+			{
+				go_components[i]->Update();
+			}
+			if (go_components[i]->type == Component::MESH)
+			{
+				go_components[i]->Update();
+			}
+			if (go_components[i]->type == Component::MATERIAL)
+			{
+				go_components[i]->Update();
+			}
+		}
+	}
+}
+
+//void GameObject::DrawBB(const AABB& BB, vec3 color) const
+//{
+//
+//}
+
 Component* GameObject::CreateComponent(Component::COMP_TYPE type)
 {
 	Component* comp = nullptr;

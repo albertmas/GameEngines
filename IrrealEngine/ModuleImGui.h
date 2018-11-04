@@ -3,9 +3,10 @@
 
 
 #include "Module.h"
-#include "ImGui\imgui.h"
+#include "ImGui/imgui.h"
 
 
+class GameObject;
 
 class ModuleImGui :	public Module
 {
@@ -31,7 +32,8 @@ public:
 	void TestWindow();
 	void Console();
 	void ConfigurationWindow();
-	void PropertiesWindow();
+	void InspectorWindow();
+	void HierarchyWindow();
 	void CreateSphere();
 	void CreateTriangle();
 	void GetHardWareData();
@@ -39,6 +41,7 @@ public:
 	void DrawImgui();
 
 	void SearchFolder(const char* path);
+	void SearchGO(GameObject* parent);
 
 public:
 	int min_rand_int = 0, max_rand_int = 100;
@@ -57,7 +60,8 @@ public:
 	bool randomwindow = false;
 	bool consolewindow = true;
 	bool configurationwindow = true;
-	bool propertieswindow = true;
+	bool inspectorwindow = true;
+	bool hierarchywindow = true;
 	bool aboutwindow = false;
 	bool editorwindow = true;
 
@@ -93,12 +97,15 @@ private:
 	bool scrollconsole = false;
 
 	int config_width = 300;
-	int properties_width = 250;
+	int inspector_width = 250;
+	int inspector_height = 250;
 
 	char app_name[50] = TITLE;
 	char organization[50] = "UPC CITM";
 	char icon_name[50] = "*default*";
 	char icon_name_new[50] = "";
+
+	GameObject* focused_go = nullptr;
 };
 
 #endif //__ModuleImGui_H__

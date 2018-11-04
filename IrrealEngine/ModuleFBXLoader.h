@@ -32,7 +32,7 @@ public:
 	std::list<Mesh*> object;
 	uint mesh_number = 0;
 	AABB* ObjectBB = nullptr;
-
+	uint parent_number = 0;
 };
 
 void AssimpLog(const char* str, char* userData);

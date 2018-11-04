@@ -11,6 +11,8 @@ public:
 	ComponentTransform(GameObject* gameobject);
 	~ComponentTransform() override;
 
+	void SetInspectorInfo() override;
+
 public:
 	float3 position = { 0, 0, 0 };
 	Quat rotation = { 0, 0, 0, 0 };

@@ -11,10 +11,13 @@ public:
 	ComponentMesh(GameObject* gameobject);
 	~ComponentMesh() override;
 
-	void SetMesh(FBXMesh* addMesh);
+	void Update() override;
+
+	void SetMesh(FBXMesh* mesh);
+	void SetInspectorInfo() override;
 
 private:
-	FBXMesh* mesh;
+	FBXMesh* go_mesh = nullptr;
 };
 
 #endif

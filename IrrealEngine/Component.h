@@ -22,10 +22,13 @@ public:
 	virtual void Disable()
 	{}
 
+	virtual void SetInspectorInfo()
+	{}
 
 public:
 
 	enum COMP_TYPE {
+		NONE,
 		MESH,
 		TRANSFORMATION,
 		TEXTURE,
@@ -36,6 +39,7 @@ public:
 
 	bool comp_active = true;
 	GameObject* my_go = nullptr;
+	COMP_TYPE type = NONE;
 
 };
 
