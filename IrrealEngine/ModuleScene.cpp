@@ -8,6 +8,7 @@
 #include  "ComponentTransform.h"
 #include  "ComponentMesh.h"
 #include  "ComponentTexture.h"
+#include "ComponentCamera.h"
 
 
 

@@ -184,6 +184,10 @@
     <ClCompile Include="ComponentCamera.cpp">
       <Filter>Sources\Components</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentTexture.cpp" />
+    <ClCompile Include="Camera.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -470,6 +474,10 @@
     <ClInclude Include="ComponentTexture.h" />
     <ClInclude Include="ComponentCamera.h">
       <Filter>Sources\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentTexture.h" />
+    <ClInclude Include="Camera.h">
+      <Filter>Sources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

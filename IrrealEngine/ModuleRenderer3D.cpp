@@ -7,6 +7,7 @@
 #include "ModuleFBXLoader.h"
 #include "ModuleScene.h"
 #include "Open_GL.h"
+#include "ModuleCamera3D.h"
 
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */

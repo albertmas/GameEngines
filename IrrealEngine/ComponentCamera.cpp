@@ -4,13 +4,12 @@
 #include "ModuleWindow.h"
 #include "Component.h"
 #include "ComponentTransform.h"
-#include "MathGeoLib\MathGeoLib.h"
+#include "MathGeoLib/MathGeoLib.h"
 #include "GameObject.h"
 
 
 ComponentCamera::ComponentCamera()
 {
-
 
 }
 
