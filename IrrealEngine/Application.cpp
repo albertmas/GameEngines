@@ -7,6 +7,7 @@
 #include "ModulePhysics3D.h"
 #include "ModuleImGui.h"
 #include "ModuleFBXLoader.h"
+#include "ModuleTextureLoader.h"
 #include "ModuleScene.h"
 
 
@@ -19,6 +20,7 @@ Application::Application()
 	physics = new ModulePhysics3D();
 	imgui = new ModuleImGui();
 	fbxloader = new ModuleFBXLoader();
+	texloader = new ModuleTextureLoader();
 	scene = new ModuleScene(this);
 
 	// The order of calls is very important!
@@ -31,6 +33,7 @@ Application::Application()
 	AddModule(input);
 	AddModule(physics);
 	AddModule(fbxloader);
+	AddModule(texloader);
 	
 	// Scenes
 	AddModule(scene);

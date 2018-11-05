@@ -3,7 +3,6 @@
 #include "ComponentMesh.h"
 #include "ComponentTransform.h"
 #include "ComponentTexture.h"
-#include "ComponentMaterial.h"
 
 
 GameObject::GameObject(GameObject* parent, const char* name)
@@ -38,22 +37,29 @@ void GameObject::Update()
 
 void GameObject::Draw()
 {
-	for (int i = 0; i < go_components.size(); i++)
+	if (go_active)
 	{
-		if (go_components[i]->comp_active)
+		for (int i = 0; i < go_components.size(); i++)
 		{
-			if (go_components[i]->type == Component::TRANSFORMATION)
+			if (go_components[i]->comp_active)
 			{
-				go_components[i]->Update();
+				if (go_components[i]->type == Component::TRANSFORMATION)
+				{
+					go_components[i]->Update();
+				}
+				if (go_components[i]->type == Component::MESH)
+				{
+					go_components[i]->Update();
+				}
+				if (go_components[i]->type == Component::TEXTURE)
+				{
+					go_components[i]->Update();
+				}
 			}
-			if (go_components[i]->type == Component::MESH)
-			{
-				go_components[i]->Update();
-			}
-			if (go_components[i]->type == Component::MATERIAL)
-			{
-				go_components[i]->Update();
-			}
+		}
+		for (int i = 0; i < go_children.size(); i++)
+		{
+			go_children[i]->Draw();
 		}
 	}
 }
@@ -78,11 +84,7 @@ Component* GameObject::CreateComponent(Component::COMP_TYPE type)
 		go_components.push_back(comp);
 		break;
 	case Component::TEXTURE:
-		comp = new ComponentMaterial(this);
-		go_components.push_back(comp);
-		break;
-	case Component::MATERIAL:
-		comp = new ComponentMaterial(this);
+		comp = new ComponentTexture(this);
 		go_components.push_back(comp);
 		break;
 	default:

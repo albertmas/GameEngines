@@ -4,6 +4,10 @@
 #include "ModuleCamera3D.h"
 #include "ModuleFBXLoader.h"
 #include "ModuleInput.h"
+#include  "Component.h"
+#include  "ComponentTransform.h"
+#include  "ComponentMesh.h"
+#include  "ComponentTexture.h"
 
 
 
@@ -33,6 +37,7 @@ bool ModuleScene::Start()
 {
 	root = new GameObject(nullptr, "root");
 	game_objects.push_back(root);
+	ComponentTransform* root_trans = (ComponentTransform*)root->CreateComponent(Component::TRANSFORMATION);
 
 	App->fbxloader->ImportMesh("Assets/BakerHouse/BakerHouse.fbx");
 
@@ -76,7 +81,8 @@ void ModuleScene::Draw()
 {
 	for (int i = 0; i < game_objects.size(); i++)
 	{
-		game_objects[i]->Draw();
+		if (game_objects[i] != root)
+			game_objects[i]->Draw();
 		/*if (BB && game_objects.size() > 1)
 		{
 			DrawBB((*iter)->bounding_box, { 1.0f, 0.0f, 0.0f });

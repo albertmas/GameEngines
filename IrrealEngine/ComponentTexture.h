@@ -15,11 +15,11 @@ public:
 	~ComponentTexture();
 
 	bool Update() override;
-
-
+	void SetInspectorInfo() override;
+	
 public:
 
-	Texture * material;
+	Texture* texture = nullptr;
 
 };
 
