@@ -8,6 +8,7 @@
 #include "Component.h"
 #include "ComponentTransform.h"
 #include "ComponentMesh.h"
+#include "ComponentTexture.h"
 
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
@@ -188,6 +189,7 @@ bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNo
 			// Searching Texture
 			aiString path;
 			aiReturn error = material->GetTexture(aiTextureType::aiTextureType_DIFFUSE, 0, &path);
+			Texture* newtexture = nullptr;
 
 			if (error == aiReturn::aiReturn_SUCCESS)
 			{
@@ -201,6 +203,7 @@ bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNo
 				Path += path.C_Str();
 				mesh->texture = LoadTexture(Path.c_str(), mesh->texWidth, mesh->texHeight);
 				mesh->texPath = Path.c_str();
+
 			}
 			else
 				LOG("Couldn't load the default texture from .fbx file");
@@ -237,6 +240,8 @@ bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNo
 			c_trans->scale = mesh->meshScale;
 			ComponentMesh* c_mesh = (ComponentMesh*)gameobject->CreateComponent(Component::MESH);
 			c_mesh->SetMesh(mesh);
+			ComponentTexture* c_tex = (ComponentTexture*)gameobject->CreateComponent(Component::TEXTURE);
+			c_tex->texture = newtexture;
 
 		}
 	}

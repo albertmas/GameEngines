@@ -3,7 +3,6 @@
 #include "ComponentMesh.h"
 #include "ComponentTransform.h"
 #include "ComponentTexture.h"
-#include "ComponentMaterial.h"
 
 
 GameObject::GameObject(GameObject* parent, const char* name)
@@ -50,7 +49,7 @@ void GameObject::Draw()
 			{
 				go_components[i]->Update();
 			}
-			if (go_components[i]->type == Component::MATERIAL)
+			if (go_components[i]->type == Component::TEXTURE)
 			{
 				go_components[i]->Update();
 			}
@@ -78,11 +77,7 @@ Component* GameObject::CreateComponent(Component::COMP_TYPE type)
 		go_components.push_back(comp);
 		break;
 	case Component::TEXTURE:
-		comp = new ComponentMaterial(this);
-		go_components.push_back(comp);
-		break;
-	case Component::MATERIAL:
-		comp = new ComponentMaterial(this);
+		comp = new ComponentTexture(this);
 		go_components.push_back(comp);
 		break;
 	default:

@@ -18,6 +18,7 @@ class ModuleCamera3D;
 class ModulePhysics3D;
 class ModuleImGui;
 class ModuleFBXLoader;
+class ModuleTextureLoader;
 class ModuleScene;
 
 
@@ -31,6 +32,7 @@ public:
 	ModulePhysics3D* physics;
 	ModuleImGui* imgui;
 	ModuleFBXLoader* fbxloader;
+	ModuleTextureLoader* texloader;
 	ModuleScene* scene;
 	
 	

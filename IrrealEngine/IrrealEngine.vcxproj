@@ -78,7 +78,6 @@
     <ClInclude Include="Assimp.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="ComponentMaterial.h" />
     <ClInclude Include="ComponentMesh.h" />
     <ClInclude Include="ComponentTexture.h" />
     <ClInclude Include="ComponentTransform.h" />
@@ -164,6 +163,7 @@
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleInput.h" />
     <ClInclude Include="ModuleScene.h" />
+    <ClInclude Include="ModuleTextureLoader.h" />
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="Open_GL.h" />
     <ClInclude Include="PCG\pcg_basic.h" />
@@ -173,7 +173,6 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Color.cpp" />
-    <ClCompile Include="ComponentMaterial.cpp" />
     <ClCompile Include="ComponentMesh.cpp" />
     <ClCompile Include="ComponentTexture.cpp" />
     <ClCompile Include="ComponentTransform.cpp" />
@@ -228,6 +227,7 @@
     <ClCompile Include="ModulePhysics3D.cpp" />
     <ClCompile Include="ModuleRenderer3D.cpp" />
     <ClCompile Include="ModuleScene.cpp" />
+    <ClCompile Include="ModuleTextureLoader.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="PCG\pcg_basic.c" />
     <ClCompile Include="Primitive.cpp" />

@@ -34,7 +34,7 @@ public:
 		MESH,
 		TRANSFORMATION,
 		TEXTURE,
-		MATERIAL
+		CAMERA
 	};
 
 public:
