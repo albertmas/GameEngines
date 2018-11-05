@@ -14,9 +14,12 @@ public:
 	void SetInspectorInfo() override;
 
 public:
-	float3 position = { 0, 0, 0 };
-	Quat rotation = { 0, 0, 0, 0 };
-	float3 scale = { 0, 0, 0 };
+	float3 position = float3::zero;
+	Quat rotation = Quat::identity;
+	float3 scale = float3::one;
+
+	float4x4 matrix_local = float4x4::identity;
+	float4x4 matrix_global = float4x4::identity;
 };
 
 #endif

@@ -37,22 +37,29 @@ void GameObject::Update()
 
 void GameObject::Draw()
 {
-	for (int i = 0; i < go_components.size(); i++)
+	if (go_active)
 	{
-		if (go_components[i]->comp_active)
+		for (int i = 0; i < go_components.size(); i++)
 		{
-			if (go_components[i]->type == Component::TRANSFORMATION)
+			if (go_components[i]->comp_active)
 			{
-				go_components[i]->Update();
+				if (go_components[i]->type == Component::TRANSFORMATION)
+				{
+					go_components[i]->Update();
+				}
+				if (go_components[i]->type == Component::MESH)
+				{
+					go_components[i]->Update();
+				}
+				if (go_components[i]->type == Component::TEXTURE)
+				{
+					go_components[i]->Update();
+				}
 			}
-			if (go_components[i]->type == Component::MESH)
-			{
-				go_components[i]->Update();
-			}
-			if (go_components[i]->type == Component::TEXTURE)
-			{
-				go_components[i]->Update();
-			}
+		}
+		for (int i = 0; i < go_children.size(); i++)
+		{
+			go_children[i]->Draw();
 		}
 	}
 }
