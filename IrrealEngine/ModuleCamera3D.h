@@ -4,6 +4,9 @@
 #include "Module.h"
 #include "Globals.h"
 #include "glmath.h"
+#include "Camera.h"
+
+class Camera;
 
 class ModuleCamera3D : public Module
 {
@@ -39,6 +42,11 @@ public:
 	bool focus = false;
 
 private:
+
+	Camera * game_camera = nullptr;
+	Camera * editor_camera = nullptr;
+
+	std::vector<Camera*> cams_list;
 
 	mat4x4 ViewMatrix, ViewMatrixInverse;
 };

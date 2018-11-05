@@ -13,6 +13,7 @@ public:
 	bool IsCulling()const;
 	void SetCulling(bool culling);
 	Frustum GetFrustum()const;
+
 	void SetPosition(const float3& new_pos);
 	void SetFOV(const float& new_fov);
 	void SetFarPlane(const float& new_fp);
@@ -33,11 +34,6 @@ private:
 	float   vertical_fov = 0.0f;
 	bool	is_culling = true;
 };
-
-
-
-
-
 
 
 

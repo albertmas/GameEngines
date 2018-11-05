@@ -16,6 +16,7 @@ Camera::~Camera()
 
 void Camera::SetPosition(const float3 & new_pos)
 {
+	
 }
 void Camera::SetFOV(const float & new_fov)
 {
@@ -55,6 +56,11 @@ float Camera::GetFarPlane() const
 float Camera::GetNearPlane() const
 {
 	return frustum.nearPlaneDistance;
+}
+
+float Camera::GetAspectRatio() const
+{
+	return aspect_ratio;
 }
 
 bool Camera::IsCulling() const

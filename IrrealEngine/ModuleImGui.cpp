@@ -395,6 +395,13 @@ void ModuleImGui::ConfigurationWindow()
 			sprintf_s(title, 25, "Memory Consumption");
 			ImGui::PlotHistogram("##memory", &App->memory_log[0], App->memory_log.size(), 0, title, 0.0f, 100000000.0f, ImVec2(310, 100));
 		}
+
+		if (ImGui::CollapsingHeader("Camera"))
+		{
+
+
+
+		}
 		if (ImGui::CollapsingHeader("Window"))
 		{
 			// Brightness
