@@ -180,6 +180,10 @@
     <ClCompile Include="ModuleTextureLoader.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentTexture.cpp" />
+    <ClCompile Include="ComponentCamera.cpp">
+      <Filter>Sources\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -462,6 +466,10 @@
     <ClInclude Include="ComponentTexture.h" />
     <ClInclude Include="ModuleTextureLoader.h">
       <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentTexture.h" />
+    <ClInclude Include="ComponentCamera.h">
+      <Filter>Sources\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
