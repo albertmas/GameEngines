@@ -188,6 +188,7 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentTexture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -479,6 +480,7 @@
     <ClInclude Include="Camera.h">
       <Filter>Sources</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentTexture.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MathGeoLib\Geometry\KDTree.inl">

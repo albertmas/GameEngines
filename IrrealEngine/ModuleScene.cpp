@@ -28,8 +28,8 @@ bool ModuleScene::Init(Document& document)
 	LOG("Loading Plane");
 	bool ret = true;
 
-	App->camera->Move(vec3(0.0f, 10.0f, 0.0f));
-	App->camera->LookAt(vec3(0.0f, 0.0f, 0.0f));
+	App->camera->Move(float3(0.0f, 10.0f, 0.0f));
+	App->camera->LookAt(float3(0.0f, 0.0f, 0.0f));
 
 	return ret;
 }

@@ -12,18 +12,21 @@
 
 ModuleCamera3D::ModuleCamera3D(bool start_enabled) : Module(start_enabled)
 {
-	CalculateViewMatrix();
+	editor_camera = new Camera();
+	cams_list.push_back(editor_camera);
 
-	X = vec3(1.0f, 0.0f, 0.0f);
-	Y = vec3(0.0f, 1.0f, 0.0f);
-	Z = vec3(0.0f, 0.0f, 1.0f);
+	GetCurrentCam()->CalculateViewMatrix();
+
+	GetCurrentCam()->X = float3(1.0f, 0.0f, 0.0f);
+	GetCurrentCam()->Y = float3(0.0f, 1.0f, 0.0f);
+	GetCurrentCam()->Z = float3(0.0f, 0.0f, 1.0f);
 
 	first_time = true;
 
-	Position = vec3(0.0f, -5.0f, 10.0f);
-	Reference = vec3(0.0f, 0.0f, 0.0f);
+	GetCurrentCam()->Position = float3(0.0f, 5.0f, 10.0f);
+	GetCurrentCam()->Reference = float3(0.0f, 0.0f, 0.0f);
 
-	cams_list.push_back(editor_camera);
+
 }
 
 ModuleCamera3D::~ModuleCamera3D()
@@ -114,7 +117,7 @@ update_status ModuleCamera3D::Update(float dt)
 	
 
 	// Recalculate matrix -------------
-	CalculateViewMatrix();
+	GetCurrentCam()->CalculateViewMatrix();
 	
 	return UPDATE_CONTINUE;
 }
@@ -133,58 +136,45 @@ bool ModuleCamera3D::Load(Document& document)
 	return ret;
 }
 // -----------------------------------------------------------------
-void ModuleCamera3D::Look(const vec3 &Position, const vec3 &Reference, bool RotateAroundReference)
+void ModuleCamera3D::Look(const float3 &Position, const float3 &Reference, bool RotateAroundReference)
 {
-	this->Position = Position;
-	this->Reference = Reference;
-
-	Z = normalize(Position - Reference);
-	X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), Z));
-	Y = cross(Z, X);
-
-	if(!RotateAroundReference)
-	{
-		this->Reference = this->Position;
-		this->Position += Z * 0.05f;
-	}
-
-	CalculateViewMatrix();
+	editor_camera->Look(Position, Reference, RotateAroundReference);
 }
 
 // -----------------------------------------------------------------
-void ModuleCamera3D::LookAt( const vec3 &Spot)
+void ModuleCamera3D::LookAt( const float3 &Spot)
 {
-	Reference = Spot;
-
-	Z = normalize(Position - Reference);
-	X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), Z));
-	Y = cross(Z, X);;
-
-	CalculateViewMatrix();
+	editor_camera->LookAt(Spot);
 }
 
 
 // -----------------------------------------------------------------
-void ModuleCamera3D::Move(const vec3 &Movement)
+void ModuleCamera3D::Move(const float3 &Movement)
 {
-	Position += Movement;
-	Reference += Movement;
+	float3 newPos(0, 0, 0);
 
-	CalculateViewMatrix();
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= editor_camera->Z.Mul(Movement);
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += editor_camera->Z.Mul(Movement);
+
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= editor_camera->X.Mul(Movement);
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += editor_camera->X.Mul(Movement);
+
+	editor_camera->UpdatePosition(newPos);
 }
 
 // -----------------------------------------------------------------
 float* ModuleCamera3D::GetViewMatrix()
 {
-	return &ViewMatrix;
+	return GetCurrentCam()->GetViewMatrix();
+}
+
+Camera * ModuleCamera3D::GetCurrentCam() const
+{
+	return editor_camera;
 }
 
 // -----------------------------------------------------------------
-void ModuleCamera3D::CalculateViewMatrix()
-{
-	ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -dot(X, Position), -dot(Y, Position), -dot(Z, Position), 1.0f);
-	ViewMatrixInverse = inverse(ViewMatrix);
-}
+
 
 void ModuleCamera3D::Camera_Rot()
 {
@@ -230,6 +220,6 @@ void ModuleCamera3D::FocusBox(AABB & box)
 	Z = normalize(Position - focus_position);
 	X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), Z));
 	Y = cross(Z, X);
-	CalculateViewMatrix();
+	GetCurrentCam()->CalculateViewMatrix();
 
 }

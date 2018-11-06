@@ -26,7 +26,26 @@ public:
 	float GetNearPlane()const;
 	float GetAspectRatio()const;
 
+	float* GetViewMatrix();
+	float* GetProjectionMatrix();
+
+	void CalculateViewMatrix();
+
+	// MOVEMENT
+
+	void UpdatePosition(float3 newpos);
+	void Look(const float3 &Position, const float3 &Reference, bool RotateAroundReference = false);
+	void LookAt(const float3& Spot);
+	void HandleMouse();
+	float3 X, Y, Z, Position, Reference;
+
+	float3 Rotate(const float3 &u, float angle, const float3 &v);
 	
+
+	
+
+private:
+	float4x4 ViewMatrix, ViewMatrixInverse;
 
 private:
 	Frustum frustum;
