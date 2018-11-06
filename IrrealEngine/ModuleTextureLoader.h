@@ -21,6 +21,12 @@ public:
 	ModuleTextureLoader();
 	~ModuleTextureLoader();
 
+	bool Init(Document& document);
+	bool CleanUp();
+
+	bool ImportTexture(const char* path, std::string& output_file);
+	GLuint LoadTexture(const char* full_path, uint &width, uint &height);
+
 public:
 	std::list<Texture*> textures;
 };

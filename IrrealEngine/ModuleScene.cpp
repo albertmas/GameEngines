@@ -36,6 +36,7 @@ bool ModuleScene::Init(Document& document)
 bool ModuleScene::Start()
 {
 	root = new GameObject(nullptr, "root");
+	root->go_static = true;
 	game_objects.push_back(root);
 	ComponentTransform* root_trans = (ComponentTransform*)root->CreateComponent(Component::TRANSFORMATION);
 

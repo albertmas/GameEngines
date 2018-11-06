@@ -654,6 +654,16 @@ void ModuleImGui::InspectorWindow()
 
 		// GameObject active
 		ImGui::Checkbox("Active", &focused_go->go_active);
+		ImGui::SameLine();
+		if (focused_go->go_parent->go_static)
+			ImGui::Checkbox("Static", &focused_go->go_static);
+		else
+		{
+			ImGui::PushStyleColor(ImGuiCol_Text, { 0.5f, 0.5f, 0.5f, 1.0f });
+			if (ImGui::Checkbox("Static", &focused_go->go_static))
+				focused_go->go_static = false;
+			ImGui::PopStyleColor();
+		}
 
 		// Set components information
 		for (int i = 0; i < focused_go->go_components.size(); i++)

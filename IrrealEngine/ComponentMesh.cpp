@@ -51,7 +51,9 @@ void ComponentMesh::SetInspectorInfo()
 {
 	if (ImGui::CollapsingHeader("Mesh", ImGuiTreeNodeFlags_DefaultOpen))
 	{
+		ImGui::PushID(1);
 		ImGui::Checkbox("Active", &comp_active);
+		ImGui::PopID();
 
 		ImGui::Text("Triangles: %i", go_mesh->num_triangles);
 		ImGui::Text("Vertices: %i", go_mesh->num_vertices);
