@@ -7,6 +7,7 @@
 #include "Camera.h"
 
 class Camera;
+class GameObject;
 
 class ModuleCamera3D : public Module
 {
@@ -25,6 +26,9 @@ public:
 	void LookAt(const float3 &Spot);
 	void Move(const float3 &Movement);
 	void Camera_Rot();
+	void MoveCam(const float3 &speed);
+	void CameraMovement(float dt);
+	void HandleMouse();
 	void FocusBox(AABB & box);
 	float* GetViewMatrix();
 
@@ -36,16 +40,16 @@ public:
 
 
 public:
-	
-	vec3 X = { 0, 0, 0 }, Y = { 0, 0, 0 }, Z = { 0, 0, 0 }, Position = { 0, 0, 0 }, Reference = { 0, 0, 0 };
-	bool focus = false;
-
-private:
 
 	Camera * game_camera = nullptr;
 	Camera * editor_camera = nullptr;
 
 	std::vector<Camera*> cams_list;
+
+	float3 X = { 0, 0, 0 }, Y = { 0, 0, 0 }, Z = { 0, 0, 0 }, Position = { 0, 0, 0 }, Reference = { 0, 0, 0 };
+	bool focus = false;
+
+private:
 
 	mat4x4 ViewMatrix, ViewMatrixInverse;
 };

@@ -15,6 +15,7 @@ public:
 	Frustum GetFrustum()const;
 
 	void SetPosition(const float3& new_pos);
+	void SetReference(const float3& new_pos);
 	void SetFOV(const float& new_fov);
 	void SetFarPlane(const float& new_fp);
 	void SetNearPlane(const float& new_np);

@@ -5,6 +5,7 @@
 #include "ComponentTexture.h"
 #include "ComponentCamera.h"
 
+
 GameObject::GameObject(GameObject* parent, const char* name)
 {
 	if (parent)
@@ -87,9 +88,21 @@ Component* GameObject::CreateComponent(Component::COMP_TYPE type)
 		comp = new ComponentTexture(this);
 		go_components.push_back(comp);
 		break;
-	default:
-		break;
+	//case Component::CAMERA:
+	//	comp = new ComponentCamera(this);
+	//	go_components.push_back(comp);
+	//	break;
 	}
 
 	return comp;
+}
+
+Component * GameObject::GetComponent(ComponentType type)
+{
+	for (std::vector<Component*>::iterator item = go_components.begin(); item != go_components.end(); item++)
+	{
+		if ((*item)->type == type)
+			return (*item);
+	}
+	return nullptr;
 }
