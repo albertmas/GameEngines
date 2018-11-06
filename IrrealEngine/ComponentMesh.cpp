@@ -1,5 +1,6 @@
 #include "ComponentMesh.h"
 #include "Application.h"
+#include "ModuleFBXLoader.h"
 #include "ModuleRenderer3D.h"
 
 
@@ -16,7 +17,7 @@ ComponentMesh::~ComponentMesh()
 
 bool ComponentMesh::Update()
 {
-	if (comp_active)
+	if (active)
 	{
 		glColor3f(1.0, 1.0, 1.0);
 		glEnableClientState(GL_VERTEX_ARRAY);
@@ -49,13 +50,28 @@ void ComponentMesh::SetMesh(FBXMesh* mesh)
 
 void ComponentMesh::SetInspectorInfo()
 {
+	ImGui::Spacing();
 	if (ImGui::CollapsingHeader("Mesh", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		ImGui::PushID(1);
-		ImGui::Checkbox("Active", &comp_active);
+		ImGui::Checkbox("Active", &active);
+		ImGui::Spacing();
 		ImGui::PopID();
 
 		ImGui::Text("Triangles: %i", go_mesh->num_triangles);
 		ImGui::Text("Vertices: %i", go_mesh->num_vertices);
 	}
+}
+
+bool ComponentMesh::Save(Document& document, FileWriteStream& fws) const
+{
+	Document::AllocatorType& allocator = document.GetAllocator();
+	// Save stuff
+	Writer<FileWriteStream> writer(fws);
+	return true;
+}
+
+bool ComponentMesh::Load(Document& document)
+{
+	return true;
 }

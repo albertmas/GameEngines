@@ -40,6 +40,13 @@ bool ModuleTextureLoader::CleanUp()
 {
 	LOG("Freeing all Texture loader elements");
 
+	for (std::list<Texture*>::iterator iter = textures.begin(); iter != textures.end(); iter++)
+	{
+		RELEASE((*iter));
+	}
+	textures.clear();
+
+	// DevIL
 	ilShutDown();
 
 	return true;
@@ -47,6 +54,12 @@ bool ModuleTextureLoader::CleanUp()
 
 bool ModuleTextureLoader::ImportTexture(const char* path, std::string& output_file)
 {
+	std::string texName = path;
+	uint lastSlash = texName.find_last_of('/');
+	uint dot = texName.find_last_of('.');
+	texName = texName.substr(lastSlash + 1, dot - lastSlash - 1);
+	std::string correctPath;
+	correctPath = TEXTURES_DIRECTORY + texName + TEXTURES_EXTENSION;
 	// First it should check that the texture isn't already imported (use Physfs)
 
 	ILuint imageID;
@@ -72,7 +85,7 @@ bool ModuleTextureLoader::ImportTexture(const char* path, std::string& output_fi
 				data = new ILubyte[size]; // allocate data buffer
 				if (ilSaveL(IL_DDS, data, size) > 0) // Save to buffer with the ilSaveIL function
 				{
-					std::ofstream dataFile(path, std::fstream::out | std::fstream::binary);
+					std::ofstream dataFile(correctPath, std::fstream::out | std::fstream::binary);
 					dataFile.write((const char*)data, size);
 					dataFile.close();
 				}
@@ -89,11 +102,15 @@ bool ModuleTextureLoader::ImportTexture(const char* path, std::string& output_fi
 
 	ilDeleteImages(1, &imageID);
 
+	output_file = correctPath;
+
 	return true;
 }
 
-GLuint ModuleTextureLoader::LoadTexture(const char* full_path, uint &width, uint &height)
+Texture* ModuleTextureLoader::LoadTexture(const char* full_path)
 {
+	Texture* newTex = new Texture();
+
 	ILuint imageID;
 	GLuint textureID;
 
@@ -122,7 +139,7 @@ GLuint ModuleTextureLoader::LoadTexture(const char* full_path, uint &width, uint
 		{
 			error = ilGetError();
 			LOG("Image conversion failed - IL reports error: %s", iluErrorString(error));
-			return -1;
+			return nullptr;
 		}
 
 		glGenTextures(1, &textureID);
@@ -145,8 +162,8 @@ GLuint ModuleTextureLoader::LoadTexture(const char* full_path, uint &width, uint
 			GL_UNSIGNED_BYTE,		// Image data type
 			ilGetData());			// The actual image data itself
 
-		width = ImageInfo.Width;
-		height = ImageInfo.Height;
+		newTex->width = ImageInfo.Width;
+		newTex->height = ImageInfo.Height;
 	}
 	else
 	{
@@ -158,7 +175,10 @@ GLuint ModuleTextureLoader::LoadTexture(const char* full_path, uint &width, uint
 	ilDeleteImages(1, &imageID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 
+	newTex->id = textureID;
+	newTex->path = full_path;
+
 	LOG("Texture creation successful.");
 
-	return textureID;
+	return newTex;
 }

@@ -70,6 +70,8 @@ bool ModuleScene::CleanUp()
 
 bool ModuleScene::Save(Document& document, FileWriteStream& fws)
 {
+	Document::AllocatorType& allocator = document.GetAllocator();
+	Writer<FileWriteStream> writer(fws);
 	return true;
 }
 

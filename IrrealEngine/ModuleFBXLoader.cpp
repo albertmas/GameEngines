@@ -177,16 +177,16 @@ bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNo
 			if (error == aiReturn::aiReturn_SUCCESS)
 			{
 				// Searches for the texture specified in the .fbx file
-				std::string Path = full_path;
-				for (int i = Path.size() - 1; i >= 0; i--)
-					if (Path[i] == '/' | Path[i] == '\\')
+				std::string correctPath = full_path;
+				for (int i = correctPath.size() - 1; i >= 0; i--)
+					if (correctPath[i] == '/' | correctPath[i] == '\\')
 						break;
 					else
-						Path.pop_back();
-				Path += path.C_Str();
-				mesh->texture = App->texloader->LoadTexture(Path.c_str(), mesh->texWidth, mesh->texHeight);
-				mesh->texPath = Path.c_str();
-
+						correctPath.pop_back();
+				correctPath += path.C_Str();
+				if (App->texloader->ImportTexture(correctPath.c_str(), correctPath))
+					newtexture = App->texloader->LoadTexture(correctPath.c_str());
+				//mesh->texPath = correctPath.c_str();
 			}
 			else
 				LOG("Couldn't load the default texture from .fbx file");
@@ -312,12 +312,12 @@ bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNo
 
 void ModuleFBXLoader::ChangeTexure(const char* full_path)
 {
-	LOG("Changing Textures-------")
+	/*LOG("Changing Textures-------")
 	for (std::list<FBXMesh*>::iterator iter = App->renderer3D->meshes.begin(); iter != App->renderer3D->meshes.end(); iter++)
 	{
-		(*iter)->texture = App->texloader->LoadTexture(full_path, (*iter)->texWidth, (*iter)->texHeight);
+		(*iter)->texture = App->texloader->LoadTexture(full_path);
 		(*iter)->texPath = full_path;
-	}
+	}*/
 }
 
 void AssimpLog(const char* str, char* userData)

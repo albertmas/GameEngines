@@ -3,16 +3,17 @@
 
 #include "Module.h"
 
+#define TEXTURES_DIRECTORY "Library/Textures/"
+#define TEXTURES_EXTENSION ".dds"
+
 
 struct Texture
 {
 	std::string name = "";
 	std::string path = "";
-
+	uint id = 0;
 	uint width = 0;
 	uint height = 0;
-
-	uint id = 0;
 };
 
 class ModuleTextureLoader :	public Module
@@ -25,7 +26,7 @@ public:
 	bool CleanUp();
 
 	bool ImportTexture(const char* path, std::string& output_file);
-	GLuint LoadTexture(const char* full_path, uint &width, uint &height);
+	Texture* LoadTexture(const char* full_path);
 
 public:
 	std::list<Texture*> textures;
