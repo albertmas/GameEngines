@@ -12,6 +12,7 @@
 #pragma comment (lib, "DevIL/libx86/ILUT.lib")
 
 #include <fstream>
+#include <algorithm>
 
 
 ModuleTextureLoader::ModuleTextureLoader()
@@ -55,6 +56,7 @@ bool ModuleTextureLoader::CleanUp()
 bool ModuleTextureLoader::ImportTexture(const char* path, std::string& output_file)
 {
 	std::string texName = path;
+	std::replace(texName.begin(), texName.end(), '\\', '/');
 	uint lastSlash = texName.find_last_of('/');
 	uint dot = texName.find_last_of('.');
 	texName = texName.substr(lastSlash + 1, dot - lastSlash - 1);

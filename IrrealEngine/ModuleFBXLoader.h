@@ -25,8 +25,7 @@ public:
 
 	bool ImportMesh(const char* full_path);
 	bool LoadFile(const char* full_path, const aiScene* scene, aiNode* node, GameObject* parent);
-	GLuint LoadTexture(const char* full_path, uint &width, uint &height);
-	void ChangeTexure(const char* full_path);
+	//void ChangeTexure(const char* full_path);
 	
 public:
 	std::list<Mesh*> object;
