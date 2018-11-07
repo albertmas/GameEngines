@@ -14,6 +14,7 @@ ComponentTransform::~ComponentTransform()
 
 void ComponentTransform::SetInspectorInfo()
 {
+	ImGui::Spacing();
 	if (ImGui::CollapsingHeader("Transformation"), ImGuiTreeNodeFlags_DefaultOpen)
 	{
 		ImGui::TextColored({ 0, 1, 1, 1 }, "Position:");
@@ -50,4 +51,17 @@ void ComponentTransform::SetInspectorInfo()
 			ImGui::SetTooltip("Rotation of the mesh");*/
 
 	}
+}
+
+bool ComponentTransform::Save(Document& document, FileWriteStream& fws) const
+{
+	Document::AllocatorType& allocator = document.GetAllocator();
+	// Save stuff
+	Writer<FileWriteStream> writer(fws);
+	return true;
+}
+
+bool ComponentTransform::Load(Document& document)
+{
+	return true;
 }

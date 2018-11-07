@@ -13,6 +13,9 @@ public:
 
 	void SetInspectorInfo() override;
 
+	bool Save(Document& document, FileWriteStream& fws) const override;
+	bool Load(Document& document) override;
+
 public:
 	float3 position = float3::zero;
 	Quat rotation = Quat::identity;

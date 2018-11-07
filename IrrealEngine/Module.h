@@ -55,7 +55,7 @@ public:
 		return true; 
 	}
 
-	virtual bool Save(Document& document, FileWriteStream& fws)
+	virtual bool Save(Document& document, FileWriteStream& fws) const
 	{
 		Document::AllocatorType& allocator = document.GetAllocator();
 		Writer<FileWriteStream> writer(fws);

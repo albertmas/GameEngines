@@ -180,6 +180,9 @@
     <ClCompile Include="ModuleTextureLoader.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentTexture.cpp" />
+    <ClCompile Include="ComponentTexture.cpp" />
+    <ClCompile Include="ComponentTexture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -463,6 +466,9 @@
     <ClInclude Include="ModuleTextureLoader.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentTexture.h" />
+    <ClInclude Include="ComponentTexture.h" />
+    <ClInclude Include="ComponentTexture.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MathGeoLib\Geometry\KDTree.inl">

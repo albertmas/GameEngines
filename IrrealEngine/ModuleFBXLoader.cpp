@@ -3,6 +3,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModuleScene.h"
+#include "ModuleTextureLoader.h"
 #include "GameObject.h"
 
 #include "Component.h"
@@ -13,16 +14,6 @@
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
-#include "DevIL/include/il.h"
-#include "DevIL/include/ilu.h"
-#include "DevIL/include/ilut.h"
-
-#pragma comment (lib, "Assimp/libx86/assimp.lib")
-#pragma comment (lib, "DevIL/libx86/DevIL.lib")
-#pragma comment (lib, "DevIL/libx86/ILU.lib")
-#pragma comment (lib, "DevIL/libx86/ILUT.lib")
-
-
 
 
 ModuleFBXLoader::ModuleFBXLoader(bool start_enabled) : Module(start_enabled)
@@ -43,14 +34,6 @@ bool ModuleFBXLoader::Init(Document& document)
 	stream.callback = AssimpLog;
 	aiAttachLogStream(&stream);
 
-	// DevIL
-	ilInit();
-	iluInit();
-	ilutInit();
-	ilutRenderer(ILUT_OPENGL);
-
-	
-	
 	return true;
 }
 
@@ -74,7 +57,7 @@ bool ModuleFBXLoader::CleanUp()
 	LOG("Freeing all FBX loader elements");
 	// detach log stream
 	aiDetachAllLogStreams();
-	ilShutDown();
+	//ilShutDown();
 
 	RELEASE(ObjectBB);
 
@@ -158,7 +141,7 @@ bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNo
 		aiMaterial* material = scene->mMaterials[currentMesh->mMaterialIndex];
 		aiColor3D color(0.0f, 0.0f, 0.0f);
 		material->Get(AI_MATKEY_COLOR_DIFFUSE, color);
-		mesh->color.Set(color.r, color.g, color.b);
+		/*mesh->color.Set(color.r, color.g, color.b);*/
 			
 		if (currentMesh->HasFaces())
 		{
@@ -194,19 +177,25 @@ bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNo
 			if (error == aiReturn::aiReturn_SUCCESS)
 			{
 				// Searches for the texture specified in the .fbx file
-				std::string Path = full_path;
-				for (int i = Path.size() - 1; i >= 0; i--)
-					if (Path[i] == '/' | Path[i] == '\\')
+				std::string correctPath = full_path;
+				for (int i = correctPath.size() - 1; i >= 0; i--)
+					if (correctPath[i] == '/' | correctPath[i] == '\\')
 						break;
 					else
-						Path.pop_back();
-				Path += path.C_Str();
-				mesh->texture = LoadTexture(Path.c_str(), mesh->texWidth, mesh->texHeight);
-				mesh->texPath = Path.c_str();
-
+						correctPath.pop_back();
+				correctPath += path.C_Str();
+				if (App->texloader->ImportTexture(correctPath.c_str(), correctPath))
+					newtexture = App->texloader->LoadTexture(correctPath.c_str());
+				//mesh->texPath = correctPath.c_str();
 			}
 			else
 				LOG("Couldn't load the default texture from .fbx file");
+
+			if (newtexture == nullptr)
+			{
+				newtexture = new Texture();
+				newtexture->color.Set(color.r, color.g, color.b);
+			}
 
 			if (currentMesh->HasTextureCoords(0))
 			{
@@ -235,14 +224,16 @@ bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNo
 
 			// Set GO components
 			ComponentTransform* c_trans = (ComponentTransform*)gameobject->CreateComponent(Component::TRANSFORMATION);
-			c_trans->position = mesh->meshPos;
-			c_trans->rotation = mesh->meshRot;
-			c_trans->scale = mesh->meshScale;
+			c_trans->position.Set(position.x, position.y, position.z);
+			c_trans->rotation.Set(rotation.x, rotation.y, rotation.z, rotation.w);
+			c_trans->scale.Set(scaling.x, scaling.y, scaling.z);
 			ComponentMesh* c_mesh = (ComponentMesh*)gameobject->CreateComponent(Component::MESH);
 			c_mesh->SetMesh(mesh);
-			ComponentTexture* c_tex = (ComponentTexture*)gameobject->CreateComponent(Component::TEXTURE);
-			c_tex->texture = newtexture;
-
+			if (newtexture)
+			{
+				ComponentTexture* c_tex = (ComponentTexture*)gameobject->CreateComponent(Component::TEXTURE);
+				c_tex->texture = newtexture;
+			}
 		}
 	}
 
@@ -256,85 +247,85 @@ bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNo
 	return ret;
 }
 
-GLuint ModuleFBXLoader::LoadTexture(const char* full_path, uint &width, uint &height)
-{
-	ILuint imageID;
-	GLuint textureID;
-
-	ILboolean success;
-	ILenum error;
-
-	ilGenImages(1, &imageID);
-	ilBindImage(imageID);
-
-	success = ilLoadImage(full_path);
-
-	if (success)
-	{
-		// If the image is flipped (i.e. upside-down and mirrored, flip it the right way up!)
-		ILinfo ImageInfo;
-		iluGetImageInfo(&ImageInfo);
-		if (ImageInfo.Origin == IL_ORIGIN_UPPER_LEFT)
-		{
-			iluFlipImage();
-		}
-
-		// Convert the image into a suitable format to work with
-		success = ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
-
-		if (!success)
-		{
-			error = ilGetError();
-			LOG("Image conversion failed - IL reports error: %s", iluErrorString(error));
-			return -1;
-		}
-		
-		glGenTextures(1, &textureID);
-		glBindTexture(GL_TEXTURE_2D, textureID);
-
-		// Set texture clamping method
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-		// Set texture interpolation method
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-		// Specify the texture specification
-		glTexImage2D(GL_TEXTURE_2D, 0,				// Pyramid level (for mip-mapping) - 0 is the top level
-			ilGetInteger(IL_IMAGE_FORMAT),	// Internal pixel format to use. Can be a generic type like GL_RGB or GL_RGBA, or a sized type
-			ilGetInteger(IL_IMAGE_WIDTH),	// Image width
-			ilGetInteger(IL_IMAGE_HEIGHT),	// Image height
-			0,				// Border width in pixels (can either be 1 or 0)
-			ilGetInteger(IL_IMAGE_FORMAT),	// Format of image pixel data
-			GL_UNSIGNED_BYTE,		// Image data type
-			ilGetData());			// The actual image data itself
-
-		width = ImageInfo.Width;
-		height = ImageInfo.Height;
-	}
-	else
-	{
-		error = ilGetError();
-		LOG("Image load failed - IL reports error: %s", iluErrorString(error));
-		return 0;
-	}
-
-	ilDeleteImages(1, &imageID);
-	glBindTexture(GL_TEXTURE_2D, textureID);
-
-	LOG("Texture creation successful.");
-
-	return textureID;
-}
+//GLuint ModuleFBXLoader::LoadTexture(const char* full_path, uint &width, uint &height)
+//{
+//	ILuint imageID;
+//	GLuint textureID;
+//
+//	ILboolean success;
+//	ILenum error;
+//
+//	ilGenImages(1, &imageID);
+//	ilBindImage(imageID);
+//
+//	success = ilLoadImage(full_path);
+//
+//	if (success)
+//	{
+//		// If the image is flipped (i.e. upside-down and mirrored, flip it the right way up!)
+//		ILinfo ImageInfo;
+//		iluGetImageInfo(&ImageInfo);
+//		if (ImageInfo.Origin == IL_ORIGIN_UPPER_LEFT)
+//		{
+//			iluFlipImage();
+//		}
+//
+//		// Convert the image into a suitable format to work with
+//		success = ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
+//
+//		if (!success)
+//		{
+//			error = ilGetError();
+//			LOG("Image conversion failed - IL reports error: %s", iluErrorString(error));
+//			return -1;
+//		}
+//		
+//		glGenTextures(1, &textureID);
+//		glBindTexture(GL_TEXTURE_2D, textureID);
+//
+//		// Set texture clamping method
+//		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+//		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+//		// Set texture interpolation method
+//		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+//		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+//
+//		// Specify the texture specification
+//		glTexImage2D(GL_TEXTURE_2D, 0,				// Pyramid level (for mip-mapping) - 0 is the top level
+//			ilGetInteger(IL_IMAGE_FORMAT),	// Internal pixel format to use. Can be a generic type like GL_RGB or GL_RGBA, or a sized type
+//			ilGetInteger(IL_IMAGE_WIDTH),	// Image width
+//			ilGetInteger(IL_IMAGE_HEIGHT),	// Image height
+//			0,				// Border width in pixels (can either be 1 or 0)
+//			ilGetInteger(IL_IMAGE_FORMAT),	// Format of image pixel data
+//			GL_UNSIGNED_BYTE,		// Image data type
+//			ilGetData());			// The actual image data itself
+//
+//		width = ImageInfo.Width;
+//		height = ImageInfo.Height;
+//	}
+//	else
+//	{
+//		error = ilGetError();
+//		LOG("Image load failed - IL reports error: %s", iluErrorString(error));
+//		return 0;
+//	}
+//
+//	ilDeleteImages(1, &imageID);
+//	glBindTexture(GL_TEXTURE_2D, textureID);
+//
+//	LOG("Texture creation successful.");
+//
+//	return textureID;
+//}
 
 void ModuleFBXLoader::ChangeTexure(const char* full_path)
 {
-	LOG("Changing Textures-------")
+	/*LOG("Changing Textures-------")
 	for (std::list<FBXMesh*>::iterator iter = App->renderer3D->meshes.begin(); iter != App->renderer3D->meshes.end(); iter++)
 	{
-		(*iter)->texture = LoadTexture(full_path, (*iter)->texWidth, (*iter)->texHeight);
+		(*iter)->texture = App->texloader->LoadTexture(full_path);
 		(*iter)->texPath = full_path;
-	}
+	}*/
 }
 
 void AssimpLog(const char* str, char* userData)

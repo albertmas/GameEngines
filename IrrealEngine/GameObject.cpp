@@ -41,7 +41,7 @@ void GameObject::Draw()
 	{
 		for (int i = 0; i < go_components.size(); i++)
 		{
-			if (go_components[i]->comp_active)
+			if (go_components[i]->active)
 			{
 				if (go_components[i]->type == Component::TRANSFORMATION)
 				{

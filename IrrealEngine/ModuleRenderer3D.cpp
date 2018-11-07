@@ -479,8 +479,6 @@ FBXMesh::~FBXMesh()
 
 	glDeleteBuffers(1, &id_indices);
 	RELEASE_ARRAY(indices);
-
-	glDeleteTextures(1, &texture);
 }
 
 void FBXMesh::setMeshBuffer()
@@ -498,38 +496,38 @@ void FBXMesh::setMeshBuffer()
 
 void FBXMesh::Draw()
 {
-	glColor3f(1.0, 1.0, 1.0);
+	//glColor3f(1.0, 1.0, 1.0);
 
-	glEnableClientState(GL_VERTEX_ARRAY);
-	if (texture != 0)
-		glBindTexture(GL_TEXTURE_2D, texture);
-	else
-		glColor3f(color.x, color.y, color.z);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
-	//glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
-	glVertexPointer(3, GL_FLOAT, 0, &vertices[0]);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glTexCoordPointer(2, GL_FLOAT, 0, &texCoords[0]);
-	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
+	//glEnableClientState(GL_VERTEX_ARRAY);
+	//if (texture != 0)
+	//	glBindTexture(GL_TEXTURE_2D, texture);
+	//else
+	//	glColor3f(color.x, color.y, color.z);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
+	////glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
+	//glVertexPointer(3, GL_FLOAT, 0, &vertices[0]);
+	//glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	//glTexCoordPointer(2, GL_FLOAT, 0, &texCoords[0]);
+	//glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
 
-	//glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	if (texture != 0)
-		glBindTexture(GL_TEXTURE_2D, 0);
-	else
-		glColor3f(1.0, 1.0, 1.0);
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	////glBindBuffer(GL_ARRAY_BUFFER, 0);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	//if (texture != 0)
+	//	glBindTexture(GL_TEXTURE_2D, 0);
+	//else
+	//	glColor3f(1.0, 1.0, 1.0);
+	//glDisableClientState(GL_VERTEX_ARRAY);
+	//glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
-	if (App->renderer3D->GetNormals()) {
-		for (int j = 0; j < num_normals; j++) {
-			glBegin(GL_LINES);
-			glVertex3f(vertices[j].x, vertices[j].y, vertices[j].z);
-			glVertex3f(vertices[j].x - normals[j].x, vertices[j].y - normals[j].y, vertices[j].z - normals[j].z);
-			glLineWidth(1.0f);
-			glEnd();
-		}
-	}
+	//if (App->renderer3D->GetNormals()) {
+	//	for (int j = 0; j < num_normals; j++) {
+	//		glBegin(GL_LINES);
+	//		glVertex3f(vertices[j].x, vertices[j].y, vertices[j].z);
+	//		glVertex3f(vertices[j].x - normals[j].x, vertices[j].y - normals[j].y, vertices[j].z - normals[j].z);
+	//		glLineWidth(1.0f);
+	//		glEnd();
+	//	}
+	//}
 }
 
 void ModuleRenderer3D::DrawBB(AABB bounding_box, float3 color)const
