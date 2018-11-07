@@ -44,15 +44,15 @@ void GameObject::Draw()
 		{
 			if (go_components[i]->comp_active)
 			{
-				if (go_components[i]->type == Component::TRANSFORMATION)
+				if (go_components[i]->type == COMP_TYPE::TRANSFORMATION)
 				{
 					go_components[i]->Update();
 				}
-				if (go_components[i]->type == Component::MESH)
+				if (go_components[i]->type == COMP_TYPE::MESH)
 				{
 					go_components[i]->Update();
 				}
-				if (go_components[i]->type == Component::TEXTURE)
+				if (go_components[i]->type == COMP_TYPE::TEXTURE)
 				{
 					go_components[i]->Update();
 				}
@@ -70,21 +70,21 @@ void GameObject::Draw()
 //
 //}
 
-Component* GameObject::CreateComponent(Component::COMP_TYPE type)
+Component* GameObject::CreateComponent(COMP_TYPE type)
 {
 	Component* comp = nullptr;
 
 	switch (type)
 	{
-	case Component::MESH:
+	case COMP_TYPE::MESH:
 		comp = new ComponentMesh(this);
 		go_components.push_back(comp);
 		break;
-	case Component::TRANSFORMATION:
+	case COMP_TYPE::TRANSFORMATION:
 		comp = new ComponentTransform(this);
 		go_components.push_back(comp);
 		break;
-	case Component::TEXTURE:
+	case COMP_TYPE::TEXTURE:
 		comp = new ComponentTexture(this);
 		go_components.push_back(comp);
 		break;
@@ -97,7 +97,7 @@ Component* GameObject::CreateComponent(Component::COMP_TYPE type)
 	return comp;
 }
 
-Component * GameObject::GetComponent(ComponentType type)
+Component * GameObject::GetComponent(COMP_TYPE type)
 {
 	for (std::vector<Component*>::iterator item = go_components.begin(); item != go_components.end(); item++)
 	{

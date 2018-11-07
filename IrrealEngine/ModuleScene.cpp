@@ -38,7 +38,7 @@ bool ModuleScene::Start()
 {
 	root = new GameObject(nullptr, "root");
 	game_objects.push_back(root);
-	ComponentTransform* root_trans = (ComponentTransform*)root->CreateComponent(Component::TRANSFORMATION);
+	ComponentTransform* root_trans = (ComponentTransform*)root->CreateComponent(COMP_TYPE::TRANSFORMATION);
 
 	App->fbxloader->ImportMesh("Assets/BakerHouse/BakerHouse.fbx");
 

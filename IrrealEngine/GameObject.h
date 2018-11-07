@@ -5,7 +5,7 @@
 #include "Component.h"
 
 class Component;
-enum ComponentType;
+enum COMP_TYPE;
 class Camera;
 class GameObject
 {
@@ -20,8 +20,8 @@ public:
 	void Draw();
 	//void DrawBB(const AABB& BB, vec3 color) const;
 
-	Component* CreateComponent(Component::COMP_TYPE type);
-	Component* GetComponent(ComponentType type);
+	Component* CreateComponent(COMP_TYPE type);
+	Component* GetComponent(COMP_TYPE type);
 
 public:
 	bool go_active = true;

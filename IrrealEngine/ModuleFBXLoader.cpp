@@ -128,7 +128,7 @@ bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNo
 		gameobject->go_name = std::to_string(parent_number) + ": " + gameobject->go_name;
 		App->scene->game_objects.push_back(gameobject);
 
-		ComponentTransform* comp_trans = (ComponentTransform*)gameobject->CreateComponent(Component::TRANSFORMATION);
+		ComponentTransform* comp_trans = (ComponentTransform*)gameobject->CreateComponent(COMP_TYPE::TRANSFORMATION);
 		comp_trans->position.Set(position.x, position.y, position.z);	
 		comp_trans->rotation.Set(rotation.x, rotation.y, rotation.z, rotation.w);
 		comp_trans->scale.Set(scaling.x, scaling.y, scaling.z);
@@ -234,13 +234,13 @@ bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNo
 			mesh->meshScale.Set(scaling.x, scaling.y, scaling.z);
 
 			// Set GO components
-			ComponentTransform* c_trans = (ComponentTransform*)gameobject->CreateComponent(Component::TRANSFORMATION);
+			ComponentTransform* c_trans = (ComponentTransform*)gameobject->CreateComponent(COMP_TYPE::TRANSFORMATION);
 			c_trans->position = mesh->meshPos;
 			c_trans->rotation = mesh->meshRot;
 			c_trans->scale = mesh->meshScale;
-			ComponentMesh* c_mesh = (ComponentMesh*)gameobject->CreateComponent(Component::MESH);
+			ComponentMesh* c_mesh = (ComponentMesh*)gameobject->CreateComponent(COMP_TYPE::MESH);
 			c_mesh->SetMesh(mesh);
-			ComponentTexture* c_tex = (ComponentTexture*)gameobject->CreateComponent(Component::TEXTURE);
+			ComponentTexture* c_tex = (ComponentTexture*)gameobject->CreateComponent(COMP_TYPE::TEXTURE);
 			c_tex->texture = newtexture;
 
 		}

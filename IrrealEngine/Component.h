@@ -5,7 +5,13 @@
 
 
 class GameObject;
-
+enum COMP_TYPE {
+	NONE,
+	MESH,
+	TRANSFORMATION,
+	TEXTURE,
+	CAMERA
+};
 class Component
 {
 public:
@@ -27,15 +33,7 @@ public:
 	virtual void SetInspectorInfo()
 	{}
 
-public:
-
-	enum COMP_TYPE {
-		NONE,
-		MESH,
-		TRANSFORMATION,
-		TEXTURE,
-		CAMERA
-	};
+	
 
 public:
 
