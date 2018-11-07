@@ -141,7 +141,7 @@ bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNo
 		aiMaterial* material = scene->mMaterials[currentMesh->mMaterialIndex];
 		aiColor3D color(0.0f, 0.0f, 0.0f);
 		material->Get(AI_MATKEY_COLOR_DIFFUSE, color);
-		mesh->color.Set(color.r, color.g, color.b);
+		/*mesh->color.Set(color.r, color.g, color.b);*/
 			
 		if (currentMesh->HasFaces())
 		{
@@ -191,6 +191,12 @@ bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNo
 			else
 				LOG("Couldn't load the default texture from .fbx file");
 
+			if (newtexture == nullptr)
+			{
+				newtexture = new Texture();
+				newtexture->color.Set(color.r, color.g, color.b);
+			}
+
 			if (currentMesh->HasTextureCoords(0))
 			{
 				int c = 0;
@@ -218,14 +224,16 @@ bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNo
 
 			// Set GO components
 			ComponentTransform* c_trans = (ComponentTransform*)gameobject->CreateComponent(Component::TRANSFORMATION);
-			c_trans->position = mesh->meshPos;
-			c_trans->rotation = mesh->meshRot;
-			c_trans->scale = mesh->meshScale;
+			c_trans->position.Set(position.x, position.y, position.z);
+			c_trans->rotation.Set(rotation.x, rotation.y, rotation.z, rotation.w);
+			c_trans->scale.Set(scaling.x, scaling.y, scaling.z);
 			ComponentMesh* c_mesh = (ComponentMesh*)gameobject->CreateComponent(Component::MESH);
 			c_mesh->SetMesh(mesh);
-			ComponentTexture* c_tex = (ComponentTexture*)gameobject->CreateComponent(Component::TEXTURE);
-			c_tex->texture = newtexture;
-
+			if (newtexture)
+			{
+				ComponentTexture* c_tex = (ComponentTexture*)gameobject->CreateComponent(Component::TEXTURE);
+				c_tex->texture = newtexture;
+			}
 		}
 	}
 

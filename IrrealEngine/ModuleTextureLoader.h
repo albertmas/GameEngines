@@ -9,11 +9,14 @@
 
 struct Texture
 {
+	~Texture();
+
 	std::string name = "";
 	std::string path = "";
 	uint id = 0;
 	uint width = 0;
 	uint height = 0;
+	float3 color = { 1, 1, 1 };
 };
 
 class ModuleTextureLoader :	public Module

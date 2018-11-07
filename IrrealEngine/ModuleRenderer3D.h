@@ -28,9 +28,9 @@ struct FBXMesh
 	float3* normals = nullptr;
 	
 
-	vec3 color = { 0, 0, 0 };
+	//vec3 color = { 0, 0, 0 };
 
-	uint texture = 0;
+	//uint texture = 0;
 	float* texCoords = nullptr;
 
 	AABB bounding_box;
@@ -46,12 +46,6 @@ struct FBXMesh
 	Quat meshRot = { 0, 0, 0, 0 };
 	float3 meshScale = { 0, 0, 0 };
 	uint num_triangles = 0;
-
-	// Texture info
-	std::string texPath = "";
-	std::string texName = "";
-	uint texWidth = 0;
-	uint texHeight = 0;
 };
 
 class ModuleRenderer3D : public Module

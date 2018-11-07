@@ -182,3 +182,8 @@ Texture* ModuleTextureLoader::LoadTexture(const char* full_path)
 
 	return newTex;
 }
+
+Texture::~Texture()
+{
+	glDeleteTextures(1, &id);
+}
