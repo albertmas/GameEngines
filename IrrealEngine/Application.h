@@ -3,8 +3,8 @@
 
 #include "Globals.h"
 #include "Timer.h"
-#include "ImGui\imgui.h"
-#include "SDL\include\SDL.h"
+#include "ImGui/imgui.h"
+#include "SDL/include/SDL.h"
 #include "rapidjson/rapidjson.h"
 #include "rapidjson/prettywriter.h"
 #include "rapidjson/filewritestream.h"
@@ -17,7 +17,8 @@ class ModuleRenderer3D;
 class ModuleCamera3D;
 class ModulePhysics3D;
 class ModuleImGui;
-class ModuleFBXLoader;
+class ModuleSceneLoader;
+class ModuleMeshLoader;
 class ModuleTextureLoader;
 class ModuleScene;
 
@@ -31,7 +32,8 @@ public:
 	ModuleCamera3D* camera;
 	ModulePhysics3D* physics;
 	ModuleImGui* imgui;
-	ModuleFBXLoader* fbxloader;
+	ModuleSceneLoader* sceneloader;
+	ModuleMeshLoader* meshloader;
 	ModuleTextureLoader* texloader;
 	ModuleScene* scene;
 	

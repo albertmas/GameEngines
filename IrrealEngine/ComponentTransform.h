@@ -2,7 +2,7 @@
 #define _COMPONENNT_TRANSFORM_H_
 
 #include "Component.h"
-#include "MathGeoLib\MathGeoLib.h"
+#include "MathGeoLib/MathGeoLib.h"
 
 
 class ComponentTransform : public Component

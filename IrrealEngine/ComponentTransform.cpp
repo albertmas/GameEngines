@@ -1,12 +1,11 @@
 #include "ComponentTransform.h"
-#include "ImGui\imgui.h"
+#include "ImGui/imgui.h"
 
 ComponentTransform::ComponentTransform(GameObject* gameobject)
 {
 	my_go = gameobject;
 	type = TRANSFORMATION;
 }
-
 
 ComponentTransform::~ComponentTransform()
 {

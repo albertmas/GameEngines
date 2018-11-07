@@ -22,7 +22,7 @@ struct Texture
 class ModuleTextureLoader :	public Module
 {
 public:
-	ModuleTextureLoader();
+	ModuleTextureLoader(bool start_enabled = true);
 	~ModuleTextureLoader();
 
 	bool Init(Document& document);

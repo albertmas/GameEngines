@@ -1,5 +1,5 @@
 #include "Application.h"
-#include "ModuleFBXLoader.h"
+#include "ModuleSceneLoader.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModuleScene.h"
@@ -16,16 +16,16 @@
 #include "Assimp/include/postprocess.h"
 
 
-ModuleFBXLoader::ModuleFBXLoader(bool start_enabled) : Module(start_enabled)
+ModuleSceneLoader::ModuleSceneLoader(bool start_enabled) : Module(start_enabled)
 {
 }
 
-ModuleFBXLoader::~ModuleFBXLoader()
+ModuleSceneLoader::~ModuleSceneLoader()
 {
 }
 
 
-bool ModuleFBXLoader::Init(Document& document)
+bool ModuleSceneLoader::Init(Document& document)
 {
 	LOG("Loading FBX loader");
 	// Stream log messages to Debug window
@@ -37,22 +37,22 @@ bool ModuleFBXLoader::Init(Document& document)
 	return true;
 }
 
-update_status ModuleFBXLoader::PreUpdate(float dt)
+update_status ModuleSceneLoader::PreUpdate(float dt)
 {
 	return UPDATE_CONTINUE;
 }
 
-update_status ModuleFBXLoader::Update(float dt)
+update_status ModuleSceneLoader::Update(float dt)
 {
 	return UPDATE_CONTINUE;
 }
 
-update_status ModuleFBXLoader::PostUpdate(float dt)
+update_status ModuleSceneLoader::PostUpdate(float dt)
 {
 	return UPDATE_CONTINUE;
 }
 
-bool ModuleFBXLoader::CleanUp()
+bool ModuleSceneLoader::CleanUp()
 {
 	LOG("Freeing all FBX loader elements");
 	// detach log stream
@@ -63,7 +63,7 @@ bool ModuleFBXLoader::CleanUp()
 	return true;
 }
 
-bool ModuleFBXLoader::ImportMesh(const char* full_path)
+bool ModuleSceneLoader::ImportMesh(const char* full_path)
 {
 	bool ret = true;
 
@@ -86,7 +86,7 @@ bool ModuleFBXLoader::ImportMesh(const char* full_path)
 	return ret;
 }
 
-bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNode* node, GameObject* parent)
+bool ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* scene, aiNode* node, GameObject* parent)
 {
 	bool ret = true;
 
@@ -249,7 +249,7 @@ bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNo
 }
 
 
-//void ModuleFBXLoader::ChangeTexure(const char* full_path)
+//void ModuleSceneLoader::ChangeTexure(const char* full_path)
 //{
 //	LOG("Changing Textures-------")
 //	for (std::list<FBXMesh*>::iterator iter = App->renderer3D->meshes.begin(); iter != App->renderer3D->meshes.end(); iter++)

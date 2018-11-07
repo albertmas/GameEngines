@@ -4,7 +4,7 @@
 #include "ModuleWindow.h"
 #include "ModuleCamera3D.h"
 #include "ModuleImGui.h"
-#include "ModuleFBXLoader.h"
+#include "ModuleSceneLoader.h"
 #include "ModuleScene.h"
 #include "Open_GL.h"
 
@@ -212,7 +212,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		}
 	}*/
 	if (BB)
-		DrawBB(*App->fbxloader->ObjectBB, { 0.0f, 1.0f, 0.0f });
+		DrawBB(*App->sceneloader->ObjectBB, { 0.0f, 1.0f, 0.0f });
 
 	//glBindTexture(GL_TEXTURE_2D, 0);
 

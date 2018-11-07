@@ -1,6 +1,5 @@
 #include "Application.h"
 #include "ModuleTextureLoader.h"
-#include "ModuleTextureLoader.h"
 
 #include "DevIL/include/il.h"
 #include "DevIL/include/ilu.h"
@@ -15,7 +14,7 @@
 #include <algorithm>
 
 
-ModuleTextureLoader::ModuleTextureLoader()
+ModuleTextureLoader::ModuleTextureLoader(bool start_enabled) : Module(start_enabled)
 {
 }
 

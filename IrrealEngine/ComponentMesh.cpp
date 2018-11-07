@@ -3,7 +3,7 @@
 #include "GameObject.h"
 #include "ComponentTexture.h"
 #include "ModuleTextureLoader.h"
-#include "ModuleFBXLoader.h"
+#include "ModuleSceneLoader.h"
 #include "ModuleRenderer3D.h"
 
 

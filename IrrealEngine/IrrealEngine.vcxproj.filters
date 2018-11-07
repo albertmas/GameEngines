@@ -40,9 +40,6 @@
     <ClCompile Include="ModuleCamera3D.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleFBXLoader.cpp">
-      <Filter>Sources\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleImGui.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
@@ -173,9 +170,6 @@
       <Filter>Sources\Components</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="ComponentTexture.cpp">
-      <Filter>Sources\Components</Filter>
-    </ClCompile>
     <ClCompile Include="ComponentTexture.cpp" />
     <ClCompile Include="ModuleTextureLoader.cpp">
       <Filter>Sources\Modules</Filter>
@@ -184,6 +178,15 @@
     <ClCompile Include="ComponentTexture.cpp" />
     <ClCompile Include="ComponentTexture.cpp" />
     <ClCompile Include="ComponentTexture.cpp" />
+    <ClCompile Include="ModuleMeshLoader.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleSceneLoader.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentTexture.cpp">
+      <Filter>Sources\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -232,9 +235,6 @@
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleCamera3D.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleFBXLoader.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleImGui.h">
@@ -460,9 +460,6 @@
       <Filter>Sources\Components</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="ComponentTexture.h">
-      <Filter>Sources\Components</Filter>
-    </ClInclude>
     <ClInclude Include="ComponentTexture.h" />
     <ClInclude Include="ModuleTextureLoader.h">
       <Filter>Sources\Modules</Filter>
@@ -471,6 +468,15 @@
     <ClInclude Include="ComponentTexture.h" />
     <ClInclude Include="ComponentTexture.h" />
     <ClInclude Include="ComponentTexture.h" />
+    <ClInclude Include="ModuleMeshLoader.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleSceneLoader.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentTexture.h">
+      <Filter>Sources\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="MathGeoLib\Geometry\KDTree.inl">

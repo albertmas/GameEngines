@@ -1,7 +1,7 @@
 #include "ComponentTexture.h"
 #include "ModuleTextureLoader.h"
 #include "GameObject.h"
-#include "ImGui\imgui.h"
+#include "ImGui/imgui.h"
 
 ComponentTexture::ComponentTexture(GameObject* gameobject)
 {

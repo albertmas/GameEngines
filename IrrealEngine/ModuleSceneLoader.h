@@ -1,5 +1,5 @@
-#ifndef __ModuleFBXLoader_H__
-#define __ModuleFBXLoader_H__
+#ifndef __ModuleSceneLoader_H__
+#define __ModuleSceneLoader_H__
 
 #include "Module.h"
 #include "Mesh.h"
@@ -11,11 +11,11 @@ struct aiNode;
 
 class GameObject;
 
-class ModuleFBXLoader :	public Module
+class ModuleSceneLoader : public Module
 {
 public:
-	ModuleFBXLoader(bool start_enabled = true);
-	~ModuleFBXLoader();
+	ModuleSceneLoader(bool start_enabled = true);
+	~ModuleSceneLoader();
 
 	bool Init(Document& document);
 	update_status PreUpdate(float dt);
