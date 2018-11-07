@@ -183,6 +183,7 @@
     <ClCompile Include="ComponentTexture.cpp" />
     <ClCompile Include="ComponentTexture.cpp" />
     <ClCompile Include="ComponentTexture.cpp" />
+    <ClCompile Include="ComponentTexture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -466,6 +467,7 @@
     <ClInclude Include="ModuleTextureLoader.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentTexture.h" />
     <ClInclude Include="ComponentTexture.h" />
     <ClInclude Include="ComponentTexture.h" />
     <ClInclude Include="ComponentTexture.h" />

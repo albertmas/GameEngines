@@ -192,10 +192,10 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	//}
 	if (plane)
 	{ 
-		glColor3f(1.0, 0.0, 0.0);
+		glColor3f(1.0, 1.0, 1.0);
 		//VertexAndIndexCube.DrawIndexCube(); // Cube created with indices. Unique vertex
 		CreatePlane();
-		glColor3f(1.0, 1.0, 1.0);
+		//glColor3f(1.0, 1.0, 1.0);
 	}
 
 	if (axis) 
@@ -285,8 +285,6 @@ void ModuleRenderer3D::Info_init_Console()
 	LOG("Renderer: %s", glGetString(GL_RENDERER));
 	LOG("OpenGL version supported %s", glGetString(GL_VERSION));
 	LOG("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
-	
-	
 }
 
 void ModuleRenderer3D::CreateAxis()
@@ -315,7 +313,7 @@ void ModuleRenderer3D::CreateAxis()
 
 	glEnd();
 
-	glColor3f(1.0, 1.0, 1.0);
+	glColor4f(1.0, 1.0, 1.0, 1.0f);
 }
 
 void ModuleRenderer3D::CreatePlane()
@@ -337,7 +335,7 @@ void ModuleRenderer3D::CreatePlane()
 
 	glEnd();
 
-	glColor4f(0.0, 0.0, 0.0, 1.0);
+	glColor4f(1.0, 1.0, 1.0, 1.0);
 }
 
 void ModuleRenderer3D::CreateCube() // Direct Mode

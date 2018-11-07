@@ -233,6 +233,8 @@ bool ModuleFBXLoader::LoadFile(const char* full_path, const aiScene* scene, aiNo
 			{
 				ComponentTexture* c_tex = (ComponentTexture*)gameobject->CreateComponent(Component::TEXTURE);
 				c_tex->texture = newtexture;
+
+				c_mesh->SetCompTexture(c_tex);
 			}
 		}
 	}

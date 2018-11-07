@@ -18,6 +18,7 @@ bool ComponentTexture :: Update()
 {
 	if (active)
 	{
+		glColor3f(1.0, 1.0, 1.0);
 		if (texture->id != 0)
 			glBindTexture(GL_TEXTURE_2D, texture->id);
 		else
