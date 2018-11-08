@@ -20,7 +20,10 @@
 #include "../MathGeoLibFwd.h"
 #include "../Math/float2.h"
 #include "../Math/float3.h"
+#include "../Math/float3x4.h"
+#include "../Math/float4x4.h"
 #include "Ray.h"
+#include "../Math/assume.h"
 
 #ifdef MATH_TINYXML_INTEROP
 #include "Config/tinyxml/tinyxml.h"
@@ -34,6 +37,49 @@ enum FrustumType
 	OrthographicFrustum,
 	PerspectiveFrustum
 };
+enum FrustumProjectiveSpace
+{
+	FrustumSpaceInvalid = 0,
+
+	/// If this option is chosen, the post-projective unit cube of the Frustum
+	/// is modelled after the OpenGL API convention, meaning that in projected space,
+	/// points inside the Frustum have the X and Y range in [-1, 1], and Z ranges in [-1, 1],
+	/// where the near plane maps to Z=-1, and the far plane maps to Z=1.
+	/// @note If you are submitting projection matrices to GPU hardware using the OpenGL API, you *must*
+	///       use this convention. (or otherwise more than half of the precision of the GL depth buffer is wasted)
+	FrustumSpaceGL,
+
+	/// If this option is chosen, the post-projective unit cube is modelled after the
+	/// Direct3D API convention, which differs from the GL convention that Z ranges in [0, 1] instead.
+	/// Near plane maps to Z=0, and far plane maps to Z=1. The X and Y range in [-1, 1] as is with GL.
+	/// @note If you are submitting projection matrices to GPU hardware using the Direct3D API, you *must*
+	///       use this convention. (or otherwise objects will clip too near of the camera)
+	FrustumSpaceD3D
+};
+
+/// The handedness rule in MathGeoLib bundles together two different conventions related to the camera:
+///    the chirality of the world and view spaces, and the fixed local front direction of the Frustum.
+/// @note The world and view spaces are always assumed to the same chirality, meaning that Frustum::ViewMatrix()
+///       (and hence Frustum::WorldMatrix()) always returns a matrix with a positive determinant, i.e. it does not mirror.
+///       If FrustumRightHanded is chosen, then Frustum::ProjectionMatrix() is a mirroring matrix, since the post-projective space
+///       is always left-handed.
+/// @note Even though in the local space of the camera +Y is always up, in the world space one can use any 'world up' direction
+///       as one pleases, by orienting the camera via the Frustum::up vector.
+enum FrustumHandedness
+{
+	FrustumHandednessInvalid = 0,
+
+	/// If a Frustum is left-handed, then in the local space of the Frustum (the view space), the camera looks towards +Z,
+	/// while +Y goes towards up, and +X goes towards right.
+	/// @note The fixed-pipeline D3D9 API traditionally used the FrustumLeftHanded convention.
+	FrustumLeftHanded,
+
+	/// If a Frustum is right-handed, then the camera looks towards -Z, +Y is up, and +X is right.
+	/// @note The fixed-pipeline OpenGL API traditionally used the FrustumRightHanded convention.
+	FrustumRightHanded
+};
+
+
 
 /// Represents either an orthographic or a perspective viewing frustum.
 class Frustum
@@ -44,6 +90,9 @@ public:
 	FrustumType type;
 	/// The eye point of this frustum.
 	/** Specifies the position of the camera (the eye point) for this frustum in world (global) space. [similarOverload: type] */
+	FrustumProjectiveSpace projectiveSpace;
+	/// Specifies the chirality of world and view spaces.
+	FrustumHandedness handedness;	
 	float3 pos;
 	/// The normalized direction this frustum is watching towards. [similarOverload: type]
 	/** This vector is specified in world (global) space. This vector is always normalized.
@@ -68,6 +117,11 @@ public:
 		projection matrix for GPU rendering, it should be remembered that any geometry farther from the camera (in Z value)
 		than this distance will be clipped from the view, and not rendered. */
 	float farPlaneDistance;
+
+	float3x4 worldMatrix;
+	float4x4 projectionMatrix;
+	float4x4 viewProjMatrix;
+
 	union
 	{
 		/// Horizontal field-of-view, in radians. This field is only valid if type == PerspectiveFrustum.
@@ -86,6 +140,8 @@ public:
 		/** @see type. */
 		float orthographicHeight;
 	};
+
+
 
 	/// The default constructor does not initialize any members of this class.
 	/** This means that the values of the members type, pos, front, up, nearPlaneDistance, farPlaneDistance, horizontalFov/orthographicWidth and
@@ -153,6 +209,7 @@ public:
 			This pointer may not be null.
 		@see GetPlane(), NearPlane(), FarPlane(), LeftPlane(), RightPlane(), TopPlane(), BottomPlane(). */
 	void GetPlanes(Plane *outArray) const;
+	void WorldMatrixChanged();
 
 	float3 CenterPoint() const;
 
@@ -172,6 +229,15 @@ public:
 	/** @param outPointArray [out] A pointer to an array of at least 8 elements. This pointer will receive the corner vertices
 			of this Frustum. This pointer may not be null. */
 	void GetCornerPoints(float3 *outPointArray) const;
+
+	/// Computes the matrix that transforms from the view space to the world (global) space of this Frustum.
+	/** @note The returned matrix is the inverse of the matrix returned by ViewMatrix().
+	@return An orthonormal affine matrix that performs the view->world transformation. The returned
+	matrix is built to use the convention Matrix * vector to map a point between these spaces.
+	(as opposed to the convention v*M).
+	@see ViewMatrix(), ProjectionMatrix(), ViewProjMatrix(). */
+	//float3x4 WorldMatrix() const { return worldMatrix; }
+	float3x4 ComputeWorldMatrix() const;
 
 	/// Computes an extreme point of this Frustum in the given direction.
 	/** An extreme point is a farthest point of this Frustum in the given direction. Given a direction,
@@ -197,6 +263,21 @@ public:
 		and the 'up' parameter of this Frustum to point towards the +Y axis of the given matrix.
 		@param worldTransform An orthonormalized matrix with determinant of +1 (no mirroring). */
 	void SetWorldMatrix(const float3x4 &worldTransform);
+
+	/// Sets the world-space position of this Frustum.
+	/** @note Calling this function recomputes the cached world matrix of this Frustum.
+	@see SetKind(), SetViewPlaneDistances(), SetFrame(), SetFront(), SetUp(), SetPerspective(), SetOrthographic(), Pos(). */
+	void SetPos(const float3 &pos);
+
+	/// Sets the world-space direction the Frustum eye is looking towards.
+	/** @note Calling this function recomputes the cached world matrix of this Frustum.
+	@see SetKind(), SetViewPlaneDistances(), SetFrame(), SetPos(), SetUp(), SetPerspective(), SetOrthographic(), Front(). */
+	void SetFront(const float3 &front);
+
+	/// Sets the world-space camera up direction vector of this Frustum.
+	/** @note Calling this function recomputes the cached world matrix of this Frustum.
+	@see SetKind(), SetViewPlaneDistances(), SetFrame(), SetPos(), SetFront(), SetPerspective(), SetOrthographic(), Up(). */
+	void SetUp(const float3 &up);
 
 	/// Computes the matrix that transforms from the view space to the world (global) space of this Frustum.
 	/** @note The returned matrix is the inverse of the matrix returned by ViewMatrix().
@@ -377,6 +458,8 @@ public:
 	bool Contains(const OBB &obb) const;
 	bool Contains(const Frustum &frustum) const;
 	bool Contains(const Polyhedron &polyhedron) const;
+
+
 
 	/// Computes the closest point inside this Frustum to the given point.
 	/** If the target point lies inside this Frustum, then that point is returned.
