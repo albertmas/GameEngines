@@ -106,24 +106,6 @@ Plane Frustum::BottomPlane() const
 	return Plane(pos, bottomSideNormal);
 }
 
-void Frustum::SetPos(const float3 &p)
-{
-	pos = p;
-	WorldMatrixChanged();
-}
-
-void Frustum::SetFront(const float3 &f)
-{
-	front = f;
-	WorldMatrixChanged();
-}
-
-void Frustum::SetUp(const float3 &u)
-{
-	up = u;
-	WorldMatrixChanged();
-}
-
 void Frustum::SetWorldMatrix(const float3x4 &worldTransform)
 {
 	pos = worldTransform.TranslatePart();
@@ -176,14 +158,6 @@ float4x4 Frustum::ProjectionMatrix() const
 	{
 		return float4x4::D3DOrthoProjRH(nearPlaneDistance, farPlaneDistance, orthographicWidth, orthographicHeight);
 	}
-}
-
-void Frustum::WorldMatrixChanged()
-{
-	worldMatrix = ComputeWorldMatrix();
-	float3x4 viewMatrix = worldMatrix;
-	viewMatrix.InverseOrthonormal();
-	viewProjMatrix = projectionMatrix * viewMatrix;
 }
 
 float3 Frustum::NearPlanePos(float x, float y) const
@@ -300,8 +274,6 @@ float3 Frustum::Project(const float3 &point) const
 	projectedPoint /= projectedPoint.w; // Post-projective perspective divide.
 	return projectedPoint.xyz();
 }
-
-
 
 bool Frustum::Contains(const float3 &point) const
 {
@@ -489,24 +461,6 @@ void Frustum::GetPlanes(Plane *outArray) const
 #endif
 	for(int i = 0; i < 6; ++i)
 		outArray[i] = GetPlane(i);
-}
-
-float3x4 Frustum::ComputeWorldMatrix() const
-{
-	assume1(pos.IsFinite(), pos);
-	assume2(up.IsNormalized(1e-3f), up, up.Length());
-	assume2(front.IsNormalized(1e-3f), front, front.Length());
-	assume3(up.IsPerpendicular(front), up, front, up.Dot(front));
-	float3x4 m;
-	m.SetCol(0, DIR_TO_FLOAT3(WorldRight().Normalized()));
-	m.SetCol(1, DIR_TO_FLOAT3(up));
-	if (handedness == FrustumRightHanded)
-		m.SetCol(2, DIR_TO_FLOAT3(-front)); // In right-handed convention, the -Z axis must map towards the front vector. (so +Z maps to -front)
-	else
-		m.SetCol(2, DIR_TO_FLOAT3(front)); // In left-handed convention, the +Z axis must map towards the front vector.
-	m.SetCol(3, POINT_TO_FLOAT3(pos));
-	assume(!m.HasNegativeScale());
-	return m;
 }
 
 float3 Frustum::CenterPoint() const

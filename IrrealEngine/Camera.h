@@ -42,7 +42,7 @@ public:
 
 	float3 Rotate(const float3 &u, float angle, const float3 &v);
 	
-	void CreateNewFrustum();
+
 	
 
 private:
@@ -52,7 +52,6 @@ private:
 	Frustum frustum;
 	float	aspect_ratio = 0.0f;
 	float   vertical_fov = 0.0f;
-	float3 frustum_vertices[8];
 	bool	is_culling = true;
 };
 
