@@ -118,6 +118,23 @@ public:
 		than this distance will be clipped from the view, and not rendered. */
 	float farPlaneDistance;
 
+
+	/// Sets the world-space position of this Frustum.
+	/** @note Calling this function recomputes the cached world matrix of this Frustum.
+	@see SetKind(), SetViewPlaneDistances(), SetFrame(), SetFront(), SetUp(), SetPerspective(), SetOrthographic(), Pos(). */
+	void SetPos(const float3 &pos);
+
+	/// Sets the world-space direction the Frustum eye is looking towards.
+	/** @note Calling this function recomputes the cached world matrix of this Frustum.
+	@see SetKind(), SetViewPlaneDistances(), SetFrame(), SetPos(), SetUp(), SetPerspective(), SetOrthographic(), Front(). */
+	void SetFront(const float3 &front);
+
+	/// Sets the world-space camera up direction vector of this Frustum.
+	/** @note Calling this function recomputes the cached world matrix of this Frustum.
+	@see SetKind(), SetViewPlaneDistances(), SetFrame(), SetPos(), SetFront(), SetPerspective(), SetOrthographic(), Up(). */
+	void SetUp(const float3 &up);
+
+
 	float3x4 worldMatrix;
 	float4x4 projectionMatrix;
 	float4x4 viewProjMatrix;
@@ -264,20 +281,6 @@ public:
 		@param worldTransform An orthonormalized matrix with determinant of +1 (no mirroring). */
 	void SetWorldMatrix(const float3x4 &worldTransform);
 
-	/// Sets the world-space position of this Frustum.
-	/** @note Calling this function recomputes the cached world matrix of this Frustum.
-	@see SetKind(), SetViewPlaneDistances(), SetFrame(), SetFront(), SetUp(), SetPerspective(), SetOrthographic(), Pos(). */
-	void SetPos(const float3 &pos);
-
-	/// Sets the world-space direction the Frustum eye is looking towards.
-	/** @note Calling this function recomputes the cached world matrix of this Frustum.
-	@see SetKind(), SetViewPlaneDistances(), SetFrame(), SetPos(), SetUp(), SetPerspective(), SetOrthographic(), Front(). */
-	void SetFront(const float3 &front);
-
-	/// Sets the world-space camera up direction vector of this Frustum.
-	/** @note Calling this function recomputes the cached world matrix of this Frustum.
-	@see SetKind(), SetViewPlaneDistances(), SetFrame(), SetPos(), SetFront(), SetPerspective(), SetOrthographic(), Up(). */
-	void SetUp(const float3 &up);
 
 	/// Computes the matrix that transforms from the view space to the world (global) space of this Frustum.
 	/** @note The returned matrix is the inverse of the matrix returned by ViewMatrix().

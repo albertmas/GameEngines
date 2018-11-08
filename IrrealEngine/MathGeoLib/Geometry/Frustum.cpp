@@ -45,6 +45,8 @@
 
 MATH_BEGIN_NAMESPACE
 
+
+
 float Frustum::AspectRatio() const
 {
 	return horizontalFov / verticalFov;
