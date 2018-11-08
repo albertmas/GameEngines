@@ -10,14 +10,31 @@ Camera::Camera()
 {
 	CalculateViewMatrix();
 
+	frustum.SetPos(float3(0, 1, -1));
+	frustum.SetFront(float3(0, 0, 1));
+	frustum.SetUp(float3(0, 1, 0));
+
 	X = float3(1.0f, 0.0f, 0.0f);
 	Y = float3(0.0f, 1.0f, 0.0f);
 	Z = float3(0.0f, 0.0f, 1.0f);
-
 	
-
 	Position = float3(0.0f, -5.0f, 10.0f);
 	Reference = float3(0.0f, 0.0f, 0.0f);
+
+	frustum.horizontalFov = DegToRad(120);
+	frustum.verticalFov = DegToRad(60);
+	frustum.nearPlaneDistance = 0.5;//needs to be higher than 0.4
+	frustum.farPlaneDistance = 800;
+
+	frustum.type = FrustumType::PerspectiveFrustum;
+
+	frustum.SetWorldMatrix(float3x4::identity);
+
+	frustum.pos = float3(0, 0, 0);
+
+	frustum.Translate(Position);
+
+	CreateNewFrustum();
 }
 
 Camera::~Camera()
@@ -186,4 +203,9 @@ void Camera::HandleMouse()
 float3 Camera::Rotate(const float3 & u, float angle, const float3 & v)
 {
 	return *(float3*)&(float4x4::RotateAxisAngle(v, angle) * float4(u, 1.0f));
+}
+
+void Camera::CreateNewFrustum()
+{
+	frustum.GetCornerPoints(frustum_vertices);
 }

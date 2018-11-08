@@ -33,6 +33,7 @@
 #include "SSEMath.h"
 #include "float4_sse.h"
 #include "float4_neon.h"
+#include "assume.h"
 
 MATH_BEGIN_NAMESPACE
 
