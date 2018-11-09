@@ -4,7 +4,8 @@
 
 #include "Module.h"
 #include "ImGui/imgui.h"
-
+#include "ModuleCamera3D.h"
+#include "Camera.h"
 
 class GameObject;
 

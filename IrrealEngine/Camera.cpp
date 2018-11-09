@@ -43,7 +43,8 @@ Camera::~Camera()
 
 void Camera::SetPosition(const float3 & new_pos)
 {
-	
+	frustum.SetPos(new_pos);
+	Position = frustum.pos;
 }
 
 void Camera::SetReference(const float3 & new_pos)
@@ -51,6 +52,10 @@ void Camera::SetReference(const float3 & new_pos)
 	Reference = new_pos;
 }
 
+void Camera::SetUp(const float3 & up)
+{
+	frustum.SetUp(up);
+}
 void Camera::SetFOV(const float & new_fov)
 {
 	
@@ -173,7 +178,7 @@ void Camera::HandleMouse()
 	int dx = -App->input->GetMouseXMotion();
 	int dy = -App->input->GetMouseYMotion();
 
-	float Sensitivity = 0.25f;
+	float Sensitivity = 0.01f;
 
 	if (dx != 0)
 	{

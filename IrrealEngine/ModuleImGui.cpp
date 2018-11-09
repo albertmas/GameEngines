@@ -9,6 +9,7 @@
 #include "ModulePhysics3D.h"
 #include "ModuleFBXLoader.h"
 #include "ModuleScene.h"
+
 #include "Assimp/include/version.h"
 #include "DevIL/include/il.h"
 
@@ -398,7 +399,16 @@ void ModuleImGui::ConfigurationWindow()
 
 		if (ImGui::CollapsingHeader("Camera"))
 		{
+			
+			ImGui::Spacing();
+			if (ImGui::Button("Reset"))
+			{
+				
+				App->camera->GetCurrentCam()->Position.Set(0, 5, 10);
+				App->camera->LookAt({ 0, 0, 0 });
+				
 
+			}
 
 
 		}

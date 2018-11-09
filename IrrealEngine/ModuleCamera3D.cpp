@@ -129,11 +129,13 @@ Camera * ModuleCamera3D::GetCurrentCam() const
 
 void ModuleCamera3D::HandleMouse()
 {
-
+	editor_camera->HandleMouse();
 }
 
 void ModuleCamera3D::Camera_Rot()
 {
+	HandleMouse();
+	
 	LookAt({ 0,0,0 });	
 }
 
@@ -150,6 +152,7 @@ void ModuleCamera3D::CameraMovement(float dt)
 
 	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
+		HandleMouse();
 		Move({ speed,speed,speed });
 
 	}
@@ -181,8 +184,6 @@ void ModuleCamera3D::CameraMovement(float dt)
 	if ((App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT)))
 	{
 		Camera_Rot();
-
-		
 		LookAt({ 0,0,0 });
 	}
 
