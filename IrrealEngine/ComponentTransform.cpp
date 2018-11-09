@@ -1,5 +1,5 @@
 #include "ComponentTransform.h"
-#include "ImGui\imgui.h"
+#include "ImGui/imgui.h"
 
 ComponentTransform::ComponentTransform(GameObject* gameobject)
 {
@@ -7,13 +7,13 @@ ComponentTransform::ComponentTransform(GameObject* gameobject)
 	type = TRANSFORMATION;
 }
 
-
 ComponentTransform::~ComponentTransform()
 {
 }
 
 void ComponentTransform::SetInspectorInfo()
 {
+	ImGui::Spacing();
 	if (ImGui::CollapsingHeader("Transformation"), ImGuiTreeNodeFlags_DefaultOpen)
 	{
 		ImGui::TextColored({ 0, 1, 1, 1 }, "Position:");
@@ -28,6 +28,13 @@ void ComponentTransform::SetInspectorInfo()
 
 		ImGui::TextColored({ 0, 1, 1, 1 }, "Scale:");
 		ImGui::Text("X: %.3f | Y: %.3f | Z: %.3f", scale.x, scale.y, scale.z);
+
+		ImGui::TextColored({ 0, 1, 1, 1 }, "Local Matrix:");
+		ImGui::Text("%.3f | %.3f | %.3f | %.3f", matrix_local[0][0], matrix_local[1][0], matrix_local[2][0], matrix_local[3][0]);
+		ImGui::Text("%.3f | %.3f | %.3f | %.3f", matrix_local[0][1], matrix_local[1][1], matrix_local[2][1], matrix_local[3][1]);
+		ImGui::Text("%.3f | %.3f | %.3f | %.3f", matrix_local[0][2], matrix_local[1][2], matrix_local[2][2], matrix_local[3][2]);
+		ImGui::Text("%.3f | %.3f | %.3f | %.3f", matrix_local[0][3], matrix_local[1][3], matrix_local[2][3], matrix_local[3][3]);
+
 
 		/*float pos[3] = { position.x, position.y, position.z };
 		if (ImGui::InputFloat3("Position", pos, 1))
@@ -50,4 +57,17 @@ void ComponentTransform::SetInspectorInfo()
 			ImGui::SetTooltip("Rotation of the mesh");*/
 
 	}
+}
+
+bool ComponentTransform::Save(Document& document, FileWriteStream& fws) const
+{
+	Document::AllocatorType& allocator = document.GetAllocator();
+	// Save stuff
+	Writer<FileWriteStream> writer(fws);
+	return true;
+}
+
+bool ComponentTransform::Load(Document& document)
+{
+	return true;
 }

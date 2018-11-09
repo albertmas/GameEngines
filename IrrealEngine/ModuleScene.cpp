@@ -2,7 +2,7 @@
 #include "ModuleScene.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
-#include "ModuleFBXLoader.h"
+#include "ModuleSceneLoader.h"
 #include "ModuleInput.h"
 #include  "Component.h"
 #include  "ComponentTransform.h"
@@ -37,10 +37,11 @@ bool ModuleScene::Init(Document& document)
 bool ModuleScene::Start()
 {
 	root = new GameObject(nullptr, "root");
+	root->go_static = true;
 	game_objects.push_back(root);
 	ComponentTransform* root_trans = (ComponentTransform*)root->CreateComponent(COMP_TYPE::TRANSFORMATION);
 
-	App->fbxloader->ImportMesh("Assets/BakerHouse/BakerHouse.fbx");
+	App->sceneloader->ImportMesh("Assets/BakerHouse/BakerHouse.fbx");
 
 	return true;
 }
@@ -70,6 +71,8 @@ bool ModuleScene::CleanUp()
 
 bool ModuleScene::Save(Document& document, FileWriteStream& fws)
 {
+	Document::AllocatorType& allocator = document.GetAllocator();
+	Writer<FileWriteStream> writer(fws);
 	return true;
 }
 

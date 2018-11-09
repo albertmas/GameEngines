@@ -57,7 +57,9 @@ update_status ModuleCamera3D::Update(float dt)
 	if (ImGui::IsMouseHoveringAnyWindow())
 		return UPDATE_CONTINUE;
 
+
 	CameraMovement(dt);
+
 	
 	
 	return UPDATE_CONTINUE;

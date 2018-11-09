@@ -2,12 +2,12 @@
 #include "ModuleImGui.h"
 #include "ImGui/imgui_impl_sdl.h"
 #include "ImGui/imgui_impl_opengl2.h"
-#include "DeviceId\DeviceId.h"
+#include "DeviceId/DeviceId.h"
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "ModuleRenderer3D.h"
 #include "ModulePhysics3D.h"
-#include "ModuleFBXLoader.h"
+#include "ModuleSceneLoader.h"
 #include "ModuleScene.h"
 
 #include "Assimp/include/version.h"
@@ -526,19 +526,12 @@ void ModuleImGui::ConfigurationWindow()
 					ImGui::BeginChild(123, ImVec2(365, 290), true);
 
 					// Search executing path
-					char result[MAX_PATH];
-					std::string(result, GetModuleFileName(NULL, result, MAX_PATH));
-					std::string path_string = std::string(result, GetModuleFileName(NULL, result, MAX_PATH));
-
-					// Remove name of exe
-					for (int i = path_string.size() - 1; i >= 0; i--)
-						if (path_string[i] == '/' | path_string[i] == '\\')
-							break;
-						else
-							path_string.pop_back();
+					char path_[256];
+					GetCurrentDirectory(256, path_);
 					// Add the assets folder to the path
-					path_string += "Assets/*";
-					SearchFolder(path_string.c_str());// Path for debug "C:/Users/almac/Documents/GitHub/GameEngines/IrrealEngine/Game/Assets/*"
+					std::string path_string = path_;
+					path_string += "\\Assets/*";
+					SearchFolder(path_string.c_str());
 
 					
 					ImGui::EndChild();
@@ -553,11 +546,11 @@ void ModuleImGui::ConfigurationWindow()
 							if (selected_file_type == "fbx" | selected_file_type == "FBX")
 							{
 								App->renderer3D->meshes.clear();
-								App->fbxloader->ImportMesh(selected_file_path.c_str());
+								App->sceneloader->ImportMesh(selected_file_path.c_str());
 							}
 							else if (selected_file_type == "dds" | selected_file_type == "png" | selected_file_type == "jpg")
 							{
-								App->fbxloader->ChangeTexure(selected_file_path.c_str());
+								//App->fbxloader->ChangeTexure(selected_file_path.c_str());
 							}
 						}
 						
@@ -678,6 +671,16 @@ void ModuleImGui::InspectorWindow()
 
 		// GameObject active
 		ImGui::Checkbox("Active", &focused_go->go_active);
+		ImGui::SameLine();
+		if (focused_go->go_parent->go_static)
+			ImGui::Checkbox("Static", &focused_go->go_static);
+		else
+		{
+			ImGui::PushStyleColor(ImGuiCol_Text, { 0.5f, 0.5f, 0.5f, 1.0f });
+			if (ImGui::Checkbox("Static", &focused_go->go_static))
+				focused_go->go_static = false;
+			ImGui::PopStyleColor();
+		}
 
 		// Set components information
 		for (int i = 0; i < focused_go->go_components.size(); i++)

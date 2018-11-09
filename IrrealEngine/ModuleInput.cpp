@@ -5,7 +5,7 @@
 #include "ModuleCamera3D.h"
 #include "ModulePhysics3D.h"
 #include "ModuleImGui.h"
-#include "ModuleFBXLoader.h"
+#include "ModuleSceneLoader.h"
 
 #define MAX_KEYS 300
 
@@ -110,10 +110,10 @@ update_status ModuleInput::PreUpdate(float dt)
 				if (type == "fbx" || type == "FBX")
 				{
 					App->renderer3D->meshes.clear();
-					App->fbxloader->ImportMesh(file_path.c_str());
+					App->sceneloader->ImportMesh(file_path.c_str());
 				}
-				else if (type == "png" || type == "dds" || type == "jpg")
-					App->fbxloader->ChangeTexure(file_path.c_str());
+				else if (type == "png" || type == "dds" || type == "jpg"){}
+					//App->fbxloader->ChangeTexure(file_path.c_str());
 				else
 					LOG("Couldn't load file. Wrong format: %s", type.c_str())
 

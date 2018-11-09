@@ -2,7 +2,7 @@
 #define _COMPONENNT_TRANSFORM_H_
 
 #include "Component.h"
-#include "MathGeoLib\MathGeoLib.h"
+#include "MathGeoLib/MathGeoLib.h"
 
 
 class ComponentTransform : public Component
@@ -12,6 +12,9 @@ public:
 	~ComponentTransform() override;
 
 	void SetInspectorInfo() override;
+
+	bool Save(Document& document, FileWriteStream& fws) const override;
+	bool Load(Document& document) override;
 
 public:
 	float3 position = float3::zero;

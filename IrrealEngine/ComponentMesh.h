@@ -2,13 +2,13 @@
 #define COMPONENT_MESH_H_
 
 #include "Component.h"
-#include "ModuleFBXLoader.h"
 
 
-class Mesh;
+class FBXMesh;
 class GameObject;
+class ComponentTexture;
 
-class ComponentMesh :public Component
+class ComponentMesh : public Component
 {
 public:
 
@@ -16,13 +16,16 @@ public:
 	~ComponentMesh() override;
 
 	bool Update() override;
-
-	void SetMesh(FBXMesh* mesh);
 	void SetInspectorInfo() override;
+	void SetMesh(FBXMesh* mesh);
+	void SetCompTexture(ComponentTexture* compTex);
+
+	bool Save(Document& document, FileWriteStream& fws) const override;
+	bool Load(Document& document) override;
 
 private:
 	FBXMesh* go_mesh = nullptr;
-
+	ComponentTexture* mesh_material = nullptr;
 };
 
 #endif
