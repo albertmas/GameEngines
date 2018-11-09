@@ -72,15 +72,16 @@ bool ModuleSceneLoader::ImportMesh(const char* full_path)
 	const aiScene* scene = aiImportFile(full_path, aiProcessPreset_TargetRealtime_MaxQuality);
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		aiNode* rootNode = scene->mRootNode;
 		ObjectBB = new AABB({ 0,0,0 }, { 0,0,0 });
+
+		aiNode* rootNode = scene->mRootNode;
 		LoadFile(full_path, scene, rootNode, nullptr);
 
 		aiReleaseImport(scene);
 	}
 	else
 	{
-		LOG("Error loading mesh scene %s", full_path);
+		LOG("WARNING, Error loading scene %s", full_path);
 	}
 
 	return ret;
@@ -129,12 +130,12 @@ bool ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* scene, ai
 		aiMesh* currentMesh = scene->mMeshes[node->mMeshes[meshNum]];
 
 		mesh->num_vertices = currentMesh->mNumVertices;
-		mesh->vertices = new float3[mesh->num_vertices * 3];
+		mesh->vertices = new float[mesh->num_vertices * 3];
 		memcpy(mesh->vertices, currentMesh->mVertices, sizeof(float) * mesh->num_vertices * 3);
 		LOG("New mesh with %d vertices", mesh->num_vertices);
 
 		mesh->num_normals = currentMesh->mNumVertices;
-		mesh->normals = new float3[mesh->num_normals * 3];
+		mesh->normals = new float[mesh->num_normals * 3];
 		memcpy(mesh->normals, currentMesh->mNormals, sizeof(float) * mesh->num_normals * 3);
 
 		aiMaterial* material = scene->mMaterials[currentMesh->mMaterialIndex];

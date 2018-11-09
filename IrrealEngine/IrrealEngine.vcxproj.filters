@@ -170,7 +170,6 @@
       <Filter>Sources\Components</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="ComponentTexture.cpp" />
     <ClCompile Include="ModuleTextureLoader.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
@@ -183,6 +182,9 @@
     </ClCompile>
     <ClCompile Include="ModuleSceneLoader.cpp">
       <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentTexture.cpp">
+      <Filter>Sources\Components</Filter>
     </ClCompile>
     <ClCompile Include="ComponentTexture.cpp">
       <Filter>Sources\Components</Filter>
@@ -460,7 +462,6 @@
       <Filter>Sources\Components</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="ComponentTexture.h" />
     <ClInclude Include="ModuleTextureLoader.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
@@ -473,6 +474,9 @@
     </ClInclude>
     <ClInclude Include="ModuleSceneLoader.h">
       <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentTexture.h">
+      <Filter>Sources\Components</Filter>
     </ClInclude>
     <ClInclude Include="ComponentTexture.h">
       <Filter>Sources\Components</Filter>

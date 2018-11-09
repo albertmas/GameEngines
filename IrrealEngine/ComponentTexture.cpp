@@ -14,20 +14,14 @@ ComponentTexture::~ComponentTexture()
 }
 
 
-bool ComponentTexture :: Update()
+bool ComponentTexture::Update()
 {
 	if (active)
 	{
-		glColor3f(1.0, 1.0, 1.0);
-		if (texture->id != 0)
+		if (texture != nullptr)
 			glBindTexture(GL_TEXTURE_2D, texture->id);
 		else
-			glColor3f(texture->color.x, texture->color.y, texture->color.z);
-
-		/*if (texture->id != 0)
-			glBindTexture(GL_TEXTURE_2D, 0);
-		else
-			glColor3f(1.0, 1.0, 1.0);*/
+			glColor3f(1.0, 1.0, 1.0);
 	}
 
 	return true;
@@ -60,9 +54,10 @@ void ComponentTexture::SetInspectorInfo()
 		else
 		{
 			ImGui::TextColored({ 1, 0, 0, 1 }, "Mesh has no texture");
-			if (ImGui::Button("NewTex"))
+			if (ImGui::Button("New Texture"))
 			{
-				//Create new texture
+				// Create new texture
+				// or choose an existing one
 			}
 		}
 	}

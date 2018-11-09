@@ -3,6 +3,9 @@
 
 #include "Module.h"
 
+#define MESHES_DIRECTORY "Library/Meshes/"
+#define MESHES_EXTENSION ".uwu"
+
 
 class FBXMesh;
 class aiMesh;
@@ -17,7 +20,8 @@ public:
 	//bool CleanUp();
 
 	bool ImportMesh(aiMesh* mesh);
-	FBXMesh* LoadMesh(const char* full_path);
+	bool SaveMesh(FBXMesh* mesh);
+	FBXMesh* LoadMesh(const char* name);
 };
 
 #endif
