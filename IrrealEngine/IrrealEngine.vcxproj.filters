@@ -169,22 +169,17 @@
     <ClCompile Include="ComponentMesh.cpp">
       <Filter>Sources\Components</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="ModuleTextureLoader.cpp">
-      <Filter>Sources\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ComponentTexture.cpp" />
-    <ClCompile Include="ComponentTexture.cpp" />
-    <ClCompile Include="ComponentTexture.cpp" />
-    <ClCompile Include="ComponentTexture.cpp" />
-    <ClCompile Include="ModuleMeshLoader.cpp">
-      <Filter>Sources\Modules</Filter>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="ModuleSceneLoader.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ComponentTexture.cpp">
-      <Filter>Sources\Components</Filter>
+    <ClCompile Include="ModuleMeshLoader.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleTextureLoader.cpp">
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="ComponentTexture.cpp">
       <Filter>Sources\Components</Filter>
@@ -461,22 +456,17 @@
     <ClInclude Include="ComponentMesh.h">
       <Filter>Sources\Components</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="ModuleTextureLoader.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ComponentTexture.h" />
-    <ClInclude Include="ComponentTexture.h" />
-    <ClInclude Include="ComponentTexture.h" />
-    <ClInclude Include="ComponentTexture.h" />
-    <ClInclude Include="ModuleMeshLoader.h">
-      <Filter>Sources\Modules</Filter>
+    <ClInclude Include="GameObject.h">
+      <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="ModuleSceneLoader.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ComponentTexture.h">
-      <Filter>Sources\Components</Filter>
+    <ClInclude Include="ModuleMeshLoader.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleTextureLoader.h">
+      <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="ComponentTexture.h">
       <Filter>Sources\Components</Filter>
