@@ -6,7 +6,8 @@
 #include "ModuleCamera3D.h"
 #include "ModulePhysics3D.h"
 #include "ModuleImGui.h"
-#include "ModuleFBXLoader.h"
+#include "ModuleSceneLoader.h"
+#include "ModuleMeshLoader.h"
 #include "ModuleTextureLoader.h"
 #include "ModuleScene.h"
 
@@ -19,7 +20,8 @@ Application::Application()
 	camera = new ModuleCamera3D();
 	physics = new ModulePhysics3D();
 	imgui = new ModuleImGui();
-	fbxloader = new ModuleFBXLoader();
+	sceneloader = new ModuleSceneLoader();
+	meshloader = new ModuleMeshLoader();
 	texloader = new ModuleTextureLoader();
 	scene = new ModuleScene(this);
 
@@ -32,7 +34,8 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);
 	AddModule(physics);
-	AddModule(fbxloader);
+	AddModule(sceneloader);
+	AddModule(meshloader);
 	AddModule(texloader);
 	
 	// Scenes

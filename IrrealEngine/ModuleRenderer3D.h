@@ -20,17 +20,18 @@ struct FBXMesh
 
 	uint id_vertices = 0;
 	uint num_vertices = 0;
-	float3* vertices = nullptr;
+	float* vertices = nullptr;
 	
 
 	uint id_normal = 0;
 	uint num_normals = 0;
-	float3* normals = nullptr;
+	float* normals = nullptr;
 	
 
-	//vec3 color = { 0, 0, 0 };
+	vec3 color = { 1, 1, 1 };
 
 	//uint texture = 0;
+	uint num_texCoords = 0;
 	float* texCoords = nullptr;
 
 	AABB bounding_box;
@@ -39,7 +40,7 @@ struct FBXMesh
 	void Draw();
 
 	// Mesh info
-	std::string meshName = "";
+	std::string meshName = "Untitled";
 	std::string meshPath = "";
 	uint meshNum = 0;
 	float3 meshPos = { 0, 0, 0 };

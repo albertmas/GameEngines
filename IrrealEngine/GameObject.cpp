@@ -17,6 +17,17 @@ GameObject::GameObject(GameObject* parent, const char* name)
 
 GameObject::~GameObject()
 {
+	for (int i = 0; i < go_components.size(); i++)
+	{
+		RELEASE(go_components[i]);
+	}
+	go_components.clear();
+
+	for (int i = 0; i < go_children.size(); i++)
+	{
+		RELEASE(go_children[i]);
+	}
+	go_children.clear();
 }
 
 
@@ -47,16 +58,19 @@ void GameObject::Draw()
 				{
 					go_components[i]->Update();
 				}
-				if (go_components[i]->type == Component::MESH)
+				if (go_components[i]->type == Component::TEXTURE)
 				{
 					go_components[i]->Update();
 				}
-				if (go_components[i]->type == Component::TEXTURE)
+				if (go_components[i]->type == Component::MESH)
 				{
 					go_components[i]->Update();
 				}
 			}
 		}
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+
 		for (int i = 0; i < go_children.size(); i++)
 		{
 			go_children[i]->Draw();

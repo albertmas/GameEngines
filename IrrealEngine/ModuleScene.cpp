@@ -2,12 +2,12 @@
 #include "ModuleScene.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
-#include "ModuleFBXLoader.h"
+#include "ModuleSceneLoader.h"
 #include "ModuleInput.h"
-#include  "Component.h"
-#include  "ComponentTransform.h"
-#include  "ComponentMesh.h"
-#include  "ComponentTexture.h"
+#include "Component.h"
+#include "ComponentTransform.h"
+#include "ComponentMesh.h"
+#include "ComponentTexture.h"
 
 
 
@@ -40,7 +40,7 @@ bool ModuleScene::Start()
 	game_objects.push_back(root);
 	ComponentTransform* root_trans = (ComponentTransform*)root->CreateComponent(Component::TRANSFORMATION);
 
-	App->fbxloader->ImportMesh("Assets/BakerHouse/BakerHouse.fbx");
+	App->sceneloader->ImportMesh("Assets/BakerHouse/BakerHouse.fbx");
 
 	return true;
 }

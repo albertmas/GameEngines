@@ -6,6 +6,7 @@
 
 class FBXMesh;
 class GameObject;
+class ComponentTexture;
 
 class ComponentMesh : public Component
 {
@@ -17,13 +18,14 @@ public:
 	bool Update() override;
 	void SetInspectorInfo() override;
 	void SetMesh(FBXMesh* mesh);
+	void SetCompTexture(ComponentTexture* compTex);
 
 	bool Save(Document& document, FileWriteStream& fws) const override;
 	bool Load(Document& document) override;
 
 private:
 	FBXMesh* go_mesh = nullptr;
-
+	ComponentTexture* mesh_material = nullptr;
 };
 
 #endif

@@ -2,12 +2,12 @@
 #include "ModuleImGui.h"
 #include "ImGui/imgui_impl_sdl.h"
 #include "ImGui/imgui_impl_opengl2.h"
-#include "DeviceId\DeviceId.h"
+#include "DeviceId/DeviceId.h"
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "ModuleRenderer3D.h"
 #include "ModulePhysics3D.h"
-#include "ModuleFBXLoader.h"
+#include "ModuleSceneLoader.h"
 #include "ModuleScene.h"
 #include "Assimp/include/version.h"
 #include "DevIL/include/il.h"
@@ -529,11 +529,11 @@ void ModuleImGui::ConfigurationWindow()
 							if (selected_file_type == "fbx" | selected_file_type == "FBX")
 							{
 								App->renderer3D->meshes.clear();
-								App->fbxloader->ImportMesh(selected_file_path.c_str());
+								App->sceneloader->ImportMesh(selected_file_path.c_str());
 							}
 							else if (selected_file_type == "dds" | selected_file_type == "png" | selected_file_type == "jpg")
 							{
-								App->fbxloader->ChangeTexure(selected_file_path.c_str());
+								//App->fbxloader->ChangeTexure(selected_file_path.c_str());
 							}
 						}
 						

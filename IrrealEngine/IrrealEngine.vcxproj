@@ -155,8 +155,9 @@
     <ClInclude Include="MathGeoLib\Time\Clock.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="ModuleCamera3D.h" />
-    <ClInclude Include="ModuleFBXLoader.h" />
+    <ClInclude Include="ModuleSceneLoader.h" />
     <ClInclude Include="ModuleImGui.h" />
+    <ClInclude Include="ModuleMeshLoader.h" />
     <ClInclude Include="ModulePhysics3D.h" />
     <ClInclude Include="ModuleRenderer3D.h" />
     <ClInclude Include="Module.h" />
@@ -219,9 +220,10 @@
     <ClCompile Include="MathGeoLib\Time\Clock.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="ModuleCamera3D.cpp" />
-    <ClCompile Include="ModuleFBXLoader.cpp" />
+    <ClCompile Include="ModuleSceneLoader.cpp" />
     <ClCompile Include="ModuleImGui.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
+    <ClCompile Include="ModuleMeshLoader.cpp" />
     <ClCompile Include="ModulePhysics3D.cpp" />
     <ClCompile Include="ModuleRenderer3D.cpp" />
     <ClCompile Include="ModuleScene.cpp" />
