@@ -31,6 +31,7 @@ public:
 	void HandleMouse();
 	void FocusBox(AABB & box);
 	float* GetViewMatrix();
+	float mult(const float3 &u);
 
 	Camera* GetCurrentCam()const;
 

@@ -134,9 +134,11 @@ void ModuleCamera3D::HandleMouse()
 
 void ModuleCamera3D::Camera_Rot()
 {
-	HandleMouse();
 	
+	HandleMouse();
+	GetCurrentCam()->Position = GetCurrentCam()->Reference + GetCurrentCam()->Z * mult(GetCurrentCam()->Position);
 	LookAt({ 0,0,0 });	
+	
 }
 
 
@@ -184,7 +186,8 @@ void ModuleCamera3D::CameraMovement(float dt)
 	if ((App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT)))
 	{
 		Camera_Rot();
-		LookAt({ 0,0,0 });
+		//Position = Reference + Z * length(Position);
+		
 	}
 
 
@@ -210,4 +213,9 @@ void ModuleCamera3D::FocusBox(AABB & box)
 //	Y = Cross(Z, X);
 	GetCurrentCam()->CalculateViewMatrix();
 
+}
+
+float ModuleCamera3D::mult(const float3 &u)
+{
+	return sqrt(u.x * u.x + u.y * u.y + u.z * u.z);
 }
