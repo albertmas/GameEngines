@@ -4,6 +4,7 @@
 #include "ModuleCamera3D.h"
 #include "ModuleScene.h"
 #include "ModuleTextureLoader.h"
+#include "ModuleMeshLoader.h"
 #include "GameObject.h"
 
 #include "Component.h"
@@ -103,6 +104,9 @@ bool ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* scene, ai
 	aiQuaternion rotation;
 	aiVector3D scaling;
 	node->mTransformation.Decompose(scaling, rotation, position);
+	float3 pos = { position.x, position.y, position.z };
+	float3 scale = { scaling.x, scaling.y, scaling.z };
+	Quat rot = Quat(rotation.x, rotation.y, rotation.z, rotation.w);
 
 	if (parent == App->scene->root)
 	{
@@ -112,9 +116,9 @@ bool ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* scene, ai
 		App->scene->game_objects.push_back(gameobject);
 
 		ComponentTransform* comp_trans = (ComponentTransform*)gameobject->CreateComponent(Component::TRANSFORMATION);
-		comp_trans->position.Set(position.x, position.y, position.z);	
-		comp_trans->rotation.Set(rotation.x, rotation.y, rotation.z, rotation.w);
-		comp_trans->scale.Set(scaling.x, scaling.y, scaling.z);
+		comp_trans->position = pos;	
+		comp_trans->rotation = rot;
+		comp_trans->scale = scale;
 	}
 
 	for (int i = 0; i < node->mNumChildren; i++)
@@ -126,17 +130,9 @@ bool ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* scene, ai
 		mesh_number++;
 		LOG("\nLoading mesh %i of %i -------", mesh_number, scene->mNumMeshes);
 
-		FBXMesh* mesh = new FBXMesh();
 		aiMesh* currentMesh = scene->mMeshes[node->mMeshes[meshNum]];
-
-		mesh->num_vertices = currentMesh->mNumVertices;
-		mesh->vertices = new float[mesh->num_vertices * 3];
-		memcpy(mesh->vertices, currentMesh->mVertices, sizeof(float) * mesh->num_vertices * 3);
-		LOG("New mesh with %d vertices", mesh->num_vertices);
-
-		mesh->num_normals = currentMesh->mNumVertices;
-		mesh->normals = new float[mesh->num_normals * 3];
-		memcpy(mesh->normals, currentMesh->mNormals, sizeof(float) * mesh->num_normals * 3);
+		FBXMesh* mesh = App->meshloader->ImportMesh(currentMesh);
+		mesh->setMeshBuffer();
 
 		aiMaterial* material = scene->mMaterials[currentMesh->mMaterialIndex];
 		aiColor3D color(0.0f, 0.0f, 0.0f);
@@ -145,30 +141,6 @@ bool ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* scene, ai
 			
 		if (currentMesh->HasFaces())
 		{
-			mesh->num_indices = currentMesh->mNumFaces * 3;
-			mesh->indices = new uint[mesh->num_indices]; // assume each face is a triangle
-
-			bool verticeError = false;
-
-			for (uint i = 0; i < currentMesh->mNumFaces; ++i)
-			{
-				if (currentMesh->mFaces[i].mNumIndices != 3)
-				{
-					LOG("WARNING, geometry face with != 3 indices!");
-					verticeError = true;
-				}
-				else
-				{
-					memcpy(&mesh->indices[i * 3], currentMesh->mFaces[i].mIndices, 3 * sizeof(uint));
-				}
-			}
-			if (!verticeError)
-			{
-				LOG("New mesh with %d indices", mesh->num_indices);
-				mesh->setMeshBuffer();
-				App->renderer3D->meshes.push_back(mesh);
-			}
-
 			// Searching Texture
 			aiString path;
 			aiReturn error = material->GetTexture(aiTextureType::aiTextureType_DIFFUSE, 0, &path);
@@ -194,21 +166,9 @@ bool ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* scene, ai
 			if (newtexture == nullptr)
 			{
 				newtexture = new Texture();
-				newtexture->color.Set(color.r, color.g, color.b);
 			}
-
-			if (currentMesh->HasTextureCoords(0))
-			{
-				int c = 0;
-				mesh->texCoords = new float[mesh->num_vertices * 2];
-				for (uint num = 0; num < mesh->num_vertices * 2; num += 2)
-				{
-					mesh->texCoords[num] = currentMesh->mTextureCoords[0][c].x;
-					mesh->texCoords[num + 1] = currentMesh->mTextureCoords[0][c].y;
-					c++;
-				}
-			}
-				
+			newtexture->color.Set(color.r, color.g, color.b);
+			
 			// Get info
 			mesh->meshPath = full_path;
 			mesh->meshName = currentMesh->mName.C_Str();
@@ -218,15 +178,16 @@ bool ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* scene, ai
 			mesh->bounding_box.Enclose((float3*)currentMesh->mVertices, currentMesh->mNumVertices);
 			ObjectBB->Enclose(mesh->bounding_box);
 
-			mesh->meshPos.Set(position.x, position.y, position.z);
-			mesh->meshRot.Set(rotation.x, rotation.y, rotation.z, rotation.w);
-			mesh->meshScale.Set(scaling.x, scaling.y, scaling.z);
+			mesh->meshPos = pos;
+			mesh->meshRot = rot;
+			mesh->meshScale = scale;
 
 			// Set GO components
 			ComponentTransform* c_trans = (ComponentTransform*)gameobject->CreateComponent(Component::TRANSFORMATION);
-			c_trans->position.Set(position.x, position.y, position.z);
-			c_trans->rotation.Set(rotation.x, rotation.y, rotation.z, rotation.w);
-			c_trans->scale.Set(scaling.x, scaling.y, scaling.z);
+			c_trans->position = pos;
+			c_trans->rotation = rot;
+			c_trans->scale = scale;
+			c_trans->matrix_local.Set(float4x4::FromTRS(pos, rot, scale));
 			ComponentMesh* c_mesh = (ComponentMesh*)gameobject->CreateComponent(Component::MESH);
 			c_mesh->SetMesh(mesh);
 			if (newtexture)

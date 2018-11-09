@@ -40,7 +40,7 @@ struct FBXMesh
 	void Draw();
 
 	// Mesh info
-	std::string meshName = "";
+	std::string meshName = "Untitled";
 	std::string meshPath = "";
 	uint meshNum = 0;
 	float3 meshPos = { 0, 0, 0 };

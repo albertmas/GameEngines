@@ -16,12 +16,7 @@ ModuleMeshLoader::~ModuleMeshLoader()
 }
 
 
-//bool ModuleMeshLoader::Init(Document& document)
-//{
-//	return true;
-//}
-
-bool ModuleMeshLoader::ImportMesh(aiMesh* mesh)
+FBXMesh* ModuleMeshLoader::ImportMesh(aiMesh* mesh)
 {
 	FBXMesh* newMesh = new FBXMesh();
 	if (mesh->mName.length > 0)
@@ -86,9 +81,10 @@ bool ModuleMeshLoader::ImportMesh(aiMesh* mesh)
 			LOG("New mesh has no Texture Coordinates")
 	}
 
+	App->renderer3D->meshes.push_back(newMesh);
 	SaveMesh(newMesh);
 
-	return true;
+	return newMesh;
 }
 
 bool ModuleMeshLoader::SaveMesh(FBXMesh* mesh)

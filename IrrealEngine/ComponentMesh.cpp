@@ -40,15 +40,15 @@ bool ComponentMesh::Update()
 
 		glDrawElements(GL_TRIANGLES, go_mesh->num_indices, GL_UNSIGNED_INT, NULL);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-		glBindTexture(GL_TEXTURE_2D, 0);
+		//glBindTexture(GL_TEXTURE_2D, 0);
 
-		/*if (mesh_material)
+		if (mesh_material)
 		{
 			if (mesh_material->texture->id != 0)
 				glBindTexture(GL_TEXTURE_2D, 0);
 			else
 				glColor3f(1.0, 1.0, 1.0);
-		}*/
+		}
 		
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		glDisableClientState(GL_VERTEX_ARRAY);
@@ -58,7 +58,8 @@ bool ComponentMesh::Update()
 
 		if (App->renderer3D->GetNormals())
 		{
-			for (int j = 0; j < go_mesh->num_normals; j++) {
+			for (int j = 0; j < go_mesh->num_normals; j++)
+			{
 				glBegin(GL_LINES);
 				glColor3f(0.5f, 0.5f, 0.5f);
 				glLineWidth(2.0f);

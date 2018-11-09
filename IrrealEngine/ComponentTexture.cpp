@@ -18,10 +18,10 @@ bool ComponentTexture::Update()
 {
 	if (active)
 	{
-		if (texture != nullptr)
+		/*if (texture != nullptr)
 			glBindTexture(GL_TEXTURE_2D, texture->id);
 		else
-			glColor3f(1.0, 1.0, 1.0);
+			glColor3f(1.0, 1.0, 1.0);*/
 	}
 
 	return true;

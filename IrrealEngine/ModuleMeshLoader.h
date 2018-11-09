@@ -19,7 +19,7 @@ public:
 	//bool Init(Document& document);
 	//bool CleanUp();
 
-	bool ImportMesh(aiMesh* mesh);
+	FBXMesh* ImportMesh(aiMesh* mesh);
 	bool SaveMesh(FBXMesh* mesh);
 	FBXMesh* LoadMesh(const char* name);
 };
