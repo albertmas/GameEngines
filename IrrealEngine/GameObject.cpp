@@ -13,6 +13,7 @@ GameObject::GameObject(GameObject* parent, const char* name)
 		parent->go_children.push_back(this);
 	}
 	go_name = name;
+	boundingBox_AA = AABB({ 0,0,0 }, { 0,0,0 });
 }
 
 GameObject::~GameObject()

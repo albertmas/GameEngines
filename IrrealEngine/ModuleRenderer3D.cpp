@@ -211,8 +211,6 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 			DrawBB((*iter)->bounding_box, { 1.0f, 0.0f, 0.0f });
 		}
 	}*/
-	if (BB)
-		DrawBB(*App->sceneloader->ObjectBB, { 0.0f, 1.0f, 0.0f });
 
 	//glBindTexture(GL_TEXTURE_2D, 0);
 
