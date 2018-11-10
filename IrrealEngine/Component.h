@@ -51,16 +51,6 @@ public:
 		return true;
 	}
 
-public:
-
-	enum COMP_TYPE {
-		NONE,
-		MESH,
-		TRANSFORMATION,
-		TEXTURE,
-		CAMERA
-	};
-
 
 public:
 
