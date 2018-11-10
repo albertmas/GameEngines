@@ -28,6 +28,7 @@ public:
 	void Camera_Rot();
 	void MoveCam(const float3 &speed);
 	void CameraMovement(float dt);
+	void WheelMove(const float3 &mouse_speed, int direction);
 	void HandleMouse();
 	void FocusBox(AABB & box);
 	float* GetViewMatrix();
@@ -49,6 +50,10 @@ public:
 
 	float3 X = { 0, 0, 0 }, Y = { 0, 0, 0 }, Z = { 0, 0, 0 }, Position = { 0, 0, 0 }, Reference = { 0, 0, 0 };
 	bool focus = false;
+
+private:
+
+	float wheel_speed_base = 4.0f;
 
 private:
 

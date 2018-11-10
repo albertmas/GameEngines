@@ -105,6 +105,19 @@ void ModuleCamera3D::Move(const float3 &Movement)
 	editor_camera->UpdatePosition(newPos);
 }
 
+void ModuleCamera3D::WheelMove(const float3 & mouse_speed, int direction)
+{
+	float3 newPos(0, 0, 0);
+
+	if (direction == 1)
+		newPos -= editor_camera->Z.Mul(mouse_speed);
+	else
+		newPos += editor_camera->Z.Mul(mouse_speed);
+
+	editor_camera->UpdatePosition(newPos);
+
+}
+
 void ModuleCamera3D::MoveCam(const float3 &speed)
 {
 	
@@ -161,21 +174,10 @@ void ModuleCamera3D::CameraMovement(float dt)
 
 	}
 
-	if (App->input->GetMouseZ() > 0)
-	{
-		newPos -= Z * speed * 3;
-
-		focus = true;
-		GetCurrentCam()->Position += newPos;
-		GetCurrentCam()->Reference += newPos;
-	}
-	if (App->input->GetMouseZ() < 0) {
-		newPos += Z * speed * 3;
-
-		focus = true;
-		GetCurrentCam()->Position += newPos;
-		GetCurrentCam()->Reference += newPos;
-	}
+	int wheel = App->input->GetMouseZ();
+	float wheel_speed = wheel_speed_base * dt * 100;
+	if (App->input->GetMouseZ() != 0)
+		WheelMove({ wheel_speed ,wheel_speed ,wheel_speed }, wheel);
 
 	// Look at mesh (currently centered)
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
