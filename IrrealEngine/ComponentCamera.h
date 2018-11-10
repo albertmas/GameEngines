@@ -2,22 +2,22 @@
 #define _COMPONENT_CAMERA_H_	
 #include "Component.h"
 
-class ModuleCamera3D;
+class Camera;
 
 
 class ComponentCamera : public Component
 {
 public:
-
+	ComponentCamera(GameObject* gameobject);
 	ComponentCamera();
 	virtual ~ComponentCamera();
 	bool Start();
 	bool Update()override;
-	ModuleCamera3D* GetCamera();
+	Camera* GetCamera();
 	void UpdatePos();
 
 public:
-	ModuleCamera3D * cam;
+	Camera * cam;
 
 };
 

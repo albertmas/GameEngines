@@ -3,6 +3,7 @@
 
 #include "Globals.h"
 #include "Component.h"
+#include "Application.h"
 
 class Component;
 enum COMP_TYPE;
@@ -11,6 +12,7 @@ class GameObject
 {
 public:
 	GameObject(GameObject* parent, const char* name);
+
 	~GameObject();
 
 	bool Init();
@@ -22,6 +24,9 @@ public:
 
 	Component* CreateComponent(COMP_TYPE type);
 	Component* GetComponent(COMP_TYPE type);
+
+	Camera* GetCamera();
+	
 
 public:
 	bool go_active = true;

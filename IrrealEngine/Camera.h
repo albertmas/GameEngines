@@ -44,6 +44,7 @@ public:
 	float3 Rotate(const float3 &u, float angle, const float3 &v);
 	
 	void CreateNewFrustum();
+	void DrawFrustum();
 	
 
 private:

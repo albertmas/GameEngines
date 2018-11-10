@@ -3,7 +3,10 @@
 #include "ComponentMesh.h"
 #include "ComponentTransform.h"
 #include "ComponentTexture.h"
+#include "Camera.h"
 #include "ComponentCamera.h"
+#include "ModuleCamera3D.h"
+
 
 
 GameObject::GameObject(GameObject* parent, const char* name)
@@ -104,10 +107,10 @@ Component* GameObject::CreateComponent(COMP_TYPE type)
 		comp = new ComponentTexture(this);
 		go_components.push_back(comp);
 		break;
-	//case Component::CAMERA:
-	//	comp = new ComponentCamera(this);
-	//	go_components.push_back(comp);
-	//	break;
+	case Component::CAMERA:
+		comp = new ComponentCamera(this);
+		go_components.push_back(comp);
+		break;
 	}
 
 	return comp;
@@ -122,3 +125,11 @@ Component * GameObject::GetComponent(COMP_TYPE type)
 	}
 	return nullptr;
 }
+
+Camera * GameObject::GetCamera()
+{
+	ComponentCamera* aux = (ComponentCamera*)App->camera->editor_camera->GetComponent(COMP_TYPE::CAMERA);
+	if (aux != nullptr)
+		return aux->cam;
+}
+

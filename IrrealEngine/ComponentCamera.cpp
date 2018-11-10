@@ -8,6 +8,13 @@
 #include "GameObject.h"
 
 
+
+ComponentCamera::ComponentCamera(GameObject* gameobject)
+{
+	my_go = gameobject;
+	type = CAMERA;
+}
+
 ComponentCamera::ComponentCamera()
 {
 
@@ -31,7 +38,7 @@ ComponentCamera::~ComponentCamera()
 {
 }
 
-ModuleCamera3D * ComponentCamera::GetCamera()
+Camera * ComponentCamera::GetCamera()
 {
 	return cam;
 }
