@@ -11,6 +11,7 @@ public:
 	ComponentTransform(GameObject* gameobject);
 	~ComponentTransform() override;
 
+	bool Update() override;
 	void SetInspectorInfo() override;
 
 	bool Save(Document& document, FileWriteStream& fws) const override;

@@ -13,6 +13,7 @@ GameObject::GameObject(GameObject* parent, const char* name)
 		parent->go_children.push_back(this);
 	}
 	go_name = name;
+	boundingBox_AA = AABB({ 0,0,0 }, { 0,0,0 });
 }
 
 GameObject::~GameObject()
@@ -50,12 +51,15 @@ void GameObject::Draw()
 {
 	if (go_active)
 	{
+		ComponentTransform* c_trans = nullptr;
+
 		for (int i = 0; i < go_components.size(); i++)
 		{
 			if (go_components[i]->active)
 			{
 				if (go_components[i]->type == Component::TRANSFORMATION)
 				{
+					c_trans = (ComponentTransform*)go_components[i];
 					go_components[i]->Update();
 				}
 				if (go_components[i]->type == Component::TEXTURE)
@@ -64,7 +68,10 @@ void GameObject::Draw()
 				}
 				if (go_components[i]->type == Component::MESH)
 				{
+					glPushMatrix();
+					glMultMatrixf((float*)c_trans->matrix_global.Transposed().v);
 					go_components[i]->Update();
+					glPopMatrix();
 				}
 			}
 		}
@@ -103,6 +110,22 @@ Component* GameObject::CreateComponent(Component::COMP_TYPE type)
 		break;
 	default:
 		break;
+	}
+
+	return comp;
+}
+
+Component* GameObject::GetComponent(Component::COMP_TYPE type)
+{
+	Component* comp = nullptr;
+
+	for (std::vector<Component*>::iterator it_c = go_components.begin(); it_c != go_components.end(); it_c++)
+	{
+		if ((*it_c)->type == type)
+		{
+			comp = *it_c;
+			break;
+		}
 	}
 
 	return comp;

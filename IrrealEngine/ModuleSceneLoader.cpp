@@ -197,6 +197,11 @@ bool ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* scene, ai
 
 				c_mesh->SetCompTexture(c_tex);
 			}
+			
+			gameobject->boundingBox_AA.SetNegativeInfinity();
+			gameobject->boundingBox_AA.Enclose((float3*)currentMesh->mVertices, currentMesh->mNumVertices);
+			gameobject->boundingBox_O.SetNegativeInfinity();
+			gameobject->boundingBox_O.SetFrom(gameobject->boundingBox_AA);
 		}
 	}
 

@@ -24,6 +24,7 @@ public:
 
 	void Draw();
 	GameObject* CreateGameObject();
+	void SetGlobalMatrix(GameObject* gameobject);
 
 public:
 	std::vector<GameObject*> game_objects;
