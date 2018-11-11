@@ -21,6 +21,7 @@ public:
 	//void DrawBB(const AABB& BB, vec3 color) const;
 
 	Component* CreateComponent(Component::COMP_TYPE type);
+	Component* GetComponent(Component::COMP_TYPE type);
 
 public:
 	bool go_active = true;

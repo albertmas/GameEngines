@@ -47,6 +47,8 @@ bool ModuleScene::Start()
 
 update_status ModuleScene::PreUpdate(float dt)
 {
+	SetGlobalMatrix(root);
+
 	return UPDATE_CONTINUE;
 }
 update_status ModuleScene::Update(float dt)
@@ -99,4 +101,20 @@ GameObject* ModuleScene::CreateGameObject()
 	game_objects.push_back(gameobject);
 
 	return gameobject;
+}
+
+void ModuleScene::SetGlobalMatrix(GameObject* gameobject)
+{
+	ComponentTransform* compTrans = (ComponentTransform*)gameobject->GetComponent(Component::TRANSFORMATION);
+
+	if (compTrans != nullptr)
+	{
+		if (gameobject->go_parent != nullptr)
+			compTrans->matrix_global = ((ComponentTransform*)gameobject->go_parent->GetComponent(Component::TRANSFORMATION))->matrix_global * compTrans->matrix_local;
+
+		for (int i = 0; i < gameobject->go_children.size(); i++)
+		{
+			SetGlobalMatrix(gameobject->go_children[i]);
+		}
+	}
 }
