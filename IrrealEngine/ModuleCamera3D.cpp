@@ -94,18 +94,7 @@ void ModuleCamera3D::LookAt( const float3 &Spot)
 
 
 // -----------------------------------------------------------------
-void ModuleCamera3D::Move(const float &Movement)
-{
-	float3 newPos(0, 0, 0);
 
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos += editor_camera->frustum.front * Movement;
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos -= editor_camera->frustum.front * Movement;
-
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= editor_camera->frustum.WorldRight() * Movement;
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += editor_camera->frustum.WorldRight() * Movement;
-
-	editor_camera->UpdatePosition(newPos);
-}
 
 void ModuleCamera3D::WheelMove(const float & mouse_speed, int direction)
 {
@@ -164,12 +153,23 @@ void ModuleCamera3D::Camera_Rot(const float dt)
 {
 	
 	HandleMouse(dt);
-	GetCurrentCam()->Position = GetCurrentCam()->Reference + GetCurrentCam()->Z * mult(GetCurrentCam()->Position); // need to adapt this line so it orbits
+	GetCurrentCam()->Position = GetCurrentCam()->Reference + GetCurrentCam()->Z * mult(GetCurrentCam()->Position);// need to adapt this line so it orbits
 	LookAt({ 0,0,0 });	
 	
 }
 
+void ModuleCamera3D::Move(const float &Movement)
+{
+	float3 newPos(0, 0, 0);
 
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos += editor_camera->frustum.front * Movement;
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos -= editor_camera->frustum.front * Movement;
+
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= editor_camera->frustum.WorldRight() * Movement;
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += editor_camera->frustum.WorldRight() * Movement;
+
+	editor_camera->UpdatePosition(newPos);
+}
 
 void ModuleCamera3D::CameraMovement(float dt)
 {
@@ -216,7 +216,7 @@ void ModuleCamera3D::CameraMovement(float dt)
 
 }
 
-void ModuleCamera3D::FocusBox(AABB & box)
+void ModuleCamera3D::FocusBox(AABB & box, float3 transform)
 {
 	Position.x = box.maxPoint.x;
 	Position.y = box.maxPoint.y;
@@ -230,6 +230,14 @@ void ModuleCamera3D::FocusBox(AABB & box)
 //	Y = Cross(Z, X);
 	//GetCurrentCam()->CalculateViewMatrix();
 	editor_camera->frustum.pos.Set(Position.x, Position.y, Position.z);
+
+	float3 look_at_pos{ 0,0,0 };
+
+	look_at_pos.x = box.CenterPoint().x + transform.x;
+	look_at_pos.y = box.CenterPoint().y + transform.y;
+	look_at_pos.z = box.CenterPoint().z + transform.z;
+
+	LookAt(look_at_pos);
 
 }
 

@@ -202,7 +202,7 @@ bool ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* scene, ai
 
 	if (App->camera->first_time == false)
 	{
-		App->camera->FocusBox(*ObjectBB);
+		App->camera->FocusBox(*ObjectBB, pos);
 	}
 	
 	App->camera->first_time = false;
