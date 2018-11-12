@@ -14,7 +14,7 @@ Camera::Camera()
 	frustum.up = (float3::unitY);
 	SetFOV(80);
 	frustum.nearPlaneDistance = 0.5;
-	frustum.farPlaneDistance = 30;
+	frustum.farPlaneDistance = 100;
 
 	frustum.type = FrustumType::PerspectiveFrustum;
 

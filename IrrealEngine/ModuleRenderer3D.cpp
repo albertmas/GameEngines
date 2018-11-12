@@ -180,6 +180,15 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	// We should render the geometry here
 	
+	if (App->camera->GetCurrentCam() != nullptr)
+	{
+
+		App->camera->editor_camera->UpdateProjectionMatrix();
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glLoadIdentity();
+		glMatrixMode(GL_MODELVIEW);
+		glLoadMatrixf(App->camera->editor_camera->GetViewMatrix());
+	}
 
 	//if (Cube)
 	//{
@@ -216,15 +225,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		DrawBB(*App->sceneloader->ObjectBB, { 0.0f, 1.0f, 0.0f });
 
 	//glBindTexture(GL_TEXTURE_2D, 0);
-	if (App->camera->GetCurrentCam() != nullptr)
-	{
-		
-		App->camera->editor_camera->UpdateProjectionMatrix();
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glLoadIdentity();
-		glMatrixMode(GL_MODELVIEW);
-		glLoadMatrixf(App->camera->editor_camera->GetViewMatrix());
-	}
+
 
 
 	App->scene->Draw();
