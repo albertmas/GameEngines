@@ -16,7 +16,7 @@ ComponentCamera::ComponentCamera()
 bool ComponentCamera::Start()
 {
 	ComponentTransform* trans = (ComponentTransform*)my_go->GetComponent(COMP_TYPE::TRANSFORMATION);
-
+	
 
 	return true;
 }

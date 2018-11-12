@@ -14,21 +14,6 @@
 
 ModuleCamera3D::ModuleCamera3D(bool start_enabled) : Module(start_enabled)
 {
-	/*
-	editor_camera = new Camera();
-	cams_list.push_back(editor_camera);
-
-	
-
-	GetCurrentCam()->X = float3(1.0f, 0.0f, 0.0f);
-	GetCurrentCam()->Y = float3(0.0f, 1.0f, 0.0f);
-	GetCurrentCam()->Z = float3(0.0f, 0.0f, 1.0f);
-
-	first_time = true;
-
-	GetCurrentCam()->Position = float3(0.0f, 5.0f, 10.0f);
-	GetCurrentCam()->Reference = float3(0.0f, 0.0f, 0.0f);
-*/
 
 }
 
