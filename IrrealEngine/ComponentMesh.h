@@ -2,11 +2,12 @@
 #define COMPONENT_MESH_H_
 
 #include "Component.h"
-
+#include "Mesh.h"
 
 class FBXMesh;
 class GameObject;
 class ComponentTexture;
+class Mesh;
 
 class ComponentMesh : public Component
 {
@@ -22,6 +23,8 @@ public:
 
 	bool Save(Document& document, FileWriteStream& fws) const override;
 	bool Load(Document& document) override;
+
+	Mesh* mesh;
 
 private:
 	FBXMesh* go_mesh = nullptr;

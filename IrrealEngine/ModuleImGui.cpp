@@ -408,20 +408,53 @@ void ModuleImGui::ConfigurationWindow()
 				aux_cam->frustum.pos = aux_pos;
 			
 			}
-		
+			float  a = aux_cam->GetAspectRatio();
+			if (ImGui::SliderFloat("Aspect Ratio", &a, 0.0f, 2.0f))
+			{
+			
+				aux_cam->SetAspectRatio(a);
+			
+			}
+
+			float  f = aux_cam->GetVerticalFOV();
+			if (ImGui::SliderFloat("FOV", &f, 45.0f, 90.0f))
+			{
+			
+				aux_cam->SetFOV(f);
+			
+			}
 			ImGui::Spacing();
+
+			float  np = aux_cam->GetNearPlane();
+			if (ImGui::SliderFloat("Near Plane", &np, 0.5, 10.0))
+			{
+			
+				aux_cam->SetNearPlane(np);
+				
+			}
+			ImGui::Spacing();
+
+			float  fp = aux_cam->GetFarPlane();
+			if (ImGui::SliderFloat("Far Plane", &fp, 50.0f, 1000.f))
+			{
+			
+				aux_cam->SetFarPlane(fp);
+			
+			}
+			ImGui::Spacing();
+			
 		
 			if (ImGui::Button("Reset"))
 			{
 				
 				App->camera->GetCurrentCam()->Position.Set(0, 5, 10);
-				App->camera->LookAt({ 0, 0, 0 });
+				App->camera->editor_camera->LookAt({ 0, 0, 0 });
 				
 
 			}
 			if (ImGui::Checkbox("Draw Frustum", &frustrum))
 			{
-				App->camera->editor_camera->DrawFrustum();
+				//aux_cam->DrawFrustum();
 			}
 
 

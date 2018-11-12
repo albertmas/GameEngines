@@ -34,6 +34,8 @@ public:
 	void DefineVerticesAndIndicesForACube(float3 _position, float size);
 	void DefineVerticesForASphere(float3 _position, float radius,uint secCount, uint stCount);
 
+	AABB bounding_box;
+
 	VertexData data;
 private:
 

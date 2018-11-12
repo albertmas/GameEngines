@@ -36,6 +36,7 @@ public:
 	float mult(const float3 &u);
 
 	Camera* GetCurrentCam()const;
+	void StartEditorCam();
 
 
 	bool first_time = false;

@@ -60,11 +60,11 @@ void GameObject::Draw()
 					go_components[i]->Update();
 				}
 
-				if (go_components[i]->type == Component::TEXTURE)
+				if (go_components[i]->type == COMP_TYPE::TEXTURE)
 				{
 					go_components[i]->Update();
 				}
-				if (go_components[i]->type == Component::MESH)
+				if (go_components[i]->type == COMP_TYPE::MESH)
 
 				{
 					go_components[i]->Update();
@@ -121,4 +121,37 @@ Component * GameObject::GetComponent(COMP_TYPE type)
 			return (*item);
 	}
 	return nullptr;
+}
+
+bool GameObject::IsStatic() const
+{
+	return go_static;
+}
+
+bool GameObject::HasMesh() const
+{
+	bool ret = false;
+	for (int i = 0; i < go_components.size(); i++)
+	{
+		if (go_components[i]->type == COMP_TYPE::MESH)
+			ret = true;
+	}
+	return ret;
+}
+
+AABB GameObject::GetBB()
+{
+	ComponentMesh* aux;
+	if (HasMesh())
+	{
+		aux = (ComponentMesh*)GetComponent(MESH);
+		return aux->mesh->bounding_box;
+	}
+	else
+		LOG("Can't return BB without a mesh");
+}
+
+bool GameObject::IsRoot() const
+{
+	return root_go;
 }

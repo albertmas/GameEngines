@@ -67,6 +67,13 @@ update_status ModuleCamera3D::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
+void ModuleCamera3D::StartEditorCam()
+{
+	editor_camera = new Camera();
+	
+}
+
+
 bool ModuleCamera3D::Save(Document& document, FileWriteStream& fws)
 {
 	bool ret = true;

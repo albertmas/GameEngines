@@ -8,60 +8,21 @@
 
 Camera::Camera()
 {
-	//CalculateViewMatrix();
-
-	//frustum.SetPos(float3(0, 1, -1));
-	//frustum.SetFront(float3(0, 0, 1));
-	//frustum.SetUp(float3(0, 1, 0));
-
-	//X = float3(1.0f, 0.0f, 0.0f);
-	//Y = float3(0.0f, 1.0f, 0.0f);
-	//Z = float3(0.0f, 0.0f, 1.0f);
-	//
-	//Position = float3(0.0f, -5.0f, 10.0f);
-	//Reference = float3(0.0f, 0.0f, 0.0f);
-
-	//frustum.horizontalFov = DegToRad(120);
-	//frustum.verticalFov = DegToRad(60);
-	//frustum.nearPlaneDistance = 0.5;//needs to be higher than 0.4
-	//frustum.farPlaneDistance = 800;
-
-	//frustum.type = FrustumType::PerspectiveFrustum;
-
-	//frustum.SetWorldMatrix(float3x4::identity);
-
-	//frustum.pos = float3(0, 0, 0);
-
-	//frustum.Translate(Position);
-
-	//CreateNewFrustum();
-
-
 
 	frustum.pos = (float3::zero);
 	frustum.front = (float3::unitZ);
 	frustum.up = (float3::unitY);
 	SetFOV(80);
-	frustum.nearPlaneDistance = 0.5;//needs to be higher than 0.4
-	frustum.farPlaneDistance = 1000;
+	frustum.nearPlaneDistance = 0.5;
+	frustum.farPlaneDistance = 30;
 
 	frustum.type = FrustumType::PerspectiveFrustum;
-
-	//frustum.SetWorldMatrix(float3x4::identity);
-
-
 
 	CreateNewFrustum();
 }
 
 Camera::~Camera()
 {
-}
-
-void Camera::SetPosition(const float3 & new_pos)
-{
-	frustum.SetPos(new_pos);
-	Position = frustum.pos;
 }
 
 
@@ -74,12 +35,6 @@ void Camera::SetUp(const float3 & up)
 {
 	frustum.up = up;
 }
-
-void Camera::SetReference(const float3 & new_pos)
-{
-	Reference = new_pos;
-}
-
 
 void Camera::SetFOV(const float & new_fov)
 {
@@ -171,7 +126,25 @@ void Camera::UpdateProjectionMatrix()
 	glLoadIdentity();
 }
 
+bool Camera::IsGameObjectInFrustum(AABB& bb, float3 translation)
+{
+	bool ret = true;
+	int num_vertices = bb.NumVertices();
+	for (int i = 0; i < 6; i++)
+	{
+		int outside_vertices = 0;
+		for (int j = 0; j < num_vertices; j++)
+		{
+			Plane plane = frustum.GetPlane(i);
+			if (plane.IsOnPositiveSide(bb.CornerPoint(j) + translation))
+				outside_vertices++;
+		}
+		if (outside_vertices == 8)
+			ret = false;
 
+	}
+	return ret;
+}
 
 bool Camera::IsCulling() const
 {
@@ -335,3 +308,5 @@ void Camera::DrawFrustum()
 	glEnd();
 
 }
+
+

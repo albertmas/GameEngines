@@ -3,7 +3,7 @@
 #include "Component.h"
 
 class ModuleCamera3D;
-
+class Camera;
 
 class ComponentCamera : public Component
 {
@@ -13,11 +13,11 @@ public:
 	virtual ~ComponentCamera();
 	bool Start();
 	bool Update()override;
-	ModuleCamera3D* GetCamera();
+	Camera* GetCamera();
 	void UpdatePos();
 
 public:
-	ModuleCamera3D * cam;
+	Camera * cam;
 
 };
 

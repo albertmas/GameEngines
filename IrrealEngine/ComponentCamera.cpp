@@ -10,12 +10,12 @@
 
 ComponentCamera::ComponentCamera()
 {
-
+	cam = new Camera();
 }
 
 bool ComponentCamera::Start()
 {
-	
+	ComponentTransform* trans = (ComponentTransform*)my_go->GetComponent(COMP_TYPE::TRANSFORMATION);
 
 
 	return true;
@@ -31,7 +31,7 @@ ComponentCamera::~ComponentCamera()
 {
 }
 
-ModuleCamera3D * ComponentCamera::GetCamera()
+Camera * ComponentCamera::GetCamera()
 {
 	return cam;
 }

@@ -15,15 +15,14 @@ public:
 	void SetCulling(bool culling);
 	Frustum GetFrustum()const;
 
-	void SetPosition(const float3& new_pos);
+//	void SetPosition(const float3& new_pos);
 	void SetFront(const float3& front);
-	void SetReference(const float3& new_pos);
 	void SetUp(const float3& new_pos);
 	void SetFOV(const float& new_fov);
 	void SetFarPlane(const float& new_fp);
 	void SetNearPlane(const float& new_np);
 	void SetAspectRatio(const float& new_ar);
-	float GetFOV()const;
+	//float GetFOV()const;
 	float GetVerticalFOV()const;
 	float GetHorizontalFOV()const;
 	float GetFarPlane()const;
@@ -34,6 +33,8 @@ public:
 	float* GetProjectionMatrix();
 	void UpdateProjectionMatrix();
 
+
+
 //	void CalculateViewMatrix();
 
 	// MOVEMENT
@@ -43,15 +44,13 @@ public:
 	void LookAt(const float3& Spot);
 	void HandleMouse(const float dt);
 	float3 X, Y, Z, Position, Reference;
-
+	bool IsGameObjectInFrustum(AABB& bb, float3 translation);
 	float3 Rotate(const float3 &u, float angle, const float3 &v);
 	
 	void CreateNewFrustum();
 	void DrawFrustum();
 	Frustum frustum;
 
-private:
-	float4x4 ViewMatrix, ViewMatrixInverse;
 
 private:
 	
