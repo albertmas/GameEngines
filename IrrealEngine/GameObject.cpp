@@ -63,11 +63,11 @@ void GameObject::Draw()
 					go_components[i]->Update();
 				}
 
-				if (go_components[i]->type == COMP_TYPE::TEXTURE)
+				if (go_components[i]->type == Component::TEXTURE)
 				{
 					go_components[i]->Update();
 				}
-				if (go_components[i]->type == COMP_TYPE::MESH)
+				if (go_components[i]->type == Component::MESH)
 
 				{
 					go_components[i]->Update();
@@ -107,7 +107,7 @@ Component* GameObject::CreateComponent(COMP_TYPE type)
 		comp = new ComponentTexture(this);
 		go_components.push_back(comp);
 		break;
-	case COMP_TYPE::CAMERA:
+	case Component::CAMERA:
 		comp = new ComponentCamera(this);
 		go_components.push_back(comp);
 		break;
