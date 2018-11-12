@@ -43,7 +43,8 @@ public:
 
 public:
 
-	GameObject * editor_camera = nullptr;
+	Camera * game_camera = nullptr;
+	Camera * editor_camera = nullptr;
 
 	std::vector<Camera*> cams_list;
 

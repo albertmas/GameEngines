@@ -10,24 +10,12 @@
 #include "Camera.h"
 #include "ComponentCamera.h"
 #include "GameObject.h"
-#include "ModuleScene.h"
 
 
 ModuleCamera3D::ModuleCamera3D(bool start_enabled) : Module(start_enabled)
 {
-	
-}
-
-ModuleCamera3D::~ModuleCamera3D()
-{}
-
-// -----------------------------------------------------------------
-bool ModuleCamera3D::Start()
-{
-	LOG("Setting up the camera");
-	bool ret = true;
-	editor_camera = new GameObject(editor_camera, "editor_cam");
-
+	editor_camera = new Camera();
+	cams_list.push_back(editor_camera);
 
 	GetCurrentCam()->CalculateViewMatrix();
 
@@ -40,8 +28,17 @@ bool ModuleCamera3D::Start()
 	GetCurrentCam()->Position = float3(0.0f, 5.0f, 10.0f);
 	GetCurrentCam()->Reference = float3(0.0f, 0.0f, 0.0f);
 
-	App->scene->game_objects.push_back(editor_camera);
 
+}
+
+ModuleCamera3D::~ModuleCamera3D()
+{}
+
+// -----------------------------------------------------------------
+bool ModuleCamera3D::Start()
+{
+	LOG("Setting up the camera");
+	bool ret = true;
 
 	return ret;
 }
@@ -63,7 +60,6 @@ update_status ModuleCamera3D::Update(float dt)
 
 	CameraMovement(dt);
 
-	editor_camera->GetCamera()->DrawFrustum();
 	
 	
 	return UPDATE_CONTINUE;
@@ -85,58 +81,51 @@ bool ModuleCamera3D::Load(Document& document)
 // -----------------------------------------------------------------
 void ModuleCamera3D::Look(const float3 &Position, const float3 &Reference, bool RotateAroundReference)
 {
-	ComponentCamera* aux = (ComponentCamera*)editor_camera->GetComponent(CAMERA);
-	aux->cam->Look(Position, Reference, RotateAroundReference);
+	editor_camera->Look(Position, Reference, RotateAroundReference);
 }
 
 // -----------------------------------------------------------------
 void ModuleCamera3D::LookAt( const float3 &Spot)
 {
-	ComponentCamera* aux = (ComponentCamera*)editor_camera->GetComponent(CAMERA);
-	aux->cam->LookAt(Spot);
+	editor_camera->LookAt(Spot);
 }
 
 
 // -----------------------------------------------------------------
 void ModuleCamera3D::Move(const float3 &Movement)
 {
-	ComponentCamera* aux = (ComponentCamera*)editor_camera->GetComponent(CAMERA);
-
 	float3 newPos(0, 0, 0);
 
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= aux->cam->Z.Mul(Movement);
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += aux->cam->Z.Mul(Movement);
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= editor_camera->Z.Mul(Movement);
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += editor_camera->Z.Mul(Movement);
 
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= aux->cam->X.Mul(Movement);
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += aux->cam->X.Mul(Movement);
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= editor_camera->X.Mul(Movement);
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += editor_camera->X.Mul(Movement);
 
-	aux->cam->UpdatePosition(newPos);
+	editor_camera->UpdatePosition(newPos);
 }
 
 void ModuleCamera3D::WheelMove(const float3 & mouse_speed, int direction)
 {
-	ComponentCamera* aux = (ComponentCamera*)editor_camera->GetComponent(CAMERA);
-
 	float3 newPos(0, 0, 0);
 
 	if (direction == 1)
-		newPos -= aux->cam->Z.Mul(mouse_speed);
+		newPos -= editor_camera->Z.Mul(mouse_speed);
 	else
-		newPos += aux->cam->Z.Mul(mouse_speed);
+		newPos += editor_camera->Z.Mul(mouse_speed);
 
-	aux->cam->UpdatePosition(newPos);
+	editor_camera->UpdatePosition(newPos);
 
 }
 
 void ModuleCamera3D::MoveCam(const float3 &speed)
 {
-	ComponentCamera* aux = (ComponentCamera*)editor_camera->GetComponent(CAMERA);
-
+	
 	float3 newPos(speed.x, speed.y, speed.z);
 
 
-	aux->cam->SetPosition(newPos);
-	aux->cam->SetReference(newPos);
+	editor_camera->SetPosition(newPos);
+	editor_camera->SetReference(newPos);
 }
 
 // -----------------------------------------------------------------
@@ -147,8 +136,7 @@ float* ModuleCamera3D::GetViewMatrix()
 
 Camera * ModuleCamera3D::GetCurrentCam() const
 {
-	ComponentCamera* aux = (ComponentCamera*)editor_camera->GetComponent(CAMERA);
-	return aux->cam;
+	return editor_camera;
 }
 
 
@@ -156,8 +144,7 @@ Camera * ModuleCamera3D::GetCurrentCam() const
 
 void ModuleCamera3D::HandleMouse()
 {
-	ComponentCamera* aux = (ComponentCamera*)editor_camera->GetComponent(CAMERA);
-	aux->cam->HandleMouse();
+	editor_camera->HandleMouse();
 }
 
 void ModuleCamera3D::Camera_Rot()
