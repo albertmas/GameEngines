@@ -235,24 +235,28 @@ void Camera::UpdatePosition(float3 newpos)
 
 void Camera::HandleMouse(const float dt)
 {
-	float Sensitivity = 0.01f;
+	
 
 	// Look around
-	int dx = -App->input->GetMouseXMotion() * Sensitivity * dt;
-	int dy = -App->input->GetMouseYMotion() * Sensitivity * dt;
+	float dx = -App->input->GetMouseXMotion() * App->camera->GetMouseSensitivity() * dt;
+	float dy = -App->input->GetMouseYMotion() * App->camera->GetMouseSensitivity() * dt;
 
 
 
 	Frustum* editor_frustum = &App->camera->editor_camera->frustum;
+
 	if (dx != 0)
 	{
+	
 		Quat X_rot = Quat::RotateY(dx);
 		editor_frustum->front = X_rot.Mul(editor_frustum->front).Normalized();
 		editor_frustum->up = X_rot.Mul(editor_frustum->up).Normalized();
+	
 	}
 
 	if (dy != 0)
 	{
+		
 		Quat rotation_y = Quat::RotateAxisAngle(editor_frustum->WorldRight(), dy);
 
 		float3 new_up = rotation_y.Mul(editor_frustum->up).Normalized();
@@ -266,10 +270,10 @@ void Camera::HandleMouse(const float dt)
 
 }
 
-//float3 Camera::Rotate(const float3 & u, float angle, const float3 & v)
-//{
-//	return *(float3*)&(float4x4::RotateAxisAngle(v, angle) * float4(u, 1.0f));
-//}
+float3 Camera::Rotate(const float3 & u, float angle, const float3 & v)
+{
+	return *(float3*)&(float4x4::RotateAxisAngle(v, angle) * float4(u, 1.0f));
+}
 
 void Camera::CreateNewFrustum()
 {

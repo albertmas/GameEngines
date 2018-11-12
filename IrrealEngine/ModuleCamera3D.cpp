@@ -153,13 +153,18 @@ Camera * ModuleCamera3D::GetCurrentCam() const
 void ModuleCamera3D::HandleMouse(const float dt)
 {
 	editor_camera->HandleMouse(dt);
+
 }
 
+float ModuleCamera3D::GetMouseSensitivity() const
+{
+	return mouse_sensitivity;
+}
 void ModuleCamera3D::Camera_Rot(const float dt)
 {
 	
 	HandleMouse(dt);
-	GetCurrentCam()->Position = GetCurrentCam()->Reference + GetCurrentCam()->Z * mult(GetCurrentCam()->Position);
+	GetCurrentCam()->Position = GetCurrentCam()->Reference + GetCurrentCam()->Z * mult(GetCurrentCam()->Position); // need to adapt this line so it orbits
 	LookAt({ 0,0,0 });	
 	
 }
@@ -175,7 +180,7 @@ void ModuleCamera3D::CameraMovement(float dt)
 		speed *= 2;
 
 
-	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+	else if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
 		HandleMouse(dt);
 		Move(speed);
@@ -188,14 +193,14 @@ void ModuleCamera3D::CameraMovement(float dt)
 		WheelMove(wheel_speed, wheel);
 
 	// Look at mesh (currently centered)
-	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
+	else if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
 		LookAt({ 0,0,0 });
 		// Adapt position depending on size of the mesh
 	}
 
 	// Mouse motion ----------------
 
-	if ((App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT)))
+	else if ((App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT)))
 	{
 		Camera_Rot(dt);
 		//Position = Reference + Z * length(Position);

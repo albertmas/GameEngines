@@ -44,7 +44,7 @@ public:
 	void HandleMouse(const float dt);
 	float3 X, Y, Z, Position, Reference;
 
-	//float3 Rotate(const float3 &u, float angle, const float3 &v);
+	float3 Rotate(const float3 &u, float angle, const float3 &v);
 	
 	void CreateNewFrustum();
 	void DrawFrustum();

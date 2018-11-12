@@ -30,6 +30,7 @@ public:
 	void CameraMovement(float dt);
 	void WheelMove(const float &mouse_speed, int direction);
 	void HandleMouse(const float dt);
+	float GetMouseSensitivity() const;
 	void FocusBox(AABB & box);
 	float* GetViewMatrix();
 	float mult(const float3 &u);
@@ -53,7 +54,7 @@ public:
 
 
 private:
-
+	float mouse_sensitivity = 0.2f;
 	float wheel_speed_base = 4.0f;
 
 private:
