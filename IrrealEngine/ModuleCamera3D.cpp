@@ -14,6 +14,7 @@
 
 ModuleCamera3D::ModuleCamera3D(bool start_enabled) : Module(start_enabled)
 {
+	/*
 	editor_camera = new Camera();
 	cams_list.push_back(editor_camera);
 
@@ -27,7 +28,7 @@ ModuleCamera3D::ModuleCamera3D(bool start_enabled) : Module(start_enabled)
 
 	GetCurrentCam()->Position = float3(0.0f, 5.0f, 10.0f);
 	GetCurrentCam()->Reference = float3(0.0f, 0.0f, 0.0f);
-
+*/
 
 }
 
@@ -59,7 +60,8 @@ update_status ModuleCamera3D::Update(float dt)
 
 
 	CameraMovement(dt);
-	editor_camera->DrawFrustum();
+	if (App->imgui->frustrum)
+		editor_camera->DrawFrustum();
 	
 	
 	return UPDATE_CONTINUE;
@@ -126,7 +128,7 @@ void ModuleCamera3D::MoveCam(const float3 &speed)
 
 	/*float3 newPos(speed.x, speed.y, speed.z);
 
-	                                                               DESCOMANETAR AVERE QUE PASA
+	                                                           
 	editor_camera->SetPosition(newPos);
 	editor_camera->SetReference(newPos);*/
 }

@@ -51,6 +51,7 @@ public:
 	float3 X = { 0, 0, 0 }, Y = { 0, 0, 0 }, Z = { 0, 0, 0 }, Position = { 0, 0, 0 }, Reference = { 0, 0, 0 };
 	bool focus = false;
 
+
 private:
 
 	float wheel_speed_base = 4.0f;

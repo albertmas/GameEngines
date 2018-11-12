@@ -9,7 +9,7 @@
 #include "ModulePhysics3D.h"
 #include "ModuleSceneLoader.h"
 #include "ModuleScene.h"
-
+#include "ModuleCamera3D.h"
 #include "Assimp/include/version.h"
 #include "DevIL/include/il.h"
 
@@ -399,8 +399,18 @@ void ModuleImGui::ConfigurationWindow()
 
 		if (ImGui::CollapsingHeader("Camera"))
 		{
+			Camera* aux_cam = App->camera->editor_camera;
 			
+			float3 aux_pos = aux_cam->frustum.pos;
+			if (ImGui::SliderFloat3("Position", (float*)&aux_pos, -100.0f, 100.0f))
+			{
+				
+				aux_cam->frustum.pos = aux_pos;
+			
+			}
+		
 			ImGui::Spacing();
+		
 			if (ImGui::Button("Reset"))
 			{
 				
@@ -409,6 +419,11 @@ void ModuleImGui::ConfigurationWindow()
 				
 
 			}
+			if (ImGui::Checkbox("Draw Frustum", &frustrum))
+			{
+				App->camera->editor_camera->DrawFrustum();
+			}
+
 
 
 		}

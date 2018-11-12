@@ -217,6 +217,8 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	//glBindTexture(GL_TEXTURE_2D, 0);
 
+
+
 	App->scene->Draw();
 	App->imgui->DrawImgui();
 

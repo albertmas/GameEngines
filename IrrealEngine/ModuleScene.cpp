@@ -28,8 +28,8 @@ bool ModuleScene::Init(Document& document)
 	LOG("Loading Plane");
 	bool ret = true;
 
-	App->camera->Move(float(0.0f));
-	App->camera->LookAt(float3(0.0f, 0.0f, 0.0f));
+	//App->camera->Move(float(0.0f));
+	//App->camera->LookAt(float3(0.0f, 0.0f, 0.0f));
 
 	return ret;
 }
@@ -40,6 +40,7 @@ bool ModuleScene::Start()
 	root->go_static = true;
 	game_objects.push_back(root);
 	ComponentTransform* root_trans = (ComponentTransform*)root->CreateComponent(COMP_TYPE::TRANSFORMATION);
+	App->camera->editor_camera = new Camera();
 
 	App->sceneloader->ImportMesh("Assets/BakerHouse/BakerHouse.fbx");
 

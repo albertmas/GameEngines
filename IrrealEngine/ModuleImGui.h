@@ -86,7 +86,7 @@ public:
 	std::string selected_file_path = "";
 	std::string selected_file_type = "";
 
-private:
+public:
 	bool fullscreen = false;
 	bool resizable = false;
 	bool borderless = false;
@@ -96,6 +96,8 @@ private:
 	bool loadfile = false;
 
 	bool scrollconsole = false;
+	
+	bool frustrum = false;
 
 	int config_width = 300;
 	int inspector_width = 250;

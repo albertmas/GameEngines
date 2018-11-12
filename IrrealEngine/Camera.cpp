@@ -228,7 +228,7 @@ void Camera::LookAt(const float3 &Spot)
 void Camera::UpdatePosition(float3 newpos)
 {
 	//Position += newpos;
-	//Reference += newpos;                      // Provar descomentar
+	//Reference += newpos;                     
 	frustum.Translate(newpos);
 }
 
