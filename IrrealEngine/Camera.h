@@ -3,6 +3,7 @@
 
 #include "MathGeoLib/MathGeoLib.h"
 
+class GameObject;
 class Camera {
 
 public:
@@ -15,6 +16,7 @@ public:
 	Frustum GetFrustum()const;
 
 	void SetPosition(const float3& new_pos);
+	void SetFront(const float3& front);
 	void SetReference(const float3& new_pos);
 	void SetUp(const float3& new_pos);
 	void SetFOV(const float& new_fov);
@@ -30,27 +32,29 @@ public:
 
 	float* GetViewMatrix();
 	float* GetProjectionMatrix();
+	void UpdateProjectionMatrix();
 
-	void CalculateViewMatrix();
+//	void CalculateViewMatrix();
 
 	// MOVEMENT
 
 	void UpdatePosition(float3 newpos);
 	void Look(const float3 &Position, const float3 &Reference, bool RotateAroundReference = false);
 	void LookAt(const float3& Spot);
-	void HandleMouse();
+	void HandleMouse(const float dt);
 	float3 X, Y, Z, Position, Reference;
 
-	float3 Rotate(const float3 &u, float angle, const float3 &v);
+	//float3 Rotate(const float3 &u, float angle, const float3 &v);
 	
 	void CreateNewFrustum();
-	
+	void DrawFrustum();
+	Frustum frustum;
 
 private:
 	float4x4 ViewMatrix, ViewMatrixInverse;
 
 private:
-	Frustum frustum;
+	
 	float	aspect_ratio = 0.0f;
 	float   vertical_fov = 0.0f;
 	float3 frustum_vertices[8];

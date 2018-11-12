@@ -8,31 +8,48 @@
 
 Camera::Camera()
 {
-	CalculateViewMatrix();
+	//CalculateViewMatrix();
 
-	frustum.SetPos(float3(0, 1, -1));
-	frustum.SetFront(float3(0, 0, 1));
-	frustum.SetUp(float3(0, 1, 0));
+	//frustum.SetPos(float3(0, 1, -1));
+	//frustum.SetFront(float3(0, 0, 1));
+	//frustum.SetUp(float3(0, 1, 0));
 
-	X = float3(1.0f, 0.0f, 0.0f);
-	Y = float3(0.0f, 1.0f, 0.0f);
-	Z = float3(0.0f, 0.0f, 1.0f);
-	
-	Position = float3(0.0f, -5.0f, 10.0f);
-	Reference = float3(0.0f, 0.0f, 0.0f);
+	//X = float3(1.0f, 0.0f, 0.0f);
+	//Y = float3(0.0f, 1.0f, 0.0f);
+	//Z = float3(0.0f, 0.0f, 1.0f);
+	//
+	//Position = float3(0.0f, -5.0f, 10.0f);
+	//Reference = float3(0.0f, 0.0f, 0.0f);
 
-	frustum.horizontalFov = DegToRad(120);
-	frustum.verticalFov = DegToRad(60);
+	//frustum.horizontalFov = DegToRad(120);
+	//frustum.verticalFov = DegToRad(60);
+	//frustum.nearPlaneDistance = 0.5;//needs to be higher than 0.4
+	//frustum.farPlaneDistance = 800;
+
+	//frustum.type = FrustumType::PerspectiveFrustum;
+
+	//frustum.SetWorldMatrix(float3x4::identity);
+
+	//frustum.pos = float3(0, 0, 0);
+
+	//frustum.Translate(Position);
+
+	//CreateNewFrustum();
+
+
+
+	frustum.pos = (float3::zero);
+	frustum.front = (float3::unitZ);
+	frustum.up = (float3::unitY);
+	SetFOV(80);
 	frustum.nearPlaneDistance = 0.5;//needs to be higher than 0.4
-	frustum.farPlaneDistance = 800;
+	frustum.farPlaneDistance = 1000;
 
 	frustum.type = FrustumType::PerspectiveFrustum;
 
-	frustum.SetWorldMatrix(float3x4::identity);
+	//frustum.SetWorldMatrix(float3x4::identity);
 
-	frustum.pos = float3(0, 0, 0);
 
-	frustum.Translate(Position);
 
 	CreateNewFrustum();
 }
@@ -47,33 +64,57 @@ void Camera::SetPosition(const float3 & new_pos)
 	Position = frustum.pos;
 }
 
+
+void Camera::SetFront(const float3 & front)
+{
+	frustum.pos = front;
+}
+
+void Camera::SetUp(const float3 & up)
+{
+	frustum.up = up;
+}
+
 void Camera::SetReference(const float3 & new_pos)
 {
 	Reference = new_pos;
 }
 
-void Camera::SetUp(const float3 & up)
-{
-	frustum.SetUp(up);
-}
+
 void Camera::SetFOV(const float & new_fov)
 {
-	
+	if (new_fov <= 0)
+	{
+		LOG("Can't set a fov of negative value : %d", new_fov);
+	}
+	else
+	{
+		frustum.verticalFov = new_fov * DEGTORAD;
+		frustum.horizontalFov = math::Atan(aspect_ratio * math::Tan(frustum.verticalFov / 2)) * 2;
+	}
 }
 
 void Camera::SetFarPlane(const float & new_fp)
 {
-	
+	frustum.farPlaneDistance = new_fp;
 }
 
 void Camera::SetNearPlane(const float & new_np)
 {
-	
+	frustum.nearPlaneDistance = new_np;
 }
 
 void Camera::SetAspectRatio(const float & new_ar)
 {
-	
+	if (new_ar <= 0)
+	{
+		LOG("Can't set a fov of negative value : %d", new_ar);
+	}
+	else
+	{
+		aspect_ratio = new_ar;
+		frustum.horizontalFov = math::Atan(aspect_ratio * math::Tan(frustum.verticalFov / 2)) * 2;
+	}
 }
 
 float Camera::GetVerticalFOV() const
@@ -103,13 +144,34 @@ float Camera::GetAspectRatio() const
 
 float* Camera::GetViewMatrix()
 {
-	return  &ViewMatrix[0][0];
+	static float4x4 matrix;
+	matrix = frustum.ViewMatrix();
+	matrix.Transpose();
+
+	return (float*)matrix.v;
 }
 
 float * Camera::GetProjectionMatrix()
 {
-	return nullptr;
+	static float4x4 matrix;
+	matrix = frustum.ProjectionMatrix();
+	matrix.Transpose();
+
+	return (float*)matrix.v;
 }
+
+void Camera::UpdateProjectionMatrix()
+{
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	glLoadMatrixf(GetProjectionMatrix());
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+}
+
+
 
 bool Camera::IsCulling() const
 {
@@ -128,7 +190,7 @@ Frustum Camera::GetFrustum()const
 
 void Camera::Look(const float3 &Position, const float3 &Reference, bool RotateAroundReference)
 {
-	this->Position = Position;
+	/*this->Position = Position;
 	this->Reference = Reference;
 
 	float3 diff = Position - Reference;
@@ -143,74 +205,129 @@ void Camera::Look(const float3 &Position, const float3 &Reference, bool RotateAr
 		this->Position += Z * 0.05f;
 	}
 
-	CalculateViewMatrix();
+	CalculateViewMatrix();*/
 }
 
 void Camera::LookAt(const float3 &Spot)
 {
-	Reference = Spot;
+	Frustum* editor_frustum = &App->camera->editor_camera->frustum;
+	float3 direction = Spot - editor_frustum->pos;
 
-	float3 diff = Position - Reference;
-	Z = diff.Normalized();
-	float3 YcrossZ = float3(0.0f, 1.0f, 0.0f).Cross(Z);
-	X = YcrossZ.Normalized();
-	Y = Z.Cross(X);
+	float3x3 matrix = float3x3::LookAt(editor_frustum->front, direction.Normalized(), editor_frustum->up, float3::unitY);
 
-	CalculateViewMatrix();
+	editor_frustum->front = matrix.MulDir(editor_frustum->front).Normalized();
+	editor_frustum->up = matrix.MulDir(editor_frustum->up).Normalized();
 }
 
-void Camera::CalculateViewMatrix()
-{
-	ViewMatrix = float4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -X.Dot(Position), -Y.Dot(Position), -Z.Dot(Position), 1.0f);
-	ViewMatrixInverse = ViewMatrix.Inverted();
-}
+//void Camera::CalculateViewMatrix()
+//{
+//	ViewMatrix = float4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -X.Dot(Position), -Y.Dot(Position), -Z.Dot(Position), 1.0f);
+//	ViewMatrixInverse = ViewMatrix.Inverted();
+//}
 
 void Camera::UpdatePosition(float3 newpos)
 {
-	Position += newpos;
-	Reference += newpos;
+	//Position += newpos;
+	//Reference += newpos;                      // Provar descomentar
+	frustum.Translate(newpos);
 }
 
 
-void Camera::HandleMouse()
+void Camera::HandleMouse(const float dt)
 {
-	// Look around
-	int dx = -App->input->GetMouseXMotion();
-	int dy = -App->input->GetMouseYMotion();
-
 	float Sensitivity = 0.01f;
 
+	// Look around
+	int dx = -App->input->GetMouseXMotion() * Sensitivity * dt;
+	int dy = -App->input->GetMouseYMotion() * Sensitivity * dt;
+
+
+
+	Frustum* editor_frustum = &App->camera->editor_camera->frustum;
 	if (dx != 0)
 	{
-		float DeltaX = (float)dx * Sensitivity;
-
-		X = Rotate(X, DeltaX, float3(0.0f, 1.0f, 0.0f));
-		Y = Rotate(Y, DeltaX, float3(0.0f, 1.0f, 0.0f));
-		Z = Rotate(Z, DeltaX, float3(0.0f, 1.0f, 0.0f));
+		Quat X_rot = Quat::RotateY(dx);
+		editor_frustum->front = X_rot.Mul(editor_frustum->front).Normalized();
+		editor_frustum->up = X_rot.Mul(editor_frustum->up).Normalized();
 	}
 
 	if (dy != 0)
 	{
-		float DeltaY = (float)dy * Sensitivity;
+		Quat rotation_y = Quat::RotateAxisAngle(editor_frustum->WorldRight(), dy);
 
-		Y = Rotate(Y, DeltaY, X);
-		Z = Rotate(Z, DeltaY, X);
+		float3 new_up = rotation_y.Mul(editor_frustum->up).Normalized();
 
-		if (Y.y < 0.0f)
+		if (new_up.y > 0.0f)
 		{
-			Z = float3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
-			Y = Cross(Z, X);
+			editor_frustum->up = new_up;
+			editor_frustum->front = rotation_y.Mul(editor_frustum->front).Normalized();
 		}
 	}
 
 }
 
-float3 Camera::Rotate(const float3 & u, float angle, const float3 & v)
-{
-	return *(float3*)&(float4x4::RotateAxisAngle(v, angle) * float4(u, 1.0f));
-}
+//float3 Camera::Rotate(const float3 & u, float angle, const float3 & v)
+//{
+//	return *(float3*)&(float4x4::RotateAxisAngle(v, angle) * float4(u, 1.0f));
+//}
 
 void Camera::CreateNewFrustum()
 {
 	frustum.GetCornerPoints(frustum_vertices);
+}
+
+
+void Camera::DrawFrustum()
+{
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+	glBegin(GL_LINES);
+
+	glVertex3fv((GLfloat*)&frustum_vertices[1]);
+	glVertex3fv((GLfloat*)&frustum_vertices[5]);
+	glVertex3fv((GLfloat*)&frustum_vertices[7]);
+	glVertex3fv((GLfloat*)&frustum_vertices[3]);
+
+	glVertex3fv((GLfloat*)&frustum_vertices[3]);
+	glVertex3fv((GLfloat*)&frustum_vertices[1]);
+
+	glVertex3fv((GLfloat*)&frustum_vertices[4]);
+	glVertex3fv((GLfloat*)&frustum_vertices[0]);
+	glVertex3fv((GLfloat*)&frustum_vertices[2]);
+	glVertex3fv((GLfloat*)&frustum_vertices[6]);
+
+	glVertex3fv((GLfloat*)&frustum_vertices[6]);
+	glVertex3fv((GLfloat*)&frustum_vertices[4]);
+
+	glVertex3fv((GLfloat*)&frustum_vertices[5]);
+	glVertex3fv((GLfloat*)&frustum_vertices[4]);
+	glVertex3fv((GLfloat*)&frustum_vertices[6]);
+	glVertex3fv((GLfloat*)&frustum_vertices[7]);
+
+	glVertex3fv((GLfloat*)&frustum_vertices[7]);
+	glVertex3fv((GLfloat*)&frustum_vertices[5]);
+
+	glVertex3fv((GLfloat*)&frustum_vertices[0]);
+	glVertex3fv((GLfloat*)&frustum_vertices[1]);
+	glVertex3fv((GLfloat*)&frustum_vertices[3]);
+	glVertex3fv((GLfloat*)&frustum_vertices[2]);
+
+	glVertex3fv((GLfloat*)&frustum_vertices[2]);
+	glVertex3fv((GLfloat*)&frustum_vertices[6]);
+
+	glVertex3fv((GLfloat*)&frustum_vertices[3]);
+	glVertex3fv((GLfloat*)&frustum_vertices[7]);
+	glVertex3fv((GLfloat*)&frustum_vertices[6]);
+	glVertex3fv((GLfloat*)&frustum_vertices[2]);
+
+	glVertex3fv((GLfloat*)&frustum_vertices[2]);
+	glVertex3fv((GLfloat*)&frustum_vertices[0]);
+
+	glVertex3fv((GLfloat*)&frustum_vertices[0]);
+	glVertex3fv((GLfloat*)&frustum_vertices[4]);
+	glVertex3fv((GLfloat*)&frustum_vertices[5]);
+	glVertex3fv((GLfloat*)&frustum_vertices[1]);
+
+	glEnd();
+
 }

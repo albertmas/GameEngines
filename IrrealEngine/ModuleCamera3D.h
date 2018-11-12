@@ -24,12 +24,12 @@ public:
 
 	void Look(const float3 &Position, const float3 &Reference, bool RotateAroundReference = false);
 	void LookAt(const float3 &Spot);
-	void Move(const float3 &Movement);
-	void Camera_Rot();
+	void Move(const float &Movement);
+	void Camera_Rot(const float dt);
 	void MoveCam(const float3 &speed);
 	void CameraMovement(float dt);
-	void WheelMove(const float3 &mouse_speed, int direction);
-	void HandleMouse();
+	void WheelMove(const float &mouse_speed, int direction);
+	void HandleMouse(const float dt);
 	void FocusBox(AABB & box);
 	float* GetViewMatrix();
 	float mult(const float3 &u);
@@ -43,7 +43,7 @@ public:
 
 public:
 
-	Camera * game_camera = nullptr;
+	//Camera * game_camera = nullptr;
 	Camera * editor_camera = nullptr;
 
 	std::vector<Camera*> cams_list;
