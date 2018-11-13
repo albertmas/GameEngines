@@ -9,6 +9,7 @@
 #include "ModulePhysics3D.h"
 #include "ModuleSceneLoader.h"
 #include "ModuleScene.h"
+#include "GameObject.h"
 #include "Assimp/include/version.h"
 #include "DevIL/include/il.h"
 

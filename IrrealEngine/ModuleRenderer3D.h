@@ -70,6 +70,7 @@ public:
 	void FunctionsRender();
 	void CreateCube();
 	void DrawBB(AABB bounding_box, float3 color)const;
+	void DrawBB(OBB bounding_box, float3 color)const;
 	
 
 	void Active_Wireframe(bool active);

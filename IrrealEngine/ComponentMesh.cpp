@@ -54,7 +54,10 @@ bool ComponentMesh::Update()
 		glDisableClientState(GL_VERTEX_ARRAY);
 
 		if (App->renderer3D->BB)
-			App->renderer3D->DrawBB(go_mesh->bounding_box, { 1, 0, 0 });
+		{
+			App->renderer3D->DrawBB(my_go->boundingBox_AA, { 1, 0, 0 });
+			App->renderer3D->DrawBB(my_go->boundingBox_O, { 0, 1, 0 });
+		}
 
 		if (App->renderer3D->GetNormals())
 		{
