@@ -446,9 +446,11 @@ void ModuleImGui::ConfigurationWindow()
 		
 			if (ImGui::Button("Reset"))
 			{
+				aux_cam->frustum.pos =  (float3(2,3,9));
 				aux_cam->SetFOV(80);
 				aux_cam->SetNearPlane(0.5);
 				aux_cam->SetFarPlane(1000);
+				aux_cam->SetAspectRatio(1.6);
 
 				App->camera->GetCurrentCam()->Position.Set(0, 5, 10);
 				App->camera->editor_camera->LookAt({ 0, 0, 0 });

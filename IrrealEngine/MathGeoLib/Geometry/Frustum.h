@@ -97,6 +97,8 @@ public:
 	/// The normalized direction this frustum is watching towards. [similarOverload: type]
 	/** This vector is specified in world (global) space. This vector is always normalized.
 		If you assign to this member directly, be sure to only assign normalized vectors. */
+	float3 X, Y, Z, Reference;
+
 	float3 front;
 	/// The normalized up direction for this frustum. [similarOverload: type]
 	/** This vector is specified in world (global) space. This vector is always normalized.

@@ -145,7 +145,9 @@ void ModuleCamera3D::Camera_Rot(const float dt)
 {
 	
 	HandleMouse(dt);
+
 	GetCurrentCam()->Position = GetCurrentCam()->Reference + GetCurrentCam()->Z * mult(GetCurrentCam()->Position);// need to adapt this line so it orbits
+	
 	LookAt({ 0,0,0 });	
 	
 }
