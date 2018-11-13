@@ -44,6 +44,9 @@ bool ModuleScene::Start()
 
 
 	App->camera->StartEditorCam();
+	App->camera->StartGameCam();
+
+	App->camera->game_camera->Position = (float3(1,1,1));
 
 	App->sceneloader->ImportMesh("Assets/BakerHouse/BakerHouse.fbx");
 	

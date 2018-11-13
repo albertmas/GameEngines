@@ -14,6 +14,7 @@ class GameObject
 {
 public:
 	GameObject(GameObject* parent, const char* name);
+	GameObject();
 	~GameObject();
 
 	bool Init();

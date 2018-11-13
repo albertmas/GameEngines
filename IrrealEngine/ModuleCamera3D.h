@@ -37,6 +37,7 @@ public:
 
 	Camera* GetCurrentCam()const;
 	void StartEditorCam();
+	void StartGameCam();
 
 
 	bool first_time = false;
@@ -45,7 +46,7 @@ public:
 
 public:
 
-	//Camera * game_camera = nullptr;
+	Camera * game_camera = nullptr;
 	Camera * editor_camera = nullptr;
 
 	std::vector<Camera*> cams_list;

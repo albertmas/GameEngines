@@ -16,6 +16,9 @@ GameObject::GameObject(GameObject* parent, const char* name)
 	go_name = name;
 }
 
+GameObject::GameObject()
+{
+}
 GameObject::~GameObject()
 {
 	for (int i = 0; i < go_components.size(); i++)

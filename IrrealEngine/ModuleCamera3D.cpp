@@ -45,8 +45,10 @@ update_status ModuleCamera3D::Update(float dt)
 
 
 	CameraMovement(dt);
-	if (App->imgui->frustrum)
+	if (App->imgui->frustrum) {
+		game_camera->DrawFrustum();
 		editor_camera->DrawFrustum();
+	}
 	
 	
 	return UPDATE_CONTINUE;
@@ -56,6 +58,12 @@ void ModuleCamera3D::StartEditorCam()
 {
 	editor_camera = new Camera();
 	
+}
+
+void ModuleCamera3D::StartGameCam()
+{
+	game_camera = new Camera();
+
 }
 
 

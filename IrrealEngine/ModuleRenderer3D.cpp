@@ -180,14 +180,28 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	// We should render the geometry here
 	
-	if (App->camera->GetCurrentCam() != nullptr)
+	if (App->camera->GetCurrentCam() != nullptr && App->camera->GetCurrentCam() == App->camera->editor_camera) // Checks  current cam  & if we are using editor camera
 	{
-
+		
 		App->camera->editor_camera->UpdateProjectionMatrix();
+		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
 		glMatrixMode(GL_MODELVIEW);
+		
 		glLoadMatrixf(App->camera->editor_camera->GetViewMatrix());
+		
+	}
+	if (App->camera->GetCurrentCam() != nullptr && App->camera->GetCurrentCam() != App->camera->editor_camera) // Checks current cam & if editor camera null gets game_camera
+	{
+		App->camera->game_camera->UpdateProjectionMatrix();
+
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glLoadIdentity();
+		glMatrixMode(GL_MODELVIEW);
+
+		glLoadMatrixf(App->camera->game_camera->GetViewMatrix());
+
 	}
 
 	//if (Cube)
