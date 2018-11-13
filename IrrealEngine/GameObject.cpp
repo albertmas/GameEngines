@@ -102,11 +102,6 @@ void GameObject::Draw()
 	}
 }
 
-//void GameObject::DrawBB(const AABB& BB, vec3 color) const
-//{
-//
-//}
-
 Component* GameObject::CreateComponent(Component::COMP_TYPE type)
 {
 	Component* comp = nullptr;

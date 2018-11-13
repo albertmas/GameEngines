@@ -49,8 +49,8 @@ FBXMesh* ModuleMeshLoader::ImportMesh(aiMesh* mesh)
 		{
 			if (mesh->mFaces[i].mNumIndices != 3)
 			{
-				LOG("WARNING, geometry face with != 3 indices!");
-				verticeError = true;
+				LOG("WARNING, geometry face with != 3 indices! This mesh won't be rendered.");
+				newMesh->hasTriFaces = false;
 			}
 			else
 			{

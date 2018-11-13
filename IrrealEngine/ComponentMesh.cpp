@@ -20,7 +20,7 @@ ComponentMesh::~ComponentMesh()
 
 bool ComponentMesh::Update()
 {
-	if (active)
+	if (active && go_mesh->hasTriFaces)
 	{
 		//glColor3f(1.0, 1.0, 1.0);
 		glEnableClientState(GL_VERTEX_ARRAY);

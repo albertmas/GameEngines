@@ -47,6 +47,7 @@ struct FBXMesh
 	Quat meshRot = { 0, 0, 0, 0 };
 	float3 meshScale = { 0, 0, 0 };
 	uint num_triangles = 0;
+	bool hasTriFaces = true;
 };
 
 class ModuleRenderer3D : public Module

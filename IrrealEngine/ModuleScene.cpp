@@ -38,7 +38,7 @@ bool ModuleScene::Start()
 	game_objects.push_back(root);
 	ComponentTransform* root_trans = (ComponentTransform*)root->CreateComponent(Component::TRANSFORMATION);
 
-	App->sceneloader->ImportMesh("Assets/BakerHouse/BakerHouse.fbx");
+	App->sceneloader->ImportMesh("Assets/street/Street environment_V01.fbx");
 
 	return true;
 }
