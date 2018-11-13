@@ -1,8 +1,10 @@
 #include "GameObject.h"
+#include "Application.h"
 #include "Component.h"
 #include "ComponentMesh.h"
 #include "ComponentTransform.h"
 #include "ComponentTexture.h"
+#include "ModuleRenderer3D.h"
 
 
 GameObject::GameObject(GameObject* parent, const char* name)
@@ -13,7 +15,7 @@ GameObject::GameObject(GameObject* parent, const char* name)
 		parent->go_children.push_back(this);
 	}
 	go_name = name;
-	boundingBox_AA = AABB({ 0,0,0 }, { 0,0,0 });
+	local_AABB = AABB({ 0,0,0 }, { 0,0,0 });
 }
 
 GameObject::~GameObject()
@@ -62,16 +64,31 @@ void GameObject::Draw()
 					c_trans = (ComponentTransform*)go_components[i];
 					go_components[i]->Update();
 				}
-				if (go_components[i]->type == Component::TEXTURE)
-				{
-					go_components[i]->Update();
-				}
 				if (go_components[i]->type == Component::MESH)
 				{
 					glPushMatrix();
 					glMultMatrixf((float*)c_trans->matrix_global.Transposed().v);
 					go_components[i]->Update();
 					glPopMatrix();
+
+
+					if (App->renderer3D->BB)
+					{
+						AABB newAABB = local_AABB;
+						global_AABB.SetNegativeInfinity();
+						global_AABB.Enclose(newAABB.Transform(c_trans->matrix_global));
+
+						oriented_BB.SetNegativeInfinity();
+						oriented_BB = local_AABB;
+						oriented_BB.Transform(c_trans->matrix_global);
+
+						App->renderer3D->DrawBB(global_AABB, { 1, 0, 0 });
+						App->renderer3D->DrawBB(oriented_BB, { 0, 1, 0 });
+					}
+				}
+				if (go_components[i]->type == Component::TEXTURE)
+				{
+					go_components[i]->Update();
 				}
 			}
 		}

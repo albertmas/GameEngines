@@ -198,16 +198,16 @@ GameObject* ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* sc
 				c_mesh->SetCompTexture(c_tex);
 			}
 			
-			gameobject_child->boundingBox_AA.SetNegativeInfinity();
-			gameobject_child->boundingBox_AA.Enclose((float3*)currentMesh->mVertices, currentMesh->mNumVertices);
-			gameobject_child->boundingBox_O.SetNegativeInfinity();
-			gameobject_child->boundingBox_O.SetFrom(gameobject_child->boundingBox_AA);
+			gameobject_child->local_AABB.SetNegativeInfinity();
+			gameobject_child->local_AABB.Enclose((float3*)currentMesh->mVertices, currentMesh->mNumVertices);
+			gameobject_child->oriented_BB.SetNegativeInfinity();
+			gameobject_child->oriented_BB.SetFrom(gameobject_child->local_AABB);
 
 			if (node->mNumMeshes > 1 && meshNum > 0)
 			{
 				gameobject->go_children.push_back(gameobject_child);
-				gameobject->boundingBox_AA.Enclose(gameobject_child->boundingBox_AA);
-				gameobject->boundingBox_O.SetFrom(gameobject->boundingBox_AA);
+				gameobject->local_AABB.Enclose(gameobject_child->local_AABB);
+				gameobject->oriented_BB.SetFrom(gameobject->local_AABB);
 			}
 		}
 	}
@@ -217,8 +217,8 @@ GameObject* ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* sc
 		GameObject* child = LoadFile(full_path, scene, node->mChildren[i], gameobject);
 		if (child != nullptr)
 		{
-			gameobject->boundingBox_AA.Enclose(child->boundingBox_AA);
-			gameobject->boundingBox_O.SetFrom(gameobject->boundingBox_AA);
+			gameobject->local_AABB.Enclose(child->local_AABB);
+			gameobject->oriented_BB.SetFrom(gameobject->local_AABB);
 		}
 	}
 
