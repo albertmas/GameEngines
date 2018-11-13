@@ -17,6 +17,7 @@ struct Texture
 	uint width = 0;
 	uint height = 0;
 	float3 color = { 1, 1, 1 };
+	bool tex = true;
 };
 
 class ModuleTextureLoader :	public Module

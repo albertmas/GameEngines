@@ -128,7 +128,7 @@ GameObject* ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* sc
 		for (int meshNum = 0; meshNum < node->mNumMeshes; meshNum++)
 		{
 			mesh_number++;
-			LOG("\nLoading mesh %i of %i -------", mesh_number, scene->mNumMeshes);
+			LOG("\nLoading mesh %i -------", mesh_number);
 
 			GameObject* gameobject_child = gameobject;
 			if (node->mNumMeshes > 1)
@@ -175,6 +175,7 @@ GameObject* ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* sc
 				if (newtexture == nullptr)
 				{
 					newtexture = new Texture();
+					newtexture->tex = false;
 				}
 				newtexture->color.Set(color.r, color.g, color.b);
 
