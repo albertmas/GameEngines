@@ -4,12 +4,11 @@
 #include "ModuleCamera3D.h"
 #include "ModuleSceneLoader.h"
 #include "ModuleInput.h"
+#include "GameObject.h"
 #include "Component.h"
 #include "ComponentTransform.h"
 #include "ComponentMesh.h"
 #include "ComponentTexture.h"
-
-
 
 
 ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled)
@@ -36,7 +35,6 @@ bool ModuleScene::Init(Document& document)
 bool ModuleScene::Start()
 {
 	root = new GameObject(nullptr, "root");
-	root->go_static = true;
 	game_objects.push_back(root);
 	ComponentTransform* root_trans = (ComponentTransform*)root->CreateComponent(Component::TRANSFORMATION);
 

@@ -88,7 +88,7 @@ bool ModuleSceneLoader::ImportMesh(const char* full_path)
 	return ret;
 }
 
-bool ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* scene, aiNode* node, GameObject* parent)
+GameObject* ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* scene, aiNode* node, GameObject* parent)
 {
 	bool ret = true;
 
@@ -120,15 +120,15 @@ bool ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* scene, ai
 		comp_trans->rotation = rot;
 		comp_trans->scale = scale;
 	}
-
-	for (int i = 0; i < node->mNumChildren; i++)
-		LoadFile(full_path, scene, node->mChildren[i], gameobject);
 	
-		
 	for (int meshNum = 0; meshNum < node->mNumMeshes; meshNum++)
 	{
 		mesh_number++;
 		LOG("\nLoading mesh %i of %i -------", mesh_number, scene->mNumMeshes);
+
+		GameObject* gameobject_child = gameobject;
+		if (node->mNumMeshes > 1)
+			gameobject_child = new GameObject(gameobject, scene->mMeshes[node->mMeshes[meshNum]]->mName.C_Str());
 
 		aiMesh* currentMesh = scene->mMeshes[node->mMeshes[meshNum]];
 		FBXMesh* mesh = App->meshloader->ImportMesh(currentMesh);
@@ -183,25 +183,42 @@ bool ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* scene, ai
 			mesh->meshScale = scale;
 
 			// Set GO components
-			ComponentTransform* c_trans = (ComponentTransform*)gameobject->CreateComponent(Component::TRANSFORMATION);
+			ComponentTransform* c_trans = (ComponentTransform*)gameobject_child->CreateComponent(Component::TRANSFORMATION);
 			c_trans->position = pos;
 			c_trans->rotation = rot;
 			c_trans->scale = scale;
 			c_trans->matrix_local.Set(float4x4::FromTRS(pos, rot, scale));
-			ComponentMesh* c_mesh = (ComponentMesh*)gameobject->CreateComponent(Component::MESH);
+			ComponentMesh* c_mesh = (ComponentMesh*)gameobject_child->CreateComponent(Component::MESH);
 			c_mesh->SetMesh(mesh);
 			if (newtexture)
 			{
-				ComponentTexture* c_tex = (ComponentTexture*)gameobject->CreateComponent(Component::TEXTURE);
+				ComponentTexture* c_tex = (ComponentTexture*)gameobject_child->CreateComponent(Component::TEXTURE);
 				c_tex->texture = newtexture;
 
 				c_mesh->SetCompTexture(c_tex);
 			}
 			
-			gameobject->boundingBox_AA.SetNegativeInfinity();
-			gameobject->boundingBox_AA.Enclose((float3*)currentMesh->mVertices, currentMesh->mNumVertices);
-			gameobject->boundingBox_O.SetNegativeInfinity();
-			gameobject->boundingBox_O.SetFrom(gameobject->boundingBox_AA);
+			gameobject_child->local_AABB.SetNegativeInfinity();
+			gameobject_child->local_AABB.Enclose((float3*)currentMesh->mVertices, currentMesh->mNumVertices);
+			gameobject_child->oriented_BB.SetNegativeInfinity();
+			gameobject_child->oriented_BB.SetFrom(gameobject_child->local_AABB);
+
+			if (node->mNumMeshes > 1 && meshNum > 0)
+			{
+				gameobject->go_children.push_back(gameobject_child);
+				gameobject->local_AABB.Enclose(gameobject_child->local_AABB);
+				gameobject->oriented_BB.SetFrom(gameobject->local_AABB);
+			}
+		}
+	}
+
+	for (int i = 0; i < node->mNumChildren; i++)
+	{
+		GameObject* child = LoadFile(full_path, scene, node->mChildren[i], gameobject);
+		if (child != nullptr)
+		{
+			gameobject->local_AABB.Enclose(child->local_AABB);
+			gameobject->oriented_BB.SetFrom(gameobject->local_AABB);
 		}
 	}
 
@@ -212,7 +229,7 @@ bool ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* scene, ai
 	
 	App->camera->first_time = false;
 	
-	return ret;
+	return gameobject;
 }
 
 

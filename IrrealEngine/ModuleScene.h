@@ -2,9 +2,9 @@
 #define __ModuleScene_H__
 
 #include "Module.h"
-#include "Mesh.h"
-#include "GameObject.h"
 #include <list>
+
+class GameObject;
 
 class ModuleScene :	public Module
 {

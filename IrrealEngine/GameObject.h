@@ -32,8 +32,9 @@ public:
 	GameObject* go_parent = nullptr;
 	std::vector<GameObject*> go_children;
 
-	AABB boundingBox_AA;
-	OBB boundingBox_O;
+	AABB local_AABB;
+	AABB global_AABB;
+	OBB oriented_BB;
 };
 
 #endif
