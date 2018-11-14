@@ -23,15 +23,22 @@ public:
 
 	void Draw();
 	//void DrawBB(const AABB& BB, vec3 color) const;
+	void SetName(const char* name);
+
 
 	Component* CreateComponent(COMP_TYPE type);
 	Component* GetComponent(COMP_TYPE type);
+	void PushComponent(Component* new_component);
 
 	bool IsStatic()const;
 	bool HasMesh()const;
 	bool IsRoot()const;
 
+	bool HasCam()const;
+
 	AABB GetBB();
+
+	Camera* GetCamera();
 
 public:
 	bool go_active = true;

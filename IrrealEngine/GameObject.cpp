@@ -126,6 +126,16 @@ Component * GameObject::GetComponent(COMP_TYPE type)
 	return nullptr;
 }
 
+void GameObject::PushComponent(Component * new_component)
+{
+	go_components.push_back(new_component);
+}
+
+void GameObject::SetName(const char * name)
+{
+	this->go_name = name;
+}
+
 bool GameObject::IsStatic() const
 {
 	return go_static;
@@ -157,4 +167,24 @@ AABB GameObject::GetBB()
 bool GameObject::IsRoot() const
 {
 	return root_go;
+}
+
+Camera * GameObject::GetCamera()
+{
+	ComponentCamera* aux = (ComponentCamera*)this->GetComponent(COMP_TYPE::CAMERA);
+	if (aux != nullptr)
+		return aux->cam;
+
+	return nullptr;
+}
+
+bool GameObject::HasCam() const
+{
+	bool ret = false;
+	for (int i = 0; i < go_components.size(); i++)
+	{
+		if (go_components[i]->type == COMP_TYPE::CAMERA)
+			ret = true;
+	}
+	return ret;
 }

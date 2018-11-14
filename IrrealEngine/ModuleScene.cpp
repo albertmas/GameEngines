@@ -40,13 +40,16 @@ bool ModuleScene::Start()
 	ComponentTransform* root_trans = (ComponentTransform*)root->CreateComponent(COMP_TYPE::TRANSFORMATION);
 
 
-
-
-
 	App->camera->StartEditorCam();
-	App->camera->StartGameCam();
+	
+	GameObject* new_cam = CreateCamera();
+	game_objects.push_back(new_cam);
+	
 
-	App->camera->game_camera->Position = (float3(1,1,1));
+	if (new_cam->HasCam())
+		App->camera->cams_list.push_back(new_cam);
+	App->camera->SetCurrentCam(new_cam);
+	App->camera->NewCamera();
 
 	App->sceneloader->ImportMesh("Assets/BakerHouse/BakerHouse.fbx");
 	
@@ -116,4 +119,13 @@ GameObject* ModuleScene::CreateGameObject()
 	game_objects.push_back(gameobject);
 
 	return gameobject;
+}
+
+GameObject* ModuleScene::CreateCamera()
+{
+	GameObject* main_camera_go = new GameObject();
+	main_camera_go->SetName("Main Camera");
+	ComponentCamera* cam_comp = new ComponentCamera();
+	main_camera_go->PushComponent(cam_comp);
+	return main_camera_go;
 }

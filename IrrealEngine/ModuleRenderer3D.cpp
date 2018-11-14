@@ -180,28 +180,17 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	// We should render the geometry here
 	
-	if (App->camera->GetCurrentCam() != nullptr && App->camera->GetCurrentCam() == App->camera->editor_camera) // Checks  current cam  & if we are using editor camera
+	if (App->camera->GetEditorCam() != nullptr && App->camera->GetEditorCam() == App->camera->editor_camera) // Checks  current cam  & if we are using editor camera
 	{
 		
-		App->camera->editor_camera->UpdateProjectionMatrix();
+		App->camera->GetEditorCam()->UpdateProjectionMatrix();
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
 		glMatrixMode(GL_MODELVIEW);
 		
-		glLoadMatrixf(App->camera->editor_camera->GetViewMatrix());
+		glLoadMatrixf(App->camera->GetEditorCam()->GetViewMatrix());
 		
-	}
-	if (App->camera->GetCurrentCam() != nullptr && App->camera->GetCurrentCam() != App->camera->editor_camera) // Checks current cam & if editor camera null gets game_camera
-	{
-		App->camera->game_camera->UpdateProjectionMatrix();
-
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glLoadIdentity();
-		glMatrixMode(GL_MODELVIEW);
-
-		glLoadMatrixf(App->camera->game_camera->GetViewMatrix());
-
 	}
 
 	//if (Cube)
@@ -276,16 +265,16 @@ bool ModuleRenderer3D::Load(Document& document)
 
 void ModuleRenderer3D::OnResize(int width, int height)
 {
-	if (App->camera->GetCurrentCam() != nullptr)
+	if (App->camera->GetEditorCam() != nullptr)
 	{
 		float ratio = (float)width / (float)height;
-		App->camera->GetCurrentCam()->SetAspectRatio(ratio);
+		App->camera->GetEditorCam()->SetAspectRatio(ratio);
 
 		glViewport(0, 0, width, height);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 
-		glLoadMatrixf(App->camera->GetCurrentCam()->GetProjectionMatrix());
+		glLoadMatrixf(App->camera->GetEditorCam()->GetProjectionMatrix());
 
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();

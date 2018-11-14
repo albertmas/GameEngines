@@ -46,8 +46,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	CameraMovement(dt);
 	if (App->imgui->frustrum) {
-		game_camera->DrawFrustum();
-		editor_camera->DrawFrustum();
+		GetCurrentCam()->DrawFrustum();
 	}
 	
 	
@@ -60,11 +59,6 @@ void ModuleCamera3D::StartEditorCam()
 	
 }
 
-void ModuleCamera3D::StartGameCam()
-{
-	game_camera = new Camera();
-
-}
 
 
 bool ModuleCamera3D::Save(Document& document, FileWriteStream& fws)
@@ -130,12 +124,39 @@ float* ModuleCamera3D::GetViewMatrix()
 
 Camera * ModuleCamera3D::GetCurrentCam() const
 {
+	Camera* ret = nullptr;
+	if (current_cam == nullptr)
+	{
+		LOG("No current Camera for Game");
+	}
+	else
+	{
+		if (current_cam->HasCam())
+			ret = current_cam->GetCamera();
+	}
+	return ret;
+}
+
+void ModuleCamera3D::NewCamera()
+{
+	Camera* aux = current_cam->GetCamera();
+	aux = new Camera();
+	
+}
+
+void ModuleCamera3D::SetCurrentCam(GameObject * cam)
+{
+	if (cam != nullptr)
+		current_cam = cam;
+}
+
+Camera * ModuleCamera3D::GetEditorCam() const
+{
 	if (editor_camera != nullptr)
 		return editor_camera;
 	else
 		return nullptr;
 }
-
 
 // -----------------------------------------------------------------
 

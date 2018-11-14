@@ -36,8 +36,11 @@ public:
 	float mult(const float3 &u);
 
 	Camera* GetCurrentCam()const;
+	Camera* GetEditorCam()const;
 	void StartEditorCam();
-	void StartGameCam();
+	void NewCamera();
+	void SetCurrentCam(GameObject * cam);
+	
 
 
 	bool first_time = false;
@@ -46,10 +49,10 @@ public:
 
 public:
 
-	Camera * game_camera = nullptr;
+	GameObject * current_cam = nullptr;
 	Camera * editor_camera = nullptr;
 
-	std::vector<Camera*> cams_list;
+	std::vector<GameObject*> cams_list;
 
 	float3 X = { 0, 0, 0 }, Y = { 0, 0, 0 }, Z = { 0, 0, 0 }, Position = { 0, 0, 0 }, Reference = { 0, 0, 0 };
 	bool focus = false;

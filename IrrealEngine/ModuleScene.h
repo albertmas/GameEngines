@@ -24,6 +24,7 @@ public:
 
 	void Draw();
 	GameObject* CreateGameObject();
+	GameObject* CreateCamera();
 
 public:
 	std::vector<GameObject*> game_objects;
