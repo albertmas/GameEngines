@@ -25,10 +25,10 @@ void ComponentTransform::SetInspectorInfo()
 	ImGui::Spacing();
 	if (ImGui::CollapsingHeader("Transformation"), ImGuiTreeNodeFlags_DefaultOpen)
 	{
-		uint flags = ImGuiInputTextFlags_EnterReturnsTrue;
+		//uint flags = ImGuiInputTextFlags_EnterReturnsTrue;
 		if (my_go->go_static)
 		{
-			flags |= ImGuiInputTextFlags_ReadOnly;
+			//flags |= ImGuiInputTextFlags_ReadOnly;
 			ImGui::PushStyleColor(ImGuiCol_Text, { 0.5f, 0.5f, 0.5f, 1.0f });
 		}
 
@@ -38,19 +38,19 @@ void ComponentTransform::SetInspectorInfo()
 
 		// Position
 		ImGui::PushID("PosX");
-		if (ImGui::InputFloat("", &position.x, 0.0f, 0.0f, "%.3f", flags))
+		if (ImGui::DragFloat("", &position.x))
 			matrix_local.Set(float4x4::FromTRS(position, rotation, scale));
 		ImGui::PopID();
 
 		ImGui::SameLine();
 		ImGui::PushID("PosY");
-		if (ImGui::InputFloat("", &position.y, 0.0f, 0.0f, "%.3f", flags))
+		if (ImGui::DragFloat("", &position.y))
 			matrix_local.Set(float4x4::FromTRS(position, rotation, scale));
 		ImGui::PopID();
 
 		ImGui::SameLine();
 		ImGui::PushID("PosZ");
-		if (ImGui::InputFloat("", &position.z, 0.0f, 0.0f, "%.3f", flags))
+		if (ImGui::DragFloat("", &position.z))
 			matrix_local.Set(float4x4::FromTRS(position, rotation, scale));
 		ImGui::PopID();
 
@@ -61,7 +61,7 @@ void ComponentTransform::SetInspectorInfo()
 		float3 euler_deg_rot = rotation.ToEulerXYZ();
 		euler_deg_rot *= RADTODEG;
 		ImGui::PushID("RotX");
-		if (ImGui::InputFloat("", &euler_deg_rot.x, 0.0f, 0.0f, "%.3f", flags))
+		if (ImGui::DragFloat("", &euler_deg_rot.x))
 		{
 			euler_deg_rot *= DEGTORAD;
 			rotation = Quat::FromEulerXYZ(euler_deg_rot.x, euler_deg_rot.y, euler_deg_rot.z);
@@ -71,7 +71,7 @@ void ComponentTransform::SetInspectorInfo()
 
 		ImGui::SameLine();
 		ImGui::PushID("RotY");
-		if (ImGui::InputFloat("", &euler_deg_rot.y, 0.0f, 0.0f, "%.3f", flags))
+		if (ImGui::DragFloat("", &euler_deg_rot.y))
 		{
 			euler_deg_rot *= DEGTORAD;
 			rotation = Quat::FromEulerXYZ(euler_deg_rot.x, euler_deg_rot.y, euler_deg_rot.z);
@@ -81,7 +81,7 @@ void ComponentTransform::SetInspectorInfo()
 
 		ImGui::SameLine();
 		ImGui::PushID("RotZ");
-		if (ImGui::InputFloat("", &euler_deg_rot.z, 0.0f, 0.0f, "%.3f", flags))
+		if (ImGui::DragFloat("", &euler_deg_rot.z))
 		{
 			euler_deg_rot *= DEGTORAD;
 			rotation = Quat::FromEulerXYZ(euler_deg_rot.x, euler_deg_rot.y, euler_deg_rot.z);
@@ -94,19 +94,19 @@ void ComponentTransform::SetInspectorInfo()
 
 		// Scale
 		ImGui::PushID("ScaleX");
-		if (ImGui::InputFloat("", &scale.x, 0.0f, 0.0f, "%.3f", flags))
+		if (ImGui::DragFloat("", &scale.x, 0.05f))
 			matrix_local.Set(float4x4::FromTRS(position, rotation, scale));
 		ImGui::PopID();
 
 		ImGui::SameLine();
 		ImGui::PushID("ScaleY");
-		if (ImGui::InputFloat("", &scale.y, 0.0f, 0.0f, "%.3f", flags))
+		if (ImGui::DragFloat("", &scale.y, 0.05f))
 			matrix_local.Set(float4x4::FromTRS(position, rotation, scale));
 		ImGui::PopID();
 
 		ImGui::SameLine();
 		ImGui::PushID("ScaleZ");
-		if (ImGui::InputFloat("", &scale.z, 0.0f, 0.0f, "%.3f", flags))
+		if (ImGui::DragFloat("", &scale.z, 0.05f))
 			matrix_local.Set(float4x4::FromTRS(position, rotation, scale));
 		ImGui::PopID();
 

@@ -59,8 +59,8 @@ bool ModuleTextureLoader::ImportTexture(const char* path, std::string& output_fi
 	uint lastSlash = texName.find_last_of('/');
 	uint dot = texName.find_last_of('.');
 	texName = texName.substr(lastSlash + 1, dot - lastSlash - 1);
-	std::string correctPath;
-	correctPath = TEXTURES_DIRECTORY + texName + TEXTURES_EXTENSION;
+	std::string libPath;
+	libPath = TEXTURES_DIRECTORY + texName + TEXTURES_EXTENSION;
 	// First it should check that the texture isn't already imported (use Physfs)
 
 	ILuint imageID;
@@ -86,7 +86,7 @@ bool ModuleTextureLoader::ImportTexture(const char* path, std::string& output_fi
 				data = new ILubyte[size]; // allocate data buffer
 				if (ilSaveL(IL_DDS, data, size) > 0) // Save to buffer with the ilSaveIL function
 				{
-					std::ofstream dataFile(correctPath, std::fstream::out | std::fstream::binary);
+					std::ofstream dataFile(libPath, std::fstream::out | std::fstream::binary);
 					dataFile.write((const char*)data, size);
 					dataFile.close();
 				}
@@ -103,7 +103,7 @@ bool ModuleTextureLoader::ImportTexture(const char* path, std::string& output_fi
 
 	ilDeleteImages(1, &imageID);
 
-	output_file = correctPath;
+	output_file = libPath;
 
 	return true;
 }

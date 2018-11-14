@@ -18,10 +18,13 @@ bool ComponentTexture::Update()
 {
 	if (active)
 	{
-		/*if (texture != nullptr)
-			glBindTexture(GL_TEXTURE_2D, texture->id);
-		else
-			glColor3f(1.0, 1.0, 1.0);*/
+		if (texture != nullptr)
+		{
+			if (texture->id != 0)
+				glBindTexture(GL_TEXTURE_2D, texture->id);
+			else
+				glColor3f(texture->color.x, texture->color.y, texture->color.z);
+		}
 	}
 
 	return true;
@@ -39,25 +42,61 @@ void ComponentTexture::SetInspectorInfo()
 
 		if (texture != nullptr)
 		{
-			ImGui::TextColored({ 0, 1, 1, 1 }, "Texture Path");
-			if (ImGui::IsItemHovered())
-				ImGui::SetTooltip(texture->path.c_str());
-			ImGui::Separator();
-
-			ImGui::Text("Width: %i", texture->width);
-			ImGui::Text("Height: %i", texture->height);
-
-			float windowWidth = ImGui::GetWindowContentRegionWidth();
-			ImVec2 texSize = { texture->height * windowWidth / texture->width, windowWidth };
-			ImGui::Image((ImTextureID)texture->id, texSize);
-		}
-		else
-		{
-			ImGui::TextColored({ 1, 0, 0, 1 }, "Mesh has no texture");
-			if (ImGui::Button("New Texture"))
+			if (texture->tex)
 			{
-				// Create new texture
-				// or choose an existing one
+				ImGui::TextColored({ 0, 1, 1, 1 }, "Texture Path");
+				if (ImGui::IsItemHovered())
+					ImGui::SetTooltip(texture->path.c_str());
+				ImGui::Separator();
+
+				ImGui::Text("Width: %i", texture->width);
+				ImGui::Text("Height: %i", texture->height);
+
+				float windowWidth = ImGui::GetWindowContentRegionWidth();
+				ImVec2 texSize = { texture->height * windowWidth / texture->width, windowWidth };
+				ImGui::Image((ImTextureID)texture->id, texSize);
+			}
+			else
+			{
+				ImGui::TextColored({ 1, 0, 0, 1 }, "Mesh has no texture");
+				ImGui::Spacing();
+
+				static float3 defaultColor = texture->color;
+				if (ImGui::ColorButton("Default", { defaultColor.x, defaultColor.y, defaultColor.z, 1 }))
+				{
+					texture->color = defaultColor;
+				} ImGui::SameLine();
+				if (ImGui::ColorButton("Red", { 1, 0, 0, 1 }))
+				{
+					texture->color = { 1, 0, 0 };
+				} ImGui::SameLine();
+				if (ImGui::ColorButton("Green", { 0, 1, 0, 1 }))
+				{
+					texture->color = { 0, 1, 0 };
+				} ImGui::SameLine();
+				if (ImGui::ColorButton("Blue", { 0, 0, 1, 1 }))
+				{
+					texture->color = { 0, 0, 1 };
+				} ImGui::SameLine();
+				if (ImGui::ColorButton("Pink", { 1, 0, 1, 1 }))
+				{
+					texture->color = { 1, 0, 1 };
+				} ImGui::SameLine();
+				if (ImGui::ColorButton("Yellow", { 1, 1, 0, 1 }))
+				{
+					texture->color = { 1, 1, 0 };
+				} ImGui::SameLine();
+				if (ImGui::ColorButton("Grey", { 0.5f, 0.5f, 0.5f, 1 }))
+				{
+					texture->color = { 0.5f, 0.5f, 0.5f };
+				}
+				ImGui::Spacing();
+
+				if (ImGui::Button("Set Texture"))
+				{
+					// Create new texture
+					// or choose an existing one
+				}
 			}
 		}
 	}
