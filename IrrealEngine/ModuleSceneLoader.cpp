@@ -103,6 +103,7 @@ GameObject* ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* sc
 			parent = App->scene->root;
 
 		gameobject = new GameObject(parent, node->mName.C_Str());
+		ComponentTransform* comp_trans = (ComponentTransform*)gameobject->CreateComponent(Component::TRANSFORMATION);
 
 		aiVector3D position;
 		aiQuaternion rotation;
@@ -119,7 +120,6 @@ GameObject* ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* sc
 			gameobject->go_name = std::to_string(parent_number) + ": " + gameobject->go_name;
 			App->scene->game_objects.push_back(gameobject);
 
-			ComponentTransform* comp_trans = (ComponentTransform*)gameobject->CreateComponent(Component::TRANSFORMATION);
 			comp_trans->position = pos;
 			comp_trans->rotation = rot;
 			comp_trans->scale = scale;
@@ -193,11 +193,11 @@ GameObject* ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* sc
 				mesh->meshScale = scale;
 
 				// Set GO components
-				ComponentTransform* c_trans = (ComponentTransform*)gameobject_child->CreateComponent(Component::TRANSFORMATION);
-				c_trans->position = pos;
-				c_trans->rotation = rot;
-				c_trans->scale = scale;
-				c_trans->matrix_local.Set(float4x4::FromTRS(pos, rot, scale));
+				ComponentTransform* child_trans = comp_trans;
+				child_trans->position = pos;
+				child_trans->rotation = rot;
+				child_trans->scale = scale;
+				child_trans->matrix_local.Set(float4x4::FromTRS(pos, rot, scale));
 				ComponentMesh* c_mesh = (ComponentMesh*)gameobject_child->CreateComponent(Component::MESH);
 				c_mesh->SetMesh(mesh);
 				if (newtexture)
