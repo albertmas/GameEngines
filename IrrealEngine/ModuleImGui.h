@@ -85,6 +85,8 @@ public:
 	std::string selected_file_path = "";
 	std::string selected_file_type = "";
 
+	GameObject* focused_go = nullptr;
+
 private:
 	bool fullscreen = false;
 	bool resizable = false;
@@ -104,8 +106,6 @@ private:
 	char organization[50] = "UPC CITM";
 	char icon_name[50] = "*default*";
 	char icon_name_new[50] = "";
-
-	GameObject* focused_go = nullptr;
 };
 
 #endif //__ModuleImGui_H__

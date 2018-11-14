@@ -554,83 +554,6 @@ void ModuleImGui::ConfigurationWindow()
 		ImGui::End();
 }
 
-//void ModuleImGui::PropertiesWindow()
-//{
-//	ImGui::SetNextWindowSize(ImVec2(250, App->window->height - 22), ImGuiSetCond_Always);
-//	ImGui::SetNextWindowPos(ImVec2(App->window->width - 251, 21), ImGuiSetCond_Always);
-//	ImGui::Begin("Properties", &propertieswindow, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_HorizontalScrollbar);
-//
-//	for (std::list<FBXMesh*>::iterator iter = App->renderer3D->meshes.begin(); iter != App->renderer3D->meshes.end(); iter++)
-//	{
-//		std::string text = "Mesh ";
-//		text += std::to_string((*iter)->meshNum);
-//		text += ": ";
-//		text += (*iter)->meshName;
-//		if (ImGui::TreeNodeEx(text.c_str(), ImGuiTreeNodeFlags_Framed))
-//		{
-//			ImGui::Spacing();
-//			ImGui::TextColored({ 0,1,1,1 }, "Mesh Path");
-//			if (ImGui::IsItemHovered())
-//				ImGui::SetTooltip((*iter)->meshPath.c_str());
-//			ImGui::Spacing();
-//
-//			if (ImGui::TreeNodeEx("Transformation", ImGuiTreeNodeFlags_Framed))
-//			{
-//				float pos[3] = {(*iter)->meshPos.x, (*iter)->meshPos.y, (*iter)->meshPos.z };
-//				ImGui::InputFloat3("Position", pos, 1);
-//				if (ImGui::IsItemHovered())
-//					ImGui::SetTooltip("Position of the mesh");
-//				float3 euler_deg_rot = (*iter)->meshRot.ToEulerXYZ();
-//				euler_deg_rot *= 180 / pi;
-//				float rot[3] = { euler_deg_rot.x, euler_deg_rot.y, euler_deg_rot.z };
-//				ImGui::InputFloat3("Rotation", rot, 1);
-//				if (ImGui::IsItemHovered())
-//					ImGui::SetTooltip("Rotation of the mesh");
-//
-//				float scale[3] = { (*iter)->meshScale.x, (*iter)->meshScale.y, (*iter)->meshScale.z };
-//				ImGui::InputFloat3("Scale", scale, 1);
-//				if (ImGui::IsItemHovered())
-//					ImGui::SetTooltip("Rotation of the mesh");
-//
-//				ImGui::TreePop();
-//			}
-//			ImGui::Spacing();
-//			if (ImGui::TreeNodeEx("Geometry", ImGuiTreeNodeFlags_Framed))
-//			{
-//				ImGui::Text("Triangles: %i", (*iter)->num_triangles);
-//				ImGui::Text("Vertices: %i", (*iter)->num_vertices);
-//
-//				ImGui::TreePop();
-//			}
-//			ImGui::Spacing();
-//			if (ImGui::TreeNodeEx("Texture", ImGuiTreeNodeFlags_Framed))
-//			{
-//				if ((*iter)->texture > 0)//(ImGui::TreeNode((*iter)->texName.c_str()))
-//				{
-//					ImGui::TextColored({ 0,1,1,1 }, "Texture Path");
-//					if (ImGui::IsItemHovered())
-//						ImGui::SetTooltip((*iter)->texPath.c_str());
-//					ImGui::Text("Width: %i", (*iter)->texWidth);
-//					ImGui::Text("Height: %i", (*iter)->texHeight);
-//
-//					float winWidth = ImGui::GetWindowContentRegionWidth();
-//					ImVec2 texSize = { (*iter)->texHeight * winWidth / (*iter)->texWidth, winWidth };
-//					ImGui::Image((ImTextureID)(*iter)->texture, texSize);
-//				}
-//				else
-//					ImGui::TextColored({ 1, 0, 0, 1 }, "Mesh has no texture");
-//
-//				ImGui::TreePop();
-//			}
-//			ImGui::Separator();
-//
-//			ImGui::TreePop();
-//		}
-//	}
-//
-//	ImGui::End();
-//}
-
 void ModuleImGui::InspectorWindow()
 {
 	if (hierarchywindow)
@@ -709,6 +632,9 @@ void ModuleImGui::SearchGO(GameObject* parent)
 			uint flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
 			if (parent == App->scene->root)
 				flags |= ImGuiTreeNodeFlags_Framed;
+			if (parent->go_children[i] == focused_go)
+				flags |= ImGuiTreeNodeFlags_Selected;
+
 			bool unfold = ImGui::TreeNodeEx(parent->go_children[i]->go_name.c_str(), flags);
 			if (ImGui::IsItemClicked())
 				focused_go = parent->go_children[i];
@@ -720,7 +646,11 @@ void ModuleImGui::SearchGO(GameObject* parent)
 		}
 		else
 		{
-			ImGui::TreeNodeEx(parent->go_children[i]->go_name.c_str(), ImGuiTreeNodeFlags_Leaf);
+			uint flags = ImGuiTreeNodeFlags_Leaf;
+			if (parent->go_children[i] == focused_go)
+				flags |= ImGuiTreeNodeFlags_Selected;
+
+			ImGui::TreeNodeEx(parent->go_children[i]->go_name.c_str(), flags);
 			if (ImGui::IsItemClicked())
 				focused_go = parent->go_children[i];
 			ImGui::TreePop();

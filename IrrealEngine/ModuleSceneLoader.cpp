@@ -194,6 +194,8 @@ GameObject* ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* sc
 
 				// Set GO components
 				ComponentTransform* child_trans = comp_trans;
+				if (node->mNumMeshes > 1)
+					child_trans = (ComponentTransform*)gameobject_child->CreateComponent(Component::TRANSFORMATION);
 				child_trans->position = pos;
 				child_trans->rotation = rot;
 				child_trans->scale = scale;

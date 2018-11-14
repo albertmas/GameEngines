@@ -5,6 +5,7 @@
 #include "ComponentTransform.h"
 #include "ComponentTexture.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleImGui.h"
 
 
 GameObject::GameObject(GameObject* parent, const char* name)
@@ -53,47 +54,50 @@ void GameObject::Draw()
 {
 	if (go_active)
 	{
-		ComponentTransform* c_trans = nullptr;
+		
 
-		for (int i = 0; i < go_components.size(); i++)
+		if (go_components.size() > 0)
 		{
-			if (go_components[i]->active)
+			ComponentTransform* comp_trans = (ComponentTransform*)GetComponent(Component::TRANSFORMATION);
+
+			if (comp_trans != nullptr)
 			{
-				if (go_components[i]->type == Component::TRANSFORMATION)
+				comp_trans->Update();
+
+				ComponentMesh* comp_mesh = (ComponentMesh*)GetComponent(Component::MESH);
+				ComponentTexture* comp_tex = (ComponentTexture*)GetComponent(Component::TEXTURE);
+
+				if (comp_tex != nullptr && comp_mesh != nullptr)
 				{
-					c_trans = (ComponentTransform*)go_components[i];
-					go_components[i]->Update();
+					comp_tex->Update();
 				}
-				if (go_components[i]->type == Component::MESH)
+
+				if (comp_mesh != nullptr)
 				{
 					glPushMatrix();
-					glMultMatrixf((float*)c_trans->matrix_global.Transposed().v);
-					go_components[i]->Update();
+					glMultMatrixf((float*)comp_trans->matrix_global.Transposed().v);
+					comp_mesh->Update();
 					glPopMatrix();
 
 
-					if (App->renderer3D->BB)
+					if (App->renderer3D->BB || this == App->imgui->focused_go)
 					{
-						AABB newAABB = local_AABB;
-						global_AABB.SetNegativeInfinity();
-						global_AABB.Enclose(newAABB.Transform(c_trans->matrix_global));
-
 						oriented_BB.SetNegativeInfinity();
 						oriented_BB = local_AABB;
-						oriented_BB.Transform(c_trans->matrix_global);
+						oriented_BB.Transform(comp_trans->matrix_global);
+
+						global_AABB.SetNegativeInfinity();
+						global_AABB.Enclose(oriented_BB);
 
 						App->renderer3D->DrawBB(global_AABB, { 1, 0, 0 });
 						App->renderer3D->DrawBB(oriented_BB, { 0, 1, 0 });
 					}
 				}
-				if (go_components[i]->type == Component::TEXTURE)
-				{
-					go_components[i]->Update();
-				}
 			}
 		}
 
 		glBindTexture(GL_TEXTURE_2D, 0);
+		glColor3f(1.0, 1.0, 1.0);
 
 		for (int i = 0; i < go_children.size(); i++)
 		{
