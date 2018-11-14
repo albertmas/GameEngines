@@ -12,9 +12,12 @@ Camera::Camera()
 	frustum.pos = (float3::zero);
 	frustum.front = (float3::unitZ);
 	frustum.up = (float3::unitY);
+	frustum.horizontalFov = 90;
 	SetFOV(80);
 	frustum.nearPlaneDistance = 0.5;
-	frustum.farPlaneDistance = 100;
+	frustum.farPlaneDistance = 1000;
+	SetAspectRatio(1.77);
+	frustum.SetWorldMatrix(float3x4::identity);
 
 	frustum.type = FrustumType::PerspectiveFrustum;
 
@@ -163,27 +166,12 @@ Frustum Camera::GetFrustum()const
 
 void Camera::Look(const float3 &Position, const float3 &Reference, bool RotateAroundReference)
 {
-	/*this->Position = Position;
-	this->Reference = Reference;
-
-	float3 diff = Position - Reference;
-	Z = diff.Normalized();
-	float3 YcrossZ = float3(0.0f, 1.0f, 0.0f).Cross(Z);
-	X = YcrossZ.Normalized();
-	Y = Z.Cross(X);
-
-	if (!RotateAroundReference)
-	{
-		this->Reference = this->Position;
-		this->Position += Z * 0.05f;
-	}
-
-	CalculateViewMatrix();*/
+	
 }
 
 void Camera::LookAt(const float3 &Spot)
 {
-	Frustum* editor_frustum = &App->camera->editor_camera->frustum;
+	Frustum* editor_frustum = &this->frustum;
 	float3 direction = Spot - editor_frustum->pos;
 
 	float3x3 matrix = float3x3::LookAt(editor_frustum->front, direction.Normalized(), editor_frustum->up, float3::unitY);
@@ -192,17 +180,11 @@ void Camera::LookAt(const float3 &Spot)
 	editor_frustum->up = matrix.MulDir(editor_frustum->up).Normalized();
 }
 
-//void Camera::CalculateViewMatrix()
-//{
-//	ViewMatrix = float4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -X.Dot(Position), -Y.Dot(Position), -Z.Dot(Position), 1.0f);
-//	ViewMatrixInverse = ViewMatrix.Inverted();
-//}
+
 
 void Camera::UpdatePosition(float3 newpos)
 {
-	//Position += newpos;
-	//Reference += newpos;                     
-	frustum.Translate(newpos);
+	//frustum.Translate(newpos);
 }
 
 
@@ -216,7 +198,7 @@ void Camera::HandleMouse(const float dt)
 
 
 
-	Frustum* editor_frustum = &App->camera->editor_camera->frustum;
+	Frustum* editor_frustum = &this->frustum;
 
 	if (dx != 0)
 	{
@@ -257,6 +239,9 @@ void Camera::CreateNewFrustum()
 void Camera::DrawFrustum()
 {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glLineWidth(5.0f);
+	glDisable(GL_CULL_FACE);
+	glColor3f(255, 0, 255);
 
 	glBegin(GL_LINES);
 
@@ -306,7 +291,9 @@ void Camera::DrawFrustum()
 	glVertex3fv((GLfloat*)&frustum_vertices[1]);
 
 	glEnd();
-
+	glLineWidth(1.0f);
+	glEnable(GL_CULL_FACE);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 

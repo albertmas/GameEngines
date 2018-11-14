@@ -13,6 +13,7 @@
 
 
 
+
 ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled)
 {
 }
@@ -105,12 +106,16 @@ void ModuleScene::Draw()
 		if (!game_objects[i]->IsStatic() && game_objects[i]->HasMesh())
 		{
 			//Check In Frustum
-			if (App->camera->editor_camera->IsGameObjectInFrustum(game_objects[i]->GetBB(), game_objects[i]->comp_transform->matrix_local.TranslatePart()))
+			if (App->camera->GetCurrentCam()->IsGameObjectInFrustum(game_objects[i]->GetBB(), game_objects[i]->comp_transform->matrix_local.TranslatePart()))
 				game_objects[i]->Draw();
 		}
 		else if (!game_objects[i]->IsRoot())
 			game_objects[i]->Draw();
-	}
+
+		if (App->camera->GetCurrentCam()->frustrum_draw)
+			App->camera->GetCurrentCam()->DrawFrustum();
+		}
+	
 }
 
 GameObject* ModuleScene::CreateGameObject()
@@ -127,5 +132,6 @@ GameObject* ModuleScene::CreateCamera()
 	main_camera_go->SetName("Main Camera");
 	ComponentCamera* cam_comp = new ComponentCamera();
 	main_camera_go->PushComponent(cam_comp);
+	cam_comp->cam->SetFarPlane(1000);
 	return main_camera_go;
 }

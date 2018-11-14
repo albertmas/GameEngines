@@ -45,9 +45,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 
 	CameraMovement(dt);
-	if (App->imgui->frustrum) {
-		GetCurrentCam()->DrawFrustum();
-	}
+	
 	
 	
 	return UPDATE_CONTINUE;

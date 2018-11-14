@@ -50,7 +50,7 @@ public:
 	void CreateNewFrustum();
 	void DrawFrustum();
 	Frustum frustum;
-
+	bool frustrum_draw;
 
 private:
 	
