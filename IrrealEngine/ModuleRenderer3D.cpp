@@ -215,22 +215,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	{
 		CreateAxis();
 	}
-
-	/*for (std::list<FBXMesh*>::iterator iter = meshes.begin(); iter != meshes.end(); iter++)
-	{
-		(*iter)->Draw();
-		if (BB && meshes.size() > 1)
-		{
-			DrawBB((*iter)->bounding_box, { 1.0f, 0.0f, 0.0f });
-		}
-	}*/
-	if (BB)
-		DrawBB(*App->sceneloader->ObjectBB, { 0.0f, 1.0f, 0.0f });
-
-	//glBindTexture(GL_TEXTURE_2D, 0);
-
-
-
+	
 	App->scene->Draw();
 	App->imgui->DrawImgui();
 
@@ -546,6 +531,54 @@ void FBXMesh::Draw()
 }
 
 void ModuleRenderer3D::DrawBB(AABB bounding_box, float3 color)const
+{
+	glColor3f(color.x, color.y, color.z);
+	glLineWidth(2.0f);
+	glBegin(GL_LINES);
+
+	glVertex3f(bounding_box.CornerPoint(0).x, bounding_box.CornerPoint(0).y, bounding_box.CornerPoint(0).z);
+	glVertex3f(bounding_box.CornerPoint(1).x, bounding_box.CornerPoint(1).y, bounding_box.CornerPoint(1).z);
+
+	glVertex3f(bounding_box.CornerPoint(0).x, bounding_box.CornerPoint(0).y, bounding_box.CornerPoint(0).z);
+	glVertex3f(bounding_box.CornerPoint(2).x, bounding_box.CornerPoint(2).y, bounding_box.CornerPoint(2).z);
+
+	glVertex3f(bounding_box.CornerPoint(0).x, bounding_box.CornerPoint(0).y, bounding_box.CornerPoint(0).z);
+	glVertex3f(bounding_box.CornerPoint(4).x, bounding_box.CornerPoint(4).y, bounding_box.CornerPoint(4).z);
+
+	glVertex3f(bounding_box.CornerPoint(3).x, bounding_box.CornerPoint(3).y, bounding_box.CornerPoint(3).z);
+	glVertex3f(bounding_box.CornerPoint(1).x, bounding_box.CornerPoint(1).y, bounding_box.CornerPoint(1).z);
+
+	glVertex3f(bounding_box.CornerPoint(3).x, bounding_box.CornerPoint(3).y, bounding_box.CornerPoint(3).z);
+	glVertex3f(bounding_box.CornerPoint(2).x, bounding_box.CornerPoint(2).y, bounding_box.CornerPoint(2).z);
+
+	glVertex3f(bounding_box.CornerPoint(3).x, bounding_box.CornerPoint(3).y, bounding_box.CornerPoint(3).z);
+	glVertex3f(bounding_box.CornerPoint(7).x, bounding_box.CornerPoint(7).y, bounding_box.CornerPoint(7).z);
+
+	glVertex3f(bounding_box.CornerPoint(6).x, bounding_box.CornerPoint(6).y, bounding_box.CornerPoint(6).z);
+	glVertex3f(bounding_box.CornerPoint(2).x, bounding_box.CornerPoint(2).y, bounding_box.CornerPoint(2).z);
+
+	glVertex3f(bounding_box.CornerPoint(6).x, bounding_box.CornerPoint(6).y, bounding_box.CornerPoint(6).z);
+	glVertex3f(bounding_box.CornerPoint(4).x, bounding_box.CornerPoint(4).y, bounding_box.CornerPoint(4).z);
+
+	glVertex3f(bounding_box.CornerPoint(6).x, bounding_box.CornerPoint(6).y, bounding_box.CornerPoint(6).z);
+	glVertex3f(bounding_box.CornerPoint(7).x, bounding_box.CornerPoint(7).y, bounding_box.CornerPoint(7).z);
+
+	glVertex3f(bounding_box.CornerPoint(5).x, bounding_box.CornerPoint(5).y, bounding_box.CornerPoint(5).z);
+	glVertex3f(bounding_box.CornerPoint(1).x, bounding_box.CornerPoint(1).y, bounding_box.CornerPoint(1).z);
+
+	glVertex3f(bounding_box.CornerPoint(5).x, bounding_box.CornerPoint(5).y, bounding_box.CornerPoint(5).z);
+	glVertex3f(bounding_box.CornerPoint(4).x, bounding_box.CornerPoint(4).y, bounding_box.CornerPoint(4).z);
+
+	glVertex3f(bounding_box.CornerPoint(5).x, bounding_box.CornerPoint(5).y, bounding_box.CornerPoint(5).z);
+	glVertex3f(bounding_box.CornerPoint(7).x, bounding_box.CornerPoint(7).y, bounding_box.CornerPoint(7).z);
+
+	glEnd();
+	glLineWidth(1.0f);
+	glColor3f(1.0, 1.0, 1.0);
+
+}
+
+void ModuleRenderer3D::DrawBB(OBB bounding_box, float3 color)const
 {
 	glColor3f(color.x, color.y, color.z);
 	glLineWidth(2.0f);

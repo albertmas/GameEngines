@@ -43,14 +43,12 @@ FBXMesh* ModuleMeshLoader::ImportMesh(aiMesh* mesh)
 		newMesh->num_indices = mesh->mNumFaces * 3;
 		newMesh->indices = new uint[newMesh->num_indices]; // assume each face is a triangle
 
-		bool verticeError = false;
-
 		for (uint i = 0; i < mesh->mNumFaces; ++i)
 		{
 			if (mesh->mFaces[i].mNumIndices != 3)
 			{
-				LOG("WARNING, geometry face with != 3 indices!");
-				verticeError = true;
+				LOG("WARNING, geometry face with != 3 indices! This mesh won't be rendered.");
+				newMesh->hasTriFaces = false;
 			}
 			else
 			{

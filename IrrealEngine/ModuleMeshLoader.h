@@ -4,7 +4,7 @@
 #include "Module.h"
 
 #define MESHES_DIRECTORY "Library/Meshes/"
-#define MESHES_EXTENSION ".uwu"
+#define MESHES_EXTENSION ".IrrealMesh"
 
 
 class FBXMesh;

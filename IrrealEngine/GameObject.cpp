@@ -1,9 +1,12 @@
 #include "GameObject.h"
+#include "Application.h"
 #include "Component.h"
 #include "ComponentMesh.h"
 #include "ComponentTransform.h"
 #include "ComponentTexture.h"
 #include "ComponentCamera.h"
+#include "ModuleRenderer3D.h"
+#include "ModuleImGui.h"
 
 
 GameObject::GameObject(GameObject* parent, const char* name)
@@ -14,11 +17,9 @@ GameObject::GameObject(GameObject* parent, const char* name)
 		parent->go_children.push_back(this);
 	}
 	go_name = name;
+	local_AABB = AABB({ 0,0,0 }, { 0,0,0 });
 }
 
-GameObject::GameObject()
-{
-}
 GameObject::~GameObject()
 {
 	for (int i = 0; i < go_components.size(); i++)
@@ -54,28 +55,48 @@ void GameObject::Draw()
 {
 	if (go_active)
 	{
-		for (int i = 0; i < go_components.size(); i++)
+		if (go_components.size() > 0)
 		{
-			if (go_components[i]->active)
+			ComponentTransform* comp_trans = (ComponentTransform*)GetComponent(Component::TRANSFORMATION);
+
+			if (comp_trans != nullptr)
 			{
-				if (go_components[i]->type == COMP_TYPE::TRANSFORMATION)
+				comp_trans->Update();
+
+				ComponentMesh* comp_mesh = (ComponentMesh*)GetComponent(Component::MESH);
+				ComponentTexture* comp_tex = (ComponentTexture*)GetComponent(Component::TEXTURE);
+
+				if (comp_tex != nullptr && comp_mesh != nullptr)
 				{
-					go_components[i]->Update();
+					comp_tex->Update();
 				}
 
-				if (go_components[i]->type == COMP_TYPE::TEXTURE)
+				if (comp_mesh != nullptr)
 				{
-					go_components[i]->Update();
-				}
-				if (go_components[i]->type == COMP_TYPE::MESH)
+					glPushMatrix();
+					glMultMatrixf((float*)comp_trans->matrix_global.Transposed().v);
+					comp_mesh->Update();
+					glPopMatrix();
 
-				{
-					go_components[i]->Update();
+
+					if (App->renderer3D->BB || this == App->imgui->focused_go)
+					{
+						oriented_BB.SetNegativeInfinity();
+						oriented_BB = local_AABB;
+						oriented_BB.Transform(comp_trans->matrix_global);
+
+						global_AABB.SetNegativeInfinity();
+						global_AABB.Enclose(oriented_BB);
+
+						App->renderer3D->DrawBB(global_AABB, { 1, 0, 0 });
+						App->renderer3D->DrawBB(oriented_BB, { 0, 1, 0 });
+					}
 				}
 			}
 		}
 
 		glBindTexture(GL_TEXTURE_2D, 0);
+		glColor3f(1.0, 1.0, 1.0);
 
 		for (int i = 0; i < go_children.size(); i++)
 		{
@@ -84,30 +105,25 @@ void GameObject::Draw()
 	}
 }
 
-//void GameObject::DrawBB(const AABB& BB, vec3 color) const
-//{
-//
-//}
-
-Component* GameObject::CreateComponent(COMP_TYPE type)
+Component* GameObject::CreateComponent(Component::COMP_TYPE type)
 {
 	Component* comp = nullptr;
 
 	switch (type)
 	{
-	case COMP_TYPE::MESH:
+	case Component::COMP_TYPE::MESH:
 		comp = new ComponentMesh(this);
 		go_components.push_back(comp);
 		break;
-	case COMP_TYPE::TRANSFORMATION:
+	case Component::COMP_TYPE::TRANSFORMATION:
 		comp = new ComponentTransform(this);
 		go_components.push_back(comp);
 		break;
-	case COMP_TYPE::TEXTURE:
+	case Component::COMP_TYPE::TEXTURE:
 		comp = new ComponentTexture(this);
 		go_components.push_back(comp);
 		break;
-	//case Component::CAMERA:
+	//case Component::COMP_TYPE::CAMERA:
 	//	comp = new ComponentCamera(this);
 	//	go_components.push_back(comp);
 	//	break;
@@ -116,17 +132,7 @@ Component* GameObject::CreateComponent(COMP_TYPE type)
 	return comp;
 }
 
-Component * GameObject::GetComponent(COMP_TYPE type)
-{
-	for (std::vector<Component*>::iterator item = go_components.begin(); item != go_components.end(); item++)
-	{
-		if ((*item)->type == type)
-			return (*item);
-	}
-	return nullptr;
-}
-
-void GameObject::PushComponent(Component * new_component)
+void GameObject::PushComponent(Component* new_component)
 {
 	go_components.push_back(new_component);
 }
@@ -146,32 +152,32 @@ bool GameObject::HasMesh() const
 	bool ret = false;
 	for (int i = 0; i < go_components.size(); i++)
 	{
-		if (go_components[i]->type == COMP_TYPE::MESH)
+		if (go_components[i]->type == Component::COMP_TYPE::MESH)
 			ret = true;
 	}
 	return ret;
 }
 
-AABB GameObject::GetBB()
-{
-	ComponentMesh* aux;
-	if (HasMesh())
-	{
-		aux = (ComponentMesh*)GetComponent(MESH);
-		return aux->mesh->bounding_box;
-	}
-	else
-		LOG("Can't return BB without a mesh");
-}
+//AABB GameObject::GetBB()
+//{
+//	ComponentMesh* aux;
+//	if (HasMesh())
+//	{
+//		aux = (ComponentMesh*)GetComponent(MESH);
+//		return aux->mesh->bounding_box;
+//	}
+//	else
+//		LOG("Can't return BB without a mesh");
+//}
 
 bool GameObject::IsRoot() const
 {
 	return root_go;
 }
 
-Camera * GameObject::GetCamera()
+Camera* GameObject::GetCamera()
 {
-	ComponentCamera* aux = (ComponentCamera*)this->GetComponent(COMP_TYPE::CAMERA);
+	ComponentCamera* aux = (ComponentCamera*)this->GetComponent(Component::COMP_TYPE::CAMERA);
 	if (aux != nullptr)
 		return aux->cam;
 
@@ -183,8 +189,24 @@ bool GameObject::HasCam() const
 	bool ret = false;
 	for (int i = 0; i < go_components.size(); i++)
 	{
-		if (go_components[i]->type == COMP_TYPE::CAMERA)
+		if (go_components[i]->type == Component::COMP_TYPE::CAMERA)
 			ret = true;
 	}
 	return ret;
+}
+
+Component* GameObject::GetComponent(Component::COMP_TYPE type)
+{
+	Component* comp = nullptr;
+
+	for (std::vector<Component*>::iterator it_c = go_components.begin(); it_c != go_components.end(); it_c++)
+	{
+		if ((*it_c)->type == type)
+		{
+			comp = *it_c;
+			break;
+		}
+	}
+
+	return comp;
 }

@@ -20,7 +20,7 @@ ComponentMesh::~ComponentMesh()
 
 bool ComponentMesh::Update()
 {
-	if (active)
+	if (active && go_mesh->hasTriFaces)
 	{
 		//glColor3f(1.0, 1.0, 1.0);
 		glEnableClientState(GL_VERTEX_ARRAY);
@@ -52,9 +52,6 @@ bool ComponentMesh::Update()
 		
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		glDisableClientState(GL_VERTEX_ARRAY);
-
-		if (App->renderer3D->BB)
-			App->renderer3D->DrawBB(go_mesh->bounding_box, { 1, 0, 0 });
 
 		if (App->renderer3D->GetNormals())
 		{

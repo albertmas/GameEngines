@@ -11,13 +11,7 @@
 using namespace rapidjson;
 
 class GameObject;
-enum COMP_TYPE {
-	NONE,
-	MESH,
-	TRANSFORMATION,
-	TEXTURE,
-	CAMERA
-};
+
 class Component
 {
 public:
@@ -39,7 +33,6 @@ public:
 	virtual void SetInspectorInfo()
 	{}
 
-
 	virtual bool Save(Document& document, FileWriteStream& fws) const
 	{
 		Document::AllocatorType& allocator = document.GetAllocator();
@@ -53,7 +46,13 @@ public:
 
 public:
 
-	
+	enum COMP_TYPE {
+		NONE,
+		MESH,
+		TRANSFORMATION,
+		TEXTURE,
+		CAMERA
+	};
 
 public:
 

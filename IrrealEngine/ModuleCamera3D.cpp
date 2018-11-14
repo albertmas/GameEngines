@@ -45,16 +45,16 @@ update_status ModuleCamera3D::Update(float dt)
 
 
 	CameraMovement(dt);
-	
-	
-	
+
+
+
 	return UPDATE_CONTINUE;
 }
 
 void ModuleCamera3D::StartEditorCam()
 {
 	editor_camera = new Camera();
-	
+
 }
 
 
@@ -79,7 +79,7 @@ void ModuleCamera3D::Look(const float3 &Position, const float3 &Reference, bool 
 }
 
 // -----------------------------------------------------------------
-void ModuleCamera3D::LookAt( const float3 &Spot)
+void ModuleCamera3D::LookAt(const float3 &Spot)
 {
 	editor_camera->LookAt(Spot);
 }
@@ -104,12 +104,11 @@ void ModuleCamera3D::WheelMove(const float & mouse_speed, int direction)
 
 void ModuleCamera3D::MoveCam(const float3 &speed)
 {
-	
+
 	editor_camera->frustum.Translate(speed);
 
 	/*float3 newPos(speed.x, speed.y, speed.z);
 
-	                                                           
 	editor_camera->SetPosition(newPos);
 	editor_camera->SetReference(newPos);*/
 }
@@ -139,7 +138,7 @@ void ModuleCamera3D::NewCamera()
 {
 	Camera* aux = current_cam->GetCamera();
 	aux = new Camera();
-	
+
 }
 
 void ModuleCamera3D::SetCurrentCam(GameObject * cam)
@@ -170,13 +169,13 @@ float ModuleCamera3D::GetMouseSensitivity() const
 }
 void ModuleCamera3D::Camera_Rot(const float dt)
 {
-	
+
 	HandleMouse(dt);
 
 	GetCurrentCam()->Position = GetCurrentCam()->Reference + GetCurrentCam()->Z * mult(GetCurrentCam()->Position);// need to adapt this line so it orbits
-	
-	LookAt({ 0,0,0 });	
-	
+
+	LookAt({ 0,0,0 });
+
 }
 
 void ModuleCamera3D::Move(const float &Movement)
@@ -225,7 +224,7 @@ void ModuleCamera3D::CameraMovement(float dt)
 	{
 		Camera_Rot(dt);
 		//Position = Reference + Z * length(Position);
-		
+
 	}
 
 
@@ -247,8 +246,8 @@ void ModuleCamera3D::FocusBox(AABB & box, float3 transform)
 	focus_position.y = box.CenterPoint().y;
 	focus_position.z = box.CenterPoint().z;
 	//Z = normalize(Position - focus_position);
-//	X = Normalize(Cross(float3(0.0f, 1.0f, 0.0f), Z));
-//	Y = Cross(Z, X);
+	//	X = Normalize(Cross(float3(0.0f, 1.0f, 0.0f), Z));
+	//	Y = Cross(Z, X);
 	//GetCurrentCam()->CalculateViewMatrix();
 	editor_camera->frustum.pos.Set(Position.x, Position.y, Position.z);
 

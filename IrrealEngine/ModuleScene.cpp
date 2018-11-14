@@ -4,14 +4,12 @@
 #include "ModuleCamera3D.h"
 #include "ModuleSceneLoader.h"
 #include "ModuleInput.h"
+#include "GameObject.h"
 #include  "Component.h"
 #include  "ComponentTransform.h"
 #include  "ComponentMesh.h"
 #include  "ComponentTexture.h"
 #include "ComponentCamera.h"
-
-
-
 
 
 ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled)
@@ -38,7 +36,7 @@ bool ModuleScene::Start()
 	root = new GameObject(nullptr, "root");
 	root->go_static = true;
 	game_objects.push_back(root);
-	ComponentTransform* root_trans = (ComponentTransform*)root->CreateComponent(COMP_TYPE::TRANSFORMATION);
+	ComponentTransform* root_trans = (ComponentTransform*)root->CreateComponent(Component::COMP_TYPE::TRANSFORMATION);
 
 
 	App->camera->StartEditorCam();
@@ -59,6 +57,8 @@ bool ModuleScene::Start()
 
 update_status ModuleScene::PreUpdate(float dt)
 {
+	SetGlobalMatrix(root);
+
 	return UPDATE_CONTINUE;
 }
 update_status ModuleScene::Update(float dt)
@@ -106,8 +106,8 @@ void ModuleScene::Draw()
 		if (!game_objects[i]->IsStatic() && game_objects[i]->HasMesh())
 		{
 			//Check In Frustum
-			if (App->camera->GetCurrentCam()->IsGameObjectInFrustum(game_objects[i]->GetBB(), game_objects[i]->comp_transform->matrix_local.TranslatePart()))
-				game_objects[i]->Draw();
+			/*if (App->camera->GetCurrentCam()->IsGameObjectInFrustum(game_objects[i]->GetBB(), game_objects[i]->comp_transform->matrix_local.TranslatePart()))
+				game_objects[i]->Draw();*/
 		}
 		else if (!game_objects[i]->IsRoot())
 			game_objects[i]->Draw();
@@ -128,10 +128,25 @@ GameObject* ModuleScene::CreateGameObject()
 
 GameObject* ModuleScene::CreateCamera()
 {
-	GameObject* main_camera_go = new GameObject();
-	main_camera_go->SetName("Main Camera");
+	GameObject* main_camera_go = new GameObject(root, "Main Camera");
 	ComponentCamera* cam_comp = new ComponentCamera();
 	main_camera_go->PushComponent(cam_comp);
 	cam_comp->cam->SetFarPlane(1000);
 	return main_camera_go;
+}
+
+void ModuleScene::SetGlobalMatrix(GameObject* gameobject)
+{
+	ComponentTransform* compTrans = (ComponentTransform*)gameobject->GetComponent(Component::TRANSFORMATION);
+
+	if (compTrans != nullptr)
+	{
+		if (gameobject->go_parent != nullptr)
+			compTrans->matrix_global = ((ComponentTransform*)gameobject->go_parent->GetComponent(Component::TRANSFORMATION))->matrix_global * compTrans->matrix_local;
+
+		for (int i = 0; i < gameobject->go_children.size(); i++)
+		{
+			SetGlobalMatrix(gameobject->go_children[i]);
+		}
+	}
 }

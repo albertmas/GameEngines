@@ -47,6 +47,7 @@ struct FBXMesh
 	Quat meshRot = { 0, 0, 0, 0 };
 	float3 meshScale = { 0, 0, 0 };
 	uint num_triangles = 0;
+	bool hasTriFaces = true;
 };
 
 class ModuleRenderer3D : public Module
@@ -70,6 +71,7 @@ public:
 	void FunctionsRender();
 	void CreateCube();
 	void DrawBB(AABB bounding_box, float3 color)const;
+	void DrawBB(OBB bounding_box, float3 color)const;
 	
 
 	void Active_Wireframe(bool active);

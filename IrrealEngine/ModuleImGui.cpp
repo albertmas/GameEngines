@@ -10,6 +10,7 @@
 #include "ModuleSceneLoader.h"
 #include "ModuleScene.h"
 #include "ModuleCamera3D.h"
+#include "GameObject.h"
 #include "Assimp/include/version.h"
 #include "DevIL/include/il.h"
 
