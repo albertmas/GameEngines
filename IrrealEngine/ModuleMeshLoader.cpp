@@ -6,6 +6,8 @@
 
 #include <fstream>
 
+#include "mmgr/mmgr.h"
+
 
 ModuleMeshLoader::ModuleMeshLoader(bool start_enabled) : Module(start_enabled)
 {

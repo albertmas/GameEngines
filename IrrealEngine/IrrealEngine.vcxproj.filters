@@ -184,6 +184,9 @@
     <ClCompile Include="ComponentTexture.cpp">
       <Filter>Sources\Components</Filter>
     </ClCompile>
+    <ClCompile Include="mmgr\mmgr.cpp">
+      <Filter>Sources\mmgr</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -471,6 +474,12 @@
     <ClInclude Include="ComponentTexture.h">
       <Filter>Sources\Components</Filter>
     </ClInclude>
+    <ClInclude Include="mmgr\mmgr.h">
+      <Filter>Sources\mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="mmgr\nommgr.h">
+      <Filter>Sources\mmgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="MathGeoLib\Geometry\KDTree.inl">
@@ -522,6 +531,9 @@
     </Filter>
     <Filter Include="Sources\Components">
       <UniqueIdentifier>{f36c0b57-fdb8-4ce6-a953-305d2b5be676}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\mmgr">
+      <UniqueIdentifier>{8aea133a-cfcd-4311-ad67-2d791809ba68}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

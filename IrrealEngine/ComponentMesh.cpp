@@ -6,6 +6,8 @@
 #include "ModuleSceneLoader.h"
 #include "ModuleRenderer3D.h"
 
+#include "mmgr/mmgr.h"
+
 
 ComponentMesh::ComponentMesh(GameObject* gameobject)
 {

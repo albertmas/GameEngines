@@ -13,6 +13,8 @@
 #include <fstream>
 #include <algorithm>
 
+#include "mmgr/mmgr.h"
+
 
 ModuleTextureLoader::ModuleTextureLoader(bool start_enabled) : Module(start_enabled)
 {

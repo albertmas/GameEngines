@@ -16,6 +16,8 @@
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
 
+#include "mmgr/mmgr.h"
+
 
 ModuleSceneLoader::ModuleSceneLoader(bool start_enabled) : Module(start_enabled)
 {

@@ -1,8 +1,9 @@
 #include "Globals.h"
 #include "Module.h"
 #include "Primitive.h"
-#include "GLEW/include/glew.h"
 
+#include "GLEW/include/glew.h"
+#include "mmgr/mmgr.h"
 
 
 // ------------------------------------------------------------

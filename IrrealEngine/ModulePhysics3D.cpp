@@ -1,6 +1,8 @@
 #include "Application.h"
 #include "ModulePhysics3D.h"
 
+#include "mmgr/mmgr.h"
+
 
 ModulePhysics3D::ModulePhysics3D(bool start_enabled) : Module(start_enabled)
 {

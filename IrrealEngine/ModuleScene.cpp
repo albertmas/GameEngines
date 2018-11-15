@@ -10,6 +10,8 @@
 #include "ComponentMesh.h"
 #include "ComponentTexture.h"
 
+#include "mmgr/mmgr.h"
+
 
 ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled)
 {

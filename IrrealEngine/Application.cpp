@@ -11,6 +11,8 @@
 #include "ModuleTextureLoader.h"
 #include "ModuleScene.h"
 
+#include "mmgr/mmgr.h"
+
 
 Application::Application()
 {
