@@ -9,6 +9,7 @@
 #include "ComponentTransform.h"
 #include "ComponentMesh.h"
 #include "ComponentTexture.h"
+#include "ComponentCamera.h"
 
 #include "mmgr/mmgr.h"
 
@@ -28,8 +29,6 @@ bool ModuleScene::Init(Document& document)
 	LOG("Loading Plane");
 	bool ret = true;
 
-	App->camera->Move(vec3(0.0f, 10.0f, 0.0f));
-	App->camera->LookAt(vec3(0.0f, 0.0f, 0.0f));
 
 	return ret;
 }
@@ -39,6 +38,17 @@ bool ModuleScene::Start()
 	root = new GameObject(nullptr, "root");
 	game_objects.push_back(root);
 	ComponentTransform* root_trans = (ComponentTransform*)root->CreateComponent(Component::TRANSFORMATION);
+
+	App->camera->StartEditorCam();
+
+	GameObject* new_cam = CreateCamera();
+	game_objects.push_back(new_cam);
+
+
+	if (new_cam->HasCam())
+		App->camera->cams_list.push_back(new_cam);
+	App->camera->SetCurrentCam(new_cam);
+	App->camera->NewCamera();
 
 	App->sceneloader->ImportMesh("Assets/street/Street environment_V01.fbx");
 
@@ -117,4 +127,14 @@ void ModuleScene::SetGlobalMatrix(GameObject* gameobject)
 			SetGlobalMatrix(gameobject->go_children[i]);
 		}
 	}
+}
+
+
+GameObject* ModuleScene::CreateCamera()
+{
+	GameObject* main_camera_go = new GameObject(root, "Main Camera");
+	ComponentCamera* cam_comp = new ComponentCamera();
+	main_camera_go->PushComponent(cam_comp);
+	cam_comp->cam->SetFarPlane(1000);
+	return main_camera_go;
 }

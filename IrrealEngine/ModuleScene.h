@@ -24,6 +24,7 @@ public:
 
 	void Draw();
 	GameObject* CreateGameObject();
+	GameObject* CreateCamera();
 	void SetGlobalMatrix(GameObject* gameobject);
 
 public:

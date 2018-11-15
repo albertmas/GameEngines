@@ -187,6 +187,12 @@
     <ClCompile Include="mmgr\mmgr.cpp">
       <Filter>Sources\mmgr</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentCamera.cpp">
+      <Filter>Sources\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -479,6 +485,12 @@
     </ClInclude>
     <ClInclude Include="mmgr\nommgr.h">
       <Filter>Sources\mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentCamera.h">
+      <Filter>Sources\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

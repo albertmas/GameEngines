@@ -98,6 +98,8 @@ private:
 
 	bool scrollconsole = false;
 
+	bool frustrum = false;
+
 	int config_width = 300;
 	int inspector_width = 250;
 	int inspector_height = 250;

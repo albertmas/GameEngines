@@ -6,6 +6,7 @@
 #include "ComponentTexture.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleImGui.h"
+#include "ComponentCamera.h"
 
 #include "mmgr/mmgr.h"
 
@@ -20,6 +21,8 @@ GameObject::GameObject(GameObject* parent, const char* name)
 	go_name = name;
 	local_AABB = AABB({ 0,0,0 }, { 0,0,0 });
 }
+
+
 
 GameObject::~GameObject()
 {
@@ -147,4 +150,64 @@ Component* GameObject::GetComponent(Component::COMP_TYPE type)
 	}
 
 	return comp;
+}
+
+
+void GameObject::PushComponent(Component * new_component)
+{
+	go_components.push_back(new_component);
+}
+
+
+bool GameObject::IsStatic() const
+{
+	return go_static;
+}
+
+bool GameObject::HasMesh() const
+{
+	bool ret = false;
+	for (int i = 0; i < go_components.size(); i++)
+	{
+		if (go_components[i]->type == Component::COMP_TYPE::MESH)
+			ret = true;
+	}
+	return ret;
+}
+
+AABB GameObject::GetBB()
+{
+	ComponentMesh* aux;
+	if (HasMesh())
+	{
+		aux = (ComponentMesh*)GetComponent(Component::COMP_TYPE::MESH);
+		return aux->mesh->bounding_box;
+	}
+	else
+		LOG("Can't return BB without a mesh");
+}
+
+bool GameObject::IsRoot() const
+{
+	return root_go;
+}
+
+Camera * GameObject::GetCamera()
+{
+	ComponentCamera* aux = (ComponentCamera*)this->GetComponent(Component::COMP_TYPE::CAMERA);
+	if (aux != nullptr)
+		return aux->cam;
+
+	return nullptr;
+}
+
+bool GameObject::HasCam() const
+{
+	bool ret = false;
+	for (int i = 0; i < go_components.size(); i++)
+	{
+		if (go_components[i]->type == Component::COMP_TYPE::CAMERA)
+			ret = true;
+	}
+	return ret;
 }

@@ -234,6 +234,11 @@ GameObject* ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* sc
 				gameobject->oriented_BB.SetFrom(gameobject->local_AABB);
 			}
 		}
+
+		if (App->camera->first_time == false)
+		{
+			App->camera->FocusBox(*ObjectBB, pos);
+		}
 	}
 	else if (node->mNumChildren > 0)
 	{
@@ -248,10 +253,7 @@ GameObject* ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* sc
 		}
 	}
 
-	if (App->camera->first_time == false)
-	{
-		App->camera->FocusBox(*ObjectBB);
-	}
+
 	
 	App->camera->first_time = false;
 	
