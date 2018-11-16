@@ -83,7 +83,7 @@ FBXMesh* ModuleMeshLoader::ImportMesh(aiMesh* mesh)
 			LOG("New mesh has no Texture Coordinates")
 	}
 
-	App->renderer3D->meshes.push_back(newMesh);
+	App->meshloader->meshes.push_back(newMesh);
 	SaveMesh(newMesh);
 
 	return newMesh;
@@ -188,7 +188,32 @@ FBXMesh* ModuleMeshLoader::LoadMesh(const char* name)
 	newMesh->meshName = name;
 
 	newMesh->setMeshBuffer();
-	App->renderer3D->meshes.push_back(newMesh);
+	App->meshloader->meshes.push_back(newMesh);
 
 	return newMesh;
+}
+
+FBXMesh::~FBXMesh()
+{
+	RELEASE_ARRAY(vertices);
+
+	RELEASE_ARRAY(normals);
+
+	RELEASE_ARRAY(texCoords);
+
+	glDeleteBuffers(1, &id_indices);
+	RELEASE_ARRAY(indices);
+}
+
+void FBXMesh::setMeshBuffer()
+{
+	glGenBuffers(1, (GLuint*)&(id_indices));
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * num_indices, &indices[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	/*glGenBuffers(1, (GLuint*)&(id_vertices));
+	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * num_vertices * 3, vertices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);*/
 }

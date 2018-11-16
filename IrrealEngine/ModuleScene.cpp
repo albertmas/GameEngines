@@ -1,6 +1,6 @@
 #include "Application.h"
 #include "ModuleScene.h"
-#include "ModuleRenderer3D.h"
+#include "ModuleMeshLoader.h"
 #include "ModuleCamera3D.h"
 #include "ModuleSceneLoader.h"
 #include "ModuleInput.h"
@@ -68,13 +68,13 @@ bool ModuleScene::CleanUp()
 	LOG("Freeing all Scene elements");
 
 	std::list<FBXMesh*>::iterator iter_mesh;
-	iter_mesh = App->renderer3D->meshes.begin();
-	while (iter_mesh != App->renderer3D->meshes.end())
+	iter_mesh = App->meshloader->meshes.begin();
+	while (iter_mesh != App->meshloader->meshes.end())
 	{
 		RELEASE((*iter_mesh));
 		iter_mesh++;
 	}
-	App->renderer3D->meshes.clear();
+	App->meshloader->meshes.clear();
 	
 	std::vector<GameObject*>::iterator iter_go;
 	iter_go = root->go_children.begin();

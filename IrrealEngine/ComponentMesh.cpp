@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "GameObject.h"
 #include "ComponentTexture.h"
+#include "ModuleMeshLoader.h"
 #include "ModuleTextureLoader.h"
 #include "ModuleSceneLoader.h"
 #include "ModuleRenderer3D.h"

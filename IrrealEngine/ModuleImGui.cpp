@@ -8,6 +8,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModulePhysics3D.h"
 #include "ModuleSceneLoader.h"
+#include "ModuleMeshLoader.h"
 #include "ModuleScene.h"
 #include "GameObject.h"
 #include "Assimp/include/version.h"
@@ -529,7 +530,6 @@ void ModuleImGui::ConfigurationWindow()
 						{
 							if (selected_file_type == "fbx" | selected_file_type == "FBX")
 							{
-								App->renderer3D->meshes.clear();
 								App->sceneloader->ImportMesh(selected_file_path.c_str());
 							}
 							else if (selected_file_type == "dds" | selected_file_type == "png" | selected_file_type == "jpg")
