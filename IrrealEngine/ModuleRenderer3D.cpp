@@ -222,6 +222,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	if (Q)
 	{
+		App->scene->GlobalQuadTree->RecalculateQuadTree();
 		App->scene->DrawGOBoundingBoxes();
 		App->scene->GlobalQuadTree->RenderQuadTree();
 	}
@@ -424,6 +425,7 @@ void ModuleRenderer3D::FunctionsRender()
 
 	if (ImGui::Checkbox("QuadTree", &Q))
 	{
+		App->scene->GlobalQuadTree->RecalculateQuadTree();
 		App->scene->DrawGOBoundingBoxes();
 		App->scene->GlobalQuadTree->RenderQuadTree();
 	}
