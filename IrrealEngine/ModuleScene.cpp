@@ -127,6 +127,7 @@ GameObject* ModuleScene::CreateGameObject()
 
 void ModuleScene::DrawGOBoundingBoxes()
 {
+
 	for (uint i = 0; i < game_objects.size(); i++)
 	{
 		if (game_objects[i]->IsActive())

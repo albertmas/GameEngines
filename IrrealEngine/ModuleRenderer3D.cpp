@@ -220,8 +220,11 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	//glBindTexture(GL_TEXTURE_2D, 0);
 
-	App->scene->DrawGOBoundingBoxes();
-	App->scene->GlobalQuadTree->RenderQuadTree();
+	if (Q)
+	{
+		App->scene->DrawGOBoundingBoxes();
+		App->scene->GlobalQuadTree->RenderQuadTree();
+	}
 
 	App->scene->Draw();
 	App->imgui->DrawImgui();
@@ -414,7 +417,16 @@ void ModuleRenderer3D::FunctionsRender()
 		App->renderer3D->SetNormals(Normals);
 	}
 	
-	ImGui::Checkbox("Bounding Box", &BB);
+	if (ImGui::Checkbox("Bounding Box", &BB))
+	{
+	}
+	
+
+	if (ImGui::Checkbox("QuadTree", &Q))
+	{
+		App->scene->DrawGOBoundingBoxes();
+		App->scene->GlobalQuadTree->RenderQuadTree();
+	}
 }
 
 void ModuleRenderer3D::Active_Wireframe(bool active)
