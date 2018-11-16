@@ -4,6 +4,9 @@
 #include "Module.h"
 #include "Mesh.h"
 
+#define TEXTURES_DIRECTORY "Library/Scenes/"
+#define TEXTURES_EXTENSION ".IrrealScene"
+
 
 struct FBXMesh;
 struct aiScene;
@@ -18,9 +21,9 @@ public:
 	~ModuleSceneLoader();
 
 	bool Init(Document& document);
-	update_status PreUpdate(float dt);
-	update_status Update(float dt);
-	update_status PostUpdate(float dt);
+	update_status PreUpdate(float dt)	{	return UPDATE_CONTINUE;	}
+	update_status Update(float dt)		{	return UPDATE_CONTINUE;	}
+	update_status PostUpdate(float dt)	{	return UPDATE_CONTINUE;	}
 	bool CleanUp();
 
 	bool ImportMesh(const char* full_path);

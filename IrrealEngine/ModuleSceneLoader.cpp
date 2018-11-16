@@ -40,21 +40,6 @@ bool ModuleSceneLoader::Init(Document& document)
 	return true;
 }
 
-update_status ModuleSceneLoader::PreUpdate(float dt)
-{
-	return UPDATE_CONTINUE;
-}
-
-update_status ModuleSceneLoader::Update(float dt)
-{
-	return UPDATE_CONTINUE;
-}
-
-update_status ModuleSceneLoader::PostUpdate(float dt)
-{
-	return UPDATE_CONTINUE;
-}
-
 bool ModuleSceneLoader::CleanUp()
 {
 	LOG("Freeing all FBX loader elements");
