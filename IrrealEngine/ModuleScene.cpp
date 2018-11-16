@@ -66,7 +66,27 @@ update_status ModuleScene::PostUpdate(float dt)
 bool ModuleScene::CleanUp()
 {
 	LOG("Freeing all Scene elements");
+
+	std::list<FBXMesh*>::iterator iter_mesh;
+	iter_mesh = App->renderer3D->meshes.begin();
+	while (iter_mesh != App->renderer3D->meshes.end())
+	{
+		RELEASE((*iter_mesh));
+		iter_mesh++;
+	}
+	App->renderer3D->meshes.clear();
 	
+	std::vector<GameObject*>::iterator iter_go;
+	iter_go = root->go_children.begin();
+	while (iter_go != root->go_children.end())
+	{
+		RELEASE((*iter_go));
+		iter_go++;
+	}
+	game_objects.clear();
+	root->go_children.clear();
+	RELEASE(root);
+
 	return true;
 }
 

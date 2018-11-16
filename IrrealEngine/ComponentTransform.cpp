@@ -1,5 +1,7 @@
 #include "ComponentTransform.h"
+#include "Application.h"
 #include "GameObject.h"
+#include "ModuleImGui.h"
 
 #include "ImGui/imgui.h"
 #include "mmgr/mmgr.h"
@@ -9,6 +11,7 @@ ComponentTransform::ComponentTransform(GameObject* gameobject)
 {
 	my_go = gameobject;
 	type = TRANSFORMATION;
+	UUID = pcg32_random_r(&App->imgui->rng);
 }
 
 ComponentTransform::~ComponentTransform()
@@ -18,8 +21,6 @@ ComponentTransform::~ComponentTransform()
 
 bool ComponentTransform::Update()
 {
-	
-
 	return true;
 }
 

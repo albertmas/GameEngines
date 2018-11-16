@@ -5,6 +5,7 @@
 #include "ModuleTextureLoader.h"
 #include "ModuleSceneLoader.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleImGui.h"
 
 #include "mmgr/mmgr.h"
 
@@ -13,6 +14,7 @@ ComponentMesh::ComponentMesh(GameObject* gameobject)
 {
 	my_go = gameobject;
 	type = MESH;
+	UUID = pcg32_random_r(&App->imgui->rng);
 }
 
 ComponentMesh::~ComponentMesh()

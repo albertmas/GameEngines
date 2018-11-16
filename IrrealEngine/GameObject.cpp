@@ -7,6 +7,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleImGui.h"
 
+#include "PCG\pcg_basic.h"
 #include "mmgr/mmgr.h"
 
 
@@ -19,6 +20,7 @@ GameObject::GameObject(GameObject* parent, const char* name)
 	}
 	go_name = name;
 	local_AABB = AABB({ 0,0,0 }, { 0,0,0 });
+	UUID = pcg32_random_r(&App->imgui->rng);
 }
 
 GameObject::~GameObject()

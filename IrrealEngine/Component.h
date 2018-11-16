@@ -7,6 +7,7 @@
 #include "rapidjson/filewritestream.h"
 #include "rapidjson/filereadstream.h"
 #include "rapidjson/writer.h"
+#include "PCG\pcg_basic.h"
 
 using namespace rapidjson;
 
@@ -59,7 +60,7 @@ public:
 	bool active = true;
 	GameObject* my_go = nullptr;
 	COMP_TYPE type = NONE;
-
+	uint UUID = 0;
 };
 
 #endif

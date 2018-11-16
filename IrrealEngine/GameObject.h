@@ -27,6 +27,7 @@ public:
 	bool go_static = true;
 
 	std::string go_name = "";
+	uint UUID = 0;
 	std::vector<Component*> go_components;
 	GameObject* go_parent = nullptr;
 	std::vector<GameObject*> go_children;

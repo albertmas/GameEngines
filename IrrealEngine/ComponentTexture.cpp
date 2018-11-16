@@ -1,5 +1,7 @@
 #include "ComponentTexture.h"
+#include "Application.h"
 #include "ModuleTextureLoader.h"
+#include "ModuleImGui.h"
 #include "GameObject.h"
 
 #include "ImGui/imgui.h"
@@ -10,10 +12,12 @@ ComponentTexture::ComponentTexture(GameObject* gameobject)
 {
 	my_go = gameobject;
 	type = TEXTURE;
+	UUID = pcg32_random_r(&App->imgui->rng);
 }
 
 ComponentTexture::~ComponentTexture()
 {
+	RELEASE(texture);
 }
 
 
