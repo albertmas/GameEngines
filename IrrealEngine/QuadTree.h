@@ -19,9 +19,10 @@ public:
 
 	void Intersect(std::vector<GameObject*>& go, const AABB& goboundingbox);
 	void SubDivide();
-
+	void DrawQuadtree();
 	void Clear();
 
+	void DrawBox(float3* vertices, Color color = Green, float lineWidth = 1.5f);
 
 public:
 

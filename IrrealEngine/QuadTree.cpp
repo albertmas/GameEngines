@@ -80,6 +80,8 @@ void Quadtree::Clear()
 	my_objects.clear();
 }
 
+
+
 void Quadtree::SubDivide()
 {
 	float x = QT_Box.Size().x;
@@ -101,4 +103,73 @@ void Quadtree::SubDivide()
 
 	//SE
 	childs.push_back(new Quadtree(AABB(QT_Box.maxPoint - centerXZ, QT_Box.maxPoint), my_subdivision + 1));
+}
+
+void Quadtree::DrawQuadtree() {
+
+	float3 corners[8];
+	QT_Box.GetCornerPoints(corners);
+	DrawBox(corners, Red, 5.f);
+
+	for (auto it : childs)
+	{
+		it->DrawQuadtree();
+	}
+}
+
+void Quadtree::DrawBox(float3 * vertices, Color color, float lineWidth)
+{
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glLineWidth(lineWidth);
+	glColor3f(color.r, color.g, color.b);
+
+	glBegin(GL_LINES);
+	glVertex3fv((GLfloat*)&vertices[1]);
+	glVertex3fv((GLfloat*)&vertices[5]);
+	glVertex3fv((GLfloat*)&vertices[7]);
+	glVertex3fv((GLfloat*)&vertices[3]);
+
+	glVertex3fv((GLfloat*)&vertices[3]);
+	glVertex3fv((GLfloat*)&vertices[1]);
+
+	glVertex3fv((GLfloat*)&vertices[4]);
+	glVertex3fv((GLfloat*)&vertices[0]);
+	glVertex3fv((GLfloat*)&vertices[2]);
+	glVertex3fv((GLfloat*)&vertices[6]);
+
+	glVertex3fv((GLfloat*)&vertices[6]);
+	glVertex3fv((GLfloat*)&vertices[4]);
+
+	glVertex3fv((GLfloat*)&vertices[5]);
+	glVertex3fv((GLfloat*)&vertices[4]);
+	glVertex3fv((GLfloat*)&vertices[6]);
+	glVertex3fv((GLfloat*)&vertices[7]);
+
+	glVertex3fv((GLfloat*)&vertices[7]);
+	glVertex3fv((GLfloat*)&vertices[5]);
+
+	glVertex3fv((GLfloat*)&vertices[0]);
+	glVertex3fv((GLfloat*)&vertices[1]);
+	glVertex3fv((GLfloat*)&vertices[3]);
+	glVertex3fv((GLfloat*)&vertices[2]);
+
+	glVertex3fv((GLfloat*)&vertices[2]);
+	glVertex3fv((GLfloat*)&vertices[6]);
+
+	glVertex3fv((GLfloat*)&vertices[3]);
+	glVertex3fv((GLfloat*)&vertices[7]);
+	glVertex3fv((GLfloat*)&vertices[6]);
+	glVertex3fv((GLfloat*)&vertices[2]);
+
+	glVertex3fv((GLfloat*)&vertices[2]);
+	glVertex3fv((GLfloat*)&vertices[0]);
+
+	glVertex3fv((GLfloat*)&vertices[0]);
+	glVertex3fv((GLfloat*)&vertices[4]);
+	glVertex3fv((GLfloat*)&vertices[5]);
+	glVertex3fv((GLfloat*)&vertices[1]);
+
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	glLineWidth(1.0f);
+	glEnd();
 }
