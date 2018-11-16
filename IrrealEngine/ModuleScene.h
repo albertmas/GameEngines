@@ -2,9 +2,11 @@
 #define __ModuleScene_H__
 
 #include "Module.h"
+#include "QuadTree.h"
 #include <list>
 
 class GameObject;
+class Quadtree;
 
 class ModuleScene :	public Module
 {
@@ -26,6 +28,11 @@ public:
 	GameObject* CreateGameObject();
 	GameObject* CreateCamera();
 	void SetGlobalMatrix(GameObject* gameobject);
+
+	void DrawGOBoundingBoxes();
+
+	Quadtree* GlobalQuadTree;
+
 
 public:
 	std::vector<GameObject*> game_objects;

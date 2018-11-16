@@ -10,7 +10,7 @@
 #include "ComponentMesh.h"
 #include "ComponentTexture.h"
 #include "ComponentCamera.h"
-
+#include "QuadTree.h"
 #include "mmgr/mmgr.h"
 
 
@@ -49,6 +49,18 @@ bool ModuleScene::Start()
 		App->camera->cams_list.push_back(new_cam);
 	App->camera->SetCurrentCam(new_cam);
 	App->camera->NewCamera();
+
+	GlobalQuadTree = new Quadtree(AABB(float3(-90, -70, -90), float3(60, 50, 50)), 0);
+
+	for (uint i = 0; i < game_objects.size(); i++)
+	{
+		game_objects[i]->go_static= true;
+	}
+	for (uint i = 0; i < game_objects.size(); i++)
+	{
+		if (game_objects[i]->IsActive())
+			GlobalQuadTree->Insert(game_objects[i]);
+	}
 
 	App->sceneloader->ImportMesh("Assets/street/Street environment_V01.fbx");
 
@@ -113,6 +125,17 @@ GameObject* ModuleScene::CreateGameObject()
 	return gameobject;
 }
 
+void ModuleScene::DrawGOBoundingBoxes()
+{
+	for (uint i = 0; i < game_objects.size(); i++)
+	{
+		if (game_objects[i]->IsActive())
+			game_objects[i]->RenderBoundingBox();
+
+
+	}
+
+}
 void ModuleScene::SetGlobalMatrix(GameObject* gameobject)
 {
 	ComponentTransform* compTrans = (ComponentTransform*)gameobject->GetComponent(Component::TRANSFORMATION);

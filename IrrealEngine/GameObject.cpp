@@ -164,6 +164,10 @@ bool GameObject::IsStatic() const
 	return go_static;
 }
 
+bool GameObject::IsActive() const
+{
+	return go_active;
+}
 bool GameObject::HasMesh() const
 {
 	bool ret = false;
@@ -210,4 +214,38 @@ bool GameObject::HasCam() const
 			ret = true;
 	}
 	return ret;
+}
+
+void GameObject::RenderBoundingBox()
+{
+	glLineWidth(2.5f);
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glBegin(GL_LINES);
+	glVertex3f(local_AABB.CornerPoint(0).x, local_AABB.CornerPoint(0).y, local_AABB.CornerPoint(0).z);
+	glVertex3f(local_AABB.CornerPoint(1).x,local_AABB.CornerPoint(1).y, local_AABB.CornerPoint(1).z);
+	glVertex3f(local_AABB.CornerPoint(0).x,local_AABB.CornerPoint(0).y, local_AABB.CornerPoint(0).z);
+	glVertex3f(local_AABB.CornerPoint(2).x,local_AABB.CornerPoint(2).y, local_AABB.CornerPoint(2).z);
+	glVertex3f(local_AABB.CornerPoint(0).x,local_AABB.CornerPoint(0).y, local_AABB.CornerPoint(0).z);
+	glVertex3f(local_AABB.CornerPoint(4).x,local_AABB.CornerPoint(4).y, local_AABB.CornerPoint(4).z);
+	glVertex3f(local_AABB.CornerPoint(3).x,local_AABB.CornerPoint(3).y, local_AABB.CornerPoint(3).z);
+	glVertex3f(local_AABB.CornerPoint(1).x,local_AABB.CornerPoint(1).y, local_AABB.CornerPoint(1).z);
+	glVertex3f(local_AABB.CornerPoint(3).x,local_AABB.CornerPoint(3).y, local_AABB.CornerPoint(3).z);
+	glVertex3f(local_AABB.CornerPoint(2).x,local_AABB.CornerPoint(2).y, local_AABB.CornerPoint(2).z);
+	glVertex3f(local_AABB.CornerPoint(3).x,local_AABB.CornerPoint(3).y, local_AABB.CornerPoint(3).z);
+	glVertex3f(local_AABB.CornerPoint(7).x,local_AABB.CornerPoint(7).y, local_AABB.CornerPoint(7).z);
+	glVertex3f(local_AABB.CornerPoint(6).x,local_AABB.CornerPoint(6).y, local_AABB.CornerPoint(6).z);
+	glVertex3f(local_AABB.CornerPoint(2).x,local_AABB.CornerPoint(2).y, local_AABB.CornerPoint(2).z);
+	glVertex3f(local_AABB.CornerPoint(6).x,local_AABB.CornerPoint(6).y, local_AABB.CornerPoint(6).z);
+	glVertex3f(local_AABB.CornerPoint(4).x,local_AABB.CornerPoint(4).y, local_AABB.CornerPoint(4).z);
+	glVertex3f(local_AABB.CornerPoint(6).x,local_AABB.CornerPoint(6).y, local_AABB.CornerPoint(6).z);
+	glVertex3f(local_AABB.CornerPoint(7).x,local_AABB.CornerPoint(7).y, local_AABB.CornerPoint(7).z);
+	glVertex3f(local_AABB.CornerPoint(5).x,local_AABB.CornerPoint(5).y, local_AABB.CornerPoint(5).z);
+	glVertex3f(local_AABB.CornerPoint(1).x,local_AABB.CornerPoint(1).y, local_AABB.CornerPoint(1).z);
+	glVertex3f(local_AABB.CornerPoint(5).x,local_AABB.CornerPoint(5).y, local_AABB.CornerPoint(5).z);
+	glVertex3f(local_AABB.CornerPoint(4).x,local_AABB.CornerPoint(4).y, local_AABB.CornerPoint(4).z);
+	glVertex3f(local_AABB.CornerPoint(5).x,local_AABB.CornerPoint(5).y, local_AABB.CornerPoint(5).z);
+	glVertex3f(local_AABB.CornerPoint(7).x,local_AABB.CornerPoint(7).y, local_AABB.CornerPoint(7).z);
+	glEnd();
+	glColor3f(1, 1, 1);
+	glLineWidth(1.0f);
 }

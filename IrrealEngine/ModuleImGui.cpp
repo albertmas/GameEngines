@@ -647,8 +647,11 @@ void ModuleImGui::InspectorWindow()
 		// GameObject active
 		ImGui::Checkbox("Active", &focused_go->go_active);
 		ImGui::SameLine();
-		if (focused_go->go_parent->go_static)
-			ImGui::Checkbox("Static", &focused_go->go_static);
+		if (focused_go->go_parent->go_static) {
+			if (ImGui::Checkbox("Static", &focused_go->go_static))
+				App->scene->GlobalQuadTree->Insert(focused_go);
+		}
+		
 		else
 		{
 			ImGui::PushStyleColor(ImGuiCol_Text, { 0.5f, 0.5f, 0.5f, 1.0f });

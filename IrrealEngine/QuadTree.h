@@ -1,38 +1,38 @@
 #ifndef _QUADTREE_H_
 #define _QUADTREE_H_
-#include "Application.h"
-#include "GameObject.h"
+#ifndef __Quatree__
+#define __Quatree__
 #include "MathGeoLib/MathGeoLib.h"
+
+#include "GameObject.h"
 #include <vector>
-
-
 class Quadtree
 {
 public:
-
 	Quadtree();
-	Quadtree(AABB limits, int currentsubdivisions);
+	Quadtree(AABB _qtbb, int _currentsubdivisions);
 	~Quadtree();
-
-	void Insert(GameObject* gameObject);
-	
-
-	void Intersect(std::vector<GameObject*>& go, const AABB& goboundingbox);
-	void SubDivide();
-	void DrawQuadtree();
 	void Clear();
+	void Insert(GameObject* _go);
+	void Remove(GameObject* _go);
+	void SubDivide();
+	void CollectIntersections(std::vector<GameObject*>& _goicollidewith, AABB& _goboundingbox);
+	void RenderQuadTree();
+	void RecalculateQuadTree();
+	void RemoveMyObjects();
 
-	void DrawBox(float3* vertices, Color color = Green, float lineWidth = 1.5f);
 
 public:
-
-	AABB QT_Box;
+	AABB * quadtreeboundingbox;
 	int my_subdivision;
 	std::vector<Quadtree*> childs;
 	std::vector<GameObject*> my_objects;
 	int maxcapacity = 1;
-
 };
+
+
+#endif // !__Quatree__
+
 
 
 

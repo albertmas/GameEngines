@@ -271,6 +271,8 @@ GameObject* ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* sc
 //	}
 //}
 
+
+
 void AssimpLog(const char* str, char* userData)
 {
 	std::string msg = str;
