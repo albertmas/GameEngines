@@ -93,9 +93,9 @@ void ModuleCamera3D::WheelMove(const float & mouse_speed, int direction)
 	float3 newPos(0, 0, 0);
 
 	if (direction == 1)
-		newPos -= editor_camera->frustum.front * mouse_speed;
-	else
 		newPos += editor_camera->frustum.front * mouse_speed;
+	else
+		newPos -= editor_camera->frustum.front * mouse_speed;
 
 	if (!newPos.IsZero())
 		editor_camera->frustum.Translate(newPos);
@@ -204,7 +204,7 @@ void ModuleCamera3D::CameraMovement(float dt)
 		speed *= 2;
 
 
-	else if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
 		HandleMouse(dt);
 		Move(speed);
@@ -217,14 +217,14 @@ void ModuleCamera3D::CameraMovement(float dt)
 		WheelMove(wheel_speed, wheel);
 
 	// Look at mesh (currently centered)
-	else if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
 		LookAt({ 0,0,0 });
 		// Adapt position depending on size of the mesh
 	}
 
 	// Mouse motion ----------------
 
-	else if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT))
+	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT))
 	{
 		Camera_Rot(dt);
 	
