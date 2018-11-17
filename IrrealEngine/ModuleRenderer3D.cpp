@@ -425,7 +425,7 @@ void ModuleRenderer3D::FunctionsRender()
 
 	if (ImGui::Checkbox("QuadTree", &Q))
 	{
-		App->scene->GlobalQuadTree->RecalculateQuadTree();
+		App->scene->GlobalQuadTree->RecalculateQuadTree(); // As Quadtree is always getting go root it divides by 4
 		App->scene->DrawGOBoundingBoxes();
 		App->scene->GlobalQuadTree->RenderQuadTree();
 	}

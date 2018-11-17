@@ -43,7 +43,7 @@ bool ModuleScene::Start()
 
 	GameObject* new_cam = CreateCamera();
 	game_objects.push_back(new_cam);
-
+	
 
 	if (new_cam->HasCam())
 		App->camera->cams_list.push_back(new_cam);
@@ -63,6 +63,7 @@ bool ModuleScene::Start()
 	}
 
 	App->sceneloader->ImportMesh("Assets/street/Street environment_V01.fbx");
+	
 
 	return true;
 }
