@@ -31,12 +31,14 @@ public:
 	void PushComponent(Component* new_component);
 
 	bool IsStatic()const;
+	bool IsActive()const;
 	bool HasMesh()const;
 	bool IsRoot()const;
 
 	bool HasCam()const;
 
 	AABB GetBB();
+	void RenderBoundingBox();
 
 	Camera* GetCamera();
 

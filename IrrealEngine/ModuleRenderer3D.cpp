@@ -6,6 +6,7 @@
 #include "ModuleImGui.h"
 #include "ModuleSceneLoader.h"
 #include "ModuleScene.h"
+#include "QuadTree.h"
 
 #include "Open_GL.h"
 #include "mmgr/mmgr.h"
@@ -194,16 +195,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	}
 
-	//if (Cube)
-	//{
-	//	glColor3f(1.0, 0.0, 1.0);
-	//	VertexArrayCube.DrawCube();
-	//	glColor3f(1.0, 1.0, 1.0);
-	//}
-	//if (Sphere)
-	//{
-	//	VertexSphere.DrawSphere();
-	//}
+	
 	if (plane)
 	{ 
 		glColor3f(1.0, 1.0, 1.0);
@@ -227,6 +219,13 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	}*/
 
 	//glBindTexture(GL_TEXTURE_2D, 0);
+
+	if (Q)
+	{
+		App->scene->GlobalQuadTree->RecalculateQuadTree();
+		App->scene->DrawGOBoundingBoxes();
+		App->scene->GlobalQuadTree->RenderQuadTree();
+	}
 
 	App->scene->Draw();
 	App->imgui->DrawImgui();
@@ -419,7 +418,17 @@ void ModuleRenderer3D::FunctionsRender()
 		App->renderer3D->SetNormals(Normals);
 	}
 	
-	ImGui::Checkbox("Bounding Box", &BB);
+	if (ImGui::Checkbox("Bounding Box", &BB))
+	{
+	}
+	
+
+	if (ImGui::Checkbox("QuadTree", &Q))
+	{
+		App->scene->GlobalQuadTree->RecalculateQuadTree(); // As Quadtree is always getting go root it divides by 4
+		App->scene->DrawGOBoundingBoxes();
+		App->scene->GlobalQuadTree->RenderQuadTree();
+	}
 }
 
 void ModuleRenderer3D::Active_Wireframe(bool active)
