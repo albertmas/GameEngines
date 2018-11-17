@@ -11,6 +11,8 @@
 #include "ModuleTextureLoader.h"
 #include "ModuleScene.h"
 
+#include <time.h>
+
 #include "mmgr/mmgr.h"
 
 
@@ -61,6 +63,9 @@ Application::~Application()
 bool Application::Init()
 {
 	bool ret = true;
+
+	// Seed random calculator
+	pcg32_srandom_r(&rng, time(NULL), (intptr_t)&rng);
 
 	FILE* fp = fopen("config.json", "rb");
 	if (!fp)

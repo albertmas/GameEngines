@@ -291,7 +291,7 @@ void ModuleImGui::RandomGenerator()
 			ImGui::Spacing();
 			if (ImGui::SmallButton("Generate Random Integer"))
 			{
-				rand_int = ("%i", (int)pcg32_boundedrand_r(&rng, (max_rand_int - min_rand_int + 1)) + min_rand_int);
+				rand_int = ("%i", (int)pcg32_boundedrand_r(&App->rng, (max_rand_int - min_rand_int + 1)) + min_rand_int);
 			}
 			ImGui::SameLine();
 			if (ImGui::SmallButton("Reset"))
@@ -308,7 +308,7 @@ void ModuleImGui::RandomGenerator()
 			ImGui::Spacing();
 			if (ImGui::SmallButton("Generate Random Float"))
 			{
-				rand_float = ldexp(pcg32_random_r(&rng), -32);
+				rand_float = ldexp(pcg32_random_r(&App->rng), -32);
 			}
 			ImGui::TextColored({ 255, 0, 0, 1 }, "%f", rand_float);
 

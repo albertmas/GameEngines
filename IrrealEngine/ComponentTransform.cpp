@@ -11,7 +11,7 @@ ComponentTransform::ComponentTransform(GameObject* gameobject)
 {
 	my_go = gameobject;
 	type = TRANSFORMATION;
-	UUID = pcg32_random_r(&App->imgui->rng);
+	UUID = pcg32_random_r(&App->rng);
 }
 
 ComponentTransform::~ComponentTransform()

@@ -39,6 +39,7 @@ struct FBXMesh
 	// Mesh info
 	std::string meshName = "Untitled";
 	std::string meshPath = "";
+	uint meshUUID = 0;
 	uint meshNum = 0;
 	float3 meshPos = { 0, 0, 0 };
 	Quat meshRot = { 0, 0, 0, 0 };

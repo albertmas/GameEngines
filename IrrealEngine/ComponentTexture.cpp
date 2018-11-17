@@ -12,7 +12,7 @@ ComponentTexture::ComponentTexture(GameObject* gameobject)
 {
 	my_go = gameobject;
 	type = TEXTURE;
-	UUID = pcg32_random_r(&App->imgui->rng);
+	UUID = pcg32_random_r(&App->rng);
 }
 
 ComponentTexture::~ComponentTexture()

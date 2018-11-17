@@ -15,7 +15,7 @@ ComponentMesh::ComponentMesh(GameObject* gameobject)
 {
 	my_go = gameobject;
 	type = MESH;
-	UUID = pcg32_random_r(&App->imgui->rng);
+	UUID = pcg32_random_r(&App->rng);
 }
 
 ComponentMesh::~ComponentMesh()
@@ -100,8 +100,8 @@ Value ComponentMesh::Save(Document::AllocatorType& allocator) const
 	CompArray.AddMember("Type", type, allocator);
 	CompArray.AddMember("Active", active, allocator);
 	CompArray.AddMember("UUID", UUID, allocator);
-	Value name(go_mesh->meshName.c_str(), allocator);
-	CompArray.AddMember("Texture", name, allocator);
+	Value name(go_mesh->meshName.c_str(), go_mesh->meshName.size(), allocator);
+	CompArray.AddMember("Mesh", name, allocator);
 
 	return CompArray;
 }

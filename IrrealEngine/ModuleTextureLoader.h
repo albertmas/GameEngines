@@ -29,7 +29,7 @@ public:
 	bool Init(Document& document) override;
 	bool CleanUp() override;
 
-	bool ImportTexture(const char* path, std::string& output_file);
+	bool ImportTexture(const char* path, std::string& output_file, std::string& texture_name);
 	Texture* LoadTexture(const char* full_path);
 
 public:

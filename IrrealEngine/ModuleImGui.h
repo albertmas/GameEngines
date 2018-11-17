@@ -49,8 +49,6 @@ public:
 	float min_rand_float = 0.0, max_rand_float = 1.0;
 	float rand_float = 0.0;
 
-	pcg32_random_t rng = PCG32_INITIALIZER;
-
 public:
 	bool testwindow = false;
 	bool spherewindow = false;

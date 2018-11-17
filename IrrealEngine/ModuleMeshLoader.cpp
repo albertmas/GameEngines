@@ -23,6 +23,7 @@ FBXMesh* ModuleMeshLoader::ImportMesh(aiMesh* mesh)
 	FBXMesh* newMesh = new FBXMesh();
 	if (mesh->mName.length > 0)
 		newMesh->meshName = mesh->mName.C_Str();
+	newMesh->meshUUID = pcg32_random_r(&App->rng);
 
 	// Vertices
 	if (mesh->mNumVertices > 0)

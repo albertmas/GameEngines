@@ -54,7 +54,7 @@ bool ModuleTextureLoader::CleanUp()
 	return true;
 }
 
-bool ModuleTextureLoader::ImportTexture(const char* path, std::string& output_file)
+bool ModuleTextureLoader::ImportTexture(const char* path, std::string& output_file, std::string& texture_name)
 {
 	std::string texName = path;
 	std::replace(texName.begin(), texName.end(), '\\', '/');
@@ -105,6 +105,7 @@ bool ModuleTextureLoader::ImportTexture(const char* path, std::string& output_fi
 
 	ilDeleteImages(1, &imageID);
 
+	texture_name = texName;
 	output_file = libPath;
 
 	return true;
