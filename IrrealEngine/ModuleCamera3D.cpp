@@ -117,7 +117,7 @@ update_status ModuleCamera3D::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
-bool ModuleCamera3D::Save(Document& document, FileWriteStream& fws)
+bool ModuleCamera3D::Save(Document& document, FileWriteStream& fws)const
 {
 	bool ret = true;
 

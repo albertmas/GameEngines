@@ -1,0 +1,115 @@
+{
+    "Scene": {
+        "GameObject": {
+            "UUID": 483882979,
+            "Parent_UUID": 3406281715,
+            "Name": "Chimney",
+            "Active": true,
+            "Static": true,
+            "Components": [
+                {
+                    "Type": 1,
+                    "Active": true,
+                    "UUID": 2766312848,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        -0.7071068286895752,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        100.0,
+                        100.0,
+                        100.0
+                    ]
+                },
+                {
+                    "Type": 2,
+                    "Active": true,
+                    "UUID": 1713261421,
+                    "Texture": "Untitled.001"
+                },
+                {
+                    "Type": 3,
+                    "Active": true,
+                    "UUID": 154902030,
+                    "Texture": ""
+                }
+            ]
+        },
+        "GameObject": {
+            "UUID": 3085534493,
+            "Parent_UUID": 3406281715,
+            "Name": "Baker_house",
+            "Active": true,
+            "Static": true,
+            "Components": [
+                {
+                    "Type": 1,
+                    "Active": true,
+                    "UUID": 3877580365,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        -0.7071068286895752,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        100.0,
+                        100.0,
+                        100.0
+                    ]
+                },
+                {
+                    "Type": 2,
+                    "Active": true,
+                    "UUID": 3182600305,
+                    "Texture": "Untitled"
+                },
+                {
+                    "Type": 3,
+                    "Active": true,
+                    "UUID": 1184322546,
+                    "Texture": ""
+                }
+            ]
+        },
+        "GameObject": {
+            "UUID": 3406281715,
+            "Parent_UUID": 0,
+            "Name": "1: RootNode",
+            "Active": true,
+            "Static": true,
+            "Components": [
+                {
+                    "Type": 1,
+                    "Active": true,
+                    "UUID": 4186697710,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            ]
+        }
+    }
+}

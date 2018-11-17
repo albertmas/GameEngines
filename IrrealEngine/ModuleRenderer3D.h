@@ -15,16 +15,16 @@ class ModuleRenderer3D : public Module
 {
 public:
 	ModuleRenderer3D(bool start_enabled = true);
-	~ModuleRenderer3D();
+	~ModuleRenderer3D() override;
 
-	bool Init(Document& document);
-	bool Start();
-	update_status PreUpdate(float dt);
-	update_status PostUpdate(float dt);
-	bool CleanUp();
+	bool Init(Document& document) override;
+	bool Start() override;
+	update_status PreUpdate(float dt) override;
+	update_status PostUpdate(float dt) override;
+	bool CleanUp() override;
 
-	bool Save(Document& document, FileWriteStream& fws);
-	bool Load(Document& document);
+	bool Save(Document& document, FileWriteStream& fws)const override;
+	bool Load(Document& document) override;
 
 
 	void OnResize(int width, int height);

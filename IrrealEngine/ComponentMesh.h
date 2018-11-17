@@ -20,7 +20,7 @@ public:
 	void SetMesh(FBXMesh* mesh);
 	void SetCompTexture(ComponentTexture* compTex);
 
-	bool Save(Document& document, FileWriteStream& fws) const override;
+	Value Save(Document::AllocatorType& allocator) const override;
 	bool Load(Document& document) override;
 
 private:

@@ -234,7 +234,7 @@ bool ModuleRenderer3D::CleanUp()
 	return true;
 }
 
-bool ModuleRenderer3D::Save(Document& document, FileWriteStream& fws)
+bool ModuleRenderer3D::Save(Document& document, FileWriteStream& fws)const
 {
 	bool ret = true;
 

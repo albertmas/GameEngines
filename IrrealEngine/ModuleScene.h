@@ -10,17 +10,20 @@ class ModuleScene :	public Module
 {
 public:
 	ModuleScene(bool start_enabled = true);
-	~ModuleScene();
+	~ModuleScene() override;
 
-	bool Init(Document& document);
-	bool Start();
-	update_status PreUpdate(float dt);
-	update_status Update(float dt);
-	update_status PostUpdate(float dt);
-	bool CleanUp();
+	bool Init(Document& document) override;
+	bool Start() override;
+	update_status PreUpdate(float dt) override;
+	update_status Update(float dt) override;
+	update_status PostUpdate(float dt) override;
+	bool CleanUp() override;
 
-	bool Save(Document& document, FileWriteStream& fws);
-	bool Load(Document& document);
+	bool Save(Document& document, FileWriteStream& fws)const override;
+	bool Load(Document& document) override;
+
+	bool SaveScene(const char* file);
+	bool LoadScene(const char* file);
 
 	void Draw();
 	GameObject* CreateGameObject();

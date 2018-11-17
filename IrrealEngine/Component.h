@@ -34,11 +34,10 @@ public:
 	virtual void SetInspectorInfo()
 	{}
 
-	virtual bool Save(Document& document, FileWriteStream& fws) const
+	virtual Value Save(Document::AllocatorType& allocator) const
 	{
-		Document::AllocatorType& allocator = document.GetAllocator();
-		Writer<FileWriteStream> writer(fws);
-		return true;
+		Value comp;
+		return comp;
 	}
 	virtual bool Load(Document& document)
 	{
@@ -49,8 +48,8 @@ public:
 
 	enum COMP_TYPE {
 		NONE,
-		MESH,
 		TRANSFORMATION,
+		MESH,
 		TEXTURE,
 		CAMERA
 	};

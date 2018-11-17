@@ -110,6 +110,58 @@ void GameObject::Draw()
 	}
 }
 
+Value GameObject::Save(Document::AllocatorType& allocator, Value* myArray)
+{
+	Value GOarray(kObjectType);
+
+	GOarray.AddMember("UUID", UUID, allocator);
+	GOarray.AddMember("Parent_UUID", go_parent->UUID, allocator);
+	Value name(go_name.c_str(), allocator);
+	GOarray.AddMember("Name", name, allocator);
+	GOarray.AddMember("Active", go_active, allocator);
+	GOarray.AddMember("Static", go_static, allocator);
+
+	Value Components(kArrayType);
+
+
+	if (go_components.size() > 0)
+	{
+		ComponentTransform* comp_trans = (ComponentTransform*)GetComponent(Component::TRANSFORMATION);
+		if (comp_trans != nullptr)
+		{
+			Components.PushBack(comp_trans->Save(allocator), allocator);
+		}
+		ComponentMesh* comp_mesh = (ComponentMesh*)GetComponent(Component::MESH);
+		if (comp_mesh != nullptr)
+		{
+			Components.PushBack(comp_mesh->Save(allocator), allocator);
+		}
+		ComponentTexture* comp_tex = (ComponentTexture*)GetComponent(Component::TEXTURE);
+		if (comp_tex != nullptr)
+		{
+			Components.PushBack(comp_tex->Save(allocator), allocator);
+		}
+	}
+	GOarray.AddMember("Components", Components, allocator);
+
+	if (go_children.size() > 0)
+	{
+		for (int i = 0; i < go_children.size(); i++)
+		{
+			std::string go_name = "GameObject";
+			Value v_go_name(go_name.c_str(), allocator);
+			myArray->AddMember(v_go_name, go_children[i]->Save(allocator, myArray), allocator);
+		}
+	}
+
+	return GOarray;
+}
+
+bool GameObject::Load(Document& document)
+{
+	return true;
+}
+
 Component* GameObject::CreateComponent(Component::COMP_TYPE type)
 {
 	Component* comp = nullptr;

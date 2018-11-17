@@ -159,9 +159,12 @@ bool ModuleInput::CleanUp()
 	return true;
 }
 
-bool ModuleInput::Save(Document& document, FileWriteStream& fws)
+bool ModuleInput::Save(Document& document, FileWriteStream& fws)const
 {
 	bool ret = true;
+
+	Document::AllocatorType& allocator = document.GetAllocator();
+	document.AddMember("name", "input", allocator);
 
 	return ret;
 }

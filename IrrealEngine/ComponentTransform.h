@@ -14,7 +14,7 @@ public:
 	bool Update() override;
 	void SetInspectorInfo() override;
 
-	bool Save(Document& document, FileWriteStream& fws) const override;
+	Value Save(Document::AllocatorType& allocator) const override;
 	bool Load(Document& document) override;
 
 public:

@@ -54,10 +54,10 @@ class ModuleMeshLoader : public Module
 {
 public:
 	ModuleMeshLoader(bool start_enabled = true);
-	~ModuleMeshLoader();
+	~ModuleMeshLoader() override;
 
-	//bool Init(Document& document);
-	//bool CleanUp();
+	//bool Init(Document& document) override;
+	//bool CleanUp() override;
 
 	FBXMesh* ImportMesh(aiMesh* mesh);
 	bool SaveMesh(FBXMesh* mesh);

@@ -258,7 +258,7 @@ void ModuleImGui::ManageInput(SDL_Event * e) const
 	ImGui_ImplSDL2_ProcessEvent(e);
 }
 
-bool ModuleImGui::Save(Document& document, FileWriteStream& fws)
+bool ModuleImGui::Save(Document& document, FileWriteStream& fws)const
 {
 	return true;
 }

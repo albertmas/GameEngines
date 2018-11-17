@@ -242,6 +242,12 @@ bool Application::SaveGame()
 		fclose(fp);
 	}
 
+	// Save scene
+	std::string file = SCENES_DIRECTORY;
+	file += "testScene";
+	file += SCENES_EXTENSION;
+	App->scene->SaveScene(file.c_str());
+
 	return ret;
 }
 

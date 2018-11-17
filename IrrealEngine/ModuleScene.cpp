@@ -37,10 +37,11 @@ bool ModuleScene::Init(Document& document)
 bool ModuleScene::Start()
 {
 	root = new GameObject(nullptr, "root");
+	root->UUID = 0;
 	game_objects.push_back(root);
 	ComponentTransform* root_trans = (ComponentTransform*)root->CreateComponent(Component::TRANSFORMATION);
 
-	App->sceneloader->ImportMesh("Assets/street/Street environment_V01.fbx");
+	App->sceneloader->ImportMesh("Assets/BakerHouse/BakerHouse.fbx");
 
 	return true;
 }
@@ -90,16 +91,96 @@ bool ModuleScene::CleanUp()
 	return true;
 }
 
-bool ModuleScene::Save(Document& document, FileWriteStream& fws)
+bool ModuleScene::Save(Document& document, FileWriteStream& fws)const
 {
 	Document::AllocatorType& allocator = document.GetAllocator();
-	Writer<FileWriteStream> writer(fws);
+	document.AddMember("name", "scene", allocator);
+	/*rapidjson::Value index("scene", sizeof("scene"), allocator);
+	Value* _value = new Value();
+	_value->AddMember(index, 3, allocator);
+	Writer<FileWriteStream> writer(fws);*/
+
 	return true;
 }
 
 bool ModuleScene::Load(Document& document)
 {
+	assert(document.IsObject());
+	assert(document["name"].IsString());
+
 	return true;
+}
+
+bool ModuleScene::SaveScene(const char* file)
+{
+	bool ret = true;
+
+	FILE* fp = fopen(file, "wb");
+	if (!fp)
+	{
+		LOG("Schema file %s not found", file);
+		ret = false;
+	}
+	else
+	{
+		LOG("--------------- Scene Saving ---------------");
+		char writeBuffer[65536];
+		FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
+		Document document;
+		document.SetObject();
+
+		Value myArray(kObjectType);
+		Document::AllocatorType& allocator = document.GetAllocator();
+
+		// Call Save() in all GameObjects
+		for (std::vector<GameObject*>::iterator item = game_objects.begin(); item != game_objects.end(); item++)
+		{
+			if ((*item) != root)
+			{
+				std::string go_name = "GameObject";
+				Value v_go_name(go_name.c_str(), allocator);
+				myArray.AddMember(v_go_name, (*item)->Save(allocator, &myArray), allocator);
+			}
+		}
+		document.AddMember("Scene", myArray, allocator);
+		/*StringBuffer strbuf;
+		Writer<StringBuffer> writer(strbuf);*/
+
+		PrettyWriter<FileWriteStream> writer(os);
+		document.Accept(writer);
+		fclose(fp);
+	}
+
+	return ret;
+}
+
+bool ModuleScene::LoadScene(const char* file)
+{
+	bool ret = true;
+
+	FILE* fp = fopen(file, "rb");
+	if (!fp)
+	{
+		LOG("Schema file %s not found", file);
+		ret = false;
+	}
+	else
+	{
+		LOG("--------------- Scene Loading ---------------");
+		char readBuffer[65536];
+		FileReadStream is(fp, readBuffer, sizeof(readBuffer));
+		Document document;
+		document.ParseStream(is);
+		// Call Load() in all GameObjects
+		assert(!document.IsNull());
+		for (std::vector<GameObject*>::iterator item = game_objects.begin(); item != game_objects.end(); item++)
+		{
+			ret = (*item)->Load(document);
+		}
+		fclose(fp);
+	}
+
+	return ret;
 }
 
 void ModuleScene::Draw()

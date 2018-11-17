@@ -17,14 +17,14 @@ class ModuleInput : public Module
 public:
 	
 	ModuleInput(bool start_enabled = true);
-	~ModuleInput();
+	~ModuleInput() override;
 
-	bool Init(Document& document);
-	update_status PreUpdate(float dt);
-	bool CleanUp();
+	bool Init(Document& document) override;
+	update_status PreUpdate(float dt) override;
+	bool CleanUp() override;
 
-	bool Save(Document& document, FileWriteStream& fws);
-	bool Load(Document& document);
+	bool Save(Document& document, FileWriteStream& fws)const override;
+	bool Load(Document& document) override;
 		
 	KEY_STATE GetKey(int id) const
 	{

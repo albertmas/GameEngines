@@ -94,12 +94,16 @@ void ComponentMesh::SetInspectorInfo()
 	}
 }
 
-bool ComponentMesh::Save(Document& document, FileWriteStream& fws) const
+Value ComponentMesh::Save(Document::AllocatorType& allocator) const
 {
-	Document::AllocatorType& allocator = document.GetAllocator();
-	// Save stuff
-	Writer<FileWriteStream> writer(fws);
-	return true;
+	Value CompArray(kObjectType);
+	CompArray.AddMember("Type", type, allocator);
+	CompArray.AddMember("Active", active, allocator);
+	CompArray.AddMember("UUID", UUID, allocator);
+	Value name(go_mesh->meshName.c_str(), allocator);
+	CompArray.AddMember("Texture", name, allocator);
+
+	return CompArray;
 }
 
 bool ComponentMesh::Load(Document& document)

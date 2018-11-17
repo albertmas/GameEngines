@@ -19,6 +19,9 @@ public:
 
 	void Draw();
 
+	Value Save(Document::AllocatorType& allocator, Value* myArray);
+	bool Load(Document& document);
+
 	Component* CreateComponent(Component::COMP_TYPE type);
 	Component* GetComponent(Component::COMP_TYPE type);
 

@@ -9,14 +9,14 @@ class ModuleCamera3D : public Module
 {
 public:
 	ModuleCamera3D(bool start_enabled = true);
-	~ModuleCamera3D();
+	~ModuleCamera3D() override;
 
-	bool Start();
-	update_status Update(float dt);
-	bool CleanUp();
+	bool Start() override;
+	update_status Update(float dt) override;
+	bool CleanUp() override;
 
-	bool Save(Document& document, FileWriteStream& fws);
-	bool Load(Document& document);
+	bool Save(Document& document, FileWriteStream& fws)const override;
+	bool Load(Document& document) override;
 
 	void Look(const vec3 &Position, const vec3 &Reference, bool RotateAroundReference = false);
 	void LookAt(const vec3 &Spot);
