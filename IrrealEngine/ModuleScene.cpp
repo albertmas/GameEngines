@@ -1,8 +1,9 @@
 #include "Application.h"
 #include "ModuleScene.h"
-#include "ModuleMeshLoader.h"
 #include "ModuleCamera3D.h"
 #include "ModuleSceneLoader.h"
+#include "ModuleMeshLoader.h"
+#include "ModuleTextureLoader.h"
 #include "ModuleInput.h"
 #include "GameObject.h"
 #include "Component.h"
@@ -175,9 +176,12 @@ bool ModuleScene::LoadScene(const char* file)
 		assert(!document.IsNull());
 		Document::AllocatorType& allocator = document.GetAllocator();
 
+		std::vector<GameObject*> newGOlist;
+
 		for (Value::ConstMemberIterator iter = document["Scene"].MemberBegin(); iter != document["Scene"].MemberEnd(); ++iter)
 		{
 			GameObject* newGameObject = new GameObject(root, "Untitled");
+			newGOlist.push_back(newGameObject);
 
 			for (Value::ConstMemberIterator iter_child = iter->value.MemberBegin(); iter_child != iter->value.MemberEnd(); ++iter_child)
 			{
@@ -187,7 +191,7 @@ bool ModuleScene::LoadScene(const char* file)
 				}
 				else if (strcmp(iter_child->name.GetString(), "Parent_UUID") == 0)
 				{
-
+					newGameObject->UUID_parent = iter_child->value.GetUint();
 				}
 				else if (strcmp(iter_child->name.GetString(), "Name") == 0)
 				{
@@ -204,13 +208,13 @@ bool ModuleScene::LoadScene(const char* file)
 
 				if (iter_child->value.IsArray())
 				{
-					for (Value::ConstMemberIterator iter_child_comp = iter_child->value.MemberBegin(); iter_child_comp != iter_child->value.MemberEnd(); ++iter_child_comp)
+					for (Value::ConstValueIterator iter_child_comp = iter_child->value.Begin(); iter_child_comp != iter_child->value.End(); ++iter_child_comp)
 					{
-						if (iter_child_comp->value.IsObject())
+						if (iter_child_comp->IsObject())
 						{
 							Component* comp = nullptr;
 
-							for (Value::ConstMemberIterator iter_comp_data = iter_child_comp->value.MemberBegin(); iter_comp_data != iter_child_comp->value.MemberEnd(); ++iter_comp_data)
+							for (Value::ConstMemberIterator iter_comp_data = iter_child_comp->MemberBegin(); iter_comp_data != iter_child_comp->MemberEnd(); ++iter_comp_data)
 							{
 								if (strcmp(iter_comp_data->name.GetString(), "Type") == 0)
 								{
@@ -259,13 +263,37 @@ bool ModuleScene::LoadScene(const char* file)
 								}
 								else if (strcmp(iter_comp_data->name.GetString(), "Mesh") == 0)
 								{
-									ComponentMesh* comp_mesh = (ComponentMesh*)comp;
-									//comp_mesh->SetMesh(iter_comp_data->value.GetString());
+									/*ComponentMesh* comp_mesh = (ComponentMesh*)comp;
+									App->meshloader->LoadMesh(iter_comp_data->value.GetString());*/
 								}
 								else if (strcmp(iter_comp_data->name.GetString(), "Texture") == 0)
 								{
 									ComponentTexture* comp_tex = (ComponentTexture*)comp;
-									//comp_tex->texture = iter_comp_data->value.GetString();
+
+									std::string texPath = TEXTURES_DIRECTORY;
+									texPath += iter_comp_data->value.GetString();
+									texPath += TEXTURES_EXTENSION;
+
+									Texture* newTex = App->texloader->LoadTexture(texPath.c_str());
+									if (newTex != nullptr)
+									{
+										newTex->name = iter_comp_data->value.GetString();
+										comp_tex->texture = newTex;
+									}
+
+								}
+								else if (strcmp(iter_comp_data->name.GetString(), "Color") == 0)
+								{
+									ComponentTexture* comp_tex = (ComponentTexture*)comp;
+									if (comp_tex->texture == nullptr)
+									{
+										comp_tex->texture = new Texture();
+										comp_tex->texture->tex = false;
+									}
+
+									comp_tex->texture->color.x = iter_comp_data->value.GetArray()[0].GetFloat();
+									comp_tex->texture->color.y = iter_comp_data->value.GetArray()[1].GetFloat();
+									comp_tex->texture->color.z = iter_comp_data->value.GetArray()[2].GetFloat();
 								}
 							}
 						}
@@ -275,6 +303,12 @@ bool ModuleScene::LoadScene(const char* file)
 		}
 
 		fclose(fp);
+
+		// Set correct parents
+		for (int t = 0; t < newGOlist.size(); t++)
+		{
+			newGOlist[t]->ChangeParent(newGOlist, newGOlist[t]->UUID_parent);
+		}
 	}
 
 	return ret;

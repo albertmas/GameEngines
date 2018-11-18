@@ -84,13 +84,16 @@ void ComponentMesh::SetInspectorInfo()
 	ImGui::Spacing();
 	if (ImGui::CollapsingHeader("Mesh", ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		ImGui::PushID("MeshActive");
-		ImGui::Checkbox("Active", &active);
-		ImGui::Spacing();
-		ImGui::PopID();
+		if (go_mesh != nullptr)
+		{
+			ImGui::PushID("MeshActive");
+			ImGui::Checkbox("Active", &active);
+			ImGui::Spacing();
+			ImGui::PopID();
 
-		ImGui::Text("Triangles: %i", go_mesh->num_triangles);
-		ImGui::Text("Vertices: %i", go_mesh->num_vertices);
+			ImGui::Text("Triangles: %i", go_mesh->num_triangles);
+			ImGui::Text("Vertices: %i", go_mesh->num_vertices);
+		}
 	}
 }
 

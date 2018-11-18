@@ -117,6 +117,11 @@ Value ComponentTexture::Save(Document::AllocatorType& allocator) const
 	CompArray.AddMember("UUID", UUID, allocator);
 	Value name(texture->name.c_str(), allocator);
 	CompArray.AddMember("Texture", name, allocator);
+	Value ColorArray(kArrayType);
+	ColorArray.PushBack(texture->color.x, allocator);
+	ColorArray.PushBack(texture->color.y, allocator);
+	ColorArray.PushBack(texture->color.z, allocator);
+	CompArray.AddMember("Color", ColorArray, allocator);
 
 	return CompArray;
 }

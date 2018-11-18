@@ -24,6 +24,7 @@ public:
 
 	Component* CreateComponent(Component::COMP_TYPE type);
 	Component* GetComponent(Component::COMP_TYPE type);
+	void ChangeParent(std::vector<GameObject*> list, uint parent_UUID);
 
 public:
 	bool go_active = true;
@@ -31,6 +32,7 @@ public:
 
 	std::string go_name = "";
 	uint UUID = 0;
+	uint UUID_parent = 0;
 	std::vector<Component*> go_components;
 	GameObject* go_parent = nullptr;
 	std::vector<GameObject*> go_children;

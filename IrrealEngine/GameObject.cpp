@@ -4,6 +4,7 @@
 #include "ComponentMesh.h"
 #include "ComponentTransform.h"
 #include "ComponentTexture.h"
+#include "ModuleScene.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleImGui.h"
 
@@ -17,6 +18,7 @@ GameObject::GameObject(GameObject* parent, const char* name)
 	{
 		go_parent = parent;
 		parent->go_children.push_back(this);
+		UUID_parent = parent->UUID;
 	}
 	go_name = name;
 	local_AABB = AABB({ 0,0,0 }, { 0,0,0 });
@@ -203,4 +205,29 @@ Component* GameObject::GetComponent(Component::COMP_TYPE type)
 	}
 
 	return comp;
+}
+
+void GameObject::ChangeParent(std::vector<GameObject*> list, uint parent_UUID)
+{
+	for (int i = 0; i < list.size(); i++)
+	{
+		if (list[i]->UUID == parent_UUID)
+		{
+			if (go_parent != nullptr)
+			{
+				for (int t = 0; t < go_parent->go_children.size(); t++)
+				{
+					if (go_parent->go_children[t] == this)
+						go_parent->go_children.erase(go_parent->go_children.begin() + t);
+				}
+			}
+
+			go_parent = list[i];
+			UUID_parent = parent_UUID;
+			list[i]->go_children.push_back(this);
+
+			if (parent_UUID == 0)
+				App->scene->game_objects.push_back(this);
+		}
+	}
 }
