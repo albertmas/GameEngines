@@ -1,6 +1,9 @@
 # Irreal Engine
 [Irreal Engine](https://github.com/albertmas/GameEngines) is a 3D game engine created by [Albert Mas](https://github.com/albertmas/) and [Guillem Arman](https://github.com/GuillemArman) for the Game Engines university subject at [UPC-CITM](https://www.citm.upc.edu/).
 
+## Work done
+Albert: GameObject Hierarchy & Imoprter, transforms, Serialization, Mesh Binary Format
+Guillem: Camera, Quadtre
 
 ## For the development of this engine, we have used the following libraries:
 - [DeviceId](https://github.com/MatthewKing/DeviceId) Version Deceber 2015:
@@ -25,4 +28,4 @@ Used to load FBX meshes
 Used to load textures
 
 ## Innovation
-We have created a file explorer that can search files in the hard drive and then, if they are a mesh (.FBX) or an image (.dds, .png, .jpg) load them.
+We have created a file explorer that can search files in the hard drive and then, if they are a mesh (.FBX) or an image (.dds, .png, .jpg) load them. (1st Assignment)
