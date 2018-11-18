@@ -2,7 +2,7 @@
 #define COMPONENT_MESH_H_
 
 #include "Component.h"
-
+#include "Mesh.h"
 
 class FBXMesh;
 class GameObject;
@@ -23,6 +23,8 @@ public:
 
 	bool Save(Document& document, FileWriteStream& fws) const override;
 	bool Load(Document& document) override;
+
+	bool Firstpoint(LineSegment mouse_ray, float3& firstpoint, float& point_distance);
 
 	Mesh* mesh;
 

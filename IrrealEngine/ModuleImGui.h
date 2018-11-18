@@ -87,6 +87,8 @@ public:
 
 	GameObject* focused_go = nullptr;
 
+public:
+	bool mouse_ray = false;
 private:
 	bool fullscreen = false;
 	bool resizable = false;
@@ -99,6 +101,8 @@ private:
 	bool scrollconsole = false;
 
 	bool frustrum = false;
+
+	
 
 	int config_width = 300;
 	int inspector_width = 250;

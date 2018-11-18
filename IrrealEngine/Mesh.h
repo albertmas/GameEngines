@@ -37,7 +37,7 @@ public:
 	AABB bounding_box;
 
 	VertexData data;
-private:
+public:
 
 	float3 color;
 	MESH_TYPE type;
@@ -57,6 +57,8 @@ private:
 	uint id_vertices;
 	uint id_unique_vertices;
 	uint id_indices;
+
+	int* indices;
 
 	//Sphere 
 

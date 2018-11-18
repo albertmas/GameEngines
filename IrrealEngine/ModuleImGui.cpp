@@ -462,6 +462,11 @@ void ModuleImGui::ConfigurationWindow()
 			{
 				//aux_cam->DrawFrustum();
 			}
+
+			if (ImGui::Checkbox("Draw Ray",&mouse_ray))
+			{
+				
+			}
 		}
 
 		if (ImGui::CollapsingHeader("Window"))

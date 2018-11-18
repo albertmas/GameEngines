@@ -152,6 +152,17 @@ Component* GameObject::GetComponent(Component::COMP_TYPE type)
 	return comp;
 }
 
+ComponentMesh * GameObject::GetComponentMesh()
+{
+	if (this->IsActive())
+	{
+		ComponentMesh* mesh_tmp = (ComponentMesh*)GetComponent(Component::COMP_TYPE::MESH);
+		if (mesh_tmp != nullptr)
+			return mesh_tmp;
+		else
+			return nullptr;
+	}
+}
 
 void GameObject::PushComponent(Component * new_component)
 {
@@ -167,6 +178,15 @@ bool GameObject::IsStatic() const
 bool GameObject::IsActive() const
 {
 	return go_active;
+}
+
+bool GameObject::IsSelected() const
+{
+	return go_selected;
+}
+void GameObject::SetSelected(bool selected)
+{
+	this->go_selected = selected;
 }
 bool GameObject::HasMesh() const
 {

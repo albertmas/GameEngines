@@ -27,15 +27,19 @@ public:
 
 	Component* CreateComponent(Component::COMP_TYPE type);
 	Component* GetComponent(Component::COMP_TYPE type);
+	ComponentMesh* GetComponentMesh();
 
 	void PushComponent(Component* new_component);
 
 	bool IsStatic()const;
 	bool IsActive()const;
+	bool IsSelected()const;
 	bool HasMesh()const;
 	bool IsRoot()const;
 
 	bool HasCam()const;
+
+	void SetSelected(bool selected);
 
 	AABB GetBB();
 	void RenderBoundingBox();
@@ -44,6 +48,7 @@ public:
 
 public:
 	bool go_active = true;
+	bool go_selected = false;
 	bool go_static = true;
 	bool root_go = false;
 	std::string go_name = "";

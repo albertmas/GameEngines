@@ -7,7 +7,7 @@
 #include "Primitive.h"
 
 class GameObject;
-
+class Mesh;
 
 template <typename T>
 struct Buffer
@@ -17,25 +17,29 @@ struct Buffer
 	T* buffer = nullptr;
 };
 
-class ModulePicking : public Module
+class ModulePick : public Module
 {
 public:
-	ModulePicking(Application* app, bool start_enabled = true);
-	~ModulePicking();
+	ModulePick(Application* app, bool start_enabled = true);
+	~ModulePick();
 
 	bool Start();
 	bool CleanUp();
 	update_status Update();
 
+	void DrawRay();
+	void CreateRayTest(int x, int y);
+
 	void CheckObjectPicking(GameObject * iterator, const LineSegment & ray, float & smallerDist, GameObject *& nearObject);
 
 	bool CheckMeshTri(Primitive * geometry, LineSegment & rayTransformed, float & smallerDist);
 
-	float3 SetTrianglePoint(Buffer<float> vertex, Buffer<uint> index, uint idIndex);
+	Triangle SetTrianglePoint(int i);
 
 public:
-	RayLine rayDraw;
 
+	Mesh * mesh;
+	LineSegment mouse_ray;
 
 };
 

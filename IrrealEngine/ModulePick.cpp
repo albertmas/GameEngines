@@ -5,51 +5,98 @@
 #include "ModuleScene.h"
 #include "ModuleImGui.h"
 
-ModulePicking::ModulePicking(Application* app, bool start_enabled) : Module(start_enabled)
+ModulePick::ModulePick(Application* app, bool start_enabled) : Module(start_enabled)
 {
 }
 
-ModulePicking::~ModulePicking()
+ModulePick::~ModulePick()
 {}
 
-bool ModulePicking::Start()
+bool ModulePick::Start()
 {
 	bool ret = true;
 
 	return ret;
 }
 
-bool ModulePicking::CleanUp()
+bool ModulePick::CleanUp()
 {
 
 	return true;
 }
 
-update_status ModulePicking::Update()
+void ModulePick::DrawRay()
+{
+	glBegin(GL_LINES);
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glLineWidth(10.0f);
+	glDisable(GL_CULL_FACE);
+	glColor3f(255, 0, 255);
+
+	glVertex3fv((GLfloat*)&mouse_ray.a);
+	glVertex3fv((GLfloat*)&mouse_ray.b);
+
+	glEnd();
+	glLineWidth(1.0f);
+	glColor3f(255, 255, 255);
+	glEnable(GL_CULL_FACE);
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+}
+
+void ModulePick::CreateRayTest(int x, int y)
+{
+
+	float n_x = (((x - App->scene->GetPos().x) / App->scene->GetSize().x));
+	float n_y = (((y - App->scene->GetPos().y) / App->scene->GetSize().y));
+
+	n_x -= 0.5;
+	n_x *= 2;
+
+	n_y -= 0.5;
+	n_y *= -2;
+
+	LineSegment picking;
+	if (n_x > -1 && n_x < 1 && n_y > -1 && n_y < 1)
+	{
+		picking =App->camera->GetEditorCam()->frustum.UnProjectLineSegment(n_x, n_y);
+		mouse_ray = picking;
+	}
+	//Check Collisions
+	if (picking.Length() != 0)
+		App->scene->ClickSelect(picking);
+}
+
+update_status ModulePick::Update()
 {
 
 	
 	return UPDATE_CONTINUE;
 }
 
-void ModulePicking::CheckObjectPicking(GameObject* iterator, const LineSegment &ray, float &smallerDist, GameObject* &nearObject)
+void ModulePick::CheckObjectPicking(GameObject* iterator, const LineSegment &ray, float &smallerDist, GameObject* &nearObject)
 {
 	
 }
 
-bool ModulePicking::CheckMeshTri(Primitive * geometry, LineSegment &ray, float &smallerDist)
+bool ModulePick::CheckMeshTri(Primitive * geometry, LineSegment &ray, float &smallerDist)
 {
 	bool ret = false;
 	
 	return ret;
 }
 
-float3 ModulePicking::SetTrianglePoint(Buffer<float> vertex, Buffer<uint> index, uint idIndex)
+Triangle ModulePick::SetTrianglePoint(int i)
 {
-	float3 newPoint;
-	newPoint.x = vertex.buffer[index.buffer[idIndex] * 3];
-	newPoint.y = vertex.buffer[index.buffer[idIndex] * 3 + 1];
-	newPoint.z = vertex.buffer[index.buffer[idIndex] * 3 + 2];
+	Triangle ret;
+	float3 a = mesh->vertices[mesh->indices[i]];
+	float3 b = mesh->vertices[mesh->indices[i + 1]];
+	float3 c = mesh->vertices[mesh->indices[i + 2]];
 
-	return newPoint;
+	ret.a = a;
+	ret.b = b;
+	ret.c = c;
+
+	return ret;
 }
