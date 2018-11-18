@@ -115,6 +115,18 @@ update_status Application::Update()
 	update_status ret = UPDATE_CONTINUE;
 	PrepareUpdate();
 
+	if (wantToSave)
+	{
+		SaveGame();
+		wantToSave = false;
+	}
+
+	if (wantToLoad)
+	{
+		LoadGame();
+		wantToLoad = false;
+	}
+
 	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)
 	{
 		if (ret == UPDATE_CONTINUE)

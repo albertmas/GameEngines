@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "ModuleScene.h"
 #include "ModuleCamera3D.h"
+#include "ModuleImGui.h"
 #include "ModuleSceneLoader.h"
 #include "ModuleMeshLoader.h"
 #include "ModuleTextureLoader.h"
@@ -69,6 +70,8 @@ update_status ModuleScene::PostUpdate(float dt)
 bool ModuleScene::CleanUp()
 {
 	LOG("Freeing all Scene elements");
+
+	App->imgui->focused_go = nullptr;
 
 	std::list<FBXMesh*>::iterator iter_mesh;
 	iter_mesh = App->meshloader->meshes.begin();

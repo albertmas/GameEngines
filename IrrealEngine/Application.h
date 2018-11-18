@@ -76,6 +76,9 @@ public:
 	std::vector<float>	ms_log;
 	std::vector<float>	memory_log;
 
+	bool wantToSave = false;
+	bool wantToLoad = false;
+
 	pcg32_random_t rng = PCG32_INITIALIZER;
 
 private:
