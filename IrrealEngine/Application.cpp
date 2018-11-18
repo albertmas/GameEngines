@@ -282,5 +282,11 @@ bool Application::LoadGame()
 		fclose(fp);
 	}
 
+	// Load scene
+	std::string file = SCENES_DIRECTORY;
+	file += "testScene";
+	file += SCENES_EXTENSION;
+	App->scene->LoadScene(file.c_str());
+
 	return ret;
 }

@@ -144,13 +144,15 @@ Value GameObject::Save(Document::AllocatorType& allocator, Value* myArray)
 	}
 	GOarray.AddMember("Components", Components, allocator);
 
+	std::string go_name = "GameObject";
+	Value v_go_name(go_name.c_str(), allocator);
+	myArray->AddMember(v_go_name, GOarray, allocator);
+
 	if (go_children.size() > 0)
 	{
 		for (int i = 0; i < go_children.size(); i++)
 		{
-			std::string go_name = "GameObject";
-			Value v_go_name(go_name.c_str(), allocator);
-			myArray->AddMember(v_go_name, go_children[i]->Save(allocator, myArray), allocator);
+			go_children[i]->Save(allocator, myArray);
 		}
 	}
 

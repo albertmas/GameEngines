@@ -41,7 +41,7 @@ bool ModuleScene::Start()
 	game_objects.push_back(root);
 	ComponentTransform* root_trans = (ComponentTransform*)root->CreateComponent(Component::TRANSFORMATION);
 
-	App->sceneloader->ImportMesh("Assets/street/Street environment_V01.fbx");
+	App->sceneloader->ImportMesh("Assets/street/Street environment_V01.fbx");//street/Street environment_V01
 
 	return true;
 }
@@ -137,9 +137,7 @@ bool ModuleScene::SaveScene(const char* file)
 		{
 			if ((*item) != root)
 			{
-				std::string go_name = "GameObject";
-				Value v_go_name(go_name.c_str(), allocator);
-				myArray.AddMember(v_go_name, (*item)->Save(allocator, &myArray), allocator);
+				(*item)->Save(allocator, &myArray);
 			}
 		}
 		document.AddMember("Scene", myArray, allocator);
@@ -166,6 +164,8 @@ bool ModuleScene::LoadScene(const char* file)
 	}
 	else
 	{
+		CleanScene();
+
 		LOG("--------------- Scene Loading ---------------");
 		char readBuffer[65536];
 		FileReadStream is(fp, readBuffer, sizeof(readBuffer));
@@ -173,10 +173,107 @@ bool ModuleScene::LoadScene(const char* file)
 		document.ParseStream(is);
 		// Call Load() in all GameObjects
 		assert(!document.IsNull());
-		for (std::vector<GameObject*>::iterator item = game_objects.begin(); item != game_objects.end(); item++)
+		Document::AllocatorType& allocator = document.GetAllocator();
+
+		for (Value::ConstMemberIterator iter = document["Scene"].MemberBegin(); iter != document["Scene"].MemberEnd(); ++iter)
 		{
-			ret = (*item)->Load(document);
+			GameObject* newGameObject = new GameObject(root, "Untitled");
+
+			for (Value::ConstMemberIterator iter_child = iter->value.MemberBegin(); iter_child != iter->value.MemberEnd(); ++iter_child)
+			{
+				if (strcmp(iter_child->name.GetString(), "UUID") == 0)
+				{
+					newGameObject->UUID = iter_child->value.GetUint();
+				}
+				else if (strcmp(iter_child->name.GetString(), "Parent_UUID") == 0)
+				{
+
+				}
+				else if (strcmp(iter_child->name.GetString(), "Name") == 0)
+				{
+					newGameObject->go_name = iter_child->value.GetString();
+				}
+				else if (strcmp(iter_child->name.GetString(), "Active") == 0)
+				{
+					newGameObject->go_active = iter_child->value.GetBool();
+				}
+				else if (strcmp(iter_child->name.GetString(), "Static") == 0)
+				{
+					newGameObject->go_static = iter_child->value.GetBool();
+				}
+
+				if (iter_child->value.IsArray())
+				{
+					for (Value::ConstMemberIterator iter_child_comp = iter_child->value.MemberBegin(); iter_child_comp != iter_child->value.MemberEnd(); ++iter_child_comp)
+					{
+						if (iter_child_comp->value.IsObject())
+						{
+							Component* comp = nullptr;
+
+							for (Value::ConstMemberIterator iter_comp_data = iter_child_comp->value.MemberBegin(); iter_comp_data != iter_child_comp->value.MemberEnd(); ++iter_comp_data)
+							{
+								if (strcmp(iter_comp_data->name.GetString(), "Type") == 0)
+								{
+									if (iter_comp_data->value.GetInt() == Component::TRANSFORMATION)
+									{
+										comp = newGameObject->CreateComponent(Component::TRANSFORMATION);
+									}
+									else if (iter_comp_data->value.GetInt() == Component::MESH)
+									{
+										comp = newGameObject->CreateComponent(Component::MESH);
+									}
+									else if (iter_comp_data->value.GetInt() == Component::TEXTURE)
+									{
+										comp = newGameObject->CreateComponent(Component::TEXTURE);
+									}
+									comp->type = (Component::COMP_TYPE)iter_comp_data->value.GetInt();
+								}
+								else if (strcmp(iter_comp_data->name.GetString(), "Active") == 0)
+								{
+									comp->active = iter_comp_data->value.GetBool();
+								}
+								else if (strcmp(iter_comp_data->name.GetString(), "UUID") == 0)
+								{
+									comp->UUID = iter_comp_data->value.GetUint();
+								}
+								else if (strcmp(iter_comp_data->name.GetString(), "Position") == 0)
+								{
+									ComponentTransform* comp_trans = (ComponentTransform*)comp;
+									comp_trans->position.x = iter_comp_data->value.GetArray()[0].GetFloat();
+									comp_trans->position.y = iter_comp_data->value.GetArray()[1].GetFloat();
+									comp_trans->position.z = iter_comp_data->value.GetArray()[2].GetFloat();
+								}
+								else if (strcmp(iter_comp_data->name.GetString(), "Rotation") == 0)
+								{
+									ComponentTransform* comp_trans = (ComponentTransform*)comp;
+									comp_trans->rotation.x = iter_comp_data->value.GetArray()[0].GetFloat();
+									comp_trans->rotation.y = iter_comp_data->value.GetArray()[1].GetFloat();
+									comp_trans->rotation.z = iter_comp_data->value.GetArray()[2].GetFloat();
+								}
+								else if (strcmp(iter_comp_data->name.GetString(), "Scale") == 0)
+								{
+									ComponentTransform* comp_trans = (ComponentTransform*)comp;
+									comp_trans->scale.x = iter_comp_data->value.GetArray()[0].GetFloat();
+									comp_trans->scale.y = iter_comp_data->value.GetArray()[1].GetFloat();
+									comp_trans->scale.z = iter_comp_data->value.GetArray()[2].GetFloat();
+								}
+								else if (strcmp(iter_comp_data->name.GetString(), "Mesh") == 0)
+								{
+									ComponentMesh* comp_mesh = (ComponentMesh*)comp;
+									//comp_mesh->SetMesh(iter_comp_data->value.GetString());
+								}
+								else if (strcmp(iter_comp_data->name.GetString(), "Texture") == 0)
+								{
+									ComponentTexture* comp_tex = (ComponentTexture*)comp;
+									//comp_tex->texture = iter_comp_data->value.GetString();
+								}
+							}
+						}
+					}
+				}
+			}
 		}
+
 		fclose(fp);
 	}
 
@@ -189,10 +286,6 @@ void ModuleScene::Draw()
 	{
 		if (game_objects[i] != root)
 			game_objects[i]->Draw();
-		/*if (BB && game_objects.size() > 1)
-		{
-			DrawBB((*iter)->bounding_box, { 1.0f, 0.0f, 0.0f });
-		}*/
 	}
 }
 
@@ -217,5 +310,50 @@ void ModuleScene::SetGlobalMatrix(GameObject* gameobject)
 		{
 			SetGlobalMatrix(gameobject->go_children[i]);
 		}
+	}
+}
+
+void ModuleScene::CleanScene()
+{
+	std::list<FBXMesh*>::iterator iter_mesh;
+	iter_mesh = App->meshloader->meshes.begin();
+	while (iter_mesh != App->meshloader->meshes.end())
+	{
+		RELEASE((*iter_mesh));
+		iter_mesh++;
+	}
+	App->meshloader->meshes.clear();
+
+	CleanChildrenGO(root);
+
+	root->go_children.clear();
+	game_objects.clear();
+	game_objects.push_back(root);
+}
+
+void ModuleScene::CleanChildrenGO(GameObject* child)
+{
+	std::vector<GameObject*>::iterator iter_go;
+	iter_go = child->go_children.begin();
+	while (iter_go != child->go_children.end())
+	{
+		for (int i = 0; i < (*iter_go)->go_components.size(); i++)
+		{
+			RELEASE((*iter_go)->go_components[i]);
+		}
+		(*iter_go)->go_components.clear();
+
+		if ((*iter_go)->go_children.size() > 0)
+		{
+			for (int i = 0; i < (*iter_go)->go_children.size(); i++)
+			{
+				CleanChildrenGO((*iter_go)->go_children[i]);
+			}
+			(*iter_go)->go_children.clear();
+		}
+		else
+			RELEASE((*iter_go));
+		
+		iter_go++;
 	}
 }

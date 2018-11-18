@@ -24,6 +24,8 @@ public:
 
 	bool SaveScene(const char* file);
 	bool LoadScene(const char* file);
+	void CleanScene();
+	void CleanChildrenGO(GameObject* child);
 
 	void Draw();
 	GameObject* CreateGameObject();

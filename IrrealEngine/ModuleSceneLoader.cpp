@@ -131,7 +131,7 @@ GameObject* ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* sc
 			}
 
 			aiMesh* currentMesh = scene->mMeshes[node->mMeshes[meshNum]];
-			FBXMesh* mesh = App->meshloader->ImportMesh(currentMesh);
+			FBXMesh* mesh = App->meshloader->ImportMesh(currentMesh, gameobject_child->go_name.c_str());
 			mesh->setMeshBuffer();
 
 			aiMaterial* material = scene->mMaterials[currentMesh->mMaterialIndex];

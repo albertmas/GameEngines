@@ -60,7 +60,7 @@ public:
 	//bool Init(Document& document) override;
 	//bool CleanUp() override;
 
-	FBXMesh* ImportMesh(aiMesh* mesh);
+	FBXMesh* ImportMesh(aiMesh* mesh, const char* name);
 	bool SaveMesh(FBXMesh* mesh);
 	FBXMesh* LoadMesh(const char* name);
 
