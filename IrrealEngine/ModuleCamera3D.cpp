@@ -67,7 +67,7 @@ void ModuleCamera3D::StartEditorCam()
 
 
 
-bool ModuleCamera3D::Save(Document& document, FileWriteStream& fws)
+bool ModuleCamera3D::Save(Document& document, FileWriteStream& fws)const
 {
 	bool ret = true;
 

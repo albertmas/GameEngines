@@ -12,17 +12,17 @@ class ModuleImGui :	public Module
 {
 public:
 	ModuleImGui(bool start_enabled = true);
-	~ModuleImGui();
+	~ModuleImGui() override;
 
 	
-	bool Init(Document& document);
-	update_status PreUpdate(float dt);
-	update_status Update(float dt);
-	update_status PostUpdate(float dt);
-	bool CleanUp();
+	bool Init(Document& document) override;
+	update_status PreUpdate(float dt) override;
+	update_status Update(float dt) override;
+	update_status PostUpdate(float dt) override;
+	bool CleanUp() override;
 
-	bool Save(Document& document, FileWriteStream& fws);
-	bool Load(Document& document);
+	bool Save(Document& document, FileWriteStream& fws)const override;
+	bool Load(Document& document) override;
 
 	void ManageInput(SDL_Event* e)const;
 	void GetConsoleLog(const char* log);
@@ -48,8 +48,6 @@ public:
 	int rand_int = 0;
 	float min_rand_float = 0.0, max_rand_float = 1.0;
 	float rand_float = 0.0;
-
-	pcg32_random_t rng = PCG32_INITIALIZER;
 
 public:
 	bool testwindow = false;

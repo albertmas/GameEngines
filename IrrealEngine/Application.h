@@ -8,6 +8,7 @@
 #include "rapidjson/rapidjson.h"
 #include "rapidjson/prettywriter.h"
 #include "rapidjson/filewritestream.h"
+#include "PCG/pcg_basic.h"
 
 
 class Module;
@@ -75,6 +76,11 @@ public:
 	std::vector<float>	fps_log;
 	std::vector<float>	ms_log;
 	std::vector<float>	memory_log;
+
+	bool wantToSave = false;
+	bool wantToLoad = false;
+
+	pcg32_random_t rng = PCG32_INITIALIZER;
 
 private:
 

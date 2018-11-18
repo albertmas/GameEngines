@@ -21,7 +21,7 @@ public:
 	void SetMesh(FBXMesh* mesh);
 	void SetCompTexture(ComponentTexture* compTex);
 
-	bool Save(Document& document, FileWriteStream& fws) const override;
+	Value Save(Document::AllocatorType& allocator) const override;
 	bool Load(Document& document) override;
 
 	bool Firstpoint(LineSegment mouse_ray, float3& firstpoint, float& point_distance);

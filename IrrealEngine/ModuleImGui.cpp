@@ -8,6 +8,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModulePhysics3D.h"
 #include "ModuleSceneLoader.h"
+#include "ModuleMeshLoader.h"
 #include "ModuleScene.h"
 #include "ModuleCamera3D.h"
 #include "GameObject.h"
@@ -258,7 +259,7 @@ void ModuleImGui::ManageInput(SDL_Event * e) const
 	ImGui_ImplSDL2_ProcessEvent(e);
 }
 
-bool ModuleImGui::Save(Document& document, FileWriteStream& fws)
+bool ModuleImGui::Save(Document& document, FileWriteStream& fws)const
 {
 	return true;
 }
@@ -291,7 +292,7 @@ void ModuleImGui::RandomGenerator()
 			ImGui::Spacing();
 			if (ImGui::SmallButton("Generate Random Integer"))
 			{
-				rand_int = ("%i", (int)pcg32_boundedrand_r(&rng, (max_rand_int - min_rand_int + 1)) + min_rand_int);
+				rand_int = ("%i", (int)pcg32_boundedrand_r(&App->rng, (max_rand_int - min_rand_int + 1)) + min_rand_int);
 			}
 			ImGui::SameLine();
 			if (ImGui::SmallButton("Reset"))
@@ -308,7 +309,7 @@ void ModuleImGui::RandomGenerator()
 			ImGui::Spacing();
 			if (ImGui::SmallButton("Generate Random Float"))
 			{
-				rand_float = ldexp(pcg32_random_r(&rng), -32);
+				rand_float = ldexp(pcg32_random_r(&App->rng), -32);
 			}
 			ImGui::TextColored({ 255, 0, 0, 1 }, "%f", rand_float);
 
@@ -355,12 +356,12 @@ void ModuleImGui::ConfigurationWindow()
 				if (ImGui::MenuItem("Load"))
 				{
 					// Load
-					App->LoadGame();
+					App->wantToLoad = true;
 				}
 				if (ImGui::MenuItem("Save"))
 				{
 					// Save
-					App->SaveGame();
+					App->wantToSave = true;;
 				}
 				ImGui::EndMenu();
 			}
@@ -602,7 +603,6 @@ void ModuleImGui::ConfigurationWindow()
 						{
 							if (selected_file_type == "fbx" | selected_file_type == "FBX")
 							{
-								App->renderer3D->meshes.clear();
 								App->sceneloader->ImportMesh(selected_file_path.c_str());
 							}
 							else if (selected_file_type == "dds" | selected_file_type == "png" | selected_file_type == "jpg")
@@ -652,18 +652,20 @@ void ModuleImGui::InspectorWindow()
 		// GameObject active
 		ImGui::Checkbox("Active", &focused_go->go_active);
 		ImGui::SameLine();
-		if (focused_go->go_parent->go_static) {
+		ImGui::Checkbox("Static", &focused_go->go_static);
+
+		/*if (focused_go->go_parent->go_static)
+		{
 			if (ImGui::Checkbox("Static", &focused_go->go_static))
 				App->scene->GlobalQuadTree->Insert(focused_go);
 		}
-		
 		else
 		{
 			ImGui::PushStyleColor(ImGuiCol_Text, { 0.5f, 0.5f, 0.5f, 1.0f });
 			if (ImGui::Checkbox("Static", &focused_go->go_static))
 				focused_go->go_static = false;
 			ImGui::PopStyleColor();
-		}
+		}*/
 
 		// Set components information
 		for (int i = 0; i < focused_go->go_components.size(); i++)
@@ -714,6 +716,15 @@ void ModuleImGui::SearchGO(GameObject* parent)
 			bool unfold = ImGui::TreeNodeEx(parent->go_children[i]->go_name.c_str(), flags);
 			if (ImGui::IsItemClicked())
 				focused_go = parent->go_children[i];
+			/*if (focused_go->go_parent->go_static)
+			ImGui::Checkbox("Static", &focused_go->go_static);
+			else
+			{
+				ImGui::PushStyleColor(ImGuiCol_Text, { 0.5f, 0.5f, 0.5f, 1.0f });
+				if (ImGui::Checkbox("Static", &focused_go->go_static))
+					focused_go->go_static = false;
+				ImGui::PopStyleColor();
+			}*/
 			if (unfold)
 			{
 				SearchGO(parent->go_children[i]);

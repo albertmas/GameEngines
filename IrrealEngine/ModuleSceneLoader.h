@@ -4,6 +4,9 @@
 #include "Module.h"
 #include "Mesh.h"
 
+#define SCENES_DIRECTORY "Assets/Scenes/"
+#define SCENES_EXTENSION ".IrrealScene"
+
 
 struct FBXMesh;
 struct aiScene;
@@ -15,16 +18,17 @@ class ModuleSceneLoader : public Module
 {
 public:
 	ModuleSceneLoader(bool start_enabled = true);
-	~ModuleSceneLoader();
+	~ModuleSceneLoader() override;
 
 	bool Init(Document& document);
-	update_status PreUpdate(float dt);
-	update_status Update(float dt);
-	update_status PostUpdate(float dt);
-	bool CleanUp();
+	update_status PreUpdate(float dt) override		{	return UPDATE_CONTINUE;	}
+	update_status Update(float dt) override			{	return UPDATE_CONTINUE;	}
+	update_status PostUpdate(float dt) override		{	return UPDATE_CONTINUE;	}
+	bool CleanUp() override;
 
 	bool ImportMesh(const char* full_path);
 	GameObject* LoadFile(const char* full_path, const aiScene* scene, aiNode* node, GameObject* parent);
+	FBXMesh* LoadBinary(const char* name);
 	//void ChangeTexure(const char* full_path);
 	
 public:

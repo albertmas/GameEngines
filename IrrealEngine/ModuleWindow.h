@@ -9,15 +9,13 @@ class ModuleWindow : public Module
 public:
 
 	ModuleWindow(bool start_enabled = true);
+	~ModuleWindow() override;
 
-	// Destructor
-	virtual ~ModuleWindow();
+	bool Init(Document& document) override;
+	bool CleanUp() override;
 
-	bool Init(Document& document);
-	bool CleanUp();
-
-	bool Save(Document& document, FileWriteStream& fws);
-	bool Load(Document& document);
+	bool Save(Document& document, FileWriteStream& fws)const override;
+	bool Load(Document& document) override;
 
 	void SetTitle(const char* title);
 

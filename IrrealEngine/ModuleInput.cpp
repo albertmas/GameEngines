@@ -6,6 +6,7 @@
 #include "ModulePhysics3D.h"
 #include "ModuleImGui.h"
 #include "ModuleSceneLoader.h"
+#include "ModuleMeshLoader.h"
 
 #include "mmgr/mmgr.h"
 
@@ -112,7 +113,6 @@ update_status ModuleInput::PreUpdate(float dt)
 				}
 				if (type == "fbx" || type == "FBX")
 				{
-					App->renderer3D->meshes.clear();
 					App->sceneloader->ImportMesh(file_path.c_str());
 				}
 				else if (type == "png" || type == "dds" || type == "jpg"){}
@@ -159,9 +159,12 @@ bool ModuleInput::CleanUp()
 	return true;
 }
 
-bool ModuleInput::Save(Document& document, FileWriteStream& fws)
+bool ModuleInput::Save(Document& document, FileWriteStream& fws)const
 {
 	bool ret = true;
+
+	Document::AllocatorType& allocator = document.GetAllocator();
+	document.AddMember("name", "input", allocator);
 
 	return ret;
 }

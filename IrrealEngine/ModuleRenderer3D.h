@@ -10,60 +10,21 @@
 #define CHECKERS_WIDTH 100
 #define CHECKERS_HEIGHT 100
 
-struct FBXMesh
-{
-	~FBXMesh();
-
-	uint id_indices = 0;
-	uint num_indices = 0;
-	uint* indices = nullptr;
-
-	uint id_vertices = 0;
-	uint num_vertices = 0;
-	float* vertices = nullptr;
-	
-
-	uint id_normal = 0;
-	uint num_normals = 0;
-	float* normals = nullptr;
-	
-
-	vec3 color = { 1, 1, 1 };
-
-	//uint texture = 0;
-	uint num_texCoords = 0;
-	float* texCoords = nullptr;
-
-	AABB bounding_box;
-	
-	void setMeshBuffer();
-	void Draw();
-
-	// Mesh info
-	std::string meshName = "Untitled";
-	std::string meshPath = "";
-	uint meshNum = 0;
-	float3 meshPos = { 0, 0, 0 };
-	Quat meshRot = { 0, 0, 0, 0 };
-	float3 meshScale = { 0, 0, 0 };
-	uint num_triangles = 0;
-	bool hasTriFaces = true;
-};
 
 class ModuleRenderer3D : public Module
 {
 public:
 	ModuleRenderer3D(bool start_enabled = true);
-	~ModuleRenderer3D();
+	~ModuleRenderer3D() override;
 
-	bool Init(Document& document);
-	bool Start();
-	update_status PreUpdate(float dt);
-	update_status PostUpdate(float dt);
-	bool CleanUp();
+	bool Init(Document& document) override;
+	bool Start() override;
+	update_status PreUpdate(float dt) override;
+	update_status PostUpdate(float dt) override;
+	bool CleanUp() override;
 
-	bool Save(Document& document, FileWriteStream& fws);
-	bool Load(Document& document);
+	bool Save(Document& document, FileWriteStream& fws)const override;
+	bool Load(Document& document) override;
 
 
 	void OnResize(int width, int height);
@@ -142,8 +103,6 @@ public:
 	bool Sphere = true;*/
 
 public:
-	std::list<FBXMesh*> meshes;
-
 	uint tex_buff_id = 0;
 };
 

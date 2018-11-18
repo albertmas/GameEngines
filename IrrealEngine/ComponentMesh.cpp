@@ -1,11 +1,13 @@
 #include "ComponentMesh.h"
 #include "Application.h"
 #include "GameObject.h"
+#include "ComponentTransform.h"
 #include "ComponentTexture.h"
+#include "ModuleMeshLoader.h"
 #include "ModuleTextureLoader.h"
 #include "ModuleSceneLoader.h"
 #include "ModuleRenderer3D.h"
-#include "ComponentTransform.h"
+#include "ModuleImGui.h"
 #include "ModulePick.h"
 
 #include "mmgr/mmgr.h"
@@ -15,6 +17,7 @@ ComponentMesh::ComponentMesh(GameObject* gameobject)
 {
 	my_go = gameobject;
 	type = MESH;
+	UUID = pcg32_random_r(&App->rng);
 }
 
 ComponentMesh::~ComponentMesh()
@@ -83,13 +86,16 @@ void ComponentMesh::SetInspectorInfo()
 	ImGui::Spacing();
 	if (ImGui::CollapsingHeader("Mesh", ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		ImGui::PushID("MeshActive");
-		ImGui::Checkbox("Active", &active);
-		ImGui::Spacing();
-		ImGui::PopID();
+		if (go_mesh != nullptr)
+		{
+			ImGui::PushID("MeshActive");
+			ImGui::Checkbox("Active", &active);
+			ImGui::Spacing();
+			ImGui::PopID();
 
-		ImGui::Text("Triangles: %i", go_mesh->num_triangles);
-		ImGui::Text("Vertices: %i", go_mesh->num_vertices);
+			ImGui::Text("Triangles: %i", go_mesh->num_triangles);
+			ImGui::Text("Vertices: %i", go_mesh->num_vertices);
+		}
 	}
 }
 bool ComponentMesh::Firstpoint(LineSegment mouse_ray, float3 & firstpoint, float & point_distance)
@@ -127,12 +133,16 @@ bool ComponentMesh::Firstpoint(LineSegment mouse_ray, float3 & firstpoint, float
 	return ret;
 }
 
-bool ComponentMesh::Save(Document& document, FileWriteStream& fws) const
+Value ComponentMesh::Save(Document::AllocatorType& allocator) const
 {
-	Document::AllocatorType& allocator = document.GetAllocator();
-	// Save stuff
-	Writer<FileWriteStream> writer(fws);
-	return true;
+	Value CompArray(kObjectType);
+	CompArray.AddMember("Type", type, allocator);
+	CompArray.AddMember("Active", active, allocator);
+	CompArray.AddMember("UUID", UUID, allocator);
+	Value name(go_mesh->meshName.c_str(), go_mesh->meshName.size(), allocator);
+	CompArray.AddMember("Mesh", name, allocator);
+
+	return CompArray;
 }
 
 bool ComponentMesh::Load(Document& document)

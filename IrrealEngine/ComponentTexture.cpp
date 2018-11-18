@@ -1,5 +1,7 @@
 #include "ComponentTexture.h"
+#include "Application.h"
 #include "ModuleTextureLoader.h"
+#include "ModuleImGui.h"
 #include "GameObject.h"
 
 #include "ImGui/imgui.h"
@@ -10,10 +12,12 @@ ComponentTexture::ComponentTexture(GameObject* gameobject)
 {
 	my_go = gameobject;
 	type = TEXTURE;
+	UUID = pcg32_random_r(&App->rng);
 }
 
 ComponentTexture::~ComponentTexture()
 {
+	RELEASE(texture);
 }
 
 
@@ -105,12 +109,21 @@ void ComponentTexture::SetInspectorInfo()
 	}
 }
 
-bool ComponentTexture::Save(Document& document, FileWriteStream& fws) const
+Value ComponentTexture::Save(Document::AllocatorType& allocator) const
 {
-	Document::AllocatorType& allocator = document.GetAllocator();
-	// Save stuff
-	Writer<FileWriteStream> writer(fws);
-	return true;
+	Value CompArray(kObjectType);
+	CompArray.AddMember("Type", type, allocator);
+	CompArray.AddMember("Active", active, allocator);
+	CompArray.AddMember("UUID", UUID, allocator);
+	Value name(texture->name.c_str(), allocator);
+	CompArray.AddMember("Texture", name, allocator);
+	Value ColorArray(kArrayType);
+	ColorArray.PushBack(texture->color.x, allocator);
+	ColorArray.PushBack(texture->color.y, allocator);
+	ColorArray.PushBack(texture->color.z, allocator);
+	CompArray.AddMember("Color", ColorArray, allocator);
+
+	return CompArray;
 }
 
 bool ComponentTexture::Load(Document& document)

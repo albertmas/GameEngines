@@ -12,6 +12,8 @@
 #include "ModuleScene.h"
 #include "ModulePick.h"
 
+#include <time.h>
+
 #include "mmgr/mmgr.h"
 
 
@@ -65,6 +67,9 @@ bool Application::Init()
 {
 	bool ret = true;
 
+	// Seed random calculator
+	pcg32_srandom_r(&rng, time(NULL), (intptr_t)&rng);
+
 	FILE* fp = fopen("config.json", "rb");
 	if (!fp)
 		printf("Schema file 'config.json' not found\n");
@@ -112,6 +117,18 @@ update_status Application::Update()
 {
 	update_status ret = UPDATE_CONTINUE;
 	PrepareUpdate();
+
+	if (wantToSave)
+	{
+		SaveGame();
+		wantToSave = false;
+	}
+
+	if (wantToLoad)
+	{
+		LoadGame();
+		wantToLoad = false;
+	}
 
 	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)
 	{
@@ -245,6 +262,12 @@ bool Application::SaveGame()
 		fclose(fp);
 	}
 
+	// Save scene
+	std::string file = SCENES_DIRECTORY;
+	file += "Scene";
+	file += SCENES_EXTENSION;
+	App->scene->SaveScene(file.c_str());
+
 	return ret;
 }
 
@@ -273,6 +296,12 @@ bool Application::LoadGame()
 		}
 		fclose(fp);
 	}
+
+	// Load scene
+	std::string file = SCENES_DIRECTORY;
+	file += "Scene";
+	file += SCENES_EXTENSION;
+	App->scene->LoadScene(file.c_str());
 
 	return ret;
 }

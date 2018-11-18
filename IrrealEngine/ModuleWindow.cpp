@@ -93,7 +93,7 @@ bool ModuleWindow::CleanUp()
 	return true;
 }
 
-bool ModuleWindow::Save(Document& document, FileWriteStream& fws)
+bool ModuleWindow::Save(Document& document, FileWriteStream& fws)const
 {
 	bool ret = true;
 

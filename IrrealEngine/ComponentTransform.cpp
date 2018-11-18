@@ -1,5 +1,7 @@
 #include "ComponentTransform.h"
+#include "Application.h"
 #include "GameObject.h"
+#include "ModuleImGui.h"
 
 #include "ImGui/imgui.h"
 #include "mmgr/mmgr.h"
@@ -9,6 +11,7 @@ ComponentTransform::ComponentTransform(GameObject* gameobject)
 {
 	my_go = gameobject;
 	type = TRANSFORMATION;
+	UUID = pcg32_random_r(&App->rng);
 }
 
 ComponentTransform::~ComponentTransform()
@@ -18,8 +21,6 @@ ComponentTransform::~ComponentTransform()
 
 bool ComponentTransform::Update()
 {
-	
-
 	return true;
 }
 
@@ -131,12 +132,32 @@ void ComponentTransform::SetInspectorInfo()
 	}
 }
 
-bool ComponentTransform::Save(Document& document, FileWriteStream& fws) const
+Value ComponentTransform::Save(Document::AllocatorType& allocator) const
 {
-	Document::AllocatorType& allocator = document.GetAllocator();
-	// Save stuff
-	Writer<FileWriteStream> writer(fws);
-	return true;
+	Value CompArray(kObjectType);
+	CompArray.AddMember("Type", type, allocator);
+	CompArray.AddMember("Active", active, allocator);
+	CompArray.AddMember("UUID", UUID, allocator);
+
+	Value pos(kArrayType);
+	pos.PushBack(position.x, allocator);
+	pos.PushBack(position.y, allocator);
+	pos.PushBack(position.z, allocator);
+	CompArray.AddMember("Position", pos, allocator);
+
+	Value rot(kArrayType);
+	rot.PushBack(rotation.x, allocator);
+	rot.PushBack(rotation.y, allocator);
+	rot.PushBack(rotation.z, allocator);
+	CompArray.AddMember("Rotation", rot, allocator);
+
+	Value scaling(kArrayType);
+	scaling.PushBack(scale.x, allocator);
+	scaling.PushBack(scale.y, allocator);
+	scaling.PushBack(scale.z, allocator);
+	CompArray.AddMember("Scale", scaling, allocator);
+
+	return CompArray;
 }
 
 bool ComponentTransform::Load(Document& document)

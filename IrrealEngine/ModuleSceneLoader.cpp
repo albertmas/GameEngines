@@ -40,21 +40,6 @@ bool ModuleSceneLoader::Init(Document& document)
 	return true;
 }
 
-update_status ModuleSceneLoader::PreUpdate(float dt)
-{
-	return UPDATE_CONTINUE;
-}
-
-update_status ModuleSceneLoader::Update(float dt)
-{
-	return UPDATE_CONTINUE;
-}
-
-update_status ModuleSceneLoader::PostUpdate(float dt)
-{
-	return UPDATE_CONTINUE;
-}
-
 bool ModuleSceneLoader::CleanUp()
 {
 	LOG("Freeing all FBX loader elements");
@@ -135,14 +120,18 @@ GameObject* ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* sc
 			GameObject* gameobject_child = gameobject;
 			if (node->mNumMeshes > 1)
 			{
-				std::string newName = "Untitled";
-				if (scene->mMeshes[node->mMeshes[meshNum]]->mName.length > 0)
-					newName = scene->mMeshes[node->mMeshes[meshNum]]->mName.C_Str();
+				std::string newName = scene->mMeshes[node->mMeshes[meshNum]]->mName.C_Str();
+				if (scene->mMeshes[node->mMeshes[meshNum]]->mName.length == 0)
+				{
+					newName = node->mName.C_Str();
+					newName += '_';
+					newName += std::to_string(meshNum);
+				}
 				gameobject_child = new GameObject(gameobject, newName.c_str());
 			}
 
 			aiMesh* currentMesh = scene->mMeshes[node->mMeshes[meshNum]];
-			FBXMesh* mesh = App->meshloader->ImportMesh(currentMesh);
+			FBXMesh* mesh = App->meshloader->ImportMesh(currentMesh, gameobject_child->go_name.c_str());
 			mesh->setMeshBuffer();
 
 			aiMaterial* material = scene->mMaterials[currentMesh->mMaterialIndex];
@@ -167,9 +156,14 @@ GameObject* ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* sc
 						else
 							correctPath.pop_back();
 					correctPath += path.C_Str();
-					if (App->texloader->ImportTexture(correctPath.c_str(), correctPath))
+
+					std::string texName = "";
+
+					if (App->texloader->ImportTexture(correctPath.c_str(), correctPath, texName))
+					{
 						newtexture = App->texloader->LoadTexture(correctPath.c_str());
-					//mesh->texPath = correctPath.c_str();
+						newtexture->name = texName;
+					}
 				}
 				else
 					LOG("Couldn't load the default texture from .fbx file");
@@ -183,7 +177,7 @@ GameObject* ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* sc
 
 				// Get info
 				mesh->meshPath = full_path;
-				mesh->meshName = currentMesh->mName.C_Str();
+				mesh->meshName = gameobject_child->go_name;
 				mesh->meshNum = mesh_number;
 				mesh->num_triangles = currentMesh->mNumFaces;
 				mesh->bounding_box.SetNegativeInfinity();
@@ -260,6 +254,18 @@ GameObject* ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* sc
 	return gameobject;
 }
 
+FBXMesh* ModuleSceneLoader::LoadBinary(const char* name)
+{
+	FBXMesh* newMesh = nullptr;
+
+	newMesh = App->meshloader->LoadMesh(name);
+	if (newMesh != nullptr)
+	{
+
+	}
+
+	return newMesh;
+}
 
 //void ModuleSceneLoader::ChangeTexure(const char* full_path)
 //{

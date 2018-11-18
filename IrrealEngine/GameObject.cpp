@@ -4,10 +4,12 @@
 #include "ComponentMesh.h"
 #include "ComponentTransform.h"
 #include "ComponentTexture.h"
+#include "ModuleScene.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleImGui.h"
 #include "ComponentCamera.h"
 
+#include "PCG/pcg_basic.h"
 #include "mmgr/mmgr.h"
 
 
@@ -17,9 +19,11 @@ GameObject::GameObject(GameObject* parent, const char* name)
 	{
 		go_parent = parent;
 		parent->go_children.push_back(this);
+		UUID_parent = parent->UUID;
 	}
 	go_name = name;
 	local_AABB = AABB({ 0,0,0 }, { 0,0,0 });
+	UUID = pcg32_random_r(&App->rng);
 }
 
 
@@ -87,6 +91,9 @@ void GameObject::Draw()
 
 					if (App->renderer3D->BB || this == App->imgui->focused_go)
 					{
+						glBindTexture(GL_TEXTURE_2D, 0);
+						glColor3f(1.0, 1.0, 1.0);
+
 						oriented_BB.SetNegativeInfinity();
 						oriented_BB = local_AABB;
 						oriented_BB.Transform(comp_trans->matrix_global);
@@ -109,6 +116,60 @@ void GameObject::Draw()
 			go_children[i]->Draw();
 		}
 	}
+}
+
+Value GameObject::Save(Document::AllocatorType& allocator, Value* myArray)
+{
+	Value GOarray(kObjectType);
+
+	GOarray.AddMember("UUID", UUID, allocator);
+	GOarray.AddMember("Parent_UUID", go_parent->UUID, allocator);
+	Value name(go_name.c_str(), allocator);
+	GOarray.AddMember("Name", name, allocator);
+	GOarray.AddMember("Active", go_active, allocator);
+	GOarray.AddMember("Static", go_static, allocator);
+
+	Value Components(kArrayType);
+
+
+	if (go_components.size() > 0)
+	{
+		ComponentTransform* comp_trans = (ComponentTransform*)GetComponent(Component::TRANSFORMATION);
+		if (comp_trans != nullptr)
+		{
+			Components.PushBack(comp_trans->Save(allocator), allocator);
+		}
+		ComponentMesh* comp_mesh = (ComponentMesh*)GetComponent(Component::MESH);
+		if (comp_mesh != nullptr)
+		{
+			Components.PushBack(comp_mesh->Save(allocator), allocator);
+		}
+		ComponentTexture* comp_tex = (ComponentTexture*)GetComponent(Component::TEXTURE);
+		if (comp_tex != nullptr)
+		{
+			Components.PushBack(comp_tex->Save(allocator), allocator);
+		}
+	}
+	GOarray.AddMember("Components", Components, allocator);
+
+	std::string go_name = "GameObject";
+	Value v_go_name(go_name.c_str(), allocator);
+	myArray->AddMember(v_go_name, GOarray, allocator);
+
+	if (go_children.size() > 0)
+	{
+		for (int i = 0; i < go_children.size(); i++)
+		{
+			go_children[i]->Save(allocator, myArray);
+		}
+	}
+
+	return GOarray;
+}
+
+bool GameObject::Load(Document& document)
+{
+	return true;
 }
 
 Component* GameObject::CreateComponent(Component::COMP_TYPE type)
@@ -152,7 +213,36 @@ Component* GameObject::GetComponent(Component::COMP_TYPE type)
 	return comp;
 }
 
-ComponentMesh * GameObject::GetComponentMesh()
+void GameObject::ChangeParent(std::vector<GameObject*> list, uint parent_UUID)
+{
+	for (int i = 0; i < list.size(); i++)
+	{
+		if (parent_UUID == 0)
+		{
+			go_parent = App->scene->root;
+			UUID_parent = App->scene->root->UUID;
+			App->scene->game_objects.push_back(this);
+			break;
+		}
+		else if (list[i]->UUID == parent_UUID)
+		{
+			if (go_parent != nullptr)
+			{
+				for (int t = 0; t < go_parent->go_children.size(); t++)
+				{
+					if (go_parent->go_children[t] == this)
+						go_parent->go_children.erase(go_parent->go_children.begin() + t);
+				}
+			}
+
+			go_parent = list[i];
+			UUID_parent = parent_UUID;
+			list[i]->go_children.push_back(this);
+		}
+	}
+}
+
+ComponentMesh* GameObject::GetComponentMesh()
 {
 	if (this->IsActive())
 	{

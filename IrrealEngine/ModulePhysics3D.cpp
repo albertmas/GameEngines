@@ -66,7 +66,7 @@ bool ModulePhysics3D::CleanUp()
 	return true;
 }
 
-bool ModulePhysics3D::Save(Document& document, FileWriteStream& fws)
+bool ModulePhysics3D::Save(Document& document, FileWriteStream& fws)const
 {
 	bool ret = true;
 
