@@ -45,7 +45,6 @@ bool ModuleScene::Start()
 
 	GameObject* new_cam = CreateCamera();
 	game_objects.push_back(new_cam);
-	
 
 	if (new_cam->HasCam())
 		App->camera->cams_list.push_back(new_cam);
@@ -118,6 +117,9 @@ void ModuleScene::Draw()
 			DrawBB((*iter)->bounding_box, { 1.0f, 0.0f, 0.0f });
 		}*/
 	}
+	if (App->camera->GetCurrentCam()->frustrum_draw)
+		App->camera->GetCurrentCam()->DrawFrustum();
+
 	if (App->imgui->mouse_ray)
 		App->ray->DrawRay();
 }
@@ -165,6 +167,7 @@ GameObject* ModuleScene::CreateCamera()
 	ComponentCamera* cam_comp = new ComponentCamera();
 	main_camera_go->PushComponent(cam_comp);
 	cam_comp->cam->SetFarPlane(1000);
+	
 	return main_camera_go;
 }
 GameObject * ModuleScene::Closest_go(std::vector<GameObject*> gameobjects, LineSegment line)

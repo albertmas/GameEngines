@@ -16,6 +16,7 @@ Camera::Camera()
 	SetFOV(80);
 	frustum.nearPlaneDistance = 0.5;
 	frustum.farPlaneDistance = 1000;
+
 	SetAspectRatio(1.77);
 	frustum.SetWorldMatrix(float3x4::identity);
 
@@ -49,17 +50,20 @@ void Camera::SetFOV(const float & new_fov)
 	{
 		frustum.verticalFov = new_fov * DEGTORAD;
 		frustum.horizontalFov = math::Atan(aspect_ratio * math::Tan(frustum.verticalFov / 2)) * 2;
+		CreateNewFrustum();
 	}
 }
 
 void Camera::SetFarPlane(const float & new_fp)
 {
 	frustum.farPlaneDistance = new_fp;
+	CreateNewFrustum();
 }
 
 void Camera::SetNearPlane(const float & new_np)
 {
 	frustum.nearPlaneDistance = new_np;
+	CreateNewFrustum();
 }
 
 void Camera::SetAspectRatio(const float & new_ar)
@@ -72,6 +76,7 @@ void Camera::SetAspectRatio(const float & new_ar)
 	{
 		aspect_ratio = new_ar;
 		frustum.horizontalFov = math::Atan(aspect_ratio * math::Tan(frustum.verticalFov / 2)) * 2;
+		CreateNewFrustum();
 	}
 }
 

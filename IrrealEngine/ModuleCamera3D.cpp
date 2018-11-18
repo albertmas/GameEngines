@@ -28,6 +28,7 @@ bool ModuleCamera3D::Start()
 	LOG("Setting up the camera");
 	bool ret = true;
 
+	
 	return ret;
 }
 
@@ -111,14 +112,7 @@ void ModuleCamera3D::WheelMove(const float & mouse_speed, int direction)
 
 void ModuleCamera3D::MoveCam(const float3 &speed)
 {
-
 	editor_camera->frustum.Translate(speed);
-
-	/*float3 newPos(speed.x, speed.y, speed.z);
-
-
-	editor_camera->SetPosition(newPos);
-	editor_camera->SetReference(newPos);*/
 }
 
 // -----------------------------------------------------------------
@@ -237,8 +231,6 @@ void ModuleCamera3D::CameraMovement(float dt)
 	
 
 	}
-
-
 
 
 }
