@@ -7,6 +7,8 @@
 #include "ModuleImGui.h"
 #include "Globals.h"
 #include "ModuleCamera3D.h"
+#include "ModuleScene.h"
+#include "ModulePick.h"
 #include "Camera.h"
 #include "ComponentCamera.h"
 #include "GameObject.h"
@@ -46,6 +48,11 @@ update_status ModuleCamera3D::Update(float dt)
 
 	CameraMovement(dt);
 
+	bool mouse_picking_working = true;
+	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN && CheckMouseInWindow(App->input->GetMouseX(), App->input->GetMouseY()) && mouse_picking_working)
+	{
+		App->ray->CreateRayTest(App->input->GetMouseX(), App->input->GetMouseY());
+	}
 
 
 	return UPDATE_CONTINUE;
@@ -264,4 +271,12 @@ void ModuleCamera3D::FocusBox(AABB & box, float3 transform)
 float ModuleCamera3D::mult(const float3 &u)
 {
 	return sqrt(u.x * u.x + u.y * u.y + u.z * u.z);
+}
+
+bool ModuleCamera3D::CheckMouseInWindow(int x, int y)
+{
+	ImVec2 pos_w = App->scene->GetPos();
+	ImVec2 size_w = App->scene->GetSize();
+	return (x > pos_w.x && y > pos_w.y && x < pos_w.x + size_w.x && y < pos_w.y + size_w.y);
+
 }
