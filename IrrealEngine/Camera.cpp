@@ -189,7 +189,7 @@ void Camera::LookAt(const float3 &Spot)
 
 void Camera::UpdatePosition(float3 newpos)
 {
-	//frustum.Translate(newpos);
+	frustum.Translate(newpos);
 }
 
 
