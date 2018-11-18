@@ -28,6 +28,7 @@ public:
 
 	bool ImportMesh(const char* full_path);
 	GameObject* LoadFile(const char* full_path, const aiScene* scene, aiNode* node, GameObject* parent);
+	FBXMesh* LoadBinary(const char* name);
 	//void ChangeTexure(const char* full_path);
 	
 public:

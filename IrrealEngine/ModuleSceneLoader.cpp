@@ -252,6 +252,18 @@ GameObject* ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* sc
 	return gameobject;
 }
 
+FBXMesh* ModuleSceneLoader::LoadBinary(const char* name)
+{
+	FBXMesh* newMesh = nullptr;
+
+	newMesh = App->meshloader->LoadMesh(name);
+	if (newMesh != nullptr)
+	{
+
+	}
+
+	return newMesh;
+}
 
 //void ModuleSceneLoader::ChangeTexure(const char* full_path)
 //{

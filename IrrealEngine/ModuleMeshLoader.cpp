@@ -96,6 +96,7 @@ bool ModuleMeshLoader::SaveMesh(FBXMesh* mesh)
 {
 	uint ranges[4] = { mesh->num_indices, mesh->num_vertices, mesh->num_normals, mesh->num_texCoords };
 	uint size = sizeof(ranges) + sizeof(uint) * mesh->num_indices + sizeof(float) * mesh->num_vertices * 3 + sizeof(float) * mesh->num_normals * 3 + sizeof(float) * mesh->num_texCoords * 2;;
+	size += sizeof(int);
 
 	char* data = new char[size]; // Allocate
 	char* cursor = data;
@@ -119,9 +120,14 @@ bool ModuleMeshLoader::SaveMesh(FBXMesh* mesh)
 	bytes = sizeof(float) * mesh->num_texCoords * 2;
 	memcpy(cursor, mesh->texCoords, bytes);
 
+	cursor += bytes; // Store hasTriFaces bool
+	int tris[1] = { ((mesh->hasTriFaces) ? 1 : 0) };
+	bytes = sizeof(int);
+	memcpy(cursor, tris, bytes);
+
 	// Save file
 	std::string correctPath = MESHES_DIRECTORY + mesh->meshName + MESHES_EXTENSION;
-	std::ofstream dataFile(correctPath, std::fstream::out | std::fstream::binary);
+	std::ofstream dataFile(correctPath, std::ofstream::binary);
 	if (dataFile.is_open())
 	{
 		dataFile.write((const char*)data, size);
@@ -141,57 +147,91 @@ FBXMesh* ModuleMeshLoader::LoadMesh(const char* name)
 	correctPath += MESHES_EXTENSION;
 
 	// Open file
-	char* cursor = nullptr;
-	std::ifstream dataFile(correctPath, std::fstream::in | std::fstream::binary);
-	if (dataFile.is_open())
+	std::ifstream dataFile(correctPath, std::ifstream::binary);
+
+	std::streamsize filesize = dataFile.tellg();
+	dataFile.seekg(0, std::ios::end);
+	filesize = dataFile.tellg() - filesize;
+	dataFile.seekg(0, std::ios::beg);
+
+	char* data = new char[filesize]; // Allocate
+
+	if (dataFile.good())
 	{
-		dataFile.read(cursor, sizeof(cursor));
+		dataFile.read(data, filesize);
+		if (!dataFile)
+			LOG("Error: Only  %i  could be read", dataFile.gcount());
 		dataFile.close();
 	}
+	char* cursor = data;
 
 	uint ranges[4];
 	uint bytes = sizeof(ranges);
 	memcpy(ranges, cursor, bytes);
 
 	// Load ranges
+	cursor += bytes;
 	newMesh->num_indices = ranges[0];
 	newMesh->num_vertices = ranges[1];
 	newMesh->num_normals = ranges[2];
 	newMesh->num_texCoords = ranges[3];
 
 	// Load indices
-	cursor += bytes;
-	bytes = sizeof(uint) * newMesh->num_indices;
-	newMesh->indices = new uint[newMesh->num_indices];
-	memcpy(newMesh->indices, cursor, bytes);
+	if (newMesh->num_indices > 0)
+	{
+		bytes = sizeof(uint) * newMesh->num_indices;
+		newMesh->indices = new uint[newMesh->num_indices];
+		memcpy(newMesh->indices, cursor, bytes);
+		cursor += bytes;
+	}
 
 	// Load vertices
-	cursor += bytes;
-	bytes = sizeof(float) * newMesh->num_vertices * 3;
-	newMesh->vertices = new float[newMesh->num_vertices * 3];
-	memcpy(newMesh->vertices, cursor, bytes);
+	if (newMesh->num_vertices > 0)
+	{
+		bytes = sizeof(float) * newMesh->num_vertices * 3;
+		newMesh->vertices = new float[newMesh->num_vertices * 3];
+		memcpy(newMesh->vertices, cursor, bytes);
+		cursor += bytes;
+	}
 
 	// Load normals
-	cursor += bytes;
-	bytes = sizeof(float) * newMesh->num_normals * 3;
-	newMesh->normals = new float[newMesh->num_normals * 3];
-	memcpy(newMesh->normals, cursor, bytes);
+	if (newMesh->num_normals > 0)
+	{
+		bytes = sizeof(float) * newMesh->num_normals * 3;
+		newMesh->normals = new float[newMesh->num_normals * 3];
+		memcpy(newMesh->normals, cursor, bytes);
+		cursor += bytes;
+	}
 
 	// Load texture coords
-	cursor += bytes;
-	bytes = sizeof(float) * newMesh->num_texCoords * 2;
-	newMesh->texCoords = new float[newMesh->num_texCoords * 2];
-	memcpy(newMesh->texCoords, cursor, bytes);
+	if (newMesh->num_texCoords > 0)
+	{
+		bytes = sizeof(float) * newMesh->num_texCoords * 2;
+		newMesh->texCoords = new float[newMesh->num_texCoords * 2];
+		memcpy(newMesh->texCoords, cursor, bytes);
+		cursor += bytes;
+	}
+
+	// Load hasTriFaces bool
+	int tris[1];
+	bytes = sizeof(int);
+	memcpy(tris, cursor, bytes);
+	newMesh->hasTriFaces = tris[0];
+	if (!newMesh->hasTriFaces)
+		int a = 0;
 
 	// Set AABB
 	newMesh->bounding_box.SetNegativeInfinity();
 	newMesh->bounding_box.Enclose((float3*)newMesh->vertices, newMesh->num_vertices);
 
-	// Set name
+	// Set name & path
 	newMesh->meshName = name;
+	newMesh->meshPath = correctPath;
 
 	newMesh->setMeshBuffer();
 	App->meshloader->meshes.push_back(newMesh);
+
+	RELEASE_ARRAY(data);
 
 	return newMesh;
 }

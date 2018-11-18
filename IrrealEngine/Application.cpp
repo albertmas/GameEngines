@@ -249,7 +249,7 @@ bool Application::SaveGame()
 
 	// Save scene
 	std::string file = SCENES_DIRECTORY;
-	file += "testScene";
+	file += "Scene";
 	file += SCENES_EXTENSION;
 	App->scene->SaveScene(file.c_str());
 
@@ -284,7 +284,7 @@ bool Application::LoadGame()
 
 	// Load scene
 	std::string file = SCENES_DIRECTORY;
-	file += "testScene";
+	file += "Scene";
 	file += SCENES_EXTENSION;
 	App->scene->LoadScene(file.c_str());
 

@@ -12,6 +12,7 @@
 #include "ComponentTexture.h"
 
 #include "mmgr/mmgr.h"
+#include "glmath.h"
 
 
 ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled)
@@ -263,8 +264,15 @@ bool ModuleScene::LoadScene(const char* file)
 								}
 								else if (strcmp(iter_comp_data->name.GetString(), "Mesh") == 0)
 								{
-									/*ComponentMesh* comp_mesh = (ComponentMesh*)comp;
-									App->meshloader->LoadMesh(iter_comp_data->value.GetString());*/
+									ComponentMesh* comp_mesh = (ComponentMesh*)comp;
+
+									FBXMesh* newMesh = App->meshloader->LoadMesh(iter_comp_data->value.GetString());
+									if (newMesh != nullptr)
+									{
+										comp_mesh->SetMesh(newMesh);
+										newGameObject->local_AABB.SetNegativeInfinity();
+										newGameObject->local_AABB.Enclose((float3*)newMesh->vertices, newMesh->num_vertices);
+									}
 								}
 								else if (strcmp(iter_comp_data->name.GetString(), "Texture") == 0)
 								{
@@ -304,9 +312,12 @@ bool ModuleScene::LoadScene(const char* file)
 
 		fclose(fp);
 
-		// Set correct parents
+		// Set correct parents & transformation
 		for (int t = 0; t < newGOlist.size(); t++)
 		{
+			ComponentTransform* comp_trans = (ComponentTransform*)newGOlist[t]->GetComponent(Component::TRANSFORMATION);
+			comp_trans->matrix_local.Set(float4x4::FromTRS(comp_trans->position, comp_trans->rotation, comp_trans->scale));
+
 			newGOlist[t]->ChangeParent(newGOlist, newGOlist[t]->UUID_parent);
 		}
 	}

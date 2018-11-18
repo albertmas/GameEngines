@@ -1,7 +1,7 @@
 {
     "Scene": {
         "GameObject": {
-            "UUID": 1037472318,
+            "UUID": 289979095,
             "Parent_UUID": 0,
             "Name": "1: RootNode",
             "Active": true,
@@ -10,7 +10,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 1055897916,
+                    "UUID": 2958664631,
                     "Position": [
                         0.0,
                         0.0,
@@ -30,8 +30,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 2411502244,
-            "Parent_UUID": 1037472318,
+            "UUID": 3125726608,
+            "Parent_UUID": 289979095,
             "Name": "Sky001",
             "Active": true,
             "Static": true,
@@ -39,7 +39,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 2301872752,
+                    "UUID": 659752952,
                     "Position": [
                         0.0,
                         0.0,
@@ -59,8 +59,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 199156180,
-            "Parent_UUID": 1037472318,
+            "UUID": 1358022403,
+            "Parent_UUID": 289979095,
             "Name": "Dummy001",
             "Active": true,
             "Static": true,
@@ -68,7 +68,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 1404453801,
+                    "UUID": 971076490,
                     "Position": [
                         0.0,
                         0.0,
@@ -88,8 +88,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 2246422007,
-            "Parent_UUID": 199156180,
+            "UUID": 4130632880,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_004",
             "Active": true,
             "Static": true,
@@ -97,7 +97,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 4165167116,
+                    "UUID": 2048411946,
                     "Position": [
                         -41.47589111328125,
                         21.01409912109375,
@@ -117,13 +117,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 1727752794,
+                    "UUID": 3631145801,
                     "Mesh": "City_building_004"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 1108155055,
+                    "UUID": 2007774308,
                     "Texture": "building03_c",
                     "Color": [
                         0.5879999995231628,
@@ -134,8 +134,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 2554207516,
-            "Parent_UUID": 199156180,
+            "UUID": 3319753386,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_001",
             "Active": true,
             "Static": true,
@@ -143,7 +143,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 3302336914,
+                    "UUID": 394914559,
                     "Position": [
                         17.707164764404298,
                         20.05327606201172,
@@ -163,13 +163,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 2168438751,
+                    "UUID": 3519564643,
                     "Mesh": "City_building_001"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 3598163839,
+                    "UUID": 2300539099,
                     "Texture": "Building_V02_C",
                     "Color": [
                         0.5879999995231628,
@@ -180,8 +180,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 2116066666,
-            "Parent_UUID": 199156180,
+            "UUID": 3649249850,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_007",
             "Active": true,
             "Static": true,
@@ -189,7 +189,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 166878422,
+                    "UUID": 3551471681,
                     "Position": [
                         16.0104923248291,
                         37.4932861328125,
@@ -209,13 +209,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 3011912534,
+                    "UUID": 4243807133,
                     "Mesh": "City_building_007"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 970674547,
+                    "UUID": 1806409618,
                     "Texture": "building_016_c",
                     "Color": [
                         0.5879999995231628,
@@ -226,8 +226,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 3577020980,
-            "Parent_UUID": 199156180,
+            "UUID": 2806246002,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_008",
             "Active": true,
             "Static": true,
@@ -235,7 +235,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 361919795,
+                    "UUID": 3628725139,
                     "Position": [
                         40.97999572753906,
                         18.270824432373048,
@@ -255,13 +255,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 3156114703,
+                    "UUID": 2319281253,
                     "Mesh": "City_building_008"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 3943665000,
+                    "UUID": 2997740586,
                     "Texture": "building_025_c",
                     "Color": [
                         0.5882353186607361,
@@ -272,8 +272,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 2323112526,
-            "Parent_UUID": 199156180,
+            "UUID": 3717553929,
+            "Parent_UUID": 1358022403,
             "Name": "Line002",
             "Active": true,
             "Static": true,
@@ -281,7 +281,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 2499617179,
+                    "UUID": 174087616,
                     "Position": [
                         -2.1597719192504885,
                         1.8538382053375245,
@@ -301,13 +301,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 2238090000,
+                    "UUID": 2104588359,
                     "Mesh": "Line002"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 3145590004,
+                    "UUID": 1782445085,
                     "Texture": "",
                     "Color": [
                         0.2705882489681244,
@@ -318,8 +318,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 762520169,
-            "Parent_UUID": 199156180,
+            "UUID": 2726085848,
+            "Parent_UUID": 1358022403,
             "Name": "Plane001",
             "Active": true,
             "Static": true,
@@ -327,7 +327,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 19463014,
+                    "UUID": 1893940790,
                     "Position": [
                         -0.02860260009765625,
                         0.026032090187072755,
@@ -347,13 +347,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 2866530603,
+                    "UUID": 3135041327,
                     "Mesh": "Plane001"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 4066269892,
+                    "UUID": 690112667,
                     "Texture": "",
                     "Color": [
                         0.30980393290519717,
@@ -364,8 +364,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 1372560745,
-            "Parent_UUID": 199156180,
+            "UUID": 1087983216,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_010",
             "Active": true,
             "Static": true,
@@ -373,7 +373,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 1444154720,
+                    "UUID": 2240273715,
                     "Position": [
                         0.0,
                         0.0,
@@ -393,8 +393,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 3954728689,
-            "Parent_UUID": 1372560745,
+            "UUID": 440556610,
+            "Parent_UUID": 1087983216,
             "Name": "City_building_010_0",
             "Active": true,
             "Static": true,
@@ -402,7 +402,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 2681688787,
+                    "UUID": 3747265143,
                     "Position": [
                         25.154010772705079,
                         -39.15372085571289,
@@ -422,13 +422,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 2549312520,
+                    "UUID": 2513178015,
                     "Mesh": "City_building_010_0"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 4184400905,
+                    "UUID": 1712920031,
                     "Texture": "building 01_c",
                     "Color": [
                         0.5879999995231628,
@@ -439,8 +439,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 2763242739,
-            "Parent_UUID": 1372560745,
+            "UUID": 746158479,
+            "Parent_UUID": 1087983216,
             "Name": "City_building_010_1",
             "Active": true,
             "Static": true,
@@ -448,7 +448,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 3629065837,
+                    "UUID": 3615365851,
                     "Position": [
                         25.154010772705079,
                         -39.15372085571289,
@@ -468,13 +468,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 1216005901,
+                    "UUID": 1319901621,
                     "Mesh": "City_building_010_1"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 731070259,
+                    "UUID": 4019122697,
                     "Texture": "building 01_c",
                     "Color": [
                         0.5879999995231628,
@@ -485,8 +485,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 444186230,
-            "Parent_UUID": 199156180,
+            "UUID": 1865335071,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_011",
             "Active": true,
             "Static": true,
@@ -494,7 +494,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 377840115,
+                    "UUID": 2869715453,
                     "Position": [
                         30.134540557861329,
                         37.4932861328125,
@@ -514,13 +514,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 1414802078,
+                    "UUID": 1081446472,
                     "Mesh": "City_building_011"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 4043224941,
+                    "UUID": 3540872929,
                     "Texture": "building_016_c",
                     "Color": [
                         0.5879999995231628,
@@ -531,8 +531,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 1070236885,
-            "Parent_UUID": 199156180,
+            "UUID": 4260002216,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_013",
             "Active": true,
             "Static": true,
@@ -540,7 +540,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 1168621417,
+                    "UUID": 3127176723,
                     "Position": [
                         -42.288055419921878,
                         33.201576232910159,
@@ -560,13 +560,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 1482908842,
+                    "UUID": 467400700,
                     "Mesh": "City_building_013"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 4174695348,
+                    "UUID": 929877931,
                     "Texture": "building 06_ c",
                     "Color": [
                         0.5879999995231628,
@@ -577,8 +577,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 2145843621,
-            "Parent_UUID": 199156180,
+            "UUID": 4054132969,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_014",
             "Active": true,
             "Static": true,
@@ -586,7 +586,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 4259767162,
+                    "UUID": 3807616057,
                     "Position": [
                         -19.439706802368165,
                         32.061729431152347,
@@ -606,13 +606,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 2571854928,
+                    "UUID": 2910832234,
                     "Mesh": "City_building_014"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 4144019187,
+                    "UUID": 3882427836,
                     "Texture": "building03_c",
                     "Color": [
                         0.5879999995231628,
@@ -623,8 +623,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 1090440555,
-            "Parent_UUID": 199156180,
+            "UUID": 1698582833,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_016",
             "Active": true,
             "Static": true,
@@ -632,7 +632,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 2818803310,
+                    "UUID": 572982744,
                     "Position": [
                         0.0,
                         0.0,
@@ -652,8 +652,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 1643678102,
-            "Parent_UUID": 1090440555,
+            "UUID": 489703372,
+            "Parent_UUID": 1698582833,
             "Name": "City_building_016_0",
             "Active": true,
             "Static": true,
@@ -661,7 +661,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 772148594,
+                    "UUID": 853131962,
                     "Position": [
                         34.270423889160159,
                         -41.972747802734378,
@@ -681,13 +681,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 157015870,
+                    "UUID": 2701968087,
                     "Mesh": "City_building_016_0"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 4015478468,
+                    "UUID": 1209010392,
                     "Texture": "building 01_c",
                     "Color": [
                         0.5879999995231628,
@@ -698,8 +698,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 3038997987,
-            "Parent_UUID": 1090440555,
+            "UUID": 1781352951,
+            "Parent_UUID": 1698582833,
             "Name": "City_building_016_1",
             "Active": true,
             "Static": true,
@@ -707,7 +707,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 115776243,
+                    "UUID": 3913214738,
                     "Position": [
                         34.270423889160159,
                         -41.972747802734378,
@@ -727,13 +727,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 3479578639,
+                    "UUID": 103497774,
                     "Mesh": "City_building_016_1"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 531104855,
+                    "UUID": 1836145809,
                     "Texture": "building 01_c",
                     "Color": [
                         0.5879999995231628,
@@ -744,8 +744,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 297137218,
-            "Parent_UUID": 199156180,
+            "UUID": 3737579408,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_017",
             "Active": true,
             "Static": true,
@@ -753,7 +753,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 3807107765,
+                    "UUID": 3662468055,
                     "Position": [
                         0.0,
                         0.0,
@@ -773,8 +773,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 1920235023,
-            "Parent_UUID": 297137218,
+            "UUID": 1364897315,
+            "Parent_UUID": 3737579408,
             "Name": "City_building_017_0",
             "Active": true,
             "Static": true,
@@ -782,7 +782,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 439562519,
+                    "UUID": 18620791,
                     "Position": [
                         44.26008224487305,
                         -39.15372085571289,
@@ -802,13 +802,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 3438166806,
+                    "UUID": 1287916903,
                     "Mesh": "City_building_017_0"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 4231733607,
+                    "UUID": 1491364800,
                     "Texture": "building 01_c",
                     "Color": [
                         0.5879999995231628,
@@ -819,8 +819,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 5948502,
-            "Parent_UUID": 297137218,
+            "UUID": 2838010209,
+            "Parent_UUID": 3737579408,
             "Name": "City_building_017_1",
             "Active": true,
             "Static": true,
@@ -828,7 +828,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 2788645911,
+                    "UUID": 3630401892,
                     "Position": [
                         44.26008224487305,
                         -39.15372085571289,
@@ -848,13 +848,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 290677090,
+                    "UUID": 3878330247,
                     "Mesh": "City_building_017_1"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 921228184,
+                    "UUID": 3344693769,
                     "Texture": "building 01_c",
                     "Color": [
                         0.5879999995231628,
@@ -865,8 +865,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 3330245382,
-            "Parent_UUID": 199156180,
+            "UUID": 1916619897,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_022",
             "Active": true,
             "Static": true,
@@ -874,7 +874,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 915980365,
+                    "UUID": 3308164894,
                     "Position": [
                         -20.831323623657228,
                         -27.426488876342775,
@@ -894,13 +894,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 3960170005,
+                    "UUID": 2333536741,
                     "Mesh": "City_building_022"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 3382063963,
+                    "UUID": 2025872843,
                     "Texture": "building05 _c",
                     "Color": [
                         0.5882353186607361,
@@ -911,8 +911,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 3490328759,
-            "Parent_UUID": 199156180,
+            "UUID": 1118161190,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_023",
             "Active": true,
             "Static": true,
@@ -920,7 +920,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 2799404935,
+                    "UUID": 2634378101,
                     "Position": [
                         42.13064193725586,
                         37.4932861328125,
@@ -940,13 +940,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 3568849332,
+                    "UUID": 1295388708,
                     "Mesh": "City_building_023"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 2369513593,
+                    "UUID": 267098535,
                     "Texture": "building_016_c",
                     "Color": [
                         0.5879999995231628,
@@ -957,8 +957,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 4148599421,
-            "Parent_UUID": 199156180,
+            "UUID": 2352545791,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_024",
             "Active": true,
             "Static": true,
@@ -966,7 +966,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 1921089024,
+                    "UUID": 2685765415,
                     "Position": [
                         -20.572771072387697,
                         43.060829162597659,
@@ -986,13 +986,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 2530609911,
+                    "UUID": 2081829620,
                     "Mesh": "City_building_024"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 1099510819,
+                    "UUID": 1290986152,
                     "Texture": "building_025_c",
                     "Color": [
                         0.5882353186607361,
@@ -1003,8 +1003,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 1995753436,
-            "Parent_UUID": 199156180,
+            "UUID": 105829405,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_026",
             "Active": true,
             "Static": true,
@@ -1012,7 +1012,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 801045510,
+                    "UUID": 595686351,
                     "Position": [
                         31.51188850402832,
                         -16.446016311645509,
@@ -1032,13 +1032,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 1218567843,
+                    "UUID": 2234850876,
                     "Mesh": "City_building_026"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 3306809282,
+                    "UUID": 1908729686,
                     "Texture": "building05 _c",
                     "Color": [
                         0.5882353186607361,
@@ -1049,8 +1049,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 2435701704,
-            "Parent_UUID": 199156180,
+            "UUID": 3770200127,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_028",
             "Active": true,
             "Static": true,
@@ -1058,7 +1058,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 149312082,
+                    "UUID": 2782024243,
                     "Position": [
                         13.38798999786377,
                         -33.75503921508789,
@@ -1078,13 +1078,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 1447611,
+                    "UUID": 3588592471,
                     "Mesh": "City_building_028"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 4181432532,
+                    "UUID": 3711350361,
                     "Texture": "Building_V01_C",
                     "Color": [
                         0.5879999995231628,
@@ -1095,8 +1095,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 2742699787,
-            "Parent_UUID": 199156180,
+            "UUID": 1720811110,
+            "Parent_UUID": 1358022403,
             "Name": "Object010",
             "Active": true,
             "Static": true,
@@ -1104,7 +1104,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 940586073,
+                    "UUID": 2416677618,
                     "Position": [
                         -2.5033531188964845,
                         15.800846099853516,
@@ -1124,13 +1124,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 467669945,
+                    "UUID": 2545567601,
                     "Mesh": "Object010"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 2871853678,
+                    "UUID": 2342255900,
                     "Texture": "",
                     "Color": [
                         0.5882353186607361,
@@ -1141,8 +1141,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 4039016957,
-            "Parent_UUID": 199156180,
+            "UUID": 4174734861,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_030",
             "Active": true,
             "Static": true,
@@ -1150,7 +1150,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 2977892013,
+                    "UUID": 600001144,
                     "Position": [
                         -42.8072395324707,
                         -41.83556365966797,
@@ -1170,13 +1170,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 1174153370,
+                    "UUID": 1415680644,
                     "Mesh": "City_building_030"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 988959855,
+                    "UUID": 3911545266,
                     "Texture": "Building_V01_C",
                     "Color": [
                         0.5879999995231628,
@@ -1187,8 +1187,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 3541495333,
-            "Parent_UUID": 199156180,
+            "UUID": 1456193008,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_031",
             "Active": true,
             "Static": true,
@@ -1196,7 +1196,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 3664480136,
+                    "UUID": 603012287,
                     "Position": [
                         -34.679481506347659,
                         -41.83556365966797,
@@ -1216,13 +1216,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 2772099975,
+                    "UUID": 2060921696,
                     "Mesh": "City_building_031"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 3153988237,
+                    "UUID": 252478803,
                     "Texture": "Building_V01_C",
                     "Color": [
                         0.5879999995231628,
@@ -1233,8 +1233,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 1411517320,
-            "Parent_UUID": 199156180,
+            "UUID": 2366579729,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_032",
             "Active": true,
             "Static": true,
@@ -1242,7 +1242,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 1312058773,
+                    "UUID": 2348341711,
                     "Position": [
                         -29.478403091430665,
                         21.01409912109375,
@@ -1262,13 +1262,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 1870908647,
+                    "UUID": 3055816625,
                     "Mesh": "City_building_032"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 44057672,
+                    "UUID": 3619224763,
                     "Texture": "building03_c",
                     "Color": [
                         0.5879999995231628,
@@ -1279,8 +1279,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 1924998054,
-            "Parent_UUID": 199156180,
+            "UUID": 3814641122,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_033",
             "Active": true,
             "Static": true,
@@ -1288,7 +1288,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 1217719039,
+                    "UUID": 2639913658,
                     "Position": [
                         -32.36149597167969,
                         42.37042236328125,
@@ -1308,13 +1308,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 1967572720,
+                    "UUID": 3552457434,
                     "Mesh": "City_building_033"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 1805552101,
+                    "UUID": 3195140090,
                     "Texture": "building 06_ c",
                     "Color": [
                         0.5879999995231628,
@@ -1325,8 +1325,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 3887553721,
-            "Parent_UUID": 199156180,
+            "UUID": 479405156,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_034",
             "Active": true,
             "Static": true,
@@ -1334,7 +1334,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 2759712309,
+                    "UUID": 1578429526,
                     "Position": [
                         16.049516677856447,
                         -16.696884155273439,
@@ -1354,13 +1354,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 135702342,
+                    "UUID": 3651877069,
                     "Mesh": "City_building_034"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 3030572245,
+                    "UUID": 125940791,
                     "Texture": "building05 _c",
                     "Color": [
                         0.5882353186607361,
@@ -1371,8 +1371,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 2702314762,
-            "Parent_UUID": 199156180,
+            "UUID": 1110993132,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_035",
             "Active": true,
             "Static": true,
@@ -1380,7 +1380,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 711202325,
+                    "UUID": 4003222854,
                     "Position": [
                         13.38798999786377,
                         -40.80251693725586,
@@ -1400,13 +1400,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 3587862270,
+                    "UUID": 908858028,
                     "Mesh": "City_building_035"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 2507354072,
+                    "UUID": 2222688468,
                     "Texture": "Building_V01_C",
                     "Color": [
                         0.5879999995231628,
@@ -1417,8 +1417,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 4181274776,
-            "Parent_UUID": 199156180,
+            "UUID": 2112016070,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_036",
             "Active": true,
             "Static": true,
@@ -1426,7 +1426,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 2158356101,
+                    "UUID": 484185594,
                     "Position": [
                         -31.216331481933595,
                         33.201576232910159,
@@ -1446,13 +1446,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 1798580125,
+                    "UUID": 3619290734,
                     "Mesh": "City_building_036"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 3748620025,
+                    "UUID": 1083452694,
                     "Texture": "building 06_ c",
                     "Color": [
                         0.5879999995231628,
@@ -1463,8 +1463,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 2582096227,
-            "Parent_UUID": 199156180,
+            "UUID": 3357519913,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_037",
             "Active": true,
             "Static": true,
@@ -1472,7 +1472,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 2286676069,
+                    "UUID": 2938178936,
                     "Position": [
                         -20.31769371032715,
                         -16.16360855102539,
@@ -1492,13 +1492,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 1967733073,
+                    "UUID": 1807022752,
                     "Mesh": "City_building_037"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 3929762504,
+                    "UUID": 1710767581,
                     "Texture": "building05 _c",
                     "Color": [
                         0.5882353186607361,
@@ -1509,8 +1509,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 752903050,
-            "Parent_UUID": 199156180,
+            "UUID": 1366767808,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_038",
             "Active": true,
             "Static": true,
@@ -1518,7 +1518,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 629549575,
+                    "UUID": 2470954656,
                     "Position": [
                         -41.64900207519531,
                         -16.495393753051759,
@@ -1538,13 +1538,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 1438666500,
+                    "UUID": 2834229196,
                     "Mesh": "City_building_038"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 3099329085,
+                    "UUID": 797598611,
                     "Texture": "building05 _c",
                     "Color": [
                         0.5882353186607361,
@@ -1555,8 +1555,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 3278948973,
-            "Parent_UUID": 199156180,
+            "UUID": 3603467829,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_039",
             "Active": true,
             "Static": true,
@@ -1564,7 +1564,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 2148560792,
+                    "UUID": 2291247288,
                     "Position": [
                         -42.8072395324707,
                         -30.643888473510743,
@@ -1584,13 +1584,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 2395679159,
+                    "UUID": 2998539476,
                     "Mesh": "City_building_039"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 2650100951,
+                    "UUID": 3617443050,
                     "Texture": "Building_V01_C",
                     "Color": [
                         0.5879999995231628,
@@ -1601,8 +1601,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 3819066992,
-            "Parent_UUID": 199156180,
+            "UUID": 3207083608,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_040",
             "Active": true,
             "Static": true,
@@ -1610,7 +1610,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 1986430623,
+                    "UUID": 4044097444,
                     "Position": [
                         -34.679481506347659,
                         -30.643888473510743,
@@ -1630,13 +1630,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 1908445918,
+                    "UUID": 1363862264,
                     "Mesh": "City_building_040"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 9293784,
+                    "UUID": 2247674355,
                     "Texture": "Building_V01_C",
                     "Color": [
                         0.5879999995231628,
@@ -1647,8 +1647,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 356483391,
-            "Parent_UUID": 199156180,
+            "UUID": 2374147792,
+            "Parent_UUID": 1358022403,
             "Name": "City_building_041",
             "Active": true,
             "Static": true,
@@ -1656,7 +1656,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 1619714479,
+                    "UUID": 3516581529,
                     "Position": [
                         30.69527816772461,
                         21.612646102905275,
@@ -1676,13 +1676,13 @@
                 {
                     "Type": 2,
                     "Active": true,
-                    "UUID": 1930758035,
+                    "UUID": 3977549338,
                     "Mesh": "City_building_041"
                 },
                 {
                     "Type": 3,
                     "Active": true,
-                    "UUID": 2616002724,
+                    "UUID": 3360664048,
                     "Texture": "Building_V02_C",
                     "Color": [
                         0.5879999995231628,
@@ -1693,8 +1693,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 4032786757,
-            "Parent_UUID": 1037472318,
+            "UUID": 1061775172,
+            "Parent_UUID": 289979095,
             "Name": "Camera001",
             "Active": true,
             "Static": true,
@@ -1702,7 +1702,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 950524478,
+                    "UUID": 2912417902,
                     "Position": [
                         0.0,
                         0.0,
@@ -1722,8 +1722,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 3267821612,
-            "Parent_UUID": 1037472318,
+            "UUID": 723772387,
+            "Parent_UUID": 289979095,
             "Name": "Camera001.Target",
             "Active": true,
             "Static": true,
@@ -1731,7 +1731,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 2616750747,
+                    "UUID": 2563323661,
                     "Position": [
                         0.0,
                         0.0,
@@ -1751,8 +1751,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 1607845726,
-            "Parent_UUID": 1037472318,
+            "UUID": 584197793,
+            "Parent_UUID": 289979095,
             "Name": "Spot001",
             "Active": true,
             "Static": true,
@@ -1760,7 +1760,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 3100097081,
+                    "UUID": 3963600413,
                     "Position": [
                         0.0,
                         0.0,
@@ -1780,8 +1780,8 @@
             ]
         },
         "GameObject": {
-            "UUID": 399000148,
-            "Parent_UUID": 1037472318,
+            "UUID": 1501198120,
+            "Parent_UUID": 289979095,
             "Name": "Spot001.Target",
             "Active": true,
             "Static": true,
@@ -1789,7 +1789,7 @@
                 {
                     "Type": 1,
                     "Active": true,
-                    "UUID": 4244958999,
+                    "UUID": 719671675,
                     "Position": [
                         0.0,
                         0.0,

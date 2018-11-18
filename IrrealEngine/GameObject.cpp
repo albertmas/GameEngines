@@ -88,6 +88,9 @@ void GameObject::Draw()
 
 					if (App->renderer3D->BB || this == App->imgui->focused_go)
 					{
+						glBindTexture(GL_TEXTURE_2D, 0);
+						glColor3f(1.0, 1.0, 1.0);
+
 						oriented_BB.SetNegativeInfinity();
 						oriented_BB = local_AABB;
 						oriented_BB.Transform(comp_trans->matrix_global);
@@ -211,7 +214,14 @@ void GameObject::ChangeParent(std::vector<GameObject*> list, uint parent_UUID)
 {
 	for (int i = 0; i < list.size(); i++)
 	{
-		if (list[i]->UUID == parent_UUID)
+		if (parent_UUID == 0)
+		{
+			go_parent = App->scene->root;
+			UUID_parent = App->scene->root->UUID;
+			App->scene->game_objects.push_back(this);
+			break;
+		}
+		else if (list[i]->UUID == parent_UUID)
 		{
 			if (go_parent != nullptr)
 			{
@@ -225,9 +235,6 @@ void GameObject::ChangeParent(std::vector<GameObject*> list, uint parent_UUID)
 			go_parent = list[i];
 			UUID_parent = parent_UUID;
 			list[i]->go_children.push_back(this);
-
-			if (parent_UUID == 0)
-				App->scene->game_objects.push_back(this);
 		}
 	}
 }
