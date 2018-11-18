@@ -15,7 +15,7 @@ Camera::Camera()
 	frustum.horizontalFov = 90;
 	SetFOV(80);
 	frustum.nearPlaneDistance = 0.5;
-	frustum.farPlaneDistance = 1000;
+	frustum.farPlaneDistance = 500;
 
 	SetAspectRatio(1.77);
 	frustum.SetWorldMatrix(float3x4::identity);
