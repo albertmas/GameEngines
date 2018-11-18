@@ -159,6 +159,7 @@
     <ClInclude Include="mmgr\mmgr.h" />
     <ClInclude Include="mmgr\nommgr.h" />
     <ClInclude Include="ModuleCamera3D.h" />
+    <ClInclude Include="ModulePick.h" />
     <ClInclude Include="ModuleSceneLoader.h" />
     <ClInclude Include="ModuleImGui.h" />
     <ClInclude Include="ModuleMeshLoader.h" />
@@ -228,6 +229,7 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="mmgr\mmgr.cpp" />
     <ClCompile Include="ModuleCamera3D.cpp" />
+    <ClCompile Include="ModulePick.cpp" />
     <ClCompile Include="ModuleSceneLoader.cpp" />
     <ClCompile Include="ModuleImGui.cpp" />
     <ClCompile Include="ModuleInput.cpp" />

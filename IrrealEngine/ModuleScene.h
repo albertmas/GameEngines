@@ -33,11 +33,20 @@ public:
 
 	Quadtree* GlobalQuadTree;
 
+	GameObject* Closest_go(std::vector<GameObject*> gameobjects, LineSegment line);
+	void ClickSelect(LineSegment mouse_ray);
+	GameObject* GetSelected();
+	ImVec2 GetPos()const;
+	ImVec2 GetSize()const;
+
 
 public:
 	std::vector<GameObject*> game_objects;
 	GameObject* root = nullptr;
 
+private:
+	ImVec2 pos;
+	ImVec2 size;
 };
 
 #endif

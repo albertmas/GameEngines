@@ -458,9 +458,14 @@ void ModuleImGui::ConfigurationWindow()
 
 
 			}
-			if (ImGui::Checkbox("Draw Frustum", &frustrum))
+			if (ImGui::Checkbox("Draw Frustum", &frustum))
 			{
-				//aux_cam->DrawFrustum();
+				
+			}
+
+			if (ImGui::Checkbox("Draw Ray",&mouse_ray))
+			{
+				
 			}
 		}
 

@@ -42,10 +42,7 @@ public:
 	void NewCamera();
 	void SetCurrentCam(GameObject * cam);
 
-
-
-	bool first_time = false;
-
+	bool CheckMouseInWindow(int x, int y);
 
 
 public:
@@ -58,6 +55,7 @@ public:
 	float3 X = { 0, 0, 0 }, Y = { 0, 0, 0 }, Z = { 0, 0, 0 }, Position = { 0, 0, 0 }, Reference = { 0, 0, 0 };
 	bool focus = false;
 
+	bool first_time = false;
 
 private:
 	float mouse_sensitivity = 0.2f;

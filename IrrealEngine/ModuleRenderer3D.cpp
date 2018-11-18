@@ -161,18 +161,19 @@ bool ModuleRenderer3D::Start()
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
+	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
-	/*glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(App->camera->GetViewMatrix());*/
+	Color c = { 0,0,0,1 };
+	glClearColor(c.r, c.g, c.b, c.a);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
 
-	// light 0 on cam pos
-	lights[0].SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+	lights[0].SetPos(0, 0, 0);
 
-	for(uint i = 0; i < MAX_LIGHTS; ++i)
+	for (uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
-
 
 	return UPDATE_CONTINUE;
 }
@@ -182,18 +183,35 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	// We should render the geometry here
 	
+	//if (App->camera->GetEditorCam() != nullptr && App->camera->GetEditorCam() == App->camera->editor_camera) // Checks  current cam  & if we are using editor camera
+	//{
+
+	//	App->camera->GetEditorCam()->UpdateProjectionMatrix();
+
+	//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//	glLoadIdentity();
+	//	glMatrixMode(GL_MODELVIEW);
+
+	//	glLoadMatrixf(App->camera->GetEditorCam()->GetViewMatrix());
+
+	//}
+
+	//Bind editorCam
 	if (App->camera->GetEditorCam() != nullptr && App->camera->GetEditorCam() == App->camera->editor_camera) // Checks  current cam  & if we are using editor camera
 	{
 
 		App->camera->GetEditorCam()->UpdateProjectionMatrix();
 
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
 		glMatrixMode(GL_MODELVIEW);
-
 		glLoadMatrixf(App->camera->GetEditorCam()->GetViewMatrix());
+		//GO
+		App->scene->Draw();
 
 	}
+
 
 	
 	if (plane)
@@ -226,8 +244,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		App->scene->DrawGOBoundingBoxes();
 		App->scene->GlobalQuadTree->RenderQuadTree();
 	}
-
-	App->scene->Draw();
+	
 	App->imgui->DrawImgui();
 
 	SDL_GL_SwapWindow(App->window->window);

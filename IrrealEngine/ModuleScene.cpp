@@ -4,6 +4,8 @@
 #include "ModuleCamera3D.h"
 #include "ModuleSceneLoader.h"
 #include "ModuleInput.h"
+#include "ModulePick.h"
+#include "ModuleImGui.h"
 #include "GameObject.h"
 #include "Component.h"
 #include "ComponentTransform.h"
@@ -43,7 +45,6 @@ bool ModuleScene::Start()
 
 	GameObject* new_cam = CreateCamera();
 	game_objects.push_back(new_cam);
-	
 
 	if (new_cam->HasCam())
 		App->camera->cams_list.push_back(new_cam);
@@ -116,6 +117,11 @@ void ModuleScene::Draw()
 			DrawBB((*iter)->bounding_box, { 1.0f, 0.0f, 0.0f });
 		}*/
 	}
+	if (App->camera->GetCurrentCam()->frustrum_draw)
+		App->camera->GetCurrentCam()->DrawFrustum();
+
+	if (App->imgui->mouse_ray)
+		App->ray->DrawRay();
 }
 
 GameObject* ModuleScene::CreateGameObject()
@@ -161,5 +167,90 @@ GameObject* ModuleScene::CreateCamera()
 	ComponentCamera* cam_comp = new ComponentCamera();
 	main_camera_go->PushComponent(cam_comp);
 	cam_comp->cam->SetFarPlane(1000);
+	
 	return main_camera_go;
+}
+GameObject * ModuleScene::Closest_go(std::vector<GameObject*> gameobjects, LineSegment line)
+{
+	float3 closest_point;
+	float closest_distance = 99999;
+	GameObject* closest_go = nullptr;
+	float distance;
+
+	for (std::vector<GameObject*>::iterator it = gameobjects.begin(); it != gameobjects.end(); it++)
+	{
+		GameObject* go = (*it);
+
+		ComponentMesh* mesh = go->GetComponentMesh();
+
+		if (go->HasMesh())
+		{
+			float3 point = { 0,0,0 };
+
+			if (mesh->Firstpoint(line, point, distance))
+			{
+				if (distance < closest_distance)
+				{
+					closest_distance = distance;
+					closest_point = point;
+					closest_go = go;
+				}
+			}
+		}
+	}
+	return closest_go;
+}
+
+
+void ModuleScene::ClickSelect(LineSegment mouse_ray)
+{
+	std::vector<GameObject*> intersected_list;
+
+	for (std::vector<GameObject*>::iterator it = game_objects.begin(); it != game_objects.end(); it++)
+	{
+		GameObject* go = (*it);
+
+		if (!go->HasMesh())
+		{
+			continue;
+		}
+
+		bool collided = mouse_ray.Intersects(go->GetBB());
+
+		if (collided)
+		{
+			intersected_list.push_back(go);
+		}
+	}
+
+
+	GameObject* closestGo = Closest_go(intersected_list, mouse_ray);
+	if (closestGo == nullptr)
+		return;
+	if (GetSelected() != nullptr)
+		GetSelected()->SetSelected(false);
+	closestGo->SetSelected(true);
+}
+
+GameObject * ModuleScene::GetSelected()
+{
+	GameObject* aux = nullptr;
+	for (std::vector<GameObject*>::iterator it = game_objects.begin(); it != game_objects.end(); it++)
+	{
+		if ((*it)->IsSelected() == true)
+			aux = (*it);
+	}
+
+	return aux;
+}
+
+
+ImVec2 ModuleScene::GetPos() const
+{
+	return pos;
+}
+
+ImVec2 ModuleScene::GetSize() const
+{
+	return size;
 }
