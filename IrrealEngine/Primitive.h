@@ -4,6 +4,7 @@
 #include "Globals.h"
 #include "MathGeoLib/MathGeoLib.h"
 #include "Color.h"
+#include "Component.h"
 
 enum PrimitiveTypes
 {
@@ -12,10 +13,11 @@ enum PrimitiveTypes
 	Primitive_Plane,
 	Primitive_Cube,
 	Primitive_Sphere,
-	Primitive_Cylinder
+	Primitive_Cylinder,
+	Primitive_Ray
 };
 
-class Primitive
+class Primitive : public Component
 {
 public:
 
@@ -60,5 +62,17 @@ public:
 public:
 	float3 normal;
 	float constant;
+};
+
+
+class RayLine : public Primitive
+{
+public:
+	RayLine();
+	RayLine(float3 origin, float3 destination);
+	void InnerRender() const;
+public:
+	float3 origin;
+	float3 destination;
 };
 #endif // __PRIMITIVE_H__

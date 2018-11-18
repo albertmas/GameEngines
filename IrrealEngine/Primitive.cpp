@@ -187,3 +187,32 @@ void PPlane::InnerRender() const
 
 	glEnd();
 }
+
+//RAY
+
+RayLine::RayLine() : Primitive(), origin(0, 0, 0), destination(1, 1, 1)
+{
+
+	type = PrimitiveTypes::Primitive_Ray;
+}
+
+RayLine::RayLine(float3 origin, float3 destination) : Primitive(), origin(origin), destination(destination)
+{
+	type = PrimitiveTypes::Primitive_Ray;
+}
+
+void RayLine::InnerRender() const
+{
+	glLineWidth(2.0f);
+
+	glBegin(GL_LINES);
+	glColor3f(0, 0, 1);
+
+	glVertex3f(origin.x, origin.y, origin.z);
+	glVertex3f(destination.x, destination.y, destination.z);
+
+	glEnd();
+
+	glLineWidth(1.0f);
+
+}

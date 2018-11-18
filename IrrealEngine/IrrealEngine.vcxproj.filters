@@ -196,6 +196,9 @@
     <ClCompile Include="QuadTree.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="ModulePick.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -497,6 +500,9 @@
     </ClInclude>
     <ClInclude Include="QuadTree.h">
       <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="ModulePick.h">
+      <Filter>Sources\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
