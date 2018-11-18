@@ -1,12 +1,14 @@
 #include "ComponentMesh.h"
 #include "Application.h"
 #include "GameObject.h"
+#include "ComponentTransform.h"
 #include "ComponentTexture.h"
 #include "ModuleMeshLoader.h"
 #include "ModuleTextureLoader.h"
 #include "ModuleSceneLoader.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleImGui.h"
+#include "ModulePick.h"
 
 #include "mmgr/mmgr.h"
 
@@ -95,6 +97,40 @@ void ComponentMesh::SetInspectorInfo()
 			ImGui::Text("Vertices: %i", go_mesh->num_vertices);
 		}
 	}
+}
+bool ComponentMesh::Firstpoint(LineSegment mouse_ray, float3 & firstpoint, float & point_distance)
+{
+	ComponentTransform* owner_transform = my_go->comp_transform;
+	bool ret = false;
+	float closest_distance = 99999;
+	float distance;
+	float3 coll_point;
+	bool colliding = false;
+	Triangle triangle_to_check;
+	if (go_mesh == nullptr || go_mesh->vertices == nullptr)
+		return ret;
+
+	//Translate point
+	mouse_ray.Transform(owner_transform->matrix_global.Inverted());
+	//Check and and fill it
+	for (int i = 0; i < go_mesh->num_indices; i += 3)
+	{
+		triangle_to_check = App->ray->SetTrianglePoint(i);
+		colliding = mouse_ray.Intersects(triangle_to_check, &distance, &coll_point);
+		if (colliding == true)
+		{
+			distance = mouse_ray.a.Distance(coll_point);
+			if (distance < closest_distance)
+			{
+				firstpoint = coll_point;
+				closest_distance = distance;
+				ret = true;
+			}
+		}
+	}
+	firstpoint += owner_transform->matrix_global.TranslatePart();
+	point_distance = closest_distance;
+	return ret;
 }
 
 Value ComponentMesh::Save(Document::AllocatorType& allocator) const

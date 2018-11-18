@@ -34,8 +34,10 @@ public:
 	void DefineVerticesAndIndicesForACube(float3 _position, float size);
 	void DefineVerticesForASphere(float3 _position, float radius,uint secCount, uint stCount);
 
+	AABB bounding_box;
+
 	VertexData data;
-private:
+public:
 
 	float3 color;
 	MESH_TYPE type;
@@ -55,6 +57,8 @@ private:
 	uint id_vertices;
 	uint id_unique_vertices;
 	uint id_indices;
+
+	int* indices;
 
 	//Sphere 
 

@@ -10,6 +10,7 @@
 #include "ModuleSceneLoader.h"
 #include "ModuleMeshLoader.h"
 #include "ModuleScene.h"
+#include "ModuleCamera3D.h"
 #include "GameObject.h"
 #include "Assimp/include/version.h"
 #include "DevIL/include/il.h"
@@ -397,6 +398,78 @@ void ModuleImGui::ConfigurationWindow()
 			sprintf_s(title, 25, "Memory Consumption");
 			ImGui::PlotHistogram("##memory", &App->memory_log[0], App->memory_log.size(), 0, title, 0.0f, 100000000.0f, ImVec2(310, 100));
 		}
+
+		if (ImGui::CollapsingHeader("Camera"))
+		{
+			Camera* aux_cam = App->camera->editor_camera;
+
+			float3 aux_pos = aux_cam->frustum.pos;
+			if (ImGui::SliderFloat3("Position", (float*)&aux_pos, -100.0f, 100.0f))
+			{
+
+				aux_cam->frustum.pos = aux_pos;
+
+			}
+			float  a = aux_cam->GetAspectRatio();
+			if (ImGui::SliderFloat("Aspect Ratio", &a, 0.0f, 2.0f))
+			{
+
+				aux_cam->SetAspectRatio(a);
+
+			}
+
+			float  f = aux_cam->GetVerticalFOV();
+			if (ImGui::SliderFloat("FOV", &f, 45.0f, 90.0f))
+			{
+
+				aux_cam->SetFOV(f);
+
+			}
+			ImGui::Spacing();
+
+			float  np = aux_cam->GetNearPlane();
+			if (ImGui::SliderFloat("Near Plane", &np, 0.5, 10.0))
+			{
+
+				aux_cam->SetNearPlane(np);
+
+			}
+			ImGui::Spacing();
+
+			float  fp = aux_cam->GetFarPlane();
+			if (ImGui::SliderFloat("Far Plane", &fp, 50.0f, 1000.f))
+			{
+
+				aux_cam->SetFarPlane(fp);
+
+			}
+			ImGui::Spacing();
+
+
+			if (ImGui::Button("Reset"))
+			{
+				aux_cam->frustum.pos = (float3(2, 3, 9));
+				aux_cam->SetFOV(80);
+				aux_cam->SetNearPlane(0.5);
+				aux_cam->SetFarPlane(1000);
+				aux_cam->SetAspectRatio(1.6);
+
+				App->camera->GetCurrentCam()->Position.Set(0, 5, 10);
+				App->camera->editor_camera->LookAt({ 0, 0, 0 });
+
+
+			}
+			if (ImGui::Checkbox("Draw Frustum", &frustum))
+			{
+				
+			}
+
+			if (ImGui::Checkbox("Draw Ray",&mouse_ray))
+			{
+				
+			}
+		}
+
 		if (ImGui::CollapsingHeader("Window"))
 		{
 			// Brightness
@@ -580,6 +653,19 @@ void ModuleImGui::InspectorWindow()
 		ImGui::Checkbox("Active", &focused_go->go_active);
 		ImGui::SameLine();
 		ImGui::Checkbox("Static", &focused_go->go_static);
+
+		/*if (focused_go->go_parent->go_static)
+		{
+			if (ImGui::Checkbox("Static", &focused_go->go_static))
+				App->scene->GlobalQuadTree->Insert(focused_go);
+		}
+		else
+		{
+			ImGui::PushStyleColor(ImGuiCol_Text, { 0.5f, 0.5f, 0.5f, 1.0f });
+			if (ImGui::Checkbox("Static", &focused_go->go_static))
+				focused_go->go_static = false;
+			ImGui::PopStyleColor();
+		}*/
 
 		// Set components information
 		for (int i = 0; i < focused_go->go_components.size(); i++)

@@ -91,6 +91,7 @@ public:
 	bool BB = false;
 	bool GetBB() const { return BB; }
 	
+	bool Q = false;
 
 	void CreatePlane();
 	bool plane = true;

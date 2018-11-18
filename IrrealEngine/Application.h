@@ -22,7 +22,7 @@ class ModuleSceneLoader;
 class ModuleMeshLoader;
 class ModuleTextureLoader;
 class ModuleScene;
-
+class ModulePick;
 
 class Application
 {
@@ -37,6 +37,7 @@ public:
 	ModuleMeshLoader* meshloader;
 	ModuleTextureLoader* texloader;
 	ModuleScene* scene;
+	ModulePick* ray;
 	
 	
 private:

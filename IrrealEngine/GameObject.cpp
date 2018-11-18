@@ -7,6 +7,7 @@
 #include "ModuleScene.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleImGui.h"
+#include "ComponentCamera.h"
 
 #include "PCG/pcg_basic.h"
 #include "mmgr/mmgr.h"
@@ -24,6 +25,8 @@ GameObject::GameObject(GameObject* parent, const char* name)
 	local_AABB = AABB({ 0,0,0 }, { 0,0,0 });
 	UUID = pcg32_random_r(&App->rng);
 }
+
+
 
 GameObject::~GameObject()
 {
@@ -237,4 +240,122 @@ void GameObject::ChangeParent(std::vector<GameObject*> list, uint parent_UUID)
 			list[i]->go_children.push_back(this);
 		}
 	}
+}
+
+ComponentMesh* GameObject::GetComponentMesh()
+{
+	if (this->IsActive())
+	{
+		ComponentMesh* mesh_tmp = (ComponentMesh*)GetComponent(Component::COMP_TYPE::MESH);
+		if (mesh_tmp != nullptr)
+			return mesh_tmp;
+		else
+			return nullptr;
+	}
+}
+
+void GameObject::PushComponent(Component * new_component)
+{
+	go_components.push_back(new_component);
+}
+
+
+bool GameObject::IsStatic() const
+{
+	return go_static;
+}
+
+bool GameObject::IsActive() const
+{
+	return go_active;
+}
+
+bool GameObject::IsSelected() const
+{
+	return go_selected;
+}
+void GameObject::SetSelected(bool selected)
+{
+	this->go_selected = selected;
+}
+bool GameObject::HasMesh() const
+{
+	bool ret = false;
+	for (int i = 0; i < go_components.size(); i++)
+	{
+		if (go_components[i]->type == Component::COMP_TYPE::MESH)
+			ret = true;
+	}
+	return ret;
+}
+
+AABB GameObject::GetBB()
+{
+	ComponentMesh* aux;
+	if (HasMesh())
+	{
+		aux = (ComponentMesh*)GetComponent(Component::COMP_TYPE::MESH);
+		return aux->mesh->bounding_box;
+	}
+	else
+		LOG("Can't return BB without a mesh");
+}
+
+bool GameObject::IsRoot() const
+{
+	return root_go;
+}
+
+Camera * GameObject::GetCamera()
+{
+	ComponentCamera* aux = (ComponentCamera*)this->GetComponent(Component::COMP_TYPE::CAMERA);
+	if (aux != nullptr)
+		return aux->cam;
+
+	return nullptr;
+}
+
+bool GameObject::HasCam() const
+{
+	bool ret = false;
+	for (int i = 0; i < go_components.size(); i++)
+	{
+		if (go_components[i]->type == Component::COMP_TYPE::CAMERA)
+			ret = true;
+	}
+	return ret;
+}
+
+void GameObject::RenderBoundingBox()
+{
+	glLineWidth(2.5f);
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glBegin(GL_LINES);
+	glVertex3f(local_AABB.CornerPoint(0).x, local_AABB.CornerPoint(0).y, local_AABB.CornerPoint(0).z);
+	glVertex3f(local_AABB.CornerPoint(1).x,local_AABB.CornerPoint(1).y, local_AABB.CornerPoint(1).z);
+	glVertex3f(local_AABB.CornerPoint(0).x,local_AABB.CornerPoint(0).y, local_AABB.CornerPoint(0).z);
+	glVertex3f(local_AABB.CornerPoint(2).x,local_AABB.CornerPoint(2).y, local_AABB.CornerPoint(2).z);
+	glVertex3f(local_AABB.CornerPoint(0).x,local_AABB.CornerPoint(0).y, local_AABB.CornerPoint(0).z);
+	glVertex3f(local_AABB.CornerPoint(4).x,local_AABB.CornerPoint(4).y, local_AABB.CornerPoint(4).z);
+	glVertex3f(local_AABB.CornerPoint(3).x,local_AABB.CornerPoint(3).y, local_AABB.CornerPoint(3).z);
+	glVertex3f(local_AABB.CornerPoint(1).x,local_AABB.CornerPoint(1).y, local_AABB.CornerPoint(1).z);
+	glVertex3f(local_AABB.CornerPoint(3).x,local_AABB.CornerPoint(3).y, local_AABB.CornerPoint(3).z);
+	glVertex3f(local_AABB.CornerPoint(2).x,local_AABB.CornerPoint(2).y, local_AABB.CornerPoint(2).z);
+	glVertex3f(local_AABB.CornerPoint(3).x,local_AABB.CornerPoint(3).y, local_AABB.CornerPoint(3).z);
+	glVertex3f(local_AABB.CornerPoint(7).x,local_AABB.CornerPoint(7).y, local_AABB.CornerPoint(7).z);
+	glVertex3f(local_AABB.CornerPoint(6).x,local_AABB.CornerPoint(6).y, local_AABB.CornerPoint(6).z);
+	glVertex3f(local_AABB.CornerPoint(2).x,local_AABB.CornerPoint(2).y, local_AABB.CornerPoint(2).z);
+	glVertex3f(local_AABB.CornerPoint(6).x,local_AABB.CornerPoint(6).y, local_AABB.CornerPoint(6).z);
+	glVertex3f(local_AABB.CornerPoint(4).x,local_AABB.CornerPoint(4).y, local_AABB.CornerPoint(4).z);
+	glVertex3f(local_AABB.CornerPoint(6).x,local_AABB.CornerPoint(6).y, local_AABB.CornerPoint(6).z);
+	glVertex3f(local_AABB.CornerPoint(7).x,local_AABB.CornerPoint(7).y, local_AABB.CornerPoint(7).z);
+	glVertex3f(local_AABB.CornerPoint(5).x,local_AABB.CornerPoint(5).y, local_AABB.CornerPoint(5).z);
+	glVertex3f(local_AABB.CornerPoint(1).x,local_AABB.CornerPoint(1).y, local_AABB.CornerPoint(1).z);
+	glVertex3f(local_AABB.CornerPoint(5).x,local_AABB.CornerPoint(5).y, local_AABB.CornerPoint(5).z);
+	glVertex3f(local_AABB.CornerPoint(4).x,local_AABB.CornerPoint(4).y, local_AABB.CornerPoint(4).z);
+	glVertex3f(local_AABB.CornerPoint(5).x,local_AABB.CornerPoint(5).y, local_AABB.CornerPoint(5).z);
+	glVertex3f(local_AABB.CornerPoint(7).x,local_AABB.CornerPoint(7).y, local_AABB.CornerPoint(7).z);
+	glEnd();
+	glColor3f(1, 1, 1);
+	glLineWidth(1.0f);
 }

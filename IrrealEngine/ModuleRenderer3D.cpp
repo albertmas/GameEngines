@@ -6,6 +6,7 @@
 #include "ModuleImGui.h"
 #include "ModuleSceneLoader.h"
 #include "ModuleScene.h"
+#include "QuadTree.h"
 
 #include "Open_GL.h"
 #include "mmgr/mmgr.h"
@@ -160,18 +161,19 @@ bool ModuleRenderer3D::Start()
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
+	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(App->camera->GetViewMatrix());
+	Color c = { 0,0,0,1 };
+	glClearColor(c.r, c.g, c.b, c.a);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
 
-	// light 0 on cam pos
-	lights[0].SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+	lights[0].SetPos(0, 0, 0);
 
-	for(uint i = 0; i < MAX_LIGHTS; ++i)
+	for (uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
-
 
 	return UPDATE_CONTINUE;
 }
@@ -181,17 +183,37 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	// We should render the geometry here
 	
+	//if (App->camera->GetEditorCam() != nullptr && App->camera->GetEditorCam() == App->camera->editor_camera) // Checks  current cam  & if we are using editor camera
+	//{
 
-	//if (Cube)
-	//{
-	//	glColor3f(1.0, 0.0, 1.0);
-	//	VertexArrayCube.DrawCube();
-	//	glColor3f(1.0, 1.0, 1.0);
+	//	App->camera->GetEditorCam()->UpdateProjectionMatrix();
+
+	//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//	glLoadIdentity();
+	//	glMatrixMode(GL_MODELVIEW);
+
+	//	glLoadMatrixf(App->camera->GetEditorCam()->GetViewMatrix());
+
 	//}
-	//if (Sphere)
-	//{
-	//	VertexSphere.DrawSphere();
-	//}
+
+	//Bind editorCam
+	if (App->camera->GetEditorCam() != nullptr && App->camera->GetEditorCam() == App->camera->editor_camera) // Checks  current cam  & if we are using editor camera
+	{
+
+		App->camera->GetEditorCam()->UpdateProjectionMatrix();
+
+
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glLoadIdentity();
+		glMatrixMode(GL_MODELVIEW);
+		glLoadMatrixf(App->camera->GetEditorCam()->GetViewMatrix());
+		//GO
+		App->scene->Draw();
+
+	}
+
+
+	
 	if (plane)
 	{ 
 		glColor3f(1.0, 1.0, 1.0);
@@ -216,7 +238,13 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	//glBindTexture(GL_TEXTURE_2D, 0);
 
-	App->scene->Draw();
+	if (Q)
+	{
+		App->scene->GlobalQuadTree->RecalculateQuadTree();
+		App->scene->DrawGOBoundingBoxes();
+		App->scene->GlobalQuadTree->RenderQuadTree();
+	}
+	
 	App->imgui->DrawImgui();
 
 	SDL_GL_SwapWindow(App->window->window);
@@ -250,18 +278,20 @@ bool ModuleRenderer3D::Load(Document& document)
 
 void ModuleRenderer3D::OnResize(int width, int height)
 {
-	glViewport(0, 0, width, height);
-	float4x4 aux;
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	//ProjectionMatrix = aux.perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
-	//glLoadMatrixf((float*)ProjectionMatrix.v);
+	if (App->camera->GetEditorCam() != nullptr)
+	{
+		float ratio = (float)width / (float)height;
+		App->camera->GetEditorCam()->SetAspectRatio(ratio);
 
-	ProjectionMatrix = perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
-	glLoadMatrixf(&ProjectionMatrix);
+		glViewport(0, 0, width, height);
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+		glLoadMatrixf(App->camera->GetEditorCam()->GetProjectionMatrix());
+
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+	}
 }
 
 char * ModuleRenderer3D::GetGraphicsVendor()
@@ -405,7 +435,17 @@ void ModuleRenderer3D::FunctionsRender()
 		App->renderer3D->SetNormals(Normals);
 	}
 	
-	ImGui::Checkbox("Bounding Box", &BB);
+	if (ImGui::Checkbox("Bounding Box", &BB))
+	{
+	}
+	
+
+	if (ImGui::Checkbox("QuadTree", &Q))
+	{
+		App->scene->GlobalQuadTree->RecalculateQuadTree(); // As Quadtree is always getting go root it divides by 4
+		App->scene->DrawGOBoundingBoxes();
+		App->scene->GlobalQuadTree->RenderQuadTree();
+	}
 }
 
 void ModuleRenderer3D::Active_Wireframe(bool active)

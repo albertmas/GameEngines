@@ -10,6 +10,7 @@
 #include "ModuleMeshLoader.h"
 #include "ModuleTextureLoader.h"
 #include "ModuleScene.h"
+#include "ModulePick.h"
 
 #include <time.h>
 
@@ -28,6 +29,7 @@ Application::Application()
 	meshloader = new ModuleMeshLoader();
 	texloader = new ModuleTextureLoader();
 	scene = new ModuleScene(this);
+	ray = new ModulePick(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -41,6 +43,7 @@ Application::Application()
 	AddModule(sceneloader);
 	AddModule(meshloader);
 	AddModule(texloader);
+	AddModule(ray);
 	
 	// Scenes
 	AddModule(scene);
