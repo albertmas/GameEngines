@@ -2,8 +2,11 @@
 [Irreal Engine](https://github.com/albertmas/GameEngines) is a 3D game engine created by [Albert Mas](https://github.com/albertmas/) and [Guillem Arman](https://github.com/GuillemArman) for the Game Engines university subject at [UPC-CITM](https://www.citm.upc.edu/).
 
 ## Work done
-Albert: GameObject Hierarchy & Imoprter, transforms, Serialization, Mesh Binary Format
-Guillem: Camera, Quadtre
+**2nd Assignment**
+
+Albert: Engine Structure, Mesh Binary Format, GameObject Hierarchy & Inspector, Imoprter, Components Transform, Mesh and Texture; Serialization, In-Game Assets Folder
+
+Guillem: Component Camera, Quadtree
 
 ## For the development of this engine, we have used the following libraries:
 - [DeviceId](https://github.com/MatthewKing/DeviceId) Version Deceber 2015:
@@ -26,6 +29,8 @@ OpenGL exension library that determines which OpenGL extensions are supported on
 Used to load FBX meshes
 - [DevIL](http://openil.sourceforge.net/) Version 1.8.0:
 Used to load textures
+- [MMGR](http://www.paulnettle.com/)
+Used to track memory leaks
 
 ## Innovation
-We have created a file explorer that can search files in the hard drive and then, if they are a mesh (.FBX) or an image (.dds, .png, .jpg) load them. (1st Assignment)
+**1st Assignment:** We have created a file explorer that can search files in the hard drive and then, if they are a mesh (.FBX) or an image (.dds, .png, .jpg) load them.
