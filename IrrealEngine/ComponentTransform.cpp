@@ -139,23 +139,15 @@ Value ComponentTransform::Save(Document::AllocatorType& allocator) const
 	CompArray.AddMember("Active", active, allocator);
 	CompArray.AddMember("UUID", UUID, allocator);
 
-	Value pos(kArrayType);
-	pos.PushBack(position.x, allocator);
-	pos.PushBack(position.y, allocator);
-	pos.PushBack(position.z, allocator);
-	CompArray.AddMember("Position", pos, allocator);
-
-	Value rot(kArrayType);
-	rot.PushBack(rotation.x, allocator);
-	rot.PushBack(rotation.y, allocator);
-	rot.PushBack(rotation.z, allocator);
-	CompArray.AddMember("Rotation", rot, allocator);
-
-	Value scaling(kArrayType);
-	scaling.PushBack(scale.x, allocator);
-	scaling.PushBack(scale.y, allocator);
-	scaling.PushBack(scale.z, allocator);
-	CompArray.AddMember("Scale", scaling, allocator);
+	Value transform(kArrayType);
+	for (int i = 0; i < 4; i++)
+	{
+		for (int t = 0; t < 4; t++)
+		{
+			transform.PushBack(matrix_local[i][t], allocator);
+		}
+	}
+	CompArray.AddMember("Transform", transform, allocator);
 
 	return CompArray;
 }

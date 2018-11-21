@@ -146,8 +146,6 @@ bool ModuleScene::SaveScene(const char* file)
 			}
 		}
 		document.AddMember("Scene", myArray, allocator);
-		/*StringBuffer strbuf;
-		Writer<StringBuffer> writer(strbuf);*/
 
 		PrettyWriter<FileWriteStream> writer(os);
 		document.Accept(writer);
@@ -244,26 +242,18 @@ bool ModuleScene::LoadScene(const char* file)
 								{
 									comp->UUID = iter_comp_data->value.GetUint();
 								}
-								else if (strcmp(iter_comp_data->name.GetString(), "Position") == 0)
+								else if (strcmp(iter_comp_data->name.GetString(), "Transform") == 0)
 								{
+									uint num = 0;
 									ComponentTransform* comp_trans = (ComponentTransform*)comp;
-									comp_trans->position.x = iter_comp_data->value.GetArray()[0].GetFloat();
-									comp_trans->position.y = iter_comp_data->value.GetArray()[1].GetFloat();
-									comp_trans->position.z = iter_comp_data->value.GetArray()[2].GetFloat();
-								}
-								else if (strcmp(iter_comp_data->name.GetString(), "Rotation") == 0)
-								{
-									ComponentTransform* comp_trans = (ComponentTransform*)comp;
-									comp_trans->rotation.x = iter_comp_data->value.GetArray()[0].GetFloat();
-									comp_trans->rotation.y = iter_comp_data->value.GetArray()[1].GetFloat();
-									comp_trans->rotation.z = iter_comp_data->value.GetArray()[2].GetFloat();
-								}
-								else if (strcmp(iter_comp_data->name.GetString(), "Scale") == 0)
-								{
-									ComponentTransform* comp_trans = (ComponentTransform*)comp;
-									comp_trans->scale.x = iter_comp_data->value.GetArray()[0].GetFloat();
-									comp_trans->scale.y = iter_comp_data->value.GetArray()[1].GetFloat();
-									comp_trans->scale.z = iter_comp_data->value.GetArray()[2].GetFloat();
+									for (int i = 0; i < 4; i++)
+									{
+										for (int t = 0; t < 4; t++)
+										{
+											comp_trans->matrix_local[i][t] = iter_comp_data->value.GetArray()[num].GetFloat();
+											num++;
+										}
+									}
 								}
 								else if (strcmp(iter_comp_data->name.GetString(), "Mesh") == 0)
 								{
@@ -319,7 +309,7 @@ bool ModuleScene::LoadScene(const char* file)
 		for (int t = 0; t < newGOlist.size(); t++)
 		{
 			ComponentTransform* comp_trans = (ComponentTransform*)newGOlist[t]->GetComponent(Component::TRANSFORMATION);
-			comp_trans->matrix_local.Set(float4x4::FromTRS(comp_trans->position, comp_trans->rotation, comp_trans->scale));
+			comp_trans->matrix_local.Decompose(comp_trans->position, comp_trans->rotation, comp_trans->scale);
 
 			newGOlist[t]->ChangeParent(newGOlist, newGOlist[t]->UUID_parent);
 		}
