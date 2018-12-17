@@ -27,7 +27,7 @@ bool ComponentTransform::Update()
 void ComponentTransform::SetInspectorInfo()
 {
 	ImGui::Spacing();
-	if (ImGui::CollapsingHeader("Transformation"), ImGuiTreeNodeFlags_DefaultOpen)
+	if (ImGui::CollapsingHeader("Transformation", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		//uint flags = ImGuiInputTextFlags_EnterReturnsTrue;
 		if (my_go->go_static)
