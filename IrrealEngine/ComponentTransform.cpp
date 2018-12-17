@@ -156,3 +156,8 @@ bool ComponentTransform::Load(Document& document)
 {
 	return true;
 }
+
+void ComponentTransform::CalculateMatrix()
+{
+	matrix_local.Set(float4x4::FromTRS(position, rotation, scale));
+}

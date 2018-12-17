@@ -11,6 +11,7 @@
 #include "ComponentTransform.h"
 #include "ComponentMesh.h"
 #include "ComponentTexture.h"
+#include "ComponentCamera.h"
 
 #include "mmgr/mmgr.h"
 #include "glmath.h"
@@ -394,4 +395,23 @@ void ModuleScene::CleanChildrenGO(GameObject* child)
 		
 		iter_go++;
 	}
+}
+
+ComponentCamera* ModuleScene::GetCurCam() const
+{
+	return currentCam;
+}
+
+ComponentCamera* ModuleScene::GetGhostCam() const
+{
+	return ghostcam;
+}
+
+void ModuleScene::SetCurCam(ComponentCamera* cam)
+{
+	if (currentCam != nullptr)
+		currentCam->isCurCam = false;
+
+	currentCam = cam;
+	currentCam->isCurCam = true;
 }

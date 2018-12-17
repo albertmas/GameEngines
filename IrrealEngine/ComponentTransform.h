@@ -1,8 +1,7 @@
 #ifndef _COMPONENT_TRANSFORM_H_
-#define _COMPONENNT_TRANSFORM_H_
+#define _COMPONENT_TRANSFORM_H_
 
 #include "Component.h"
-#include "MathGeoLib/MathGeoLib.h"
 
 
 class ComponentTransform : public Component
@@ -16,6 +15,8 @@ public:
 
 	Value Save(Document::AllocatorType& allocator) const override;
 	bool Load(Document& document) override;
+
+	void CalculateMatrix();
 
 public:
 	float3 position = float3::zero;

@@ -70,6 +70,9 @@ public:
 	int mouse_x_motion = 0;
 	int mouse_y_motion = 0;
 	//int mouse_z_motion;
+
+public:
+	float Mx, My;
 };
 
 #endif

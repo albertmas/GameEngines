@@ -7,7 +7,8 @@
 #include "rapidjson/filewritestream.h"
 #include "rapidjson/filereadstream.h"
 #include "rapidjson/writer.h"
-#include "PCG\pcg_basic.h"
+#include "PCG/pcg_basic.h"
+#include "MathGeoLib/MathGeoLib.h"
 
 using namespace rapidjson;
 
@@ -43,6 +44,10 @@ public:
 	{
 		return true;
 	}
+	/*ComponentTransform* AsTransform()
+	{
+		return (ComponentTransform*)this;
+	}*/
 
 public:
 

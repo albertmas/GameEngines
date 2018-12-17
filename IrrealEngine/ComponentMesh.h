@@ -23,7 +23,7 @@ public:
 	Value Save(Document::AllocatorType& allocator) const override;
 	bool Load(Document& document) override;
 
-private:
+public:
 	FBXMesh* go_mesh = nullptr;
 	ComponentTexture* mesh_material = nullptr;
 };

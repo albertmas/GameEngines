@@ -64,3 +64,4 @@ enum update_status
 #define WIN_FULLSCREEN_DESKTOP false
 #define VSYNC true
 #define TITLE "Irreal Engine"
+#define FAR_PLANE_DISTANCE 50000.0f

@@ -238,3 +238,25 @@ void GameObject::ChangeParent(std::vector<GameObject*> list, uint parent_UUID)
 		}
 	}
 }
+
+void GameObject::IsPickedABB(LineSegment picking, std::vector<GameObject*> &vec)
+{
+	//Deselect();
+	App->imgui->focused_go = nullptr;
+
+	if (!go_children.empty())
+	{
+		for (std::vector<GameObject*>::iterator it = go_children.begin(); it != go_children.end(); ++it)
+		{
+			(*it)->IsPickedABB(picking, vec);
+		}
+	}
+
+	if (global_AABB.Intersects(picking))
+	{
+		//selected = true;
+		vec.push_back(this);
+	}
+	//else
+	//	selected = false;
+}

@@ -5,6 +5,7 @@
 #include <list>
 
 class GameObject;
+class ComponentCamera;
 
 class ModuleScene :	public Module
 {
@@ -31,9 +32,17 @@ public:
 	GameObject* CreateGameObject();
 	void SetGlobalMatrix(GameObject* gameobject);
 
+	void SetCurCam(ComponentCamera* cam);
+	ComponentCamera* GetCurCam() const;
+	ComponentCamera* GetGhostCam() const;
+
 public:
 	std::vector<GameObject*> game_objects;
 	GameObject* root = nullptr;
+
+private:
+	ComponentCamera* ghostcam = nullptr;
+	ComponentCamera* currentCam = nullptr;
 
 };
 
