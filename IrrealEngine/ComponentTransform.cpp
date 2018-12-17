@@ -4,8 +4,10 @@
 #include "ModuleImGui.h"
 
 #include "ImGui/imgui.h"
-#include "mmgr/mmgr.h"
 
+#ifdef _DEBUG
+#include "mmgr/mmgr.h"
+#endif
 
 ComponentTransform::ComponentTransform(GameObject* gameobject)
 {

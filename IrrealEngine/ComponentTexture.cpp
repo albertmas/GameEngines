@@ -5,7 +5,10 @@
 #include "GameObject.h"
 
 #include "ImGui/imgui.h"
+
+#ifdef _DEBUG
 #include "mmgr/mmgr.h"
+#endif
 
 
 ComponentTexture::ComponentTexture(GameObject* gameobject)

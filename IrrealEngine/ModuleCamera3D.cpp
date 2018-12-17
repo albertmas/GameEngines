@@ -7,7 +7,9 @@
 #include "ModuleImGui.h"
 #include "Globals.h"
 
+#ifdef _DEBUG
 #include "mmgr/mmgr.h"
+#endif
 
 
 ModuleCamera3D::ModuleCamera3D(bool start_enabled) : Module(start_enabled)

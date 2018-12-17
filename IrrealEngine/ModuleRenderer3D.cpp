@@ -8,7 +8,10 @@
 #include "ModuleScene.h"
 
 #include "Open_GL.h"
+
+#ifdef _DEBUG
 #include "mmgr/mmgr.h"
+#endif
 
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */

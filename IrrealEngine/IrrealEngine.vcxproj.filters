@@ -187,6 +187,7 @@
     <ClCompile Include="mmgr\mmgr.cpp">
       <Filter>Sources\mmgr</Filter>
     </ClCompile>
+    <ClCompile Include="quadtree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -480,6 +481,7 @@
     <ClInclude Include="mmgr\nommgr.h">
       <Filter>Sources\mmgr</Filter>
     </ClInclude>
+    <ClInclude Include="quadtree.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MathGeoLib\Geometry\KDTree.inl">

@@ -1,7 +1,9 @@
 #include "Application.h"
 #include "ModuleWindow.h"
 
+#ifdef _DEBUG
 #include "mmgr/mmgr.h"
+#endif
 
 
 ModuleWindow::ModuleWindow(bool start_enabled) : Module(start_enabled)

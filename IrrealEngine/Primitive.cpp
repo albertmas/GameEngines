@@ -3,7 +3,10 @@
 #include "Primitive.h"
 
 #include "GLEW/include/glew.h"
+
+#ifdef _DEBUG
 #include "mmgr/mmgr.h"
+#endif
 
 
 // ------------------------------------------------------------

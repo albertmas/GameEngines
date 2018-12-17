@@ -8,7 +8,9 @@
 #include "ModuleSceneLoader.h"
 #include "ModuleMeshLoader.h"
 
+#ifdef _DEBUG
 #include "mmgr/mmgr.h"
+#endif
 
 
 #define MAX_KEYS 300

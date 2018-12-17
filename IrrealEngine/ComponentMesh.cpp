@@ -8,7 +8,9 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleImGui.h"
 
+#ifdef _DEBUG
 #include "mmgr/mmgr.h"
+#endif
 
 
 ComponentMesh::ComponentMesh(GameObject* gameobject)

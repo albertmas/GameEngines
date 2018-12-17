@@ -6,7 +6,9 @@
 
 #include <fstream>
 
+#ifdef _DEBUG
 #include "mmgr/mmgr.h"
+#endif
 
 
 ModuleMeshLoader::ModuleMeshLoader(bool start_enabled) : Module(start_enabled)

@@ -3,7 +3,9 @@
 #include "Application.h"
 #include "Globals.h"
 
+#ifdef _DEBUG
 #include "mmgr/mmgr.h"
+#endif
 
 
 void log(const char file[], int line, const char* format, ...)

@@ -13,7 +13,9 @@
 
 #include <time.h>
 
+#ifdef _DEBUG
 #include "mmgr/mmgr.h"
+#endif
 
 
 Application::Application()

@@ -9,7 +9,10 @@
 #include "ModuleImGui.h"
 
 #include "PCG/pcg_basic.h"
+
+#ifdef _DEBUG
 #include "mmgr/mmgr.h"
+#endif
 
 
 GameObject::GameObject(GameObject* parent, const char* name)

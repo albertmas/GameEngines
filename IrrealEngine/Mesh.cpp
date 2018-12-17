@@ -1,6 +1,8 @@
 #include "Mesh.h"
 
+#ifdef _DEBUG
 #include "mmgr/mmgr.h"
+#endif
 
 
 Mesh::Mesh()

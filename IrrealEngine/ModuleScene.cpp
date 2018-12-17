@@ -12,7 +12,10 @@
 #include "ComponentMesh.h"
 #include "ComponentTexture.h"
 
+#ifdef _DEBUG
 #include "mmgr/mmgr.h"
+#endif
+
 #include "glmath.h"
 
 

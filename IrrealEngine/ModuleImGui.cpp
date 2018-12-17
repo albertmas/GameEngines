@@ -14,7 +14,9 @@
 #include "Assimp/include/version.h"
 #include "DevIL/include/il.h"
 
+#ifdef _DEBUG
 #include "mmgr/mmgr.h"
+#endif
 
 
 ModuleImGui::ModuleImGui(bool start_enabled) : Module(start_enabled)
