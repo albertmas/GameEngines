@@ -190,6 +190,9 @@
     <ClCompile Include="ComponentCamera.cpp">
       <Filter>Sources\Components</Filter>
     </ClCompile>
+    <ClCompile Include="ImGui\ImGuizmo.cpp">
+      <Filter>Sources\ImGui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -485,6 +488,9 @@
     </ClInclude>
     <ClInclude Include="ComponentCamera.h">
       <Filter>Sources\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\ImGuizmo.h">
+      <Filter>Sources\ImGui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

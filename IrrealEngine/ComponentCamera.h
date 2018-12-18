@@ -10,13 +10,14 @@ class ComponentTransform;
 class ComponentCamera :	public Component
 {
 public:
-	ComponentCamera(float _near = 0.5f, float _far = FAR_PLANE_DISTANCE, float fov = 60.0f);
+	ComponentCamera(GameObject* parent = nullptr, float _near = 0.5f, float _far = FAR_PLANE_DISTANCE, float fov = 60.0f);
 	~ComponentCamera();
 
-	/*bool Start();
+	//bool Start();
 	bool Update();
 	void UpdateUI();
 	bool CleanUp();
+	void SetInspectorInfo() override;
 	Value Save(Document::AllocatorType& allocator) const override;
 	bool Load(Document& document) override;
 
@@ -34,7 +35,7 @@ public:
 	bool CheckInside(const AABB bb);
 	void UpdateTransform();
 	void CalculateViewMatrix();
-	GameObject* Pick(float3* hit_point);*/
+	GameObject* Pick(float3* hit_point);
 
 public:
 	float3 Reference = float3::zero;
@@ -42,15 +43,15 @@ public:
 	bool locked = false;
 	bool drawFrustum = true;
 	bool isCurCam = false;
+	float nearDistance = 0.5f;
+	float farDistance = FAR_PLANE_DISTANCE;
+	Frustum frustum;
+	float fovy = 60.0f;
 
 private:
 
 	float4x4 ViewMatrix, ViewMatrixInverse;
-	float nearDistance = 0.5f;
-	float farDistance = FAR_PLANE_DISTANCE;
-	math::Frustum frustum;
 	float aspectRatio = 0;
-	float fovy = 60.0f;
 	bool lookingAt = false;
 };
 

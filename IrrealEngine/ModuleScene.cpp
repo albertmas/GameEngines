@@ -45,6 +45,16 @@ bool ModuleScene::Start()
 	game_objects.push_back(root);
 	ComponentTransform* root_trans = (ComponentTransform*)root->CreateComponent(Component::TRANSFORMATION);
 
+	//Generate Ghost Cam
+	ghostcam = new ComponentCamera(root, 0.5f, FAR_PLANE_DISTANCE, 50.0f);
+	//ghostcam->Start();
+	ghostcam->drawFrustum = false;
+	currentCam = ghostcam;
+
+	GameObject* camobj = new GameObject(root, "Camera");
+	root->CreateComponent(Component::CAMERA);
+
+	// Preload scene
 	App->sceneloader->ImportMesh("Assets/street/Street environment_V01.fbx");//street/Street environment_V01
 
 	return true;
@@ -233,6 +243,10 @@ bool ModuleScene::LoadScene(const char* file)
 									{
 										comp = newGameObject->CreateComponent(Component::TEXTURE);
 									}
+									else if (iter_comp_data->value.GetInt() == Component::CAMERA)
+									{
+										comp = newGameObject->CreateComponent(Component::CAMERA);
+									}
 									comp->type = (Component::COMP_TYPE)iter_comp_data->value.GetInt();
 								}
 								else if (strcmp(iter_comp_data->name.GetString(), "Active") == 0)
@@ -282,7 +296,6 @@ bool ModuleScene::LoadScene(const char* file)
 										newTex->name = iter_comp_data->value.GetString();
 										comp_tex->texture = newTex;
 									}
-
 								}
 								else if (strcmp(iter_comp_data->name.GetString(), "Color") == 0)
 								{
@@ -296,6 +309,25 @@ bool ModuleScene::LoadScene(const char* file)
 									comp_tex->texture->color.x = iter_comp_data->value.GetArray()[0].GetFloat();
 									comp_tex->texture->color.y = iter_comp_data->value.GetArray()[1].GetFloat();
 									comp_tex->texture->color.z = iter_comp_data->value.GetArray()[2].GetFloat();
+								}
+								else if (strcmp(iter_comp_data->name.GetString(), "NearPlane") == 0)
+								{
+									ComponentCamera* comp_cam = (ComponentCamera*)comp;
+									comp_cam->nearDistance = iter_comp_data->value.GetFloat();
+								}
+								else if (strcmp(iter_comp_data->name.GetString(), "FarPlane") == 0)
+								{
+									ComponentCamera* comp_cam = (ComponentCamera*)comp;
+									comp_cam->farDistance = iter_comp_data->value.GetFloat();
+								}
+								else if (strcmp(iter_comp_data->name.GetString(), "FOV") == 0)
+								{
+									ComponentCamera* comp_cam = (ComponentCamera*)comp;
+									comp_cam->fovy = iter_comp_data->value.GetFloat();
+
+									comp_cam->frustum.nearPlaneDistance = comp_cam->nearDistance;
+									comp_cam->frustum.farPlaneDistance = comp_cam->farDistance;
+									comp_cam->RecalculateFrustrum();
 								}
 							}
 						}

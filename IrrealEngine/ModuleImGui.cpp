@@ -65,8 +65,6 @@ update_status ModuleImGui::Update(float dt)
 
 		if (ImGui::BeginMenu("Menu"))
 		{
-
-
 			if (ImGui::MenuItem("Show Window")) 
 			{
 				testwindow = !testwindow;

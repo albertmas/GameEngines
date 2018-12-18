@@ -4,6 +4,7 @@
 #include "ComponentMesh.h"
 #include "ComponentTransform.h"
 #include "ComponentTexture.h"
+#include "ComponentCamera.h"
 #include "ModuleScene.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleImGui.h"
@@ -185,6 +186,10 @@ Component* GameObject::CreateComponent(Component::COMP_TYPE type)
 		break;
 	case Component::TEXTURE:
 		comp = new ComponentTexture(this);
+		go_components.push_back(comp);
+		break;
+	case Component::CAMERA:
+		comp = new ComponentCamera(this);
 		go_components.push_back(comp);
 		break;
 	default:
