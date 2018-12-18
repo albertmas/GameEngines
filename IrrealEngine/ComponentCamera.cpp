@@ -28,7 +28,6 @@ ComponentCamera::ComponentCamera(GameObject* parent, float _near, float _far, fl
 	else
 		my_go = App->scene->root;
 	UUID = pcg32_random_r(&App->rng);
-
 	type = CAMERA;
 	nearDistance = _near;
 	farDistance = _far;

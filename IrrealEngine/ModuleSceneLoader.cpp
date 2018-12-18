@@ -244,7 +244,7 @@ GameObject* ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* sc
 
 	if (App->camera->first_time == false)
 	{
-		App->camera->FocusBox(*ObjectBB);
+		//App->camera->FocusBox(*ObjectBB);
 	}
 	
 	App->camera->first_time = false;

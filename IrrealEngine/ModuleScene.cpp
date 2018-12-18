@@ -1,6 +1,8 @@
 #include "Application.h"
 #include "ModuleScene.h"
 #include "ModuleCamera3D.h"
+#include "ModuleRenderer3D.h"
+#include "ModuleWindow.h"
 #include "ModuleImGui.h"
 #include "ModuleSceneLoader.h"
 #include "ModuleMeshLoader.h"
@@ -32,8 +34,8 @@ bool ModuleScene::Init(Document& document)
 	LOG("Loading Plane");
 	bool ret = true;
 
-	App->camera->Move(vec3(0.0f, 10.0f, 0.0f));
-	App->camera->LookAt(vec3(0.0f, 0.0f, 0.0f));
+	/*App->camera->Move(vec3(0.0f, 10.0f, 0.0f));
+	App->camera->LookAt(vec3(0.0f, 0.0f, 0.0f));*/
 
 	return ret;
 }
@@ -52,7 +54,8 @@ bool ModuleScene::Start()
 	currentCam = ghostcam;
 
 	GameObject* camobj = new GameObject(root, "Camera");
-	root->CreateComponent(Component::CAMERA);
+	camobj->CreateComponent(Component::TRANSFORMATION);
+	camobj->CreateComponent(Component::CAMERA);
 
 	// Preload scene
 	App->sceneloader->ImportMesh("Assets/street/Street environment_V01.fbx");//street/Street environment_V01
@@ -68,7 +71,13 @@ update_status ModuleScene::PreUpdate(float dt)
 }
 update_status ModuleScene::Update(float dt)
 {
+	ghostcam->CheckInput(dt);
+	ghostcam->Update();
+
 	Draw();
+
+	App->renderer3D->OnResize(App->window->width, App->window->height);
+
 
 	return UPDATE_CONTINUE;
 }

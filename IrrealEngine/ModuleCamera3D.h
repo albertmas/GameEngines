@@ -8,7 +8,7 @@
 class ModuleCamera3D : public Module
 {
 public:
-	ModuleCamera3D(bool start_enabled = true);
+	/*ModuleCamera3D(bool start_enabled = true);
 	~ModuleCamera3D() override;
 
 	bool Start() override;
@@ -23,7 +23,7 @@ public:
 	void Move(const vec3 &Movement);
 	void Camera_Rot();
 	void FocusBox(AABB & box);
-	float* GetViewMatrix();
+	float* GetViewMatrix();*/
 
 
 
@@ -31,7 +31,7 @@ public:
 
 private:
 
-	void CalculateViewMatrix();
+	//void CalculateViewMatrix();
 
 public:
 	

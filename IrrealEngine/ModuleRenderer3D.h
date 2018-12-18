@@ -56,8 +56,8 @@ public:
 	/*float3x3 NormalMatrix;
 	float4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;*/
 
-	mat3x3 NormalMatrix;
-	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
+	float3x3 NormalMatrix;
+	float4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 
 public:
 	/*Mesh VertexAndIndexCube;
@@ -101,6 +101,8 @@ public:
 	/*bool Cube = true;
 	bool Sphere = true;*/
 
+	bool useGhostCam = true;
+	
 public:
 	uint tex_buff_id = 0;
 };

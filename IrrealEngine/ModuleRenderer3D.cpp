@@ -6,6 +6,7 @@
 #include "ModuleImGui.h"
 #include "ModuleSceneLoader.h"
 #include "ModuleScene.h"
+#include "ComponentCamera.h"
 
 #include "Open_GL.h"
 #include "mmgr/mmgr.h"
@@ -123,7 +124,7 @@ bool ModuleRenderer3D::Init(Document& document)
 	}
 
 	// Projection matrix for
-	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
+	//OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	// Checkered Texture
 	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
@@ -160,14 +161,21 @@ bool ModuleRenderer3D::Start()
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
+	ComponentCamera* cam = nullptr;
+
+	if (useGhostCam)
+		cam = App->scene->GetGhostCam();
+	else
+		cam = App->scene->GetCurCam();
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
 	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(App->camera->GetViewMatrix());
+	glLoadMatrixf(cam->GetViewMatrix());
 
 	// light 0 on cam pos
-	lights[0].SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+	lights[0].SetPos(cam->transform.position.x, cam->transform.position.y, cam->transform.position.z);
 
 	for(uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
@@ -250,15 +258,34 @@ bool ModuleRenderer3D::Load(Document& document)
 
 void ModuleRenderer3D::OnResize(int width, int height)
 {
+	//glViewport(0, 0, width, height);
+	//float4x4 aux;
+	//glMatrixMode(GL_PROJECTION);
+	//glLoadIdentity();
+	////ProjectionMatrix = aux.perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
+	////glLoadMatrixf((float*)ProjectionMatrix.v);
+
+	//ProjectionMatrix = perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
+	//glLoadMatrixf(&ProjectionMatrix);
+
+	//glMatrixMode(GL_MODELVIEW);
+	//glLoadIdentity();
+
+	ComponentCamera* cam;
+
+	if (useGhostCam)
+		cam = App->scene->GetGhostCam();
+	else
+		cam = App->scene->GetCurCam();
+
 	glViewport(0, 0, width, height);
-	float4x4 aux;
+
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	//ProjectionMatrix = aux.perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
-	//glLoadMatrixf((float*)ProjectionMatrix.v);
-
-	ProjectionMatrix = perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
-	glLoadMatrixf(&ProjectionMatrix);
+	App->window->width = width;
+	App->window->height = height;
+	ProjectionMatrix = cam->ResizePerspMatrix(width, height);
+	glLoadMatrixf(&ProjectionMatrix[0][0]);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
