@@ -48,13 +48,14 @@ bool ModuleScene::Start()
 
 	//Generate Ghost Cam
 	ghostcam = new ComponentCamera(nullptr, 0.5f, FAR_PLANE_DISTANCE, 50.0f);
-	//ghostcam->Start();
 	ghostcam->drawFrustum = false;
 	currentCam = ghostcam;
 
+	//Create Camera GameObject
 	GameObject* camobj = new GameObject(root, "Camera");
 	camobj->CreateComponent(Component::TRANSFORMATION);
 	camobj->CreateComponent(Component::CAMERA);
+
 
 	// Preload scene
 	App->sceneloader->ImportMesh("Assets/street/Street environment_V01.fbx");//street/Street environment_V01
@@ -90,11 +91,7 @@ bool ModuleScene::CleanUp()
 	LOG("Freeing all Scene elements");
 
 	App->imgui->focused_go = nullptr;
-
-	ghostcam->CleanUp();
-	if (currentCam != ghostcam)
-		delete currentCam;
-
+	
 	delete ghostcam;
 	ghostcam = nullptr;
 

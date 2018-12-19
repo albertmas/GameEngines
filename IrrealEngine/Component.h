@@ -13,6 +13,10 @@
 using namespace rapidjson;
 
 class GameObject;
+class ComponentTransform;
+class ComponentMesh;
+class ComponentTexture;
+class ComponentCamera;
 
 class Component
 {
@@ -44,10 +48,22 @@ public:
 	{
 		return true;
 	}
-	/*ComponentTransform* AsTransform()
+	ComponentTransform* AsTransform()
 	{
 		return (ComponentTransform*)this;
-	}*/
+	}
+	ComponentMesh* AsMesh()
+	{
+		return (ComponentMesh*)this;
+	}
+	ComponentTexture* AsTexture()
+	{
+		return (ComponentTexture*)this;
+	}
+	ComponentCamera* AsCamera()
+	{
+		return (ComponentCamera*)this;
+	}
 
 public:
 

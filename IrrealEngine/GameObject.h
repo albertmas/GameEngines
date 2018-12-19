@@ -25,6 +25,7 @@ public:
 	Component* CreateComponent(Component::COMP_TYPE type);
 	Component* GetComponent(Component::COMP_TYPE type);
 	void ChangeParent(std::vector<GameObject*> list, uint parent_UUID);
+	void CalcGlobalTransform();
 	void IsPickedABB(LineSegment picking, std::vector<GameObject*> &vec);
 
 public:

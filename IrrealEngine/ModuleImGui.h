@@ -4,6 +4,7 @@
 
 #include "Module.h"
 #include "ImGui/imgui.h"
+#include "ImGui/ImGuizmo.h"
 
 
 class GameObject;
@@ -42,6 +43,9 @@ public:
 
 	void SearchFolder(const char* path);
 	void SearchGO(GameObject* parent);
+
+	void DrawGuizmo(GameObject* obj);
+	void UpdateGuizmoInput();
 
 public:
 	int min_rand_int = 0, max_rand_int = 100;
@@ -104,6 +108,12 @@ private:
 	char organization[50] = "UPC CITM";
 	char icon_name[50] = "*default*";
 	char icon_name_new[50] = "";
+
+	//Guizmo
+	ImGuizmo::MODE guizmoMode = ImGuizmo::WORLD;
+	ImGuizmo::OPERATION guizmoOperation = ImGuizmo::TRANSLATE;
+	float guizmoSnapSize[3];
+	bool guizmoSnap = false;
 };
 
 #endif //__ModuleImGui_H__

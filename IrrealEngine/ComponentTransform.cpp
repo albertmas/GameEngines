@@ -161,3 +161,8 @@ void ComponentTransform::CalculateMatrix()
 {
 	matrix_local.Set(float4x4::FromTRS(position, rotation, scale));
 }
+
+void ComponentTransform::CalculateVectors()
+{
+	matrix_local.Decompose(position, rotation, scale);
+}

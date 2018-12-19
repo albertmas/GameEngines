@@ -244,6 +244,26 @@ void GameObject::ChangeParent(std::vector<GameObject*> list, uint parent_UUID)
 	}
 }
 
+void GameObject::CalcGlobalTransform()
+{
+	ComponentTransform* trans = GetComponent(Component::TRANSFORMATION)->AsTransform();
+	if (go_parent != nullptr)
+	{
+		trans->matrix_global = go_parent->GetComponent(Component::TRANSFORMATION)->AsTransform()->matrix_global * trans->matrix_local;
+	}
+	OBB newobb = local_AABB;
+	newobb.Transform(trans->matrix_global);
+
+	oriented_BB = newobb;
+	global_AABB.SetNegativeInfinity();
+	global_AABB.Enclose(oriented_BB);
+
+	for (std::vector<GameObject*>::iterator item = go_children.begin(); item != go_children.end(); item++)
+	{
+		(*item)->CalcGlobalTransform();
+	}
+}
+
 void GameObject::IsPickedABB(LineSegment picking, std::vector<GameObject*> &vec)
 {
 	//Deselect();

@@ -17,6 +17,7 @@ public:
 	bool Load(Document& document) override;
 
 	void CalculateMatrix();
+	void CalculateVectors();
 
 public:
 	float3 position = float3::zero;

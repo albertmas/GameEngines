@@ -11,6 +11,7 @@
 #include "ModuleMeshLoader.h"
 #include "ModuleScene.h"
 #include "GameObject.h"
+#include "ComponentCamera.h"
 #include "Assimp/include/version.h"
 #include "DevIL/include/il.h"
 
@@ -36,6 +37,11 @@ bool ModuleImGui::Init(Document& document)
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGui_ImplOpenGL2_Init();
 	
+	//Set Guizmo Snap size
+	guizmoSnapSize[0] = 1.0f;
+	guizmoSnapSize[1] = 1.0f;
+	guizmoSnapSize[2] = 1.0f;
+
 	return ret;
 }
 
@@ -53,7 +59,10 @@ update_status ModuleImGui::PreUpdate(float dt)
 	ImGui_ImplOpenGL2_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
+	ImGuizmo::BeginFrame();
 
+	DrawGuizmo(focused_go);
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -809,4 +818,67 @@ void ModuleImGui::SearchFolder(const char* path)
 		} while (FindNextFile(search_handle, &file));
 		FindClose(search_handle);
 	}
+}
+
+void ModuleImGui::DrawGuizmo(GameObject * obj)
+{
+	if (obj == nullptr) return;
+
+
+	//Set up Guizmo
+	ImGuizmo::BeginFrame();
+
+	ImGuiIO& io = ImGui::GetIO();
+	ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);
+
+	//Check Input
+	UpdateGuizmoInput();
+
+	//Calculate Matrices
+	float4x4 cameraView, cameraProjection, objectMat;
+
+	cameraView = App->scene->GetGhostCam()->GetViewMatrixF();
+	cameraProjection = App->scene->GetGhostCam()->GetPerspMatrixF();
+
+	ComponentTransform* trans = obj->GetComponent(Component::TRANSFORMATION)->AsTransform();
+	objectMat = trans->matrix_global.Transposed();
+
+	ImGuizmo::Manipulate((float*)cameraView.v, (float*)cameraProjection.v, guizmoOperation, guizmoMode, (float*)objectMat.v, NULL, guizmoSnap ? guizmoSnapSize : NULL);
+
+
+	if (ImGuizmo::IsUsing())
+	{
+		//Calculate the transformation in local space
+		float4x4 transform = trans->matrix_global.Inverted() * objectMat.Transposed();
+
+		//Check if the guizmo cap didn't worked
+		float4x4 checkMat = trans->matrix_local * transform;
+		if (checkMat.GetScale().Equals(float3::zero))
+		{
+			checkMat.RemoveScale();
+			LOG("\nError scaling with guizmo, the scale has been reset");
+		}
+
+		//Apply tranfromation
+		trans->matrix_local = checkMat;
+		trans->CalculateVectors();
+		obj->CalcGlobalTransform();
+	}
+
+}
+
+
+void ModuleImGui::UpdateGuizmoInput()
+{
+	guizmoSnap = false;
+
+	//Scan Inputs
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) guizmoOperation = ImGuizmo::TRANSLATE;
+	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) guizmoOperation = ImGuizmo::ROTATE;
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) guizmoOperation = ImGuizmo::SCALE;
+
+	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) guizmoMode == ImGuizmo::WORLD ? guizmoMode = ImGuizmo::LOCAL : guizmoMode = ImGuizmo::WORLD;
+
+	if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT)
+		guizmoSnap = true;
 }
