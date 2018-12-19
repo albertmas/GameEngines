@@ -63,6 +63,8 @@ public:
 	/*Mesh VertexAndIndexCube;
 	Mesh VertexArrayCube;
 	Mesh VertexSphere;*/
+	PPlane plane;
+	PAxis axis;
 
 public:
 
@@ -92,11 +94,11 @@ public:
 	bool GetBB() const { return BB; }
 	
 
-	void CreatePlane();
-	bool plane = true;
+	//void CreatePlane();
+	bool drawPlane = true;
 
-	void CreateAxis();
-	bool axis = true;
+	//void CreateAxis();
+	bool drawAxis = true;
 
 	/*bool Cube = true;
 	bool Sphere = true;*/

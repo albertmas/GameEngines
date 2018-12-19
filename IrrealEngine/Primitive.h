@@ -10,6 +10,7 @@ enum PrimitiveTypes
 	Primitive_Point,
 	Primitive_Line,
 	Primitive_Plane,
+	Primitive_Axis,
 	Primitive_Cube,
 	Primitive_Sphere,
 	Primitive_Cylinder
@@ -49,16 +50,23 @@ public:
 	float3 size;
 };
 
-
-
 class PPlane : public Primitive
 {
 public:
 	PPlane();
-	PPlane(float x, float y, float z, float d);
-	void InnerRender() const override;
+	void Create(float x = 0, float y = 0, float z = 0, float d = 200);
+	void Render() const;
 public:
-	float3 normal;
-	float constant;
+	float depth;
+};
+
+class PAxis : public Primitive
+{
+public:
+	PAxis();
+	void Create(float thickness = 2.0f);
+	void Render() const;
+public:
+	float thickness;
 };
 #endif // __PRIMITIVE_H__

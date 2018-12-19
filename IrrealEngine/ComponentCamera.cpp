@@ -140,8 +140,8 @@ void ComponentCamera::CheckInput(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos.x += speed;
 
 
-	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) newPos.y -= speed;
-	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) newPos.y += speed;
+	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) newPos.y -= speed;
+	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) newPos.y += speed;
 
 
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
@@ -175,10 +175,11 @@ void ComponentCamera::CheckInput(float dt)
 
 	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
-		int dx = -App->input->GetMouseXMotion();
-		int dy = -App->input->GetMouseYMotion();
+		float Sensitivity = 0.5f;
 
-		float Sensitivity = 0.25f;
+		int dx = -App->input->GetMouseXMotion() * Sensitivity;
+		int dy = -App->input->GetMouseYMotion() * Sensitivity;
+
 
 
 		if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)

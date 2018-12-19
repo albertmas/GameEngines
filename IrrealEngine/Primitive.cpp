@@ -159,31 +159,74 @@ void PCube::InnerRender() const
 
 
 // PLANE ==================================================
-PPlane::PPlane() : Primitive(), normal(0, 1, 0), constant(1)
+PPlane::PPlane() : Primitive()
 {
 	type = PrimitiveTypes::Primitive_Plane;
 }
 
-PPlane::PPlane(float x, float y, float z, float d) : Primitive(), normal(x, y, z), constant(d)
+void PPlane::Create(float x, float y, float z, float d)
 {
 	type = PrimitiveTypes::Primitive_Plane;
+	depth = d;
 }
 
-void PPlane::InnerRender() const
+void PPlane::Render() const
 {
-	glLineWidth(1.0f);
-
+	glLineWidth(0.5f);
 	glBegin(GL_LINES);
 
-	float d = 200.0f;
-
-	for (float i = -d; i <= d; i += 1.0f)
+	for (float i = -depth; i <= depth; i += 1.0f)
 	{
-		glVertex3f(i, 0.0f, -d);
-		glVertex3f(i, 0.0f, d);
-		glVertex3f(-d, 0.0f, i);
-		glVertex3f(d, 0.0f, i);
+		glVertex3f(i, -0.1f, -depth);
+		glVertex3f(i, -0.1f, depth);
+		glVertex3f(-depth, -0.1f, i);
+		glVertex3f(depth, -0.1f, i);
 	}
 
 	glEnd();
+}
+
+
+// AXIS ==================================================
+PAxis::PAxis() : Primitive()
+{
+	type = PrimitiveTypes::Primitive_Axis;
+}
+
+void PAxis::Create(float thickness)
+{
+	type = PrimitiveTypes::Primitive_Axis;
+	this->thickness = thickness;
+}
+
+void PAxis::Render() const
+{
+	glLineWidth(thickness);
+
+	glBegin(GL_LINES);
+
+	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+
+	glVertex3f(0.0f, 0.0f, 0.0f); glVertex3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(1.0f, 0.1f, 0.0f); glVertex3f(1.1f, -0.1f, 0.0f);
+	glVertex3f(1.1f, 0.1f, 0.0f); glVertex3f(1.0f, -0.1f, 0.0f);
+
+	glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
+
+	glVertex3f(0.0f, 0.0f, 0.0f); glVertex3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(-0.05f, 1.25f, 0.0f); glVertex3f(0.0f, 1.15f, 0.0f);
+	glVertex3f(0.05f, 1.25f, 0.0f); glVertex3f(0.0f, 1.15f, 0.0f);
+	glVertex3f(0.0f, 1.15f, 0.0f); glVertex3f(0.0f, 1.05f, 0.0f);
+
+	glColor4f(0.0f, 0.0f, 1.0f, 1.0f);
+
+	glVertex3f(0.0f, 0.0f, 0.0f); glVertex3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(-0.05f, 0.1f, 1.05f); glVertex3f(0.05f, 0.1f, 1.05f);
+	glVertex3f(0.05f, 0.1f, 1.05f); glVertex3f(-0.05f, -0.1f, 1.05f);
+	glVertex3f(-0.05f, -0.1f, 1.05f); glVertex3f(0.05f, -0.1f, 1.05f);
+
+	glEnd();
+
+	glLineWidth(1.0f);
+	glColor4f(color.r, color.g, color.b, color.a);
 }
