@@ -78,7 +78,6 @@ update_status ModuleScene::Update(float dt)
 
 	App->renderer3D->OnResize(App->window->width, App->window->height);
 
-
 	return UPDATE_CONTINUE;
 }
 
@@ -92,6 +91,13 @@ bool ModuleScene::CleanUp()
 	LOG("Freeing all Scene elements");
 
 	App->imgui->focused_go = nullptr;
+
+	ghostcam->CleanUp();
+	if (currentCam != ghostcam)
+		delete currentCam;
+
+	delete ghostcam;
+	ghostcam = nullptr;
 
 	std::list<FBXMesh*>::iterator iter_mesh;
 	iter_mesh = App->meshloader->meshes.begin();

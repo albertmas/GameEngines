@@ -71,7 +71,7 @@ ComponentCamera::~ComponentCamera()
 bool ComponentCamera::CleanUp()
 {
 	LOG("Cleaning camera");
-	//parent = nullptr;
+	my_go = nullptr;
 	
 	return true;
 }
