@@ -188,6 +188,12 @@ GameObject* ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* sc
 				mesh->meshRot = rot;
 				mesh->meshScale = scale;
 
+				// Set BBs
+				gameobject_child->local_AABB.SetNegativeInfinity();
+				gameobject_child->local_AABB.Enclose((float3*)currentMesh->mVertices, currentMesh->mNumVertices);
+				gameobject_child->oriented_BB.SetNegativeInfinity();
+				gameobject_child->oriented_BB.SetFrom(gameobject_child->local_AABB);
+
 				// Set GO components
 				ComponentTransform* child_trans = comp_trans;
 				if (node->mNumMeshes > 1)
@@ -205,11 +211,6 @@ GameObject* ModuleSceneLoader::LoadFile(const char* full_path, const aiScene* sc
 
 					c_mesh->SetCompTexture(c_tex);
 				}
-
-				gameobject_child->local_AABB.SetNegativeInfinity();
-				gameobject_child->local_AABB.Enclose((float3*)currentMesh->mVertices, currentMesh->mNumVertices);
-				gameobject_child->oriented_BB.SetNegativeInfinity();
-				gameobject_child->oriented_BB.SetFrom(gameobject_child->local_AABB);
 
 				if (node->mNumMeshes > 1)
 				{

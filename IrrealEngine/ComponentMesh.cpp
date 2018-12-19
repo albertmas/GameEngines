@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "GameObject.h"
 #include "ComponentTexture.h"
+#include "ComponentTransform.h"
 #include "ModuleMeshLoader.h"
 #include "ModuleTextureLoader.h"
 #include "ModuleSceneLoader.h"
@@ -72,6 +73,8 @@ bool ComponentMesh::Update()
 void ComponentMesh::SetMesh(FBXMesh* mesh)
 {
 	go_mesh = mesh;
+
+	my_go->CalcGlobalTransform();
 }
 
 void ComponentMesh::SetCompTexture(ComponentTexture* compTex)

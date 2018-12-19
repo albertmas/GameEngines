@@ -52,9 +52,9 @@ bool ModuleScene::Start()
 	currentCam = ghostcam;
 
 	//Create Camera GameObject
-	GameObject* camobj = new GameObject(root, "Camera");
+	/*GameObject* camobj = new GameObject(root, "Camera");
 	camobj->CreateComponent(Component::TRANSFORMATION);
-	camobj->CreateComponent(Component::CAMERA);
+	camobj->CreateComponent(Component::CAMERA);*/
 
 
 	// Preload scene
