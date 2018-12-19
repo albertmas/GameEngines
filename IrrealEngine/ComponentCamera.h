@@ -15,7 +15,6 @@ public:
 
 	//bool Start();
 	bool Update();
-	void UpdateUI();
 	bool CleanUp();
 	void SetInspectorInfo() override;
 	Value Save(Document::AllocatorType& allocator) const override;

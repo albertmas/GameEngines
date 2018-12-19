@@ -23,12 +23,9 @@
 
 ComponentCamera::ComponentCamera(GameObject* parent, float _near, float _far, float _fov)
 {
-	if (parent != nullptr)
-		my_go = parent;
-	else
-		my_go = App->scene->root;
-	UUID = pcg32_random_r(&App->rng);
+	my_go = parent;
 	type = CAMERA;
+	UUID = pcg32_random_r(&App->rng);
 	nearDistance = _near;
 	farDistance = _far;
 	fovy = _fov;
@@ -90,33 +87,6 @@ bool ComponentCamera::Update()
 	return UPDATE_CONTINUE;
 }
 
-void ComponentCamera::UpdateUI()
-{
-	if (ImGui::CollapsingHeader("Camera"))
-	{
-		bool cur = isCurCam;
-		ImGui::Checkbox("Is current camera", &cur);
-
-		if (cur != isCurCam)
-			App->scene->SetCurCam(this);
-
-		ImGui::Checkbox("Draw Fustum", &drawFrustum);
-
-		ImGui::SliderFloat("FarPlane", &farDistance, nearDistance + 10, 600);
-		ImGui::SliderFloat("NearPlane", &nearDistance, 0, farDistance - 10);
-		ImGui::SliderFloat("FOV", &fovy, 0, 100);
-
-		frustum.nearPlaneDistance = nearDistance;
-		frustum.farPlaneDistance = farDistance;
-		RecalculateFrustrum();
-
-
-		/*ImGui::Separator();
-		if (ImGui::Button("Delete"))
-			Delete();*/
-	}
-}
-
 void ComponentCamera::SetInspectorInfo()
 {
 	ImGui::Spacing();
@@ -170,19 +140,30 @@ void ComponentCamera::CheckInput(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos.x += speed;
 
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) LookAt({ 0,0,0 });
+	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) newPos.y -= speed;
+	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) newPos.y += speed;
+
+
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+	{
+		if (App->imgui->focused_go != nullptr)
+			LookAt(App->imgui->focused_go->global_AABB.CenterPoint());
+		else
+			LookAt({ 0 ,0, 0 });
+	}
+
 
 	if (App->input->GetMouseZ() != 0 && !ImGui::IsMouseHoveringAnyWindow())
 	{
 		float wheelspd = frustum.pos.Length() / 2;
 		if (App->input->GetMouseZ() > 0)
 			newPos.z -= speed * wheelspd;
-
 		else
 			newPos.z += speed * wheelspd;
 	}
 	frustum.pos -= frustum.front * newPos.z;
 	frustum.pos -= frustum.up.Cross(frustum.front) * newPos.x;
+	frustum.pos.y -= newPos.y;
  
 
 	Reference -= newPos;
@@ -207,7 +188,7 @@ void ComponentCamera::CheckInput(float dt)
 			if (App->imgui->focused_go != nullptr)
 				Reference = App->imgui->focused_go->global_AABB.CenterPoint();
 			else
-				Reference = { 0,0,0 };
+				Reference = { 0, 0, 0 };
 
 			if (!lookingAt)
 			{
@@ -221,8 +202,6 @@ void ComponentCamera::CheckInput(float dt)
 
 			focus = transform.rotation.Transform(focus);
 			frustum.pos = focus + Reference;
-
-
 		}
 		else
 			lookingAt = false;
@@ -277,8 +256,7 @@ void ComponentCamera::LookAt(const float3 &Spot)
 	Reference = Spot;
 
 	float3x3 rotmat = float3x3::LookAt(frustum.front, (Spot - frustum.pos).Normalized(), frustum.up, { 0,1,0 });
-
-
+	
 	frustum.front = rotmat.MulDir(frustum.front).Normalized();
 	frustum.up = rotmat.MulDir(frustum.up).Normalized();
 

@@ -48,7 +48,7 @@ bool ModuleScene::Start()
 	ComponentTransform* root_trans = (ComponentTransform*)root->CreateComponent(Component::TRANSFORMATION);
 
 	//Generate Ghost Cam
-	ghostcam = new ComponentCamera(root, 0.5f, FAR_PLANE_DISTANCE, 50.0f);
+	ghostcam = new ComponentCamera(nullptr, 0.5f, FAR_PLANE_DISTANCE, 50.0f);
 	//ghostcam->Start();
 	ghostcam->drawFrustum = false;
 	currentCam = ghostcam;
