@@ -1,140 +1,95 @@
-/*
-#include <algorithm>
-#include "imgui.h"
-#pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
-ModuleAudio::ModuleAudio(bool start_enabled) : Module(start_enabled), music(NULL)
+#include "Globals.h"
+#include "Application.h"
+#include "ModuleAudio.h"
+
+#include "Wwise/IO/Win32/AkFilePackageLowLevelIOBlocking.h"
+#include "GameObject.h"
+#include "ModuleInput.h"
+#include ".\mmgr\mmgr.h"
+#include "Wwise.h"
+#include <corecrt_wstring.h>
+#include "ModuleCamera3D.h"
+#include "Wwise.h"
+#include "rapidjson\rapidjson.h"
+#include "ModuleImGui.h"
+
+
+#define BANK_BASE_PATH "SoundBanks/"
+
+
+ModuleAudio::ModuleAudio(bool start_enabled) : Module(start_enabled)
 {
-SetName("Audio");
+	//name
 }
-// Destructor
+
 ModuleAudio::~ModuleAudio()
-{}
-// Called before render is available
-bool ModuleAudio::Init(JSON_File* conf)
 {
-LOG_OUT("Loading Audio Mixer");
-bool ret = true;
-SDL_Init(0);
-if(SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
+
+}
+
+bool ModuleAudio::Init(Document * config)
 {
-LOG_OUT("SDL_INIT_AUDIO could not initialize! SDL_Error: %s\n", SDL_GetError());
-ret = false;
+
+	LOG("Loading Wwished library");
+
+	//std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+	//std::wstring base_path = converter.from_bytes("SoundBanks");
+
+	bool ret = Wwise::InitWwise("English(US)");
+
+	//Wwise::LoadBank("SoundBanks/Test.bnk");
+
+	//LoadSoundBank("Blend.bnk");
+
+
+	return true;
 }
-// load support for the OGG format
-int flags = MIX_INIT_OGG;
-int init = Mix_Init(flags);
-if((init & flags) != flags)
+
+bool ModuleAudio::Start()
 {
-LOG_OUT("Could not initialize Mixer lib. Mix_Init: %s", Mix_GetError());
-ret = false;
+
+	return true;
 }
-//Initialize SDL_mixer
-if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+
+update_status ModuleAudio::PreUpdate(float dt)
 {
-LOG_OUT("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
-ret = false;
+	if (!muted) {
+		SetRTPvalue("Volume", volume);
+	}
+	else {
+		SetRTPvalue("Volume", 0);
+	}
+
+	return UPDATE_CONTINUE;
+
 }
-return ret;
+
+
+update_status ModuleAudio::PostUpdate(float dt)
+{
+
+	AK::SoundEngine::RenderAudio();
+
+	return UPDATE_CONTINUE;
 }
-// Called before quitting
+
 bool ModuleAudio::CleanUp()
 {
-LOG_OUT("Freeing sound FX, closing Mixer and Audio subsystem");
-if(music != NULL)
-{
-Mix_FreeMusic(music);
-}
-list<Mix_Chunk*>* item;
-for (list<Mix_Chunk*>::iterator it = fx.begin(); it != fx.end(); ++it) {
-Mix_FreeChunk((*it));
-}
-fx.clear();
-Mix_CloseAudio();
-Mix_Quit();
-SDL_QuitSubSystem(SDL_INIT_AUDIO);
-return true;
-}
-// Play a music file
-bool ModuleAudio::PlayMusic(const char* path, float fade_time)
-{
-bool ret = true;
+	LOG("Unloading Wwished library");
+	delete camera_listener;
+	if (soundbank != nullptr) {
+		delete soundbank;
+	}
 
-if(music != NULL)
-{
-if(fade_time > 0.0f)
-{
-Mix_FadeOutMusic((int) (fade_time * 1000.0f));
-}
-else
-{
-Mix_HaltMusic();
-}
-// this call blocks until fade out is done
-Mix_FreeMusic(music);
-}
-music = Mix_LoadMUS(path);
-if(music == NULL)
-{
-LOG_OUT("Cannot load music %s. Mix_GetError(): %s\n", path, Mix_GetError());
-ret = false;
-}
-else
-{
-if(fade_time > 0.0f)
-{
-if(Mix_FadeInMusic(music, -1, (int) (fade_time * 1000.0f)) < 0)
-{
-LOG_OUT("Cannot fade in music %s. Mix_GetError(): %s", path, Mix_GetError());
-ret = false;
-}
-}
-else
-{
-if(Mix_PlayMusic(music, -1) < 0)
-{
-LOG_OUT("Cannot play in music %s. Mix_GetError(): %s", path, Mix_GetError());
-ret = false;
-}
-}
-}
-LOG_OUT("Successfully playing %s", path);
-return ret;
-}
-// Load WAV
-unsigned int ModuleAudio::LoadFx(const char* path)
-{
-unsigned int ret = 0;
-Mix_Chunk* chunk = Mix_LoadWAV(path);
-if(chunk == NULL)
-{
-LOG_OUT("Cannot load wav %s. Mix_GetError(): %s", path, Mix_GetError());
-}
-else
-{
-fx.push_back(chunk);
-ret = true;
-}
-return ret;
-}
-// Play WAV
-bool ModuleAudio::PlayFx(unsigned int id, int repeat)
-{
-bool ret = false;
-Mix_Chunk* chunk;
-{
-int i = 0;
-for (list<Mix_Chunk*>::iterator it = fx.begin(); it != fx.end(); ++it) {
-if (i == id - 1) {
-chunk = (*it);
-}
-}
-}
-Mix_PlayChannel(-1, chunk, repeat);
-ret = true;
-return ret;
-}
-void ModuleAudio::ImGuiDraw() {
-if (ImGui::CollapsingHeader(this->GetName())) {
+	
+	return Wwise::CloseWwise();
 
+	return true;
 }
-}*/
+
+
+
+void ModuleAudio::SetRTPvalue(const char * rtpc, float value)
+{
+	AK::SoundEngine::SetRTPCValue(rtpc, value);
+}
