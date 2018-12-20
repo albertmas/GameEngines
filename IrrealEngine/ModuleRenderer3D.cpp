@@ -195,43 +195,6 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
-	// We should render the geometry here
-	
-
-	//if (Cube)
-	//{
-	//	glColor3f(1.0, 0.0, 1.0);
-	//	VertexArrayCube.DrawCube();
-	//	glColor3f(1.0, 1.0, 1.0);
-	//}
-	//if (Sphere)
-	//{
-	//	VertexSphere.DrawSphere();
-	//}
-	//if (plane)
-	//{ 
-	//	glColor3f(1.0, 1.0, 1.0);
-	//	//VertexAndIndexCube.DrawIndexCube(); // Cube created with indices. Unique vertex
-	//	CreatePlane();
-	//	//glColor3f(1.0, 1.0, 1.0);
-	//}
-
-	/*if (axis) 
-	{
-		CreateAxis();
-	}*/
-
-	/*for (std::list<FBXMesh*>::iterator iter = meshes.begin(); iter != meshes.end(); iter++)
-	{
-		(*iter)->Draw();
-		if (BB && meshes.size() > 1)
-		{
-			DrawBB((*iter)->bounding_box, { 1.0f, 0.0f, 0.0f });
-		}
-	}*/
-
-	//glBindTexture(GL_TEXTURE_2D, 0);
-
 	App->scene->Draw();
 	App->imgui->DrawImgui();
 
@@ -321,57 +284,6 @@ void ModuleRenderer3D::Info_init_Console()
 	LOG("OpenGL version supported %s", glGetString(GL_VERSION));
 	LOG("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
 }
-
-//void ModuleRenderer3D::CreateAxis()
-//{
-//	glLineWidth(2.0f);
-//	glBegin(GL_LINES);
-//	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-//
-//	glVertex3f(0.0f, 0.0f, 0.0f); glVertex3f(1.0f, 0.0f, 0.0f);
-//	glVertex3f(1.0f, 0.1f, 0.0f); glVertex3f(1.1f, -0.1f, 0.0f);
-//	glVertex3f(1.1f, 0.1f, 0.0f); glVertex3f(1.0f, -0.1f, 0.0f);
-//
-//	glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
-//
-//	glVertex3f(0.0f, 0.0f, 0.0f); glVertex3f(0.0f, 1.0f, 0.0f);
-//	glVertex3f(-0.05f, 1.25f, 0.0f); glVertex3f(0.0f, 1.15f, 0.0f);
-//	glVertex3f(0.05f, 1.25f, 0.0f); glVertex3f(0.0f, 1.15f, 0.0f);
-//	glVertex3f(0.0f, 1.15f, 0.0f); glVertex3f(0.0f, 1.05f, 0.0f);
-//
-//	glColor4f(0.0f, 0.0f, 1.0f, 1.0f);
-//
-//	glVertex3f(0.0f, 0.0f, 0.0f); glVertex3f(0.0f, 0.0f, 1.0f);
-//	glVertex3f(-0.05f, 0.1f, 1.05f); glVertex3f(0.05f, 0.1f, 1.05f);
-//	glVertex3f(0.05f, 0.1f, 1.05f); glVertex3f(-0.05f, -0.1f, 1.05f);
-//	glVertex3f(-0.05f, -0.1f, 1.05f); glVertex3f(0.05f, -0.1f, 1.05f);
-//
-//	glEnd();
-//
-//	glColor4f(1.0, 1.0, 1.0, 1.0f);
-//}
-
-//void ModuleRenderer3D::CreatePlane()
-//{
-//	glLineWidth(1.0f);
-//
-//	glBegin(GL_LINES);
-//
-//	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-//	float d = 200.0f;
-//
-//	for (float i = -d; i <= d; i += 1.0f)
-//	{
-//		glVertex3f(i, 0.0f, -d);
-//		glVertex3f(i, 0.0f, d);
-//		glVertex3f(-d, 0.0f, i);
-//		glVertex3f(d, 0.0f, i);
-//	}
-//
-//	glEnd();
-//
-//	glColor4f(1.0, 1.0, 1.0, 1.0);
-//}
 
 void ModuleRenderer3D::CreateCube() // Direct Mode
 {

@@ -15,11 +15,7 @@
 
 #include <math.h>
 #include "mmgr/mmgr.h"
-//#include "VectorialFunctions.h"
-//#include "JsonDoc.h"
 
-
-//namespace VectF = VectorialFunctions;
 
 ComponentCamera::ComponentCamera(GameObject* parent, float _near, float _far, float _fov)
 {
@@ -45,7 +41,8 @@ ComponentCamera::ComponentCamera(GameObject* parent, float _near, float _far, fl
 
 	ViewMatrix = frustum.ViewMatrix();
 
-	frustum.pos = float3(0.0f, 1.0f, 10.0f);
+	frustum.pos = float3(0.0f, 70.0f, 70.0f);
+	LookAt({ 0, 0, 0 });
 }
 
 ComponentCamera::~ComponentCamera()

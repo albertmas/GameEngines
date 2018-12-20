@@ -61,8 +61,6 @@ void GameObject::Draw()
 {
 	if (go_active)
 	{
-		
-
 		if (go_components.size() > 0)
 		{
 			ComponentTransform* comp_trans = (ComponentTransform*)GetComponent(Component::TRANSFORMATION);
@@ -92,12 +90,7 @@ void GameObject::Draw()
 						glBindTexture(GL_TEXTURE_2D, 0);
 						glColor3f(1.0, 1.0, 1.0);
 
-						oriented_BB.SetNegativeInfinity();
-						oriented_BB = local_AABB;
-						oriented_BB.Transform(comp_trans->matrix_global);
-
-						global_AABB.SetNegativeInfinity();
-						global_AABB.Enclose(oriented_BB);
+						CalcGlobalTransform();
 
 						App->renderer3D->DrawBB(global_AABB, { 1, 0, 0 });
 						App->renderer3D->DrawBB(oriented_BB, { 0, 1, 0 });
@@ -253,8 +246,8 @@ void GameObject::CalcGlobalTransform()
 	}
 	OBB newobb = local_AABB;
 	newobb.Transform(trans->matrix_global);
-
 	oriented_BB = newobb;
+
 	global_AABB.SetNegativeInfinity();
 	global_AABB.Enclose(oriented_BB);
 

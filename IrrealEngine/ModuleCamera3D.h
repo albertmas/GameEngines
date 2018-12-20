@@ -27,7 +27,7 @@ public:
 
 
 
-	bool first_time = false;
+	//bool first_time = false;
 
 private:
 
@@ -35,12 +35,12 @@ private:
 
 public:
 	
-	vec3 X = { 0, 0, 0 }, Y = { 0, 0, 0 }, Z = { 0, 0, 0 }, Position = { 0, 0, 0 }, Reference = { 0, 0, 0 };
-	bool focus = false;
+	/*vec3 X = { 0, 0, 0 }, Y = { 0, 0, 0 }, Z = { 0, 0, 0 }, Position = { 0, 0, 0 }, Reference = { 0, 0, 0 };
+	bool focus = false;*/
 
 private:
 
-	mat4x4 ViewMatrix, ViewMatrixInverse;
+	//mat4x4 ViewMatrix, ViewMatrixInverse;
 };
 
 #endif
