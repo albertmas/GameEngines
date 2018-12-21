@@ -58,7 +58,7 @@ bool ModuleScene::Start()
 
 
 	// Preload scene
-	App->sceneloader->ImportMesh("Assets/street/Street environment_V01.fbx");//street/Street environment_V01
+	//App->sceneloader->ImportMesh("Assets/street/Street environment_V01.fbx");//street/Street environment_V01
 
 	return true;
 }

@@ -17,6 +17,7 @@ class ModuleInput;
 class ModuleRenderer3D;
 class ModuleCamera3D;
 class ModulePhysics3D;
+class ModuleAudio;
 class ModuleImGui;
 class ModuleSceneLoader;
 class ModuleMeshLoader;
@@ -32,6 +33,7 @@ public:
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
 	ModulePhysics3D* physics;
+	ModuleAudio* audio;
 	ModuleImGui* imgui;
 	ModuleSceneLoader* sceneloader;
 	ModuleMeshLoader* meshloader;
