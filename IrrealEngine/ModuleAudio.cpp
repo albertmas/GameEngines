@@ -10,10 +10,7 @@
 #include <corecrt_wstring.h>
 
 #include "Wwise/IO/Win32/AkFilePackageLowLevelIOBlocking.h"
-#include "rapidjson\rapidjson.h"
 #include ".\mmgr\mmgr.h"
-
-#define BANK_BASE_PATH "SoundBanks/"
 
 
 ModuleAudio::ModuleAudio(bool start_enabled) : Module(start_enabled)
