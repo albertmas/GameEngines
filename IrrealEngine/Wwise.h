@@ -7,6 +7,25 @@
 
 namespace Wwise
 {
+	bool InitWwise();
+	bool InitMemoryManager();
+	bool InitStreamManager();
+	bool InitSoundEngine();
+	bool InitMusicEngine();
+	bool CloseWwise();
+	bool InitDeviceSettings();
+
+	bool LoadBank(const char* name);
+	/*void ProcessAudio();
+
+	void SetDefaultListeners(unsigned long* id);
+	void SetLanguage(const char* language);
+	unsigned long LoadBank(const char* path);
+	SoundObject* CreateSoundObj(unsigned long id, const char* name, float x, float y, float z, bool is_default_listener = false);
+	void ChangeState(const char* group, const char* new_state);*/
+
+	// ------------------------
+
 	class SoundObject
 	{
 	public:
@@ -34,22 +53,6 @@ namespace Wwise
 		AkVector front;
 		
 	};
-
-	//Life cycle functions
-	bool InitWwise();
-	bool InitMemoryManager();
-	bool InitStreamManager();
-	bool InitSoundEngine();
-	bool InitMusicEngine();
-	bool CloseWwise();
-	bool InitDeviceSettings();
-	/*void ProcessAudio();
-
-	void SetDefaultListeners(unsigned long* id);
-	void SetLanguage(const char* language);
-	unsigned long LoadBank(const char* path);
-	SoundObject* CreateSoundObj(unsigned long id, const char* name, float x, float y, float z, bool is_default_listener = false);
-	void ChangeState(const char* group, const char* new_state);*/
 	
 }
 

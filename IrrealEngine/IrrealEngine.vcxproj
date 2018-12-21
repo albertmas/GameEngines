@@ -254,6 +254,13 @@
     <ClCompile Include="SoundBank.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Wwise.cpp" />
+    <ClCompile Include="Wwise\IO\Common\AkDefaultLowLevelIODispatcher.cpp" />
+    <ClCompile Include="Wwise\IO\Common\AkFileLocationBase.cpp" />
+    <ClCompile Include="Wwise\IO\Common\AkFilePackage.cpp" />
+    <ClCompile Include="Wwise\IO\Common\AkFilePackageLUT.cpp" />
+    <ClCompile Include="Wwise\IO\Win32\AkDefaultIOHookBlocking.cpp" />
+    <ClCompile Include="Wwise\IO\Win32\AkDefaultIOHookDeferred.cpp" />
+    <ClCompile Include="Wwise\IO\Win32\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MathGeoLib\Geometry\KDTree.inl" />

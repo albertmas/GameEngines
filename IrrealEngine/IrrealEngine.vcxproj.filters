@@ -208,6 +208,27 @@
     <ClCompile Include="SoundBank.cpp">
       <Filter>Sources\Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="Wwise\IO\Common\AkDefaultLowLevelIODispatcher.cpp">
+      <Filter>Sources\Wwise</Filter>
+    </ClCompile>
+    <ClCompile Include="Wwise\IO\Common\AkFileLocationBase.cpp">
+      <Filter>Sources\Wwise</Filter>
+    </ClCompile>
+    <ClCompile Include="Wwise\IO\Common\AkFilePackage.cpp">
+      <Filter>Sources\Wwise</Filter>
+    </ClCompile>
+    <ClCompile Include="Wwise\IO\Common\AkFilePackageLUT.cpp">
+      <Filter>Sources\Wwise</Filter>
+    </ClCompile>
+    <ClCompile Include="Wwise\IO\Win32\AkDefaultIOHookDeferred.cpp">
+      <Filter>Sources\Wwise</Filter>
+    </ClCompile>
+    <ClCompile Include="Wwise\IO\Win32\AkDefaultIOHookBlocking.cpp">
+      <Filter>Sources\Wwise</Filter>
+    </ClCompile>
+    <ClCompile Include="Wwise\IO\Win32\stdafx.cpp">
+      <Filter>Sources\Wwise</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -576,6 +597,9 @@
     </Filter>
     <Filter Include="Sources\mmgr">
       <UniqueIdentifier>{8aea133a-cfcd-4311-ad67-2d791809ba68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Wwise">
+      <UniqueIdentifier>{bc9cf701-4bc4-4d74-a8f8-2a403fbe4bbf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

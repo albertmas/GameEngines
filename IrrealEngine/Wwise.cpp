@@ -3,9 +3,15 @@
 #include "Globals.h"
 #include "Include_Wwise.h"
 #include "Wwise/IO/Win32/AkFilePackageLowLevelIOBlocking.h"
+#include "Wwise/IO/Win32/AkDefaultIOHookBlocking.h"
+#include "Wwise/SDK/include/AkDefaultIOHookBlocking.h"
+#include "Wwise/SDK/include/AkFileHelpers.h"
 #include <AK/Plugin/AkRoomVerbFXFactory.h>
 
-//CAkFilePackageLowLevelIOBlocking g_lowLevelIO;
+//CAkDefaultIOHookBlocking g_defaultIO;
+CAkFilePackageLowLevelIOBlocking g_lowLevelIO;
+
+#define BANKNAME_INIT "Sounds/Init.bnk"
 
 //Initialize all Wwise modules. Receives the base path for soundbanks and the current language
 bool Wwise::InitWwise()
@@ -14,7 +20,7 @@ bool Wwise::InitWwise()
 
 	ret = InitMemoryManager();
 	ret = InitStreamManager();
-	//ret = InitDeviceSettings();
+	ret = InitDeviceSettings();
 	ret = InitSoundEngine();
 	ret = InitMusicEngine();
 
@@ -28,6 +34,11 @@ bool Wwise::InitWwise()
 		ret = false;
 	}
 #endif // AK_OPTIMIZED
+
+	//g_lowLevelIO.SetBasePath(AKTEXT("../../../samples/IntegrationDemo/WwiseProject/GeneratedSoundBanks/Windows/"));
+	AK::StreamMgr::SetCurrentLanguage(AKTEXT("English(US)"));
+	
+	LoadBank(BANKNAME_INIT);
 
 	return ret;
 }
@@ -60,13 +71,13 @@ bool Wwise::InitStreamManager()
 		return false;
 	}
 	// -------------------
-	/*AkDeviceSettings deviceSettings;
+	AkDeviceSettings deviceSettings;
 	AK::StreamMgr::GetDefaultDeviceSettings(deviceSettings);
 	if (g_lowLevelIO.Init(deviceSettings) != AK_Success)
 	{
 		assert(!"Could not create the streaming device and Low-Level I/O system");
 		return false;
-	}*/
+	}
 
 	return true;
 }
@@ -74,7 +85,7 @@ bool Wwise::InitStreamManager()
 bool Wwise::InitDeviceSettings()
 {
 	// Initializing the default IO device
-	/*AkDeviceSettings deviceSettings;
+	AkDeviceSettings deviceSettings;
 	AK::StreamMgr::GetDefaultDeviceSettings(deviceSettings);
 	if (g_lowLevelIO.Init(deviceSettings) != AK_Success)
 	{
@@ -83,7 +94,7 @@ bool Wwise::InitDeviceSettings()
 	}
 	else {
 		return true;
-	}*/
+	}
 
 	return true;
 }
@@ -134,12 +145,25 @@ bool Wwise::CloseWwise()
 	AK::SoundEngine::Term();
 
 	// Terminate the streaming device and streaming manager
-	//g_lowLevelIO.Term();
+	g_lowLevelIO.Term();
 	if (AK::IAkStreamMgr::Get())
 		AK::IAkStreamMgr::Get()->Destroy();
 
 	// Terminate the Memory Manager
 	AK::MemoryMgr::Term();
+
+	return true;
+}
+
+bool Wwise::LoadBank(const char* name)
+{
+	unsigned long bankID;
+	AKRESULT eResult = AK::SoundEngine::LoadBank(name, AK_DEFAULT_POOL_ID, bankID);
+	if (eResult != AK_Success)
+	{
+		LOG("Could not load soundbank!");
+		return false;
+	}
 
 	return true;
 }
