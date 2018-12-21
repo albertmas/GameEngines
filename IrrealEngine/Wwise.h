@@ -42,8 +42,8 @@ namespace Wwise
 	bool InitSoundEngine();
 	bool InitMusicEngine();
 	bool CloseWwise();
-	/*bool InitDeviceSettings();
-	void ProcessAudio();
+	bool InitDeviceSettings();
+	/*void ProcessAudio();
 
 	void SetDefaultListeners(unsigned long* id);
 	void SetLanguage(const char* language);

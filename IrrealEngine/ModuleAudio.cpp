@@ -26,22 +26,21 @@ ModuleAudio::~ModuleAudio()
 
 }
 
-bool ModuleAudio::Init(Document * config)
+bool ModuleAudio::Init(Document& document)
 {
-
-	LOG("Loading Wwished library");
+	LOG("Initializing Wwise");
 
 	//std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 	//std::wstring base_path = converter.from_bytes("SoundBanks");
 
 	bool ret = Wwise::InitWwise();
-
+	
 	//Wwise::LoadBank("SoundBanks/Test.bnk");
 
 	//LoadSoundBank("Blend.bnk");
 
 
-	return true;
+	return ret;
 }
 
 bool ModuleAudio::Start()
@@ -51,12 +50,12 @@ bool ModuleAudio::Start()
 
 update_status ModuleAudio::PreUpdate(float dt)
 {
-	/*if (!muted) {
-		SetRTPvalue("Volume", volume);
+	if (!muted) {
+		SetVolume("Volume", volume);
 	}
 	else {
-		SetRTPvalue("Volume", 0);
-	}*/
+		SetVolume("Volume", 0);
+	}
 
 	return UPDATE_CONTINUE;
 }
@@ -65,7 +64,7 @@ update_status ModuleAudio::PreUpdate(float dt)
 update_status ModuleAudio::PostUpdate(float dt)
 {
 
-	//AK::SoundEngine::RenderAudio();
+	AK::SoundEngine::RenderAudio();
 
 	return UPDATE_CONTINUE;
 }
@@ -77,16 +76,29 @@ bool ModuleAudio::CleanUp()
 	if (soundbank != nullptr) {
 		delete soundbank;
 	}
-
 	
 	return Wwise::CloseWwise();
 
 	return true;
 }
 
+bool ModuleAudio::Save(Document& document, FileWriteStream& fws)const
+{
+	bool ret = true;
+
+	return ret;
+}
+
+bool ModuleAudio::Load(Document& document)
+{
+	bool ret = true;
+
+	return ret;
+}
+
 // -----------------------------
 
-void ModuleAudio::SetRTPvalue(const char * rtpc, float value)
+void ModuleAudio::SetVolume(const char * rtpc, float value)
 {
 	AK::SoundEngine::SetRTPCValue(rtpc, value);
 }

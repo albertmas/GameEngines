@@ -14,7 +14,9 @@ bool Wwise::InitWwise()
 
 	ret = InitMemoryManager();
 	ret = InitStreamManager();
+	//ret = InitDeviceSettings();
 	ret = InitSoundEngine();
+	ret = InitMusicEngine();
 
 #ifndef AK_OPTIMIZED
 	// Initialize communications (not in release build!)
@@ -64,6 +66,23 @@ bool Wwise::InitStreamManager()
 	{
 		assert(!"Could not create the streaming device and Low-Level I/O system");
 		return false;
+	}*/
+
+	return true;
+}
+
+bool Wwise::InitDeviceSettings()
+{
+	// Initializing the default IO device
+	/*AkDeviceSettings deviceSettings;
+	AK::StreamMgr::GetDefaultDeviceSettings(deviceSettings);
+	if (g_lowLevelIO.Init(deviceSettings) != AK_Success)
+	{
+		assert(!"Could not create the streaming device and Low-Level I/O system");
+		return false;
+	}
+	else {
+		return true;
 	}*/
 
 	return true;
