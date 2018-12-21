@@ -5,6 +5,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModulePhysics3D.h"
+#include "ModuleAudio.h"
 #include "ModuleImGui.h"
 #include "ModuleSceneLoader.h"
 #include "ModuleMeshLoader.h"
@@ -23,6 +24,7 @@ Application::Application()
 	renderer3D = new ModuleRenderer3D();
 	camera = new ModuleCamera3D();
 	physics = new ModulePhysics3D();
+	audio = new ModuleAudio();
 	imgui = new ModuleImGui();
 	sceneloader = new ModuleSceneLoader();
 	meshloader = new ModuleMeshLoader();
@@ -38,6 +40,7 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);
 	AddModule(physics);
+	AddModule(audio);
 	AddModule(sceneloader);
 	AddModule(meshloader);
 	AddModule(texloader);

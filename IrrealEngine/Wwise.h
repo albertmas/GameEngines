@@ -7,12 +7,11 @@
 
 namespace Wwise
 {
-
 	class SoundObject
 	{
 	public:
 
-		SoundObject(unsigned long id, const char* n);
+		/*SoundObject(unsigned long id, const char* n);
 		~SoundObject();
 
 		unsigned long GetID();
@@ -25,7 +24,7 @@ namespace Wwise
 
 		void PlayMusic(unsigned long music_id);
 		void PlayMusic(const char* music_name);
-		void SetAuxiliarySends(AkReal32 value, const char * target_bus, AkGameObjectID listener_id);
+		void SetAuxiliarySends(AkReal32 value, const char * target_bus, AkGameObjectID listener_id);*/
 
 	private:
 		AkGameObjectID SoundID;
@@ -37,22 +36,20 @@ namespace Wwise
 	};
 
 	//Life cycle functions
-	bool InitWwise(const char* language);
-	bool InitMemSettings();
-	bool InitStreamSettings();
-	bool InitDeviceSettings();
+	bool InitWwise();
+	bool InitMemoryManager();
+	bool InitStreamManager();
 	bool InitSoundEngine();
 	bool InitMusicEngine();
-	void ProcessAudio();
 	bool CloseWwise();
+	/*bool InitDeviceSettings();
+	void ProcessAudio();
 
 	void SetDefaultListeners(unsigned long* id);
 	void SetLanguage(const char* language);
 	unsigned long LoadBank(const char* path);
 	SoundObject* CreateSoundObj(unsigned long id, const char* name, float x, float y, float z, bool is_default_listener = false);
-	void ChangeState(const char* group, const char* new_state);
-
-
+	void ChangeState(const char* group, const char* new_state);*/
 	
 }
 
