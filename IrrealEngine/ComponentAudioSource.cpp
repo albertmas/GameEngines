@@ -1,8 +1,9 @@
 #include "ComponentAudioSource.h"
 #include "Application.h"
-#include "GameObject.h"
 #include "ModuleAudio.h"
-#include "Wwise.h"
+#include "GameObject.h"
+#include "ComponentTransform.h"
+#include "Game\Library\Sounds\Wwise_IDs.h"
 
 #include "mmgr/mmgr.h"
 
@@ -12,6 +13,9 @@ ComponentAudioSource::ComponentAudioSource(GameObject* gameobject)
 	my_go = gameobject;
 	type = AUDIOSOURCE;
 	UUID = pcg32_random_r(&App->rng);
+
+	float3 pos = my_go->GetComponent(Component::TRANSFORMATION)->AsTransform()->position;
+	sound_go = Wwise::CreateSoundObj(my_go->UUID, my_go->go_name.c_str(), pos.x, pos.y, pos.z);
 }
 
 ComponentAudioSource::~ComponentAudioSource()
@@ -31,7 +35,7 @@ void ComponentAudioSource::SetInspectorInfo()
 	{
 		if (ImGui::Button("Play"))
 		{
-
+			sound_go->PlayEvent(AK::EVENTS::DEATH);
 		}
 	}
 }

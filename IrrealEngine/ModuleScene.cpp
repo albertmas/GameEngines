@@ -59,6 +59,14 @@ bool ModuleScene::Start()
 
 	// Preload scene
 	//App->sceneloader->ImportMesh("Assets/street/Street environment_V01.fbx");//street/Street environment_V01
+	audiosource = CreateGameObject();
+	audiosource->go_name = "Audio Source";
+	audiosource->CreateComponent(Component::AUDIOSOURCE);
+	audiosource->GetComponent(Component::TRANSFORMATION)->AsTransform()->position.x = 1;
+
+	audiolistenerdefault = CreateGameObject();
+	audiolistenerdefault->go_name = "Default Audio Listener";
+	audiolistenerdefault->CreateComponent(Component::AUDIOLISTENER);
 
 	return true;
 }
@@ -373,8 +381,9 @@ void ModuleScene::Draw()
 
 GameObject* ModuleScene::CreateGameObject()
 {
-	GameObject* gameobject = new GameObject(root, "");
+	GameObject* gameobject = new GameObject(root, "Untitled");
 	game_objects.push_back(gameobject);
+	gameobject->CreateComponent(Component::TRANSFORMATION);
 
 	return gameobject;
 }

@@ -5,6 +5,8 @@
 #include "ComponentTransform.h"
 #include "ComponentTexture.h"
 #include "ComponentCamera.h"
+#include "ComponentAudioSource.h"
+#include "ComponentAudioListener.h"
 #include "ModuleScene.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleImGui.h"
@@ -183,6 +185,14 @@ Component* GameObject::CreateComponent(Component::COMP_TYPE type)
 		break;
 	case Component::CAMERA:
 		comp = new ComponentCamera(this);
+		go_components.push_back(comp);
+		break;
+	case Component::AUDIOSOURCE:
+		comp = new ComponentAudioSource(this);
+		go_components.push_back(comp);
+		break;
+	case Component::AUDIOLISTENER:
+		comp = new ComponentAudioListener(this);
 		go_components.push_back(comp);
 		break;
 	default:
