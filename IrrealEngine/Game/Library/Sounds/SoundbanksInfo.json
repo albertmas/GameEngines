@@ -1,0 +1,57 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "11",
+  "SoundbankVersion": "128",
+  "RootPaths": {
+   "ProjectRoot": "C:\\Users\\familia\\Documents\\WwiseProjects\\Engine\\",
+   "SourceFilesRoot": "C:\\Users\\familia\\Documents\\WwiseProjects\\Engine\\.cache\\Windows\\",
+   "SoundBanksRoot": "C:\\Users\\familia\\Desktop\\Audio WWise Examples\\",
+   "ExternalSourcesInputFile": "",
+   "ExternalSourcesOutputRoot": "C:\\Users\\familia\\Documents\\WwiseProjects\\Engine\\GeneratedSoundBanks\\Windows"
+  },
+  "DialogueEvents": [],
+  "StreamedFiles": [],
+  "MediaFilesNotInAnyBank": [],
+  "SoundBanks": [
+   {
+    "Id": "394665699",
+    "Language": "SFX",
+    "ObjectPath": "\\SoundBanks\\Default Work Unit\\SoundBank_First",
+    "ShortName": "SoundBank_First",
+    "Path": "SoundBank_First.bnk",
+    "IncludedMemoryFiles": [
+     {
+      "Id": "769669804",
+      "Language": "SFX",
+      "ShortName": "TheForestAwakes.wav",
+      "Path": "SFX\\TheForestAwakes_F17FB28C.wem"
+     }
+    ]
+   },
+   {
+    "Id": "1355168291",
+    "Language": "SFX",
+    "ObjectPath": "Init",
+    "ShortName": "Init",
+    "Path": "Init.bnk"
+   },
+   {
+    "Id": "4002332272",
+    "Language": "SFX",
+    "ObjectPath": "\\SoundBanks\\Default Work Unit\\Forest_soundbank",
+    "ShortName": "Forest_soundbank",
+    "Path": "Forest_soundbank.bnk",
+    "IncludedMemoryFiles": [
+     {
+      "Id": "769669804",
+      "Language": "SFX",
+      "ShortName": "TheForestAwakes.wav",
+      "Path": "SFX\\TheForestAwakes_F17FB28C.wem"
+     }
+    ]
+   }
+  ]
+ }
+}

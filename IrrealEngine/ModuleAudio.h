@@ -2,8 +2,7 @@
 #define _MODULE_AUDIO_H_
 
 #include "Module.h"
-//#include "rapidjson\rapidjson.h"
-#include "Include_Wwise.h"
+//#include "Include_Wwise.h"
 #include "Wwise.h"
 
 
@@ -36,12 +35,11 @@ public:
 	//void ImGuiDraw();
 
 public:
-	Wwise::SoundObject* camera_listener = nullptr;
-	std::list <Wwise::SoundObject*> sound_obj;
-	SoundBank* soundbank = nullptr;
 	int volume = DEFAULT_VOLUME;
 	bool muted = false;
-
+	/*Wwise::SoundObject* camera_listener = nullptr;
+	std::list <Wwise::SoundObject*> sound_obj;
+	SoundBank* soundbank = nullptr;*/
 
 };
 

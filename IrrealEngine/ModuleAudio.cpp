@@ -31,6 +31,7 @@ bool ModuleAudio::Init(Document& document)
 	//std::wstring base_path = converter.from_bytes("SoundBanks");
 
 	bool ret = Wwise::InitWwise();
+	Wwise::LoadBank("Library/Sounds/Forest_soundbank.bnk");
 	
 	//Wwise::LoadBank("SoundBanks/Test.bnk");
 
@@ -68,11 +69,11 @@ update_status ModuleAudio::PostUpdate(float dt)
 
 bool ModuleAudio::CleanUp()
 {
-	LOG("Unloading Wwished library");
-	delete camera_listener;
+	LOG("Freeing Wwise");
+	/*delete camera_listener;
 	if (soundbank != nullptr) {
 		delete soundbank;
-	}
+	}*/
 	
 	return Wwise::CloseWwise();
 

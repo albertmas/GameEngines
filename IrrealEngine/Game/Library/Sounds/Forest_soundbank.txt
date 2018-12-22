@@ -1,0 +1,3 @@
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	769669804	TheForestAwakes	C:\Users\familia\Documents\WwiseProjects\Engine\.cache\Windows\SFX\TheForestAwakes_F17FB28C.wem		\Interactive Music Hierarchy\Default Work Unit\Music_Gameplay_Level1\Level_1\Music1\TheForestAwakes		22125188
+

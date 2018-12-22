@@ -17,6 +17,8 @@ class ComponentTransform;
 class ComponentMesh;
 class ComponentTexture;
 class ComponentCamera;
+class ComponentAudioSource;
+class ComponentAudioListener;
 
 class Component
 {
@@ -64,6 +66,14 @@ public:
 	{
 		return (ComponentCamera*)this;
 	}
+	ComponentAudioSource* AsAudioSource()
+	{
+		return (ComponentAudioSource*)this;
+	}
+	ComponentAudioListener* AsAudioListener()
+	{
+		return (ComponentAudioListener*)this;
+	}
 
 public:
 
@@ -72,7 +82,9 @@ public:
 		TRANSFORMATION,
 		MESH,
 		TEXTURE,
-		CAMERA
+		CAMERA,
+		AUDIOSOURCE,
+		AUDIOLISTENER
 	};
 
 public:
