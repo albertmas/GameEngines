@@ -29,9 +29,11 @@ namespace Wwise
 	class SoundObject
 	{
 	public:
-
-		/*SoundObject(unsigned long id, const char* n);
+		SoundObject(unsigned long id, const char* n);
 		~SoundObject();
+		void PlayEvent(const char* name);
+
+		/*
 
 		unsigned long GetID();
 		const char* GetName();
@@ -39,7 +41,6 @@ namespace Wwise
 		void SetListener(unsigned long* id);
 
 		void PlayEvent(unsigned long id);
-		void PlayEvent(const char* name);
 
 		void PlayMusic(unsigned long music_id);
 		void PlayMusic(const char* music_name);

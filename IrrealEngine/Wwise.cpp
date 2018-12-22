@@ -167,3 +167,9 @@ bool Wwise::LoadBank(const char* name)
 
 	return true;
 }
+
+void Wwise::SoundObject::PlayEvent(const char* name)
+{
+	AK::SoundEngine::PostEvent(name, SoundID);
+	LOG("Playing event: %s", name);
+}
