@@ -1,0 +1,55 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "11",
+  "SoundbankVersion": "125",
+  "RootPaths": {
+   "ProjectRoot": "C:\\Users\\familia\\Documents\\WwiseProjects\\Wwise Irreal\\",
+   "SourceFilesRoot": "C:\\Users\\familia\\Documents\\WwiseProjects\\Wwise Irreal\\.cache\\Windows\\",
+   "SoundBanksRoot": "C:\\Users\\familia\\Desktop\\Audio WWise Examples\\SB IRreal\\",
+   "ExternalSourcesInputFile": "",
+   "ExternalSourcesOutputRoot": "C:\\Users\\familia\\Documents\\WwiseProjects\\Wwise Irreal\\GeneratedSoundBanks\\Windows\\"
+  },
+  "DialogueEvents": [],
+  "StreamedFiles": [],
+  "MediaFilesNotInAnyBank": [],
+  "SoundBanks": [
+   {
+    "Id": "1355168291",
+    "Language": "SFX",
+    "ObjectPath": "Init",
+    "ShortName": "Init",
+    "Path": "Init.bnk"
+   },
+   {
+    "Id": "3991942870",
+    "Language": "SFX",
+    "ObjectPath": "\\SoundBanks\\Default Work Unit\\Music",
+    "ShortName": "Music",
+    "Path": "Music.bnk",
+    "IncludedEvents": [
+     {
+      "Id": "3991942870",
+      "Name": "Music",
+      "ObjectPath": "\\Events\\Default Work Unit\\BGMusic\\Music"
+     }
+    ],
+    "IncludedMemoryFiles": [
+     {
+      "Id": "198875166",
+      "Language": "SFX",
+      "ShortName": "Song.wav",
+      "Path": "SFX\\Song_C2E12055.wem"
+     },
+     {
+      "Id": "947858482",
+      "Language": "SFX",
+      "ShortName": "ShortForest.wav",
+      "Path": "SFX\\ShortForest_65A560FA.wem"
+     }
+    ]
+   }
+  ]
+ }
+}
