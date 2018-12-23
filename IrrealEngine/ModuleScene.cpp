@@ -14,6 +14,7 @@
 #include "ComponentMesh.h"
 #include "ComponentTexture.h"
 #include "ComponentCamera.h"
+#include "ComponentAudioSource.h"
 
 #include "mmgr/mmgr.h"
 #include "glmath.h"
@@ -60,15 +61,24 @@ bool ModuleScene::Start()
 	// Preload scene
 	//App->sceneloader->ImportMesh("Assets/street/Street environment_V01.fbx");//street/Street environment_V01
 
-	// Create audio sources
-	audiosource = CreateGameObject();
-	audiosource->go_name = "Audio Source";
-	audiosource->CreateComponent(Component::AUDIOSOURCE);
-	//audiosource->GetComponent(Component::TRANSFORMATION)->AsTransform()->position.x = 10;
 
+
+	// Create static audio source
+	centaur = App->sceneloader->ImportMesh("Assets/Centaur/Centaur.fbx");
+	centaur->go_name = "Centaur (Static Audio Source)";
+	ComponentAudioSource* comp_audio_centaur = centaur->CreateComponent(Component::AUDIOSOURCE)->AsAudioSource();
+	comp_audio_centaur->SetSoundID(AK::EVENTS::HEYMAN);
+
+	ComponentTransform* centaur_trans = centaur->GetComponent(Component::TRANSFORMATION)->AsTransform();
+	centaur_trans->scale /= 6;
+	centaur_trans->position.z += 20;
+	centaur_trans->CalculateMatrix();
+
+	// Create dynamic audio source
 	train = App->sceneloader->ImportMesh("Assets/Train/Train.fbx");
 	train->go_name = "Train(Dynamic Audio Source)";
-	train->CreateComponent(Component::AUDIOSOURCE);
+	ComponentAudioSource* comp_audio_train = train->CreateComponent(Component::AUDIOSOURCE)->AsAudioSource();
+	comp_audio_train->SetSoundID(AK::EVENTS::TRAINFX);
 
 	ComponentTransform* train_trans = train->GetComponent(Component::TRANSFORMATION)->AsTransform();
 	train_trans->position.z += 10;
