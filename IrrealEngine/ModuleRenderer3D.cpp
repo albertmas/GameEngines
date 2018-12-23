@@ -121,7 +121,7 @@ bool ModuleRenderer3D::Init(Document& document)
 		/*VertexArrayCube.DefineVerticesForACube(float3(8.f, 1.f, 4.f), 3);
 		VertexAndIndexCube.DefineVerticesAndIndicesForACube(float3(15.f, 1.f, 4.f), 5);
 		VertexSphere.DefineVerticesForASphere(float3(0.f, 10.f, 0.f), 1, 10, 16);*/
-		plane.Create(0.0f, 0.0f, 0.0f, 100.0f);
+		plane.Create();
 		axis.Create();
 	}
 

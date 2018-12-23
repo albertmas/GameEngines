@@ -23,7 +23,7 @@ ComponentAudioReverb::~ComponentAudioReverb()
 
 bool ComponentAudioReverb::Update()
 {
-	
+
 	return true;
 }
 
@@ -32,7 +32,7 @@ void ComponentAudioReverb::SetInspectorInfo()
 	ImGui::Spacing();
 	if (ImGui::CollapsingHeader("Audio Reverb", ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		
+
 	}
 }
 

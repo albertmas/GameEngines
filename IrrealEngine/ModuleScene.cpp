@@ -76,7 +76,7 @@ bool ModuleScene::Start()
 
 	ComponentTransform* centaur_trans = centaur->GetComponent(Component::TRANSFORMATION)->AsTransform();
 	centaur_trans->scale /= 6;
-	centaur_trans->position.z += 20;
+	centaur_trans->position.z += 40;
 	centaur_trans->CalculateMatrix();
 	centaur->CalcGlobalTransform();
 
@@ -112,7 +112,7 @@ bool ModuleScene::Start()
 	if (tunnel_trans != nullptr)
 	{
 		tunnel_trans->scale /= 2;
-		tunnel_trans->position.x += 70;
+		//tunnel_trans->position.x += 70;
 		tunnel_trans->position.z += 10;
 
 		float3 euler_deg_rot = tunnel_trans->rotation.ToEulerXYZ();
@@ -132,14 +132,14 @@ update_status ModuleScene::PreUpdate(float dt)
 	ComponentTransform* train_trans = train->GetComponent(Component::TRANSFORMATION)->AsTransform();
 	if (train_forward)
 	{
-		train_trans->position.x += 10 * dt;
-		if (train_trans->position.x >= 50)
+		train_trans->position.x += 30 * dt;
+		if (train_trans->position.x >= 150)
 			train_forward = false;
 	}
 	else
 	{
-		train_trans->position.x -= 10 * dt;
-		if (train_trans->position.x <= -50)
+		train_trans->position.x -= 30 * dt;
+		if (train_trans->position.x <= -150)
 			train_forward = true;
 	}
 	train_trans->CalculateMatrix();
