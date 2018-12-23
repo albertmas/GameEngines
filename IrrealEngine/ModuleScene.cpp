@@ -60,11 +60,25 @@ bool ModuleScene::Start()
 	// Preload scene
 	//App->sceneloader->ImportMesh("Assets/street/Street environment_V01.fbx");//street/Street environment_V01
 
-	// Create audio source
+	// Create audio sources
 	audiosource = CreateGameObject();
 	audiosource->go_name = "Audio Source";
 	audiosource->CreateComponent(Component::AUDIOSOURCE);
 	//audiosource->GetComponent(Component::TRANSFORMATION)->AsTransform()->position.x = 10;
+
+	train = App->sceneloader->ImportMesh("Assets/Train/Train.fbx");
+	train->go_name = "Train(Dynamic Audio Source)";
+	train->CreateComponent(Component::AUDIOSOURCE);
+
+	ComponentTransform* train_trans = train->GetComponent(Component::TRANSFORMATION)->AsTransform();
+	train_trans->position.z += 10;
+
+	float3 euler_deg_rot = train_trans->rotation.ToEulerXYZ();
+	euler_deg_rot.x -= pi / 2;
+	euler_deg_rot.z -= pi / 2;
+	train_trans->rotation = Quat::FromEulerXYZ(euler_deg_rot.x, euler_deg_rot.y, euler_deg_rot.z);
+	train_trans->CalculateMatrix();
+		
 
 	// Create audio listener
 	audiolistenerdefault = CreateGameObject();
@@ -77,6 +91,21 @@ bool ModuleScene::Start()
 update_status ModuleScene::PreUpdate(float dt)
 {
 	SetGlobalMatrix(root);
+
+	ComponentTransform* train_trans = train->GetComponent(Component::TRANSFORMATION)->AsTransform();
+	if (train_forward)
+	{
+		train_trans->position.x += 10 * dt;
+		if (train_trans->position.x >= 50)
+			train_forward = false;
+	}
+	else
+	{
+		train_trans->position.x -= 10 * dt;
+		if (train_trans->position.x <= -50)
+			train_forward = true;
+	}
+	train_trans->CalculateMatrix();
 
 	return UPDATE_CONTINUE;
 }

@@ -1,6 +1,0 @@
-Event	ID	Name			Wwise Object Path	Notes
-	779278001	death			\Default Work Unit\death	
-
-In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
-	796949091	player_death	C:\Users\hugob\Documents\WwiseProjects\oof\.cache\Windows\SFX\player_death_1C9C67B2.wem		\Actor-Mixer Hierarchy\Default Work Unit\player_death		90212
-

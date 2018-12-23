@@ -1,0 +1,7 @@
+Event	ID	Name			Wwise Object Path	Notes
+	3991942870	Music			\Default Work Unit\BGMusic\Music	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	198875166	Song	C:\Users\familia\Documents\WwiseProjects\Wwise Irreal\.cache\Windows\SFX\Song_C2E12055.wem		\Actor-Mixer Hierarchy\BlendMusic\SequenceContainer\Song		5781756
+	947858482	ShortForest	C:\Users\familia\Documents\WwiseProjects\Wwise Irreal\.cache\Windows\SFX\ShortForest_65A560FA.wem		\Actor-Mixer Hierarchy\BlendMusic\SequenceContainer\ShortForest		5254524
+

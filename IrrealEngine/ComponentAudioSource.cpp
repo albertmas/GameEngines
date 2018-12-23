@@ -38,11 +38,11 @@ void ComponentAudioSource::SetInspectorInfo()
 	{
 		if (ImGui::Button("Play"))
 		{
-			sound_go->PlayEvent(AK::EVENTS::DEATH);
+			sound_go->PlayEvent(AK::EVENTS::MUSIC);
 		}
 		if (ImGui::Button("Stop"))
 		{
-			sound_go->PauseEvent(AK::EVENTS::DEATH);
+			sound_go->PauseEvent(AK::EVENTS::MUSIC);
 		}
 		ImGui::Text("PosX %f", sound_go->GetPos().x);
 		ImGui::Text("PosY %f", sound_go->GetPos().y);

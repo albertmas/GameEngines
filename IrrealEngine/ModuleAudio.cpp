@@ -36,9 +36,9 @@ bool ModuleAudio::Init(Document& document)
 	bool ret = Wwise::InitWwise();
 	//Wwise::LoadBank("Library/Sounds/Forest_soundbank.bnk");
 	
-	//Wwise::LoadBank("SoundBanks/Test.bnk");
 
-	LoadSoundBank("death_banck");
+	//LoadSoundBank("death_banck");
+	LoadSoundBank("Music");
 
 	/*float3 pos = App->scene->audiolistenerdefault->GetComponent(Component::TRANSFORMATION)->AsTransform()->position;
 	Wwise::CreateSoundObj(App->scene->audiolistenerdefault->UUID, App->scene->audiolistenerdefault->go_name.c_str(), pos.x, pos.y, pos.z, true);*/

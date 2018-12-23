@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="11" SoundbankVersion="125">
 	<RootPaths>
-		<ProjectRoot>C:\Users\hugob\Documents\WwiseProjects\oof\</ProjectRoot>
-		<SourceFilesRoot>C:\Users\hugob\Documents\WwiseProjects\oof\.cache\Windows\</SourceFilesRoot>
-		<SoundBanksRoot>C:\Users\hugob\Documents\WwiseProjects\oof\GeneratedSoundBanks\Windows\</SoundBanksRoot>
+		<ProjectRoot>C:\Users\familia\Documents\WwiseProjects\Wwise Irreal\</ProjectRoot>
+		<SourceFilesRoot>C:\Users\familia\Documents\WwiseProjects\Wwise Irreal\.cache\Windows\</SourceFilesRoot>
+		<SoundBanksRoot>C:\Users\familia\Desktop\Audio WWise Examples\SB IRreal\</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>C:\Users\hugob\Documents\WwiseProjects\oof\GeneratedSoundBanks\Windows\</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>C:\Users\familia\Documents\WwiseProjects\Wwise Irreal\GeneratedSoundBanks\Windows\</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<StreamedFiles/>
@@ -16,17 +16,21 @@
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 		</SoundBank>
-		<SoundBank Id="1934763593" Language="SFX">
-			<ObjectPath>\SoundBanks\Default Work Unit\death_banck</ObjectPath>
-			<ShortName>death_banck</ShortName>
-			<Path>death_banck.bnk</Path>
+		<SoundBank Id="3991942870" Language="SFX">
+			<ObjectPath>\SoundBanks\Default Work Unit\Music</ObjectPath>
+			<ShortName>Music</ShortName>
+			<Path>Music.bnk</Path>
 			<IncludedEvents>
-				<Event Id="779278001" Name="death" ObjectPath="\Events\Default Work Unit\death"/>
+				<Event Id="3991942870" Name="Music" ObjectPath="\Events\Default Work Unit\BGMusic\Music"/>
 			</IncludedEvents>
 			<IncludedMemoryFiles>
-				<File Id="796949091" Language="SFX">
-					<ShortName>player_death.wav</ShortName>
-					<Path>SFX\player_death_1C9C67B2.wem</Path>
+				<File Id="198875166" Language="SFX">
+					<ShortName>Song.wav</ShortName>
+					<Path>SFX\Song_C2E12055.wem</Path>
+				</File>
+				<File Id="947858482" Language="SFX">
+					<ShortName>ShortForest.wav</ShortName>
+					<Path>SFX\ShortForest_65A560FA.wem</Path>
 				</File>
 			</IncludedMemoryFiles>
 		</SoundBank>
