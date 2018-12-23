@@ -15,23 +15,18 @@ namespace Wwise
 		const char* GetName();
 		float3 GetPos();
 		void SetPosition(float x = 0, float y = 0, float z = 0, float x_front = 1, float y_front = 0, float z_front = 0, float x_top = 0, float y_top = 1, float z_top = 0);
-
-		void SetListener(unsigned long* id);
-
-		void PlayEvent(const char* name);
+		
 		void PlayEvent(unsigned long id);
 		void PauseEvent(unsigned long id);
 
-		void PlayMusic(unsigned long music_id);
-		void PlayMusic(const char* music_name);
 		void SetAuxiliarySends(AkReal32 value, const char * target_bus, AkGameObjectID listener_id);
 
 	private:
-		AkGameObjectID ID;
 		const char* name = nullptr;
+		AkGameObjectID ID;
 		AkVector position = { 0, 0, 0 };
-		AkVector top = { 0, 0, 0 };
 		AkVector front = { 0, 0, 0 };
+		AkVector top = { 0, 0, 0 };
 		
 	};
 	
@@ -45,11 +40,6 @@ namespace Wwise
 
 	WwiseGameObject* CreateSoundObj(unsigned long id, const char* name, float x, float y, float z, bool is_default_listener = false);
 	AkBankID LoadBank(const char* name);
-	/*void ProcessAudio();
-	void SetDefaultListeners(unsigned long* id);
-	void SetLanguage(const char* language);
-	unsigned long LoadBank(const char* path);
-	void ChangeState(const char* group, const char* new_state);*/
 }
 
 #endif

@@ -264,18 +264,6 @@ void Wwise::WwiseGameObject::SetPosition(float x, float y, float z, float x_fron
 		LOG("Couldn't update position");
 }
 
-
-void Wwise::WwiseGameObject::SetListener(unsigned long * id)
-{
-	AKRESULT res = AK::SoundEngine::SetListeners(ID, (AkGameObjectID*)id, 1);
-}
-
-void Wwise::WwiseGameObject::PlayEvent(const char* name)
-{
-	AK::SoundEngine::PostEvent(name, ID);
-	LOG("Playing event: %s", name);
-}
-
 void Wwise::WwiseGameObject::PlayEvent(unsigned long id)
 {
 	if (AK::SoundEngine::PostEvent(id, ID) == AK_INVALID_PLAYING_ID)
@@ -292,18 +280,7 @@ void Wwise::WwiseGameObject::PauseEvent(unsigned long id)
 	}
 }
 
-void Wwise::WwiseGameObject::PlayMusic(unsigned long music_id)
-{
-	AK::SoundEngine::PostEvent(music_id, ID, AK_EnableGetMusicPlayPosition);
-}
-
-void Wwise::WwiseGameObject::PlayMusic(const char * music_name)
-{
-	AK::SoundEngine::PostEvent(music_name, ID, AK_EnableGetMusicPlayPosition);
-
-}
-
-void Wwise::WwiseGameObject::SetAuxiliarySends(AkReal32 value, const char * target_bus, AkGameObjectID listener_id)
+void Wwise::WwiseGameObject::SetAuxiliarySends(AkReal32 value, const char* target_bus, AkGameObjectID listener_id)
 {
 	AkAuxSendValue reverb;
 	reverb.listenerID = listener_id;

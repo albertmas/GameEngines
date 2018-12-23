@@ -29,21 +29,11 @@ ModuleAudio::~ModuleAudio()
 bool ModuleAudio::Init(Document& document)
 {
 	LOG("Initializing Wwise");
-
-	//std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-	//std::wstring base_path = converter.from_bytes("SoundBanks");
-
-	bool ret = Wwise::InitWwise();
-	//Wwise::LoadBank("Library/Sounds/Forest_soundbank.bnk");
 	
-
-	//LoadSoundBank("death_banck");
+	bool ret = Wwise::InitWwise();
+	
 	LoadSoundBank("Music");
-
-	/*float3 pos = App->scene->audiolistenerdefault->GetComponent(Component::TRANSFORMATION)->AsTransform()->position;
-	Wwise::CreateSoundObj(App->scene->audiolistenerdefault->UUID, App->scene->audiolistenerdefault->go_name.c_str(), pos.x, pos.y, pos.z, true);*/
-	//AK::SoundEngine::AddDefaultListener(App->scene->audiolistenerdefault->UUID);
-
+	
 	return ret;
 }
 
@@ -80,16 +70,7 @@ update_status ModuleAudio::PostUpdate(float dt)
 bool ModuleAudio::CleanUp()
 {
 	LOG("Freeing Wwise");
-	/*delete camera_listener;
-	if (soundbank != nullptr) {
-		delete soundbank;
-	}*/
 	
-	/*for (std::list<Wwise::WwiseGameObject*>::iterator it = sound_obj.begin(); it != sound_obj.end(); ++it) {
-
-		delete (*it);
-	}*/
-
 	return Wwise::CloseWwise();
 
 	return true;
@@ -135,25 +116,3 @@ void ModuleAudio::LoadSoundBank(const char* path)
 	soundbank = new_bank;
 	return new_bank;*/
 }
-
-//Wwise::WwiseGameObject* ModuleAudio::CreateSoundObject(const char* name, float3 position)
-//{
-//	Wwise::WwiseGameObject* ret = Wwise::CreateSoundObj(last_go_id++, name, position.x, position.y, position.z);
-//	sound_obj.push_back(ret);
-//
-//	return ret;
-//}
-
-//Wwise::WwiseGameObject* ModuleAudio::CreateAudioListener(uint id)
-//{
-//	Wwise::WwiseGameObject* ret;
-//	
-//	float3 cam_pos = App->scene->GetCurCam()->transform.position;
-//	float3 cam_front = App->scene->GetCurCam()->GetFrustum().front;
-//	float3 cam_up = App->scene->GetCurCam()->GetFrustum().up;
-//
-//	ret = Wwise::CreateSoundObj(id, "Listener", cam_pos.x, cam_pos.y, cam_pos.z, true);
-//	ret->SetPosition(cam_pos.x, cam_pos.y, cam_pos.z, cam_front.x, cam_front.y, cam_front.z, cam_up.x, cam_up.y, cam_up.z);
-//	
-//	return ret;
-//}

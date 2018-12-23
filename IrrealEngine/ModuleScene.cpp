@@ -71,7 +71,7 @@ bool ModuleScene::Start()
 	music_blend->go_name = "Music Blend";
 	ComponentAudioSource* comp_music = music_blend->CreateComponent(Component::AUDIOSOURCE)->AsAudioSource();
 	comp_music->SetSoundID(AK::EVENTS::MUSIC);
-	//comp_music->sound_go->PlayEvent(AK::EVENTS::MUSIC);
+	comp_music->sound_go->PlayEvent(AK::EVENTS::MUSIC);
 
 	// Create static audio source
 	centaur = App->sceneloader->ImportMesh("Assets/Centaur/Centaur.fbx");

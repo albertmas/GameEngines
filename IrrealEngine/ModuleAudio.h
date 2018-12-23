@@ -28,21 +28,12 @@ public:
 	bool Load(Document& document) override;
 
 	void LoadSoundBank(const char* path);
-
-	//Game Objects
-	/*Wwise::WwiseGameObject* CreateSoundObject(const char* name, math::float3 position);
-	Wwise::WwiseGameObject* CreateAudioListener(uint id);*/
-
+	
 	void SetVolume(const char* rtpc, float value);
-	//void StopAllEvents();
-	//void ImGuiDraw();
 
 public:
 	int volume = DEFAULT_VOLUME;
 	bool muted = false;
-	Wwise::WwiseGameObject* camera_listener = nullptr;
-	std::list <Wwise::WwiseGameObject*> sound_obj;
-	//SoundBank* soundbank = nullptr;
 	
 };
 
