@@ -15,9 +15,9 @@ Download the latest release [here](https://github.com/albertmas/GameEngines/rele
 
 ## Subsystems
 - Engine Structure: Gameobjects with components like transform, mesh and material.
-- Mesh Binary Format : We have our own file format for loading assets. We have our importer and exporter.
+- Mesh Binary Format : We have our own file format for loading assets. We have our importer and exporter with drag & drop.
 - GameObject Hierarchy & Inspector
-- Comopnent Camera: Camera movement using WASD  keys and right mouse. Alt + left click to orbit. Frustum with camera culling.
+- Component Camera: Camera movement using WASD  keys and right mouse. Alt + left click to orbit. Frustum with camera culling.
 - In-Game Assets Folder
 - Mouse Picking: Pixel accurate mouse picking
 - Wwise Integration
@@ -26,13 +26,12 @@ Download the latest release [here](https://github.com/albertmas/GameEngines/rele
  
  <img src="https://raw.githubusercontent.com/FurryGhoul/prueba/master/Photo%20Albert.jpg" alt="alt text" width="400" height="300">
  
-Albert Mas 
+Albert Mas : Engine Structue, Mesh Binary Format, Importer, GameObject & Inspector, Camera, Mouse Picking, In-Game Assets Folder, Wwise integration.
 
 <img src="https://scontent-sea1-1.cdninstagram.com/vp/7275bc98ba78fad2510f7d092a36a3ed/5CD8D31C/t51.2885-15/e35/40003378_950328121794707_655496272332980224_n.jpg?_nc_ht=scontent-sea1-1.cdninstagram.com&se=7&ig_cache_key=MTg1NTg3NzY0NjM2MjU2NDI1Nw%3D%3D.2" alt="alt text" width="400" height="300">
 
 
-
-Guillem Arman
+Guillem Arman: Engine Structure, Camera, Drag&Drop,  Wwise integration
 
 ##  WWise Integration
 
