@@ -44,6 +44,8 @@ On the third assignment we have been integrating [Wwise](https://www.audiokineti
 
 We starting the assignment by including the Wwise SDK in our engine. Once it was done we created the moduleAudio with a component audiosource and a component listener. 
 
+![](GifAudio.gif)
+
 ## Video
 
 
