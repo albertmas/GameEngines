@@ -18,7 +18,7 @@ public:
 	bool Load(Document& document) override;
 
 private:
-	bool reverb = true;
+	bool reverb = false;
 };
 
 #endif
