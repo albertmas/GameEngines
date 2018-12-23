@@ -11,7 +11,7 @@ The subject is divided in three Assignments:
 
 - 3rd:Wwise Integration
 
-Download the latest release [here](https://github.com/albertmas/GameEngines/releases)
+Download the latest release [here](https://github.com/albertmas/GameEngines/releases).
 
 ## Subsystems
 - Engine Structure
