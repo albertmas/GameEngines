@@ -16,9 +16,9 @@ Download the latest release [here](https://github.com/albertmas/GameEngines/rele
 ## Subsystems
 - Engine Structure: Gameobjects with components like transform, mesh and material.
 - Mesh Binary Format : We have our own file format for loading assets. We have our importer and exporter with drag & drop.
-- GameObject Hierarchy & Inspector
+- GameObject Hierarchy & Inspector: The way our GameObjects are organised and how you can interact with them. Father/Child hierarchy.
 - Component Camera: Camera movement using WASD  keys and right mouse. Alt + left click to orbit. Frustum with camera culling.
-- In-Game Assets Folder
+- In-Game Assets Folder: Search for the assets inside the engine. 
 - Mouse Picking: Pixel accurate mouse picking
 - Wwise Integration
 
@@ -37,7 +37,7 @@ Guillem Arman: Engine Structure, Camera, Drag&Drop,  Wwise integration.
 
 On the third assignment we have been integrating [Wwise](https://www.audiokinetic.com/products/wwise/) library in order to use it in our engine. Our main purpose was to be able to prepare a scene with two main background musics that were looping, including one static and one moving gameobject with spatial sound effects and an area where the sound of the moving gameobject would be affected by a reverb effect.
 
-We starting the assignment by including the Wwise SDK in our engine. Once it was done we created the moduleAudio with a component audiosource and a component listener. 
+We starting the assignment by including the Wwise SDK in our engine. Once it was done we created the ModuleAudio with a component audiosource and a component listener. 
 
 ![](GifAudio.gif)
 ![](GifAudio2.gif)
