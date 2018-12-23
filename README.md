@@ -43,7 +43,7 @@ We started the assignment by including the Wwise SDK in our engine. Once it was 
 ![](GifAudio2.gif)
 
 ## Video
-[![](https://youtu.be/0YQHCJXLt0E/0.jpg)](https://www.youtube.com/embed/0YQHCJXLt0E)
+[![](https://i.imgur.com/5E3N8gp.png)](https://www.youtube.com/embed/0YQHCJXLt0E)
 
 ## For the development of this engine, we have used the following libraries:
 - [DeviceId](https://github.com/MatthewKing/DeviceId) Version Deceber 2015:
