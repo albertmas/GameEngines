@@ -14,8 +14,9 @@ The subject is divided in three Assignments:
 ## Team
  
  <img src="https://raw.githubusercontent.com/FurryGhoul/prueba/master/Photo%20Albert.jpg" alt="alt text" width="400" height="300">
+Albert Mas 
 
-![](https://guillemd.github.io/LastCall-AI/img/team/GA.png)
+![](https://guillemd.github.io/LastCall-AI/img/team/GA.png) Guillem Arman
 ## Subsystems
 - Engine Structure
 - Mesh Binary Format
@@ -29,6 +30,10 @@ The subject is divided in three Assignments:
 - Quadtree
 - Mouse Picking
 - ModuleAudio
+
+##  WWise Integration
+
+On the third assignment we have been integrating [Wwise](https://www.audiokinetic.com/products/wwise/) library in order to use it in our engine.
 
 ## For the development of this engine, we have used the following libraries:
 - [DeviceId](https://github.com/MatthewKing/DeviceId) Version Deceber 2015:
