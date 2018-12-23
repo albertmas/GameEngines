@@ -1,0 +1,6 @@
+Event	ID	Name			Wwise Object Path	Notes
+	1936427047	HeyMan			\Default Work Unit\HeyMan\HeyMan	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	141065671	HeyMan	C:\Users\familia\Documents\WwiseProjects\Wwise Irreal\.cache\Windows\SFX\HeyMan_1C9C67B2.wem		\Actor-Mixer Hierarchy\BlendMusic\Hey\HeyMan		336988
+

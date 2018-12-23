@@ -1,0 +1,6 @@
+Event	ID	Name			Wwise Object Path	Notes
+	3440043877	HeyFuckYou			\Default Work Unit\HeyFuckYou\HeyFuckYou	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	37872822	HeyFuckYou	C:\Users\familia\Documents\WwiseProjects\Wwise Irreal\.cache\Windows\SFX\HeyFuckYou_1C9C67B2.wem		\Actor-Mixer Hierarchy\BlendMusic\HeyFuckYou\HeyFuckYou		567036
+

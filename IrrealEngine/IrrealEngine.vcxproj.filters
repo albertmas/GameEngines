@@ -235,6 +235,9 @@
     <ClCompile Include="ComponentAudioSource.cpp">
       <Filter>Sources\Components</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentAudioReverb.cpp">
+      <Filter>Sources\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -553,6 +556,9 @@
       <Filter>Sources\Components</Filter>
     </ClInclude>
     <ClInclude Include="ComponentAudioSource.h">
+      <Filter>Sources\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentAudioReverb.h">
       <Filter>Sources\Components</Filter>
     </ClInclude>
   </ItemGroup>

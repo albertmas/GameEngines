@@ -39,13 +39,17 @@ public:
 public:
 	std::vector<GameObject*> game_objects;
 	GameObject* root = nullptr;
-	GameObject* audiosource = nullptr;
 	GameObject* audiolistenerdefault = nullptr;
+	GameObject* music_blend = nullptr;
+	GameObject* centaur = nullptr;
+	GameObject* train = nullptr;
+	GameObject* tunnel = nullptr;
 
 private:
 	ComponentCamera* ghostcam = nullptr;
 	ComponentCamera* currentCam = nullptr;
 
+	bool train_forward = true;
 };
 
 #endif

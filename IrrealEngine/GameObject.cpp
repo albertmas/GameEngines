@@ -7,6 +7,7 @@
 #include "ComponentCamera.h"
 #include "ComponentAudioSource.h"
 #include "ComponentAudioListener.h"
+#include "ComponentAudioReverb.h"
 #include "ModuleScene.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleImGui.h"
@@ -98,6 +99,18 @@ void GameObject::Draw()
 						App->renderer3D->DrawBB(oriented_BB, { 0, 1, 0 });
 					}
 				}
+
+				ComponentAudioSource* comp_audio_source = (ComponentAudioSource*)GetComponent(Component::AUDIOSOURCE);
+				if (comp_audio_source != nullptr)
+					comp_audio_source->Update();
+
+				ComponentAudioListener* comp_audio_listener = (ComponentAudioListener*)GetComponent(Component::AUDIOLISTENER);
+				if (comp_audio_listener != nullptr)
+					comp_audio_listener->Update();
+
+				ComponentAudioReverb* comp_audio_reverb = (ComponentAudioReverb*)GetComponent(Component::AUDIOREVERB);
+				if (comp_audio_reverb != nullptr)
+					comp_audio_reverb->Update();
 			}
 		}
 
@@ -193,6 +206,10 @@ Component* GameObject::CreateComponent(Component::COMP_TYPE type)
 		break;
 	case Component::AUDIOLISTENER:
 		comp = new ComponentAudioListener(this);
+		go_components.push_back(comp);
+		break;
+	case Component::AUDIOREVERB:
+		comp = new ComponentAudioReverb(this);
 		go_components.push_back(comp);
 		break;
 	default:

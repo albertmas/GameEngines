@@ -7,12 +7,13 @@
 #include "GameObject.h"
 #include "ComponentCamera.h"
 #include "ComponentTransform.h"
+#include "ComponentAudioListener.h"
 #include "Wwise.h"
 
 #include <corecrt_wstring.h>
 
 #include "Wwise/IO/Win32/AkFilePackageLowLevelIOBlocking.h"
-#include ".\mmgr\mmgr.h"
+#include "mmgr\mmgr.h"
 
 
 ModuleAudio::ModuleAudio(bool start_enabled) : Module(start_enabled)
@@ -28,21 +29,11 @@ ModuleAudio::~ModuleAudio()
 bool ModuleAudio::Init(Document& document)
 {
 	LOG("Initializing Wwise");
-
-	//std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-	//std::wstring base_path = converter.from_bytes("SoundBanks");
-
-	bool ret = Wwise::InitWwise();
-	//Wwise::LoadBank("Library/Sounds/Forest_soundbank.bnk");
 	
-	//Wwise::LoadBank("SoundBanks/Test.bnk");
-
-	LoadSoundBank("death_banck");
-
-	/*float3 pos = App->scene->audiolistenerdefault->GetComponent(Component::TRANSFORMATION)->AsTransform()->position;
-	Wwise::CreateSoundObj(App->scene->audiolistenerdefault->UUID, App->scene->audiolistenerdefault->go_name.c_str(), pos.x, pos.y, pos.z, true);*/
-	//AK::SoundEngine::AddDefaultListener(App->scene->audiolistenerdefault->UUID);
-
+	bool ret = Wwise::InitWwise();
+	
+	LoadSoundBank("Music");
+	
 	return ret;
 }
 
@@ -60,6 +51,10 @@ update_status ModuleAudio::PreUpdate(float dt)
 		SetVolume("Volume", 0);
 	}
 
+	float3 cam_pos = App->scene->GetCurCam()->transform.position;
+	App->scene->audiolistenerdefault->GetComponent(Component::TRANSFORMATION)->AsTransform()->position = cam_pos;
+	App->scene->audiolistenerdefault->GetComponent(Component::TRANSFORMATION)->AsTransform()->CalculateMatrix();
+
 	return UPDATE_CONTINUE;
 }
 
@@ -75,16 +70,7 @@ update_status ModuleAudio::PostUpdate(float dt)
 bool ModuleAudio::CleanUp()
 {
 	LOG("Freeing Wwise");
-	/*delete camera_listener;
-	if (soundbank != nullptr) {
-		delete soundbank;
-	}*/
 	
-	/*for (std::list<Wwise::WwiseGameObject*>::iterator it = sound_obj.begin(); it != sound_obj.end(); ++it) {
-
-		delete (*it);
-	}*/
-
 	return Wwise::CloseWwise();
 
 	return true;
@@ -106,9 +92,13 @@ bool ModuleAudio::Load(Document& document)
 
 // -----------------------------
 
-void ModuleAudio::SetVolume(const char * rtpc, float value)
+void ModuleAudio::SetVolume(const char* rtpcID, float value)
 {
-	AK::SoundEngine::SetRTPCValue(rtpc, value);
+	AKRESULT eResult = AK::SoundEngine::SetRTPCValue(rtpcID, value, App->scene->audiolistenerdefault->GetComponent(Component::AUDIOLISTENER)->AsAudioListener()->sound_go->GetID());
+	if (eResult != AK_Success)
+	{
+		assert(!"Error changing audio volume!");
+	}
 }
 
 void ModuleAudio::LoadSoundBank(const char* path)
@@ -125,37 +115,4 @@ void ModuleAudio::LoadSoundBank(const char* path)
 	soundbanks.push_back(new_bank);
 	soundbank = new_bank;
 	return new_bank;*/
-}
-
-Wwise::WwiseGameObject* ModuleAudio::CreateSoundObject(const char* name, float3 position)
-{
-	Wwise::WwiseGameObject* ret = Wwise::CreateSoundObj(last_go_id++, name, position.x, position.y, position.z);
-	sound_obj.push_back(ret);
-
-	return ret;
-}
-
-Wwise::WwiseGameObject* ModuleAudio::CreateListener(const char* name, math::float3 position)
-{
-	Wwise::WwiseGameObject* ret;
-
-	if (!listener_created) {
-
-		float3 cam_up = App->scene->GetCurCam()->GetFrustum().up;
-		float3 cam_front = App->scene->GetCurCam()->GetFrustum().front;
-		float3 cam_pos = App->scene->GetCurCam()->transform.position;
-
-		ret = Wwise::CreateSoundObj(0, "Listener", cam_pos.x, cam_pos.y, cam_pos.z, true);
-		ret->SetPosition(cam_pos.x, cam_pos.y, cam_pos.z, cam_front.x, cam_front.y, cam_front.z, cam_up.x, cam_up.y, cam_up.z);
-
-		sound_obj.push_back(ret);
-		listener_created = true;
-
-	}
-	else {
-		LOG("It exist a listener already!");
-		ret = nullptr;
-	}
-
-	return ret;
 }

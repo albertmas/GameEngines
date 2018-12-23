@@ -19,6 +19,7 @@ class ComponentTexture;
 class ComponentCamera;
 class ComponentAudioSource;
 class ComponentAudioListener;
+class ComponentAudioReverb;
 
 class Component
 {
@@ -74,6 +75,10 @@ public:
 	{
 		return (ComponentAudioListener*)this;
 	}
+	ComponentAudioReverb* AsAudioReverb()
+	{
+		return (ComponentAudioReverb*)this;
+	}
 
 public:
 
@@ -84,7 +89,8 @@ public:
 		TEXTURE,
 		CAMERA,
 		AUDIOSOURCE,
-		AUDIOLISTENER
+		AUDIOLISTENER,
+		AUDIOREVERB
 	};
 
 public:

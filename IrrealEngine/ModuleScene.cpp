@@ -14,6 +14,7 @@
 #include "ComponentMesh.h"
 #include "ComponentTexture.h"
 #include "ComponentCamera.h"
+#include "ComponentAudioSource.h"
 
 #include "mmgr/mmgr.h"
 #include "glmath.h"
@@ -59,14 +60,69 @@ bool ModuleScene::Start()
 
 	// Preload scene
 	//App->sceneloader->ImportMesh("Assets/street/Street environment_V01.fbx");//street/Street environment_V01
-	audiosource = CreateGameObject();
-	audiosource->go_name = "Audio Source";
-	audiosource->CreateComponent(Component::AUDIOSOURCE);
-	audiosource->GetComponent(Component::TRANSFORMATION)->AsTransform()->position.x = 1;
 
+	// Create audio listener
 	audiolistenerdefault = CreateGameObject();
 	audiolistenerdefault->go_name = "Default Audio Listener";
 	audiolistenerdefault->CreateComponent(Component::AUDIOLISTENER);
+
+	// Create music blend audio source
+	music_blend = CreateGameObject();
+	music_blend->go_name = "Music Blend";
+	ComponentAudioSource* comp_music = music_blend->CreateComponent(Component::AUDIOSOURCE)->AsAudioSource();
+	comp_music->SetSoundID(AK::EVENTS::MUSIC);
+	comp_music->sound_go->PlayEvent(AK::EVENTS::MUSIC);
+
+	// Create static audio source
+	centaur = App->sceneloader->ImportMesh("Assets/Centaur/Centaur.fbx");
+	centaur->go_name = "Centaur (Static Audio Source)";
+	ComponentAudioSource* comp_audio_centaur = centaur->CreateComponent(Component::AUDIOSOURCE)->AsAudioSource();
+	comp_audio_centaur->SetSoundID(AK::EVENTS::HEYMAN);
+
+	ComponentTransform* centaur_trans = centaur->GetComponent(Component::TRANSFORMATION)->AsTransform();
+	centaur_trans->scale /= 6;
+	centaur_trans->position.z += 40;
+	centaur_trans->CalculateMatrix();
+	centaur->CalcGlobalTransform();
+
+	// Create dynamic audio source
+	train = App->sceneloader->ImportMesh("Assets/Train/Train.fbx");
+	train->go_name = "Train(Dynamic Audio Source)";
+	ComponentAudioSource* comp_audio_train = train->CreateComponent(Component::AUDIOSOURCE)->AsAudioSource();
+	comp_audio_train->SetSoundID(AK::EVENTS::TRAINFX);
+
+	ComponentTransform* train_trans = train->GetComponent(Component::TRANSFORMATION)->AsTransform();
+	if (train_trans != nullptr)
+	{
+		train_trans->position.x -= 150;
+		train_trans->position.z += 10;
+
+		float3 euler_deg_rot = train_trans->rotation.ToEulerXYZ();
+		euler_deg_rot.x -= pi / 2;
+		euler_deg_rot.z += pi / 2;
+		train_trans->rotation = Quat::FromEulerXYZ(euler_deg_rot.x, euler_deg_rot.y, euler_deg_rot.z);
+		train_trans->CalculateMatrix();
+		train->CalcGlobalTransform();
+	}
+	train->GetComponent(Component::AUDIOSOURCE)->AsAudioSource()->sound_go->PlayEvent(AK::EVENTS::TRAINFX);
+
+	// Create tunnel
+	tunnel = App->sceneloader->ImportMesh("Assets/Tunnel/Tunnel.fbx");
+	tunnel->go_name = "Tunnel(Audio Reverb)";
+	tunnel->CreateComponent(Component::AUDIOREVERB);
+	ComponentTransform* tunnel_trans = tunnel->GetComponent(Component::TRANSFORMATION)->AsTransform();
+	if (tunnel_trans != nullptr)
+	{
+		tunnel_trans->scale /= 2;
+		//tunnel_trans->position.x += 70;
+		tunnel_trans->position.z += 10;
+
+		float3 euler_deg_rot = tunnel_trans->rotation.ToEulerXYZ();
+		euler_deg_rot.y += pi / 2;
+		tunnel_trans->rotation = Quat::FromEulerXYZ(euler_deg_rot.x, euler_deg_rot.y, euler_deg_rot.z);
+		tunnel_trans->CalculateMatrix();
+		tunnel->CalcGlobalTransform();
+	}
 
 	return true;
 }
@@ -74,6 +130,22 @@ bool ModuleScene::Start()
 update_status ModuleScene::PreUpdate(float dt)
 {
 	SetGlobalMatrix(root);
+
+	ComponentTransform* train_trans = train->GetComponent(Component::TRANSFORMATION)->AsTransform();
+	if (train_forward)
+	{
+		train_trans->position.x += 30 * dt;
+		if (train_trans->position.x >= 150)
+			train_forward = false;
+	}
+	else
+	{
+		train_trans->position.x -= 30 * dt;
+		if (train_trans->position.x <= -150)
+			train_forward = true;
+	}
+	train_trans->CalculateMatrix();
+	train->CalcGlobalTransform();
 
 	return UPDATE_CONTINUE;
 }

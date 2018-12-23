@@ -51,9 +51,9 @@ bool ModuleSceneLoader::CleanUp()
 	return true;
 }
 
-bool ModuleSceneLoader::ImportMesh(const char* full_path)
+GameObject* ModuleSceneLoader::ImportMesh(const char* full_path)
 {
-	bool ret = true;
+	GameObject* ret = nullptr;
 
 	mesh_number = 0;
 
@@ -63,7 +63,7 @@ bool ModuleSceneLoader::ImportMesh(const char* full_path)
 		ObjectBB = new AABB({ 0,0,0 }, { 0,0,0 });
 
 		aiNode* rootNode = scene->mRootNode;
-		LoadFile(full_path, scene, rootNode, nullptr);
+		ret = LoadFile(full_path, scene, rootNode, nullptr);
 
 		aiReleaseImport(scene);
 	}

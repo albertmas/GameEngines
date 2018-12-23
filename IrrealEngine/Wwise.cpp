@@ -6,6 +6,7 @@
 #include "Wwise/IO/Win32/AkDefaultIOHookBlocking.h"
 #include "Wwise/SDK/include/AkDefaultIOHookBlocking.h"
 #include "Wwise/SDK/include/AkFileHelpers.h"
+#include "Game/Library/Sounds/Wwise_IDs.h"
 #include <AK/Plugin/AkRoomVerbFXFactory.h>
 
 //CAkDefaultIOHookBlocking g_defaultIO;
@@ -36,10 +37,10 @@ bool Wwise::InitWwise()
 #endif // AK_OPTIMIZED
 
 	//g_lowLevelIO.SetBasePath(AKTEXT("../../../samples/IntegrationDemo/WwiseProject/GeneratedSoundBanks/Windows/"));
-	if (AK::StreamMgr::SetCurrentLanguage((AkOSChar*)("English")) != AK_Success)
+	/*if (AK::StreamMgr::SetCurrentLanguage((AkOSChar*)("English")) != AK_Success)
 	{
 		assert(!"Error setting language!");
-	}
+	}*/
 	
 	LoadBank(BANKNAME_INIT);
 
@@ -204,10 +205,9 @@ Wwise::WwiseGameObject* Wwise::CreateSoundObj(unsigned long id, const char* name
 	{
 		AkGameObjectID listener_id = emitter->GetID();
 		AK::SoundEngine::SetDefaultListeners(&listener_id, 1);
-		emitter->SetPosition(x, y, z, 1);
 	}
-	else
-		emitter->SetPosition(x, y, z);
+
+	emitter->SetPosition(x, y, z);
 
 	return emitter;
 }
@@ -220,6 +220,11 @@ unsigned long Wwise::WwiseGameObject::GetID()
 const char* Wwise::WwiseGameObject::GetName()
 {
 	return name;
+}
+
+float3 Wwise::WwiseGameObject::GetPos()
+{
+	return { position.X, position.Y, position.Z };
 }
 
 void Wwise::WwiseGameObject::SetPosition(float x, float y, float z, float x_front, float y_front, float z_front, float x_top, float y_top, float z_top)
@@ -259,44 +264,30 @@ void Wwise::WwiseGameObject::SetPosition(float x, float y, float z, float x_fron
 		LOG("Couldn't update position");
 }
 
-
-void Wwise::WwiseGameObject::SetListener(unsigned long * id)
-{
-	AKRESULT res = AK::SoundEngine::SetListeners(ID, (AkGameObjectID*)id, 1);
-}
-
-void Wwise::WwiseGameObject::PlayEvent(const char* name)
-{
-	AK::SoundEngine::PostEvent(name, ID);
-	LOG("Playing event: %s", name);
-}
-
 void Wwise::WwiseGameObject::PlayEvent(unsigned long id)
 {
 	if (AK::SoundEngine::PostEvent(id, ID) == AK_INVALID_PLAYING_ID)
 	{
-		assert(!"invalid playing id");
+		assert(!"Error playing event");
 	}
-
 }
 
-void Wwise::WwiseGameObject::PlayMusic(unsigned long music_id)
+void Wwise::WwiseGameObject::PauseEvent(unsigned long id)
 {
-	AK::SoundEngine::PostEvent(music_id, ID, AK_EnableGetMusicPlayPosition);
+	if (AK::SoundEngine::ExecuteActionOnEvent(id, AK::SoundEngine::AkActionOnEventType::AkActionOnEventType_Pause, ID) == AK_INVALID_PLAYING_ID)
+	{
+		assert(!"Error pausing event");
+	}
 }
 
-void Wwise::WwiseGameObject::PlayMusic(const char * music_name)
-{
-	AK::SoundEngine::PostEvent(music_name, ID, AK_EnableGetMusicPlayPosition);
-
-}
-
-void Wwise::WwiseGameObject::SetAuxiliarySends(AkReal32 value, const char * target_bus, AkGameObjectID listener_id)
+void Wwise::WwiseGameObject::SetAuxiliarySends(AkReal32 value, const char* target_bus, AkGameObjectID listener_id)
 {
 	AkAuxSendValue reverb;
 	reverb.listenerID = listener_id;
 	reverb.auxBusID = AK::SoundEngine::GetIDFromString(target_bus);
 	reverb.fControlValue = value;
 
-	AKRESULT res = AK::SoundEngine::SetGameObjectAuxSendValues(ID, &reverb, 1);
+	AKRESULT res = AK::SoundEngine::SetGameObjectAuxSendValues(listener_id, &reverb, 2);
+	if (res != AK_Success)
+		assert(!"Failed to SetAuxiliarySends!");
 }

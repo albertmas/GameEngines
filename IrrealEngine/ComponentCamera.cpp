@@ -41,7 +41,7 @@ ComponentCamera::ComponentCamera(GameObject* parent, float _near, float _far, fl
 
 	ViewMatrix = frustum.ViewMatrix();
 
-	frustum.pos = float3(0.0f, 70.0f, 70.0f);
+	frustum.pos = float3(0.0f, 10.0f, 80.0f);
 	transform.position = frustum.pos;
 	LookAt({ 0, 0, 0 });
 }
