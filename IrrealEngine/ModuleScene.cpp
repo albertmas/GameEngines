@@ -59,11 +59,14 @@ bool ModuleScene::Start()
 
 	// Preload scene
 	//App->sceneloader->ImportMesh("Assets/street/Street environment_V01.fbx");//street/Street environment_V01
+
+	// Create audio source
 	audiosource = CreateGameObject();
 	audiosource->go_name = "Audio Source";
 	audiosource->CreateComponent(Component::AUDIOSOURCE);
-	audiosource->GetComponent(Component::TRANSFORMATION)->AsTransform()->position.x = 1;
+	//audiosource->GetComponent(Component::TRANSFORMATION)->AsTransform()->position.x = 10;
 
+	// Create audio listener
 	audiolistenerdefault = CreateGameObject();
 	audiolistenerdefault->go_name = "Default Audio Listener";
 	audiolistenerdefault->CreateComponent(Component::AUDIOLISTENER);

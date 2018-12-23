@@ -30,8 +30,8 @@ public:
 	void LoadSoundBank(const char* path);
 
 	//Game Objects
-	Wwise::WwiseGameObject* CreateSoundObject(const char* name, math::float3 position);
-	Wwise::WwiseGameObject* CreateListener(const char* name, math::float3 position);
+	/*Wwise::WwiseGameObject* CreateSoundObject(const char* name, math::float3 position);
+	Wwise::WwiseGameObject* CreateAudioListener(uint id);*/
 
 	void SetVolume(const char* rtpc, float value);
 	//void StopAllEvents();
@@ -43,13 +43,7 @@ public:
 	Wwise::WwiseGameObject* camera_listener = nullptr;
 	std::list <Wwise::WwiseGameObject*> sound_obj;
 	//SoundBank* soundbank = nullptr;
-
-	//Listener* default_listener = nullptr;
-	unsigned long listener_id = 1;
-	unsigned long last_go_id = 100;
-	bool listener_created = false;
-
-
+	
 };
 
 

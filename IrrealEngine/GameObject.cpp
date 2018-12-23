@@ -98,6 +98,14 @@ void GameObject::Draw()
 						App->renderer3D->DrawBB(oriented_BB, { 0, 1, 0 });
 					}
 				}
+
+				ComponentAudioSource* comp_audio_source = (ComponentAudioSource*)GetComponent(Component::AUDIOSOURCE);
+				if (comp_audio_source != nullptr)
+					comp_audio_source->Update();
+
+				ComponentAudioListener* comp_audio_listener = (ComponentAudioListener*)GetComponent(Component::AUDIOLISTENER);
+				if (comp_audio_listener != nullptr)
+					comp_audio_listener->Update();
 			}
 		}
 

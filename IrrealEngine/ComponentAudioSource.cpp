@@ -25,6 +25,9 @@ ComponentAudioSource::~ComponentAudioSource()
 
 bool ComponentAudioSource::Update()
 {
+	float3 pos = my_go->GetComponent(Component::TRANSFORMATION)->AsTransform()->position;
+	sound_go->SetPosition(pos.x, pos.y, pos.z);
+
 	return true;
 }
 
@@ -37,6 +40,13 @@ void ComponentAudioSource::SetInspectorInfo()
 		{
 			sound_go->PlayEvent(AK::EVENTS::DEATH);
 		}
+		if (ImGui::Button("Stop"))
+		{
+			sound_go->PauseEvent(AK::EVENTS::DEATH);
+		}
+		ImGui::Text("PosX %f", sound_go->GetPos().x);
+		ImGui::Text("PosY %f", sound_go->GetPos().y);
+		ImGui::Text("PosZ %f", sound_go->GetPos().z);
 	}
 }
 

@@ -204,10 +204,9 @@ Wwise::WwiseGameObject* Wwise::CreateSoundObj(unsigned long id, const char* name
 	{
 		AkGameObjectID listener_id = emitter->GetID();
 		AK::SoundEngine::SetDefaultListeners(&listener_id, 1);
-		emitter->SetPosition(x, y, z, 1);
 	}
-	else
-		emitter->SetPosition(x, y, z);
+
+	emitter->SetPosition(x, y, z);
 
 	return emitter;
 }
@@ -222,11 +221,16 @@ const char* Wwise::WwiseGameObject::GetName()
 	return name;
 }
 
+float3 Wwise::WwiseGameObject::GetPos()
+{
+	return { position.X, position.Y, position.Z };
+}
+
 void Wwise::WwiseGameObject::SetPosition(float x, float y, float z, float x_front, float y_front, float z_front, float x_top, float y_top, float z_top)
 {
-	position.X = -x;
+	position.X = x;
 	position.Y = y;
-	position.Z = -z;
+	position.Z = z;
 
 	front.X = x_front;
 	front.Y = y_front;
@@ -275,9 +279,16 @@ void Wwise::WwiseGameObject::PlayEvent(unsigned long id)
 {
 	if (AK::SoundEngine::PostEvent(id, ID) == AK_INVALID_PLAYING_ID)
 	{
-		assert(!"invalid playing id");
+		assert(!"Error playing event");
 	}
+}
 
+void Wwise::WwiseGameObject::PauseEvent(unsigned long id)
+{
+	if (AK::SoundEngine::ExecuteActionOnEvent(id, AK::SoundEngine::AkActionOnEventType::AkActionOnEventType_Pause, ID) == AK_INVALID_PLAYING_ID)
+	{
+		assert(!"Error pausing event");
+	}
 }
 
 void Wwise::WwiseGameObject::PlayMusic(unsigned long music_id)
