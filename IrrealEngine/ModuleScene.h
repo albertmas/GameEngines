@@ -40,6 +40,7 @@ public:
 	std::vector<GameObject*> game_objects;
 	GameObject* root = nullptr;
 	GameObject* audiolistenerdefault = nullptr;
+	GameObject* music_blend = nullptr;
 	GameObject* centaur = nullptr;
 	GameObject* train = nullptr;
 

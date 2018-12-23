@@ -61,7 +61,12 @@ bool ModuleScene::Start()
 	// Preload scene
 	//App->sceneloader->ImportMesh("Assets/street/Street environment_V01.fbx");//street/Street environment_V01
 
-
+	// Create music blend audio source
+	music_blend = CreateGameObject();
+	music_blend->go_name = "Music Blend";
+	ComponentAudioSource* comp_music = music_blend->CreateComponent(Component::AUDIOSOURCE)->AsAudioSource();
+	comp_music->SetSoundID(AK::EVENTS::MUSIC);
+	comp_music->sound_go->PlayEvent(AK::EVENTS::MUSIC);
 
 	// Create static audio source
 	centaur = App->sceneloader->ImportMesh("Assets/Centaur/Centaur.fbx");
@@ -85,7 +90,7 @@ bool ModuleScene::Start()
 
 	float3 euler_deg_rot = train_trans->rotation.ToEulerXYZ();
 	euler_deg_rot.x -= pi / 2;
-	euler_deg_rot.z -= pi / 2;
+	euler_deg_rot.z += pi / 2;
 	train_trans->rotation = Quat::FromEulerXYZ(euler_deg_rot.x, euler_deg_rot.y, euler_deg_rot.z);
 	train_trans->CalculateMatrix();
 		

@@ -228,9 +228,9 @@ float3 Wwise::WwiseGameObject::GetPos()
 
 void Wwise::WwiseGameObject::SetPosition(float x, float y, float z, float x_front, float y_front, float z_front, float x_top, float y_top, float z_top)
 {
-	position.X = x;
+	position.X = -x;
 	position.Y = y;
-	position.Z = z;
+	position.Z = -z;
 
 	front.X = x_front;
 	front.Y = y_front;
