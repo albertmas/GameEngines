@@ -311,4 +311,6 @@ void Wwise::WwiseGameObject::SetAuxiliarySends(AkReal32 value, const char * targ
 	reverb.fControlValue = value;
 
 	AKRESULT res = AK::SoundEngine::SetGameObjectAuxSendValues(listener_id, &reverb, 2);
+	if (res != AK_Success)
+		assert(!"Failed to SetAuxiliarySends!");
 }
