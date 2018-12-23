@@ -12,7 +12,10 @@ The subject is divided in three Assignments:
 - 3rd:Wwise Integration
 
 ## Team
+ 
+ <img src="https://raw.githubusercontent.com/FurryGhoul/prueba/master/Photo%20Albert.jpg" alt="alt text" width="400" height="300">
 
+![](https://guillemd.github.io/LastCall-AI/img/team/GA.png)
 ## Subsystems
 - Engine Structure
 - Mesh Binary Format
@@ -75,5 +78,4 @@ Used to load FBX meshes
 - [DevIL](http://openil.sourceforge.net/) Version 1.8.0:
 Used to load textures
 
-## Innovation
-We have created a file explorer that can search files in the hard drive and then, if they are a mesh (.FBX) or an image (.dds, .png, .jpg) load them.
+
