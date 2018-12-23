@@ -11,7 +11,7 @@ The subject is divided in three Assignments:
 
 - 3rd: Wwise Integration
 
-Download the latest release [here](https://github.com/albertmas/GameEngines/releases/tag/Assignment3.0).
+Download the latest release [here](https://github.com/albertmas/GameEngines/releases/tag/Assignment3.1).
 
 ## Subsystems
 - Engine Structure: Gameobjects with components like transform, mesh and material.
