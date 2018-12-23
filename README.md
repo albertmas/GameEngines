@@ -14,18 +14,18 @@ The subject is divided in three Assignments:
 ## Team
 
 ## Subsystems
-· Engine Structure
-· Mesh Binary Format
-· GameObject Hierarchy & Inspector
-· Importer
-· Components Transform
-· Mesh and Texture;
-· Serialization
-· In-Game Assets Folder
-· Component Camera
-· Quadtree
-· Mouse Picking
-· ModuleAudio
+- Engine Structure
+- Mesh Binary Format
+- GameObject Hierarchy & Inspector
+- Importer
+- Components Transform
+- Mesh and Texture;
+- Serialization
+- In-Game Assets Folder
+- Component Camera
+- Quadtree
+- Mouse Picking
+- ModuleAudio
 
 ## For the development of this engine, we have used the following libraries:
 - [DeviceId](https://github.com/MatthewKing/DeviceId) Version Deceber 2015:
