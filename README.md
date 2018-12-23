@@ -11,12 +11,7 @@ The subject is divided in three Assignments:
 
 - 3rd:Wwise Integration
 
-## Team
- 
- <img src="https://raw.githubusercontent.com/FurryGhoul/prueba/master/Photo%20Albert.jpg" alt="alt text" width="400" height="300">
-Albert Mas 
 
-![](https://guillemd.github.io/LastCall-AI/img/team/GA.png) Guillem Arman
 ## Subsystems
 - Engine Structure
 - Mesh Binary Format
@@ -29,7 +24,14 @@ Albert Mas
 - Component Camera
 - Quadtree
 - Mouse Picking
-- ModuleAudio
+- Wwise Integration
+
+## Team
+ 
+ <img src="https://raw.githubusercontent.com/FurryGhoul/prueba/master/Photo%20Albert.jpg" alt="alt text" width="400" height="300">
+Albert Mas 
+
+![](https://guillemd.github.io/LastCall-AI/img/team/GA.png) Guillem Arman
 
 ##  WWise Integration
 
