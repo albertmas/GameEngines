@@ -23,7 +23,7 @@
 #else
 #include <AK/Comm/AkCommunication.h>
 #pragma comment( lib, "Wwise/Debug(StaticCRT)/lib/CommunicationCentral.lib")
-#pragma comment( lib, "Wwise/ws2_32.lib") 
+#pragma comment( lib, "Wwise/ws2_32.lib")
 #pragma comment( lib, "Wwise/Debug(StaticCRT)/lib/AkSoundEngine.lib")
 #pragma comment( lib, "Wwise/Debug(StaticCRT)/lib/AkMusicEngine.lib")
 #pragma comment( lib, "Wwise/Debug(StaticCRT)/lib/AkMemoryMgr.lib")
@@ -33,8 +33,8 @@
 
 // Microsoft DirectX external libs
 #pragma comment( lib, "Wwise/dinput8.lib")
-#pragma comment( lib, "Wwise/dsound.lib") 
-#pragma comment( lib, "Wwise/dxguid.lib")  
+#pragma comment( lib, "Wwise/dsound.lib")
+#pragma comment( lib, "Wwise/dxguid.lib")
 
 
 // Custom alloc/free functions. These are declared as "extern" in AkMemoryMgr.h

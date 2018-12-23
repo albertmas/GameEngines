@@ -39,6 +39,8 @@ public:
 public:
 	std::vector<GameObject*> game_objects;
 	GameObject* root = nullptr;
+	GameObject* audiosource = nullptr;
+	GameObject* audiolistenerdefault = nullptr;
 
 private:
 	ComponentCamera* ghostcam = nullptr;
