@@ -34,7 +34,7 @@ Albert Mas
 ![](https://guillemd.github.io/LastCall-AI/img/team/GA.png)
 -
 
- Guillem Arman
+Guillem Arman
 
 ##  WWise Integration
 
