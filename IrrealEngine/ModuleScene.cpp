@@ -78,6 +78,7 @@ bool ModuleScene::Start()
 	centaur_trans->scale /= 6;
 	centaur_trans->position.z += 20;
 	centaur_trans->CalculateMatrix();
+	centaur->CalcGlobalTransform();
 
 	// Create dynamic audio source
 	train = App->sceneloader->ImportMesh("Assets/Train/Train.fbx");
@@ -93,6 +94,7 @@ bool ModuleScene::Start()
 	euler_deg_rot.z += pi / 2;
 	train_trans->rotation = Quat::FromEulerXYZ(euler_deg_rot.x, euler_deg_rot.y, euler_deg_rot.z);
 	train_trans->CalculateMatrix();
+	train->CalcGlobalTransform();
 		
 
 	// Create audio listener
@@ -121,6 +123,7 @@ update_status ModuleScene::PreUpdate(float dt)
 			train_forward = true;
 	}
 	train_trans->CalculateMatrix();
+	train->CalcGlobalTransform();
 
 	return UPDATE_CONTINUE;
 }
