@@ -29,6 +29,7 @@ The subject is divided in three Assignments:
 ## Team
  
  <img src="https://raw.githubusercontent.com/FurryGhoul/prueba/master/Photo%20Albert.jpg" alt="alt text" width="400" height="300">
+ 
 Albert Mas 
 
 ![](https://guillemd.github.io/LastCall-AI/img/team/GA.png)
