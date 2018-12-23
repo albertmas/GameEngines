@@ -3,7 +3,7 @@
 	<RootPaths>
 		<ProjectRoot>C:\Users\familia\Documents\WwiseProjects\Wwise Irreal\</ProjectRoot>
 		<SourceFilesRoot>C:\Users\familia\Documents\WwiseProjects\Wwise Irreal\.cache\Windows\</SourceFilesRoot>
-		<SoundBanksRoot>C:\Users\familia\Desktop\Audio WWise Examples\SB IRreal\</SoundBanksRoot>
+		<SoundBanksRoot>C:\Users\familia\Desktop\SoundBanks\</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
 		<ExternalSourcesOutputRoot>C:\Users\familia\Documents\WwiseProjects\Wwise Irreal\GeneratedSoundBanks\Windows\</ExternalSourcesOutputRoot>
 	</RootPaths>

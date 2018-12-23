@@ -36,11 +36,11 @@ bool Wwise::InitWwise()
 #endif // AK_OPTIMIZED
 
 	//g_lowLevelIO.SetBasePath(AKTEXT("../../../samples/IntegrationDemo/WwiseProject/GeneratedSoundBanks/Windows/"));
-	if (AK::StreamMgr::SetCurrentLanguage((AkOSChar*)("English")) != AK_Success)
+	/*if (AK::StreamMgr::SetCurrentLanguage((AkOSChar*)("Spanish")) != AK_Success)
 	{
 		assert(!"Error setting language!");
 	}
-	
+	*/
 	LoadBank(BANKNAME_INIT);
 
 	return ret;
