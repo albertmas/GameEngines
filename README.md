@@ -14,17 +14,12 @@ The subject is divided in three Assignments:
 Download the latest release [here](https://github.com/albertmas/GameEngines/releases).
 
 ## Subsystems
-- Engine Structure
-- Mesh Binary Format
+- Engine Structure: Gameobjects with components like transform, mesh and material.
+- Mesh Binary Format : We have our own file format for loading assets. We have our importer and exporter.
 - GameObject Hierarchy & Inspector
-- Importer
-- Components Transform
-- Mesh and Texture;
-- Serialization
+- Comopnent Camera: Camera movement using WASD  keys and right mouse. Alt + left click to orbit. Frustum with camera culling.
 - In-Game Assets Folder
-- Component Camera
-- Quadtree
-- Mouse Picking
+- Mouse Picking: Pixel accurate mouse picking
 - Wwise Integration
 
 ## Team
