@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="11" SoundbankVersion="125">
+	<RootPaths>
+		<ProjectRoot>C:\Users\hugob\Documents\WwiseProjects\oof\</ProjectRoot>
+		<SourceFilesRoot>C:\Users\hugob\Documents\WwiseProjects\oof\.cache\Windows\</SourceFilesRoot>
+		<SoundBanksRoot>C:\Users\hugob\Documents\WwiseProjects\oof\GeneratedSoundBanks\Windows\</SoundBanksRoot>
+		<ExternalSourcesInputFile></ExternalSourcesInputFile>
+		<ExternalSourcesOutputRoot>C:\Users\hugob\Documents\WwiseProjects\oof\GeneratedSoundBanks\Windows\</ExternalSourcesOutputRoot>
+	</RootPaths>
+	<DialogueEvents/>
+	<StreamedFiles/>
+	<MediaFilesNotInAnyBank/>
+	<SoundBanks>
+		<SoundBank Id="1355168291" Language="SFX">
+			<ObjectPath>Init</ObjectPath>
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+		</SoundBank>
+		<SoundBank Id="1934763593" Language="SFX">
+			<ObjectPath>\SoundBanks\Default Work Unit\death_banck</ObjectPath>
+			<ShortName>death_banck</ShortName>
+			<Path>death_banck.bnk</Path>
+			<IncludedEvents>
+				<Event Id="779278001" Name="death" ObjectPath="\Events\Default Work Unit\death"/>
+			</IncludedEvents>
+			<IncludedMemoryFiles>
+				<File Id="796949091" Language="SFX">
+					<ShortName>player_death.wav</ShortName>
+					<Path>SFX\player_death_1C9C67B2.wem</Path>
+				</File>
+			</IncludedMemoryFiles>
+		</SoundBank>
+	</SoundBanks>
+</SoundBanksInfo>

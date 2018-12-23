@@ -37,7 +37,7 @@ bool ModuleAudio::Init(Document& document)
 	
 	//Wwise::LoadBank("SoundBanks/Test.bnk");
 
-	LoadSoundBank("death_banc");
+	LoadSoundBank("death_banck");
 
 	/*float3 pos = App->scene->audiolistenerdefault->GetComponent(Component::TRANSFORMATION)->AsTransform()->position;
 	Wwise::CreateSoundObj(App->scene->audiolistenerdefault->UUID, App->scene->audiolistenerdefault->go_name.c_str(), pos.x, pos.y, pos.z, true);*/
