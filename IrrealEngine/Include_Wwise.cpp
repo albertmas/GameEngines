@@ -1,4 +1,5 @@
 #include "include_wwise.h"
+#include "mmgr/mmgr.h"
 
 namespace AK
 {

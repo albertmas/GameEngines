@@ -13,7 +13,7 @@
 #include <corecrt_wstring.h>
 
 #include "Wwise/IO/Win32/AkFilePackageLowLevelIOBlocking.h"
-#include ".\mmgr\mmgr.h"
+#include "mmgr\mmgr.h"
 
 
 ModuleAudio::ModuleAudio(bool start_enabled) : Module(start_enabled)
