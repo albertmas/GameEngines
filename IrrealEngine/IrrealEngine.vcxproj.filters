@@ -235,6 +235,7 @@
     <ClCompile Include="ComponentAudioSource.cpp">
       <Filter>Sources\Components</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentAudioReverb.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -555,6 +556,7 @@
     <ClInclude Include="ComponentAudioSource.h">
       <Filter>Sources\Components</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentAudioReverb.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MathGeoLib\Geometry\KDTree.inl">

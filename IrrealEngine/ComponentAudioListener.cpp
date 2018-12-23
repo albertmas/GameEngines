@@ -45,9 +45,9 @@ void ComponentAudioListener::SetInspectorInfo()
 			App->audio->SetVolume("Volume", App->audio->volume);
 			App->audio->muted = false;
 		}
-		ImGui::Text("PosX %f", sound_go->GetPos().x);
+		/*ImGui::Text("PosX %f", sound_go->GetPos().x);
 		ImGui::Text("PosY %f", sound_go->GetPos().y);
-		ImGui::Text("PosZ %f", sound_go->GetPos().z);
+		ImGui::Text("PosZ %f", sound_go->GetPos().z);*/
 	}
 }
 

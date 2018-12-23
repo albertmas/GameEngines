@@ -43,6 +43,7 @@ public:
 	GameObject* music_blend = nullptr;
 	GameObject* centaur = nullptr;
 	GameObject* train = nullptr;
+	GameObject* tunnel = nullptr;
 
 private:
 	ComponentCamera* ghostcam = nullptr;

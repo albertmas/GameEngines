@@ -87,20 +87,40 @@ bool ModuleScene::Start()
 	comp_audio_train->SetSoundID(AK::EVENTS::TRAINFX);
 
 	ComponentTransform* train_trans = train->GetComponent(Component::TRANSFORMATION)->AsTransform();
-	train_trans->position.z += 10;
+	if (train_trans != nullptr)
+	{
+		train_trans->position.z += 10;
 
-	float3 euler_deg_rot = train_trans->rotation.ToEulerXYZ();
-	euler_deg_rot.x -= pi / 2;
-	euler_deg_rot.z += pi / 2;
-	train_trans->rotation = Quat::FromEulerXYZ(euler_deg_rot.x, euler_deg_rot.y, euler_deg_rot.z);
-	train_trans->CalculateMatrix();
-	train->CalcGlobalTransform();
-		
+		float3 euler_deg_rot = train_trans->rotation.ToEulerXYZ();
+		euler_deg_rot.x -= pi / 2;
+		euler_deg_rot.z += pi / 2;
+		train_trans->rotation = Quat::FromEulerXYZ(euler_deg_rot.x, euler_deg_rot.y, euler_deg_rot.z);
+		train_trans->CalculateMatrix();
+		train->CalcGlobalTransform();
+	}
 
 	// Create audio listener
 	audiolistenerdefault = CreateGameObject();
 	audiolistenerdefault->go_name = "Default Audio Listener";
 	audiolistenerdefault->CreateComponent(Component::AUDIOLISTENER);
+
+	// Create tunnel
+	tunnel = App->sceneloader->ImportMesh("Assets/Tunnel/Tunnel.fbx");
+	tunnel->go_name = "Tunnel(Audio Reverb)";
+	tunnel->CreateComponent(Component::AUDIOREVERB);
+	ComponentTransform* tunnel_trans = tunnel->GetComponent(Component::TRANSFORMATION)->AsTransform();
+	if (tunnel_trans != nullptr)
+	{
+		tunnel_trans->scale /= 2;
+		tunnel_trans->position.x += 70;
+		tunnel_trans->position.z += 10;
+
+		float3 euler_deg_rot = tunnel_trans->rotation.ToEulerXYZ();
+		euler_deg_rot.y += pi / 2;
+		tunnel_trans->rotation = Quat::FromEulerXYZ(euler_deg_rot.x, euler_deg_rot.y, euler_deg_rot.z);
+		tunnel_trans->CalculateMatrix();
+		tunnel->CalcGlobalTransform();
+	}
 
 	return true;
 }
