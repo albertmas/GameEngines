@@ -8,6 +8,6 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	37872822	HeyFuckYou	C:\Users\familia\Documents\WwiseProjects\Wwise Irreal\.cache\Windows\SFX\HeyFuckYou_1C9C67B2.wem		\Actor-Mixer Hierarchy\BlendMusic\HeyFuckYou\HeyFuckYou		567036
 	141065671	HeyMan	C:\Users\familia\Documents\WwiseProjects\Wwise Irreal\.cache\Windows\SFX\HeyMan_1C9C67B2.wem		\Actor-Mixer Hierarchy\BlendMusic\Hey\HeyMan		336988
 	198875166	Song	C:\Users\familia\Documents\WwiseProjects\Wwise Irreal\.cache\Windows\SFX\Song_C2E12055.wem		\Actor-Mixer Hierarchy\BlendMusic\SequenceContainer\Song		5781756
-	936475330	TRAIN_FX	C:\Users\familia\Documents\WwiseProjects\Wwise Irreal\.cache\Windows\SFX\TRAIN_FX_1C9C67B2.wem		\Actor-Mixer Hierarchy\BlendMusic\TrainFX\TRAIN_FX		2224468
+	936475330	TRAIN_FX	C:\Users\familia\Documents\WwiseProjects\Wwise Irreal\.cache\Windows\SFX\TRAIN_FX_544B168E.wem		\Actor-Mixer Hierarchy\BlendMusic\TrainFX\Train Sequencer\TRAIN_FX		1792496
 	947858482	ShortForest	C:\Users\familia\Documents\WwiseProjects\Wwise Irreal\.cache\Windows\SFX\ShortForest_65A560FA.wem		\Actor-Mixer Hierarchy\BlendMusic\SequenceContainer\ShortForest		5254524
 
