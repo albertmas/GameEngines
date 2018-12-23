@@ -9,7 +9,7 @@ The subject is divided in three Assignments:
 
 - 2nd: Remove dependency of FBX, organize resources and applying the minimal optimization of graphics engine(frustum culling and quadtree).
 
-- 3rd:Wwise Integration
+- 3rd: Wwise Integration
 
 Download the latest release [here](https://github.com/albertmas/GameEngines/releases).
 
@@ -26,18 +26,18 @@ Download the latest release [here](https://github.com/albertmas/GameEngines/rele
  
  <img src="https://raw.githubusercontent.com/FurryGhoul/prueba/master/Photo%20Albert.jpg" alt="alt text" width="400" height="300">
  
-Albert Mas : Engine Structue, Mesh Binary Format, Importer, GameObject & Inspector, Camera, Mouse Picking, In-Game Assets Folder, Wwise integration.
+**Albert Mas**: Engine Structue, Mesh Binary Format, Importer, GameObject & Inspector, Camera, Mouse Picking, In-Game Assets Folder, Wwise integration.
 
 <img src="https://scontent-sea1-1.cdninstagram.com/vp/7275bc98ba78fad2510f7d092a36a3ed/5CD8D31C/t51.2885-15/e35/40003378_950328121794707_655496272332980224_n.jpg?_nc_ht=scontent-sea1-1.cdninstagram.com&se=7&ig_cache_key=MTg1NTg3NzY0NjM2MjU2NDI1Nw%3D%3D.2" alt="alt text" width="400" height="300">
 
 
-Guillem Arman: Engine Structure, Camera, Drag&Drop,  Wwise integration.
+**Guillem Arman**: Engine Structure, Camera, Drag&Drop,  Wwise integration.
 
 ##  WWise Integration
 
 On the third assignment we have been integrating [Wwise](https://www.audiokinetic.com/products/wwise/) library in order to use it in our engine. Our main purpose was to be able to prepare a scene with two main background musics that were looping, including one static and one moving gameobject with spatial sound effects and an area where the sound of the moving gameobject would be affected by a reverb effect.
 
-We starting the assignment by including the Wwise SDK in our engine. Once it was done we created the ModuleAudio with a component audiosource and a component listener. 
+We started the assignment by including the Wwise SDK in our engine. Once it was done we created the ModuleAudio with a component audiosource and a component listener. 
 
 ![](GifAudio.gif)
 ![](GifAudio2.gif)
@@ -66,7 +66,9 @@ OpenGL exension library that determines which OpenGL extensions are supported on
 Used to load FBX meshes
 - [DevIL](http://openil.sourceforge.net/) Version 1.8.0:
 Used to load textures
+- [Wwise](https://www.audiokinetic.com/) Version 2017.1.3:
+Used to manage audio in our engine
 
 ## Innovation
-We have created a file explorer that can search files in the hard drive and then, if they are a mesh (.FBX) or an image (.dds, .png, .jpg) load them.
+- Assignment 1: We have created a file explorer that can search files in the hard drive and then, if they are a mesh (.FBX) or an image (.dds, .png, .jpg) load them.
 
