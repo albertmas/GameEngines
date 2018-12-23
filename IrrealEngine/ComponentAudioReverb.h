@@ -16,6 +16,9 @@ public:
 
 	Value Save(Document::AllocatorType& allocator) const override;
 	bool Load(Document& document) override;
+
+private:
+	bool reverb = true;
 };
 
 #endif

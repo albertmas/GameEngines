@@ -61,12 +61,17 @@ bool ModuleScene::Start()
 	// Preload scene
 	//App->sceneloader->ImportMesh("Assets/street/Street environment_V01.fbx");//street/Street environment_V01
 
+	// Create audio listener
+	audiolistenerdefault = CreateGameObject();
+	audiolistenerdefault->go_name = "Default Audio Listener";
+	audiolistenerdefault->CreateComponent(Component::AUDIOLISTENER);
+
 	// Create music blend audio source
 	music_blend = CreateGameObject();
 	music_blend->go_name = "Music Blend";
 	ComponentAudioSource* comp_music = music_blend->CreateComponent(Component::AUDIOSOURCE)->AsAudioSource();
 	comp_music->SetSoundID(AK::EVENTS::MUSIC);
-	comp_music->sound_go->PlayEvent(AK::EVENTS::MUSIC);
+	//comp_music->sound_go->PlayEvent(AK::EVENTS::MUSIC);
 
 	// Create static audio source
 	centaur = App->sceneloader->ImportMesh("Assets/Centaur/Centaur.fbx");
@@ -89,6 +94,7 @@ bool ModuleScene::Start()
 	ComponentTransform* train_trans = train->GetComponent(Component::TRANSFORMATION)->AsTransform();
 	if (train_trans != nullptr)
 	{
+		train_trans->position.x -= 150;
 		train_trans->position.z += 10;
 
 		float3 euler_deg_rot = train_trans->rotation.ToEulerXYZ();
@@ -98,11 +104,7 @@ bool ModuleScene::Start()
 		train_trans->CalculateMatrix();
 		train->CalcGlobalTransform();
 	}
-
-	// Create audio listener
-	audiolistenerdefault = CreateGameObject();
-	audiolistenerdefault->go_name = "Default Audio Listener";
-	audiolistenerdefault->CreateComponent(Component::AUDIOLISTENER);
+	train->GetComponent(Component::AUDIOSOURCE)->AsAudioSource()->sound_go->PlayEvent(AK::EVENTS::TRAINFX);
 
 	// Create tunnel
 	tunnel = App->sceneloader->ImportMesh("Assets/Tunnel/Tunnel.fbx");

@@ -6,6 +6,7 @@
 #include "Wwise/IO/Win32/AkDefaultIOHookBlocking.h"
 #include "Wwise/SDK/include/AkDefaultIOHookBlocking.h"
 #include "Wwise/SDK/include/AkFileHelpers.h"
+#include "Game/Library/Sounds/Wwise_IDs.h"
 #include <AK/Plugin/AkRoomVerbFXFactory.h>
 
 //CAkDefaultIOHookBlocking g_defaultIO;
@@ -309,5 +310,5 @@ void Wwise::WwiseGameObject::SetAuxiliarySends(AkReal32 value, const char * targ
 	reverb.auxBusID = AK::SoundEngine::GetIDFromString(target_bus);
 	reverb.fControlValue = value;
 
-	AKRESULT res = AK::SoundEngine::SetGameObjectAuxSendValues(ID, &reverb, 1);
+	AKRESULT res = AK::SoundEngine::SetGameObjectAuxSendValues(listener_id, &reverb, 2);
 }
