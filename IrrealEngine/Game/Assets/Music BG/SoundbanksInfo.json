@@ -16,11 +16,77 @@
   "MediaFilesNotInAnyBank": [],
   "SoundBanks": [
    {
+    "Id": "1036431723",
+    "Language": "SFX",
+    "ObjectPath": "\\SoundBanks\\Default Work Unit\\TrainFX",
+    "ShortName": "TrainFX",
+    "Path": "TrainFX.bnk",
+    "IncludedEvents": [
+     {
+      "Id": "1036431723",
+      "Name": "TrainFX",
+      "ObjectPath": "\\Events\\Default Work Unit\\TrainFx\\TrainFX"
+     }
+    ],
+    "IncludedMemoryFiles": [
+     {
+      "Id": "936475330",
+      "Language": "SFX",
+      "ShortName": "TRAIN_FX.wav",
+      "Path": "SFX\\TRAIN_FX_1C9C67B2.wem"
+     }
+    ]
+   },
+   {
     "Id": "1355168291",
     "Language": "SFX",
     "ObjectPath": "Init",
     "ShortName": "Init",
     "Path": "Init.bnk"
+   },
+   {
+    "Id": "1936427047",
+    "Language": "SFX",
+    "ObjectPath": "\\SoundBanks\\Default Work Unit\\HeyMan",
+    "ShortName": "HeyMan",
+    "Path": "HeyMan.bnk",
+    "IncludedEvents": [
+     {
+      "Id": "1936427047",
+      "Name": "HeyMan",
+      "ObjectPath": "\\Events\\Default Work Unit\\HeyMan\\HeyMan"
+     }
+    ],
+    "IncludedMemoryFiles": [
+     {
+      "Id": "141065671",
+      "Language": "SFX",
+      "ShortName": "HeyMan.wav",
+      "Path": "SFX\\HeyMan_1C9C67B2.wem"
+     }
+    ]
+   },
+   {
+    "Id": "3440043877",
+    "Language": "SFX",
+    "ObjectPath": "\\SoundBanks\\Default Work Unit\\HeyFuckYou",
+    "ShortName": "HeyFuckYou",
+    "Path": "HeyFuckYou.bnk",
+    "IncludedEvents": [
+     {
+      "Id": "3440043877",
+      "Name": "HeyFuckYou",
+      "ObjectPath": "\\Events\\Default Work Unit\\HeyFuckYou\\HeyFuckYou"
+     }
+    ],
+    "IncludedMemoryFiles": [
+     {
+      "Id": "37872822",
+      "Language": "SFX",
+      "ShortName": "HeyFuckYou.wav",
+      "Path": "SFX\\HeyFuckYou_1C9C67B2.wem"
+     }
+    ]
    },
    {
     "Id": "3991942870",

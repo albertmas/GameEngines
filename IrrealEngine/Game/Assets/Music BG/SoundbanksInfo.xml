@@ -11,10 +11,52 @@
 	<StreamedFiles/>
 	<MediaFilesNotInAnyBank/>
 	<SoundBanks>
+		<SoundBank Id="1036431723" Language="SFX">
+			<ObjectPath>\SoundBanks\Default Work Unit\TrainFX</ObjectPath>
+			<ShortName>TrainFX</ShortName>
+			<Path>TrainFX.bnk</Path>
+			<IncludedEvents>
+				<Event Id="1036431723" Name="TrainFX" ObjectPath="\Events\Default Work Unit\TrainFx\TrainFX"/>
+			</IncludedEvents>
+			<IncludedMemoryFiles>
+				<File Id="936475330" Language="SFX">
+					<ShortName>TRAIN_FX.wav</ShortName>
+					<Path>SFX\TRAIN_FX_1C9C67B2.wem</Path>
+				</File>
+			</IncludedMemoryFiles>
+		</SoundBank>
 		<SoundBank Id="1355168291" Language="SFX">
 			<ObjectPath>Init</ObjectPath>
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
+		</SoundBank>
+		<SoundBank Id="1936427047" Language="SFX">
+			<ObjectPath>\SoundBanks\Default Work Unit\HeyMan</ObjectPath>
+			<ShortName>HeyMan</ShortName>
+			<Path>HeyMan.bnk</Path>
+			<IncludedEvents>
+				<Event Id="1936427047" Name="HeyMan" ObjectPath="\Events\Default Work Unit\HeyMan\HeyMan"/>
+			</IncludedEvents>
+			<IncludedMemoryFiles>
+				<File Id="141065671" Language="SFX">
+					<ShortName>HeyMan.wav</ShortName>
+					<Path>SFX\HeyMan_1C9C67B2.wem</Path>
+				</File>
+			</IncludedMemoryFiles>
+		</SoundBank>
+		<SoundBank Id="3440043877" Language="SFX">
+			<ObjectPath>\SoundBanks\Default Work Unit\HeyFuckYou</ObjectPath>
+			<ShortName>HeyFuckYou</ShortName>
+			<Path>HeyFuckYou.bnk</Path>
+			<IncludedEvents>
+				<Event Id="3440043877" Name="HeyFuckYou" ObjectPath="\Events\Default Work Unit\HeyFuckYou\HeyFuckYou"/>
+			</IncludedEvents>
+			<IncludedMemoryFiles>
+				<File Id="37872822" Language="SFX">
+					<ShortName>HeyFuckYou.wav</ShortName>
+					<Path>SFX\HeyFuckYou_1C9C67B2.wem</Path>
+				</File>
+			</IncludedMemoryFiles>
 		</SoundBank>
 		<SoundBank Id="3991942870" Language="SFX">
 			<ObjectPath>\SoundBanks\Default Work Unit\Music</ObjectPath>
