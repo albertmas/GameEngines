@@ -36,10 +36,7 @@ namespace AK
     namespace BANKS
     {
         static const AkUniqueID INIT = 1355168291U;
-        static const AkUniqueID HEYFUCKYOU = 3440043877U;
-        static const AkUniqueID HEYMAN = 1936427047U;
         static const AkUniqueID MUSIC = 3991942870U;
-        static const AkUniqueID TRAINFX = 1036431723U;
     } // namespace BANKS
 
     namespace BUSSES
