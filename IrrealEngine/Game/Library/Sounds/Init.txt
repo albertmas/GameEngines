@@ -22,5 +22,5 @@ Auxiliary Bus	ID	Name			Wwise Object Path	Notes
 	1238049363	env_tunnel			\Default Work Unit\Master Audio Bus\env_tunnel	
 
 Effect plug-ins	ID	Name	Type				Notes
-	1159390747	Room_Medium_Tiled	Wwise RoomVerb			
+	702543456	Tunnel1	Wwise Matrix Reverb			
 
